@@ -11,7 +11,7 @@ SPECIAL OPS is a complete first-person shooter campaign built as a showcase for 
 
 Gameplay is first-person throughout ordinary play. The player sees the world through the character's eyes, including the first-person arms and current weapon/tool presentation. Authored story cinematics may deliberately move to external cameras, show the squad, reveal the scale of an area or frame a character moment. Those cinematic camera changes do not change the gameplay camera direction.
 
-The campaign should have the production ambition and storytelling rhythm of a polished military-action game campaign, with original characters, story, level layouts, art direction, dialogue, music and cinematography. Call of Duty is a quality and pacing reference only. Do not reproduce its missions, characters, maps, scripts, logos, signature shots or distinctive assets.
+The campaign is built around a recurring full squad: the first-person player plus three or four allied operators who travel together wherever mission staging allows. The player remains first-person during gameplay; external cinematic cameras reveal the team as a group. Teammates are active companions with authored reactions, navigation and dialogue, not radio-only voices or background extras. The campaign should have the production ambition and storytelling rhythm of a polished military-action game campaign, with original characters, story, level layouts, art direction, dialogue, music and cinematography. Call of Duty is a quality and pacing reference only. Do not reproduce its missions, characters, maps, scripts, logos, signature shots or distinctive assets.
 
 ## 2. Campaign route and operation structure
 
@@ -19,7 +19,7 @@ The route below is the required broad journey. Treat operations as playable miss
 
 | Chapter / operation | Main spaces | Dramatic purpose |
 |---|---|---|
-| Prologue — Briefing / deployment | Short briefing space and transition into the field | Establish the mission, squad, player role and tone |
+| Prologue — Briefing / deployment | Short briefing space and transition into the field | Establish the complete recurring squad, player role, team chemistry and tone |
 | Operation 01 — Forest approach | Dense forest, narrow trails, clearings and route landmarks | Introduce first-person movement, aiming, basic encounters, environmental clues and the first cinematic reveal |
 | Operation 02 — Perimeter | Outer boundary, access structures and transition spaces | Raise the stakes and introduce the facility's presence |
 | Operation 03 — Facility approach | Exterior service areas, yards, entry halls and connecting corridors | Shift from natural environments to authored industrial architecture |
@@ -37,7 +37,7 @@ Every operation brief must define:
 - Entry and exit points, route diagram and connected sub-areas.
 - Objectives and optional discoveries.
 - First-person gameplay actions and encounter beats.
-- Operator/NPC appearances and dialogue.
+- Full squad presence, operator/NPC appearances, squad-to-squad dialogue and player-facing dialogue.
 - Cinematic beats and their triggers.
 - Environmental art direction, hero props and landmark shots.
 - Audio/ambience/music plan.
@@ -82,9 +82,10 @@ Add additional short cinematic moments when justified by story events: a mission
 Each cinematic should be storyboarded and reviewed for:
 - Clear dramatic intention and readable staging.
 - Deliberate shot sizes, camera movement, screen direction and edit rhythm.
-- Convincing character blocking, eye-lines, gestures and body language.
+- Convincing full-squad blocking, eye-lines, gestures, body language and listener reactions; every operator should have a clear place in the scene.
+- Visible facial performance for the whole speaking cast: eye direction, blinks, brows, expressions, jaw and synchronized mouth shapes.
 - Good lighting and environment composition, including readable faces on a phone.
-- Voice performance, spatial audio, music and sound effects mixed as one scene.
+- Voice performance, spatial audio, music and sound effects mixed as one scene; squad members speak to each other as well as to the player.
 - Accurate subtitles, speaker identification and timing.
 - Clean transitions into and out of gameplay.
 - Appropriate duration and pacing; let important reveals breathe without dragging.
@@ -148,6 +149,8 @@ A cutscene is complete only when it:
 - Triggers from the correct campaign state and plays exactly once unless replayed.
 - Shows the intended camera/actor sequence in the exported game.
 - Plays the correct voice, music and effects with synchronized subtitles.
+- Shows the complete squad with readable blocking, eye-lines, facial animation and visible reactions.
+- Preserves every squad member's identity and continuity between gameplay and cinematics.
 - Can be skipped without breaking the mission.
 - Can be paused/resumed and survives app lifecycle changes.
 - Returns control to first-person gameplay with input and camera state restored.
