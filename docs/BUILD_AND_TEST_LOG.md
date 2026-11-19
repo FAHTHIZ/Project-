@@ -95,3 +95,43 @@ victus simulate game --frames 300 --hold W --seed 1 --save /tmp/f.vscene   # PAS
 ### Next
 
 First-person controller + unified input layer + virtual touch controls (P1).
+
+## P1 — Scene tooling, first-person controller, unified input, HUD, menus — 2026-11-19
+
+### What was built
+
+- `tools/scenes/` — Python generators that write every `.vscene` (deterministic uuid5 ids): `vscene.py` (scene/entity/component writer, glTF instancing that mirrors the engine's `instantiate.cpp` hierarchy), `rig.py` (player rig, HUD canvas, pause/settings modal, padded buttons), `common.py` (environment presets), `project.py` (`victus.project`: window, input actions and axes), `build_menu.py` (menu, credits), `build_dev_range.py` (dev range and autotest variants).
+- `game/assets/scripts/lib/game.luau` — shared state: pause/cinematic flags, persisted settings, campaign progress save, flags, event bus.
+- `lib/controls.luau` — one logical action layer for keyboard/mouse, gamepad and touch: floating left stick (sprint on full push), right-side look drag, on-screen buttons, test injection (`Controls.virtual`), mouse settle window after focus/scene changes and pointer-warp rejection.
+- `fp_player.luau` — first-person controller: walk/sprint/crouch with acceleration, jump, head bob, landing dip, shake, FOV, health with regeneration, aim ray, interaction focus (ray plus cone fallback).
+- `hud.luau` — reticle, hit marker, objective and log, toasts, prompt, weapon panel, health, subtitles with speaker, letterbox/fade/title card, skip hint, touch overlay, diagnostics overlay (FPS, frame max, window, entities, position/yaw/pitch, touches, pad; GPU time reported as unavailable).
+- `pause_menu.luau` — resume, restart from checkpoint (event), settings (13 rows), objectives, quit to menu. `menu.luau` — continue / begin, new campaign with confirm, operation select (locked until unlocked), settings, credits. `credits.luau` — scrolling roll.
+- `autotest.luau` + `tests/plans.luau` and `tools/test/run_autotests.py` — scripted input timelines run headless through `victus simulate`; `tools/test/shot.sh` — renders a frame to PNG under Xvfb with Mesa lavapipe.
+
+### Commands and results
+
+```sh
+cd tools/scenes && python3 project.py && python3 build_menu.py && python3 build_dev_range.py movement hud pause_ui && cd ../..
+victus check game                  # PASS: 6 scenes, 10 scripts, 0 problems
+python3 tools/test/run_autotests.py
+#   movement: PASS 13/13 (walk_forward, look_yaw, pitch_clamp, jump, land, crouch, stand,
+#             pause_opens, pause_blocks_movement, pause_resumes, moves_after_resume, rig checks)
+#   hud:      PASS 2/2
+#   pause_ui: PASS 2/2
+tools/test/shot.sh scenes/menu.vscene 60 /tmp/menu.png
+tools/test/shot.sh scenes/tests/hud.vscene 90 /tmp/hud.png       # touch overlay + diagnostics forced on
+tools/test/shot.sh scenes/tests/pause_ui.vscene 75 /tmp/pause.png
+```
+
+### Defects found by the screenshots and fixed
+
+- All UI was laid out upside down: VICTUS `UiRect` is y-down from the top-left (`engine/gameui/include/victus/gameui/gameui.hpp`), the generators were authored y-up. `vscene.ui_rect` now mirrors the vertical axis in one place; the HUD's runtime rect writes (touch buttons, stick, reticle, credits roll) were corrected.
+- The camera started at yaw -88 / pitch -40 with no input: the first relative mouse deltas after the window appears are pointer warps. Fixed with an 8-frame settle window after any polling gap and rejection of single-frame deltas above 400 px.
+- Overlaps at 1600x720: OBJ touch button over the objective panel, diagnostics panel over SWITCH/RELOAD/TOOL, subtitle under AIM, toast under diagnostics. All moved/resized; button labels now have inner padding.
+- "Continue" was offered on a fresh install; it now reads "Begin campaign" until a campaign save exists.
+
+### Limitations recorded (not hidden)
+
+- Mouse capture: `Window::set_relative_mouse` exists in `engine/platform` but is not exposed to Luau or used by the player, so desktop mouse-look reads `input.mouse_delta()` without cursor capture; the pointer can leave the window. Gamepad and touch are unaffected.
+- Touch is verified through `Controls.virtual` injection and layout screenshots only; no physical touchscreen or phone is attached to this environment.
+- Screenshots are Mesa lavapipe (software Vulkan) renders; they prove layout and content, not phone performance.

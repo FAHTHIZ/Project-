@@ -2,6 +2,20 @@
 
 This plan is an execution queue, not a reason to stop coding after a design document. The autonomous agent should complete verified slices in order, commit them to `main` and continue.
 
+## Progress status (kept current; details and evidence in BUILD_AND_TEST_LOG.md)
+
+| Piece | State | Evidence |
+|---|---|---|
+| P0 baseline: VICTUS built, project generated, character/forest asset generators | Done | log P0 |
+| P1 scene tooling, first-person controller, unified input, HUD, pause/settings, menu, credits, autotests | Done (desktop/headless; no phone) | log P1, autotests movement/hud/pause_ui |
+| Weapons and viewmodel (pulse carbine, sidearm) | Next | |
+| Op01 forest scene | Pending | |
+| Squad, Greyline enemies, ranger; companion and enemy AI | Pending | |
+| Dialogue, voices, subtitles, facial performance | Pending | |
+| Cinematics (12 beats) | Pending | |
+| Prologue, Op02-Op07, V-01 reveal, ending | Pending | |
+| Audio, adaptive quality, packaging (desktop export, Android attempt) | Pending | |
+
 ## P0 — Baseline and device proof
 
 **Goal:** determine that the engine can run a minimal game on the actual target before large art production.
