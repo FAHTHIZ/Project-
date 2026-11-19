@@ -999,6 +999,14 @@ def build_scene(key):
         sc.add(nm, {'Transform': transform(), 'AudioSource': {
             'clip': clip, 'bus': bus, 'volume': vol, 'pitch': 1.0, 'loop': loop, 'play_on_start': False,
             'stream': bus == 'music', 'spatial': False, 'priority': 250, 'occlusion': False}}, root)
+    # the storm outside: rain on the roof slab and muffled thunder, fading with depth
+    above = {'op04': 0.45, 'op05': 0.18, 'op06': 0.1, 'op07': 0.0}[key]
+    if above > 0:
+        sc.add('Rain Above', {'Transform': transform(), 'AudioSource': {
+            'clip': 'audio/ambient/roof_rain.wav', 'bus': 'ambient', 'volume': above, 'pitch': 1.0, 'loop': True,
+            'play_on_start': True, 'stream': False, 'spatial': False, 'priority': 200, 'occlusion': False}})
+        sc.add('Storm', {'Transform': transform(), 'Script': script(
+            'scripts/world/storm.luau', min_gap=45.0, max_gap=120.0, first=30.0, volume=above * 0.9)})
     sc.add('Mission', {'Transform': transform(), 'Script': script('scripts/missions/facility.luau', chapter=key)})
     sc.save(SCENE_PATH[key])
     # the same chapter with an Autotest driver (tools/test/run_autotests.py story_<key>)

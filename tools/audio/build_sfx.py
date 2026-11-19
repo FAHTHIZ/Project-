@@ -525,6 +525,78 @@ def speaker_fragment(seed=1270):
     return finish(buzz * gate * 0.4 + crack, 0.6, 1.2, 0.05)
 
 
+# ---- storm night (tools/world/night.py) ------------------------------------------------------
+
+def rain_layer(sec, seed, lo=1200, hi=9000, drops=180.0, drop_lo=2500, drop_hi=7000, g=0.5):
+    """Rain on foliage: a dense hiss plus individual drop ticks on leaves (Poisson timed)."""
+    hiss = loop_noise(sec, seed, lo, hi)
+    t = t_axis(sec)
+    hiss *= 0.85 + 0.15 * np.sin(2 * np.pi * t * 3 / sec + 0.4)
+    rng = np.random.default_rng(seed + 1)
+    out = np.zeros(len(t))
+    for tm in np.sort(rng.uniform(0, sec - 0.05, int(drops * sec))):
+        f = rng.uniform(drop_lo, drop_hi)
+        d = rng.uniform(0.006, 0.02)
+        tt = t_axis(d)
+        ch = np.sin(2 * np.pi * f * tt) * np.exp(-tt * rng.uniform(160, 420)) * rng.uniform(0.15, 1.0)
+        out += at(ch, tm, sec)
+    return hiss * g + out * 0.18
+
+
+def night_forest_bed(sec=24.0, seed=1900):
+    """Storm night in the forest: rain through the canopy, heavy drips, wind in the crowns.
+    No birdsong (it is 03:00 in a storm)."""
+    rain = rain_layer(sec, seed)
+    wind = wind_bed(sec, seed + 5, 60, 600, 0.22) * 0.55
+    drips = np.zeros(int(SR * sec))
+    rng = np.random.default_rng(seed + 9)
+    for tm in rng.uniform(0.2, sec - 0.4, int(sec * 3)):
+        f = rng.uniform(500, 1400)
+        tt = t_axis(0.09)
+        drips += at(np.sin(2 * np.pi * f * tt * (1 + tt * 3)) * np.exp(-tt * 55) * rng.uniform(0.1, 0.35), tm, sec)
+    x = rain + wind + lp(drips, 3000)
+    return loopify(x / np.max(np.abs(x)) * 0.62)
+
+
+def night_camp_bed(sec=16.0, seed=1980):
+    """Staging camp in the rain: generator, rain drumming on tent fabric and crates."""
+    gen = engine_idle(2.0, 25.0, seed)
+    gen = lp(np.tile(gen, int(sec / 2)), 700)[:int(SR * sec)] * 0.28
+    tarp = rain_layer(sec, seed + 3, 300, 3500, drops=260.0, drop_lo=380, drop_hi=1500, g=0.35)
+    x = rain_layer(sec, seed + 4) * 0.8 + tarp + gen
+    return loopify(x / np.max(np.abs(x)) * 0.58)
+
+
+def roof_rain_bed(sec=12.0, seed=2040):
+    """Heard from inside a concrete building: low muffled roar and gutter run-off."""
+    roar = loop_noise(sec, seed, 60, 900) * 0.8
+    gutter = loop_noise(sec, seed + 1, 300, 1800)
+    t = t_axis(sec)
+    gutter *= 0.4 + 0.25 * np.sin(2 * np.pi * t * 4 / sec) ** 2
+    x = lp(roar + gutter * 0.4, 1400)
+    return loopify(x / np.max(np.abs(x)) * 0.5)
+
+
+def thunder(seed, sec=7.0, near=0.5):
+    """Thunder: a crack (near strikes) into a long rolling rumble with random swells."""
+    t = t_axis(sec)
+    rng = np.random.default_rng(seed)
+    rumble = lp(noise(sec, seed), 140, 3) * 3.0
+    sw = np.zeros(len(t))
+    for _ in range(rng.integers(4, 8)):
+        c = rng.uniform(0.2, sec * 0.7)
+        w = rng.uniform(0.3, 1.2)
+        sw += rng.uniform(0.4, 1.0) * np.exp(-((t - c) / w) ** 2)
+    shape = (sw + 0.2) * np.clip(t / 0.15, 0, 1) * np.exp(-t * 0.35)
+    crack = bp(noise(0.5, seed + 1), 400, 4000) * env(t_axis(0.5), 0.004, 9.0) * near
+    x = rumble * shape + at(crack, 0.0, sec)
+    return finish(x, 0.85, 1.2, 0.5)
+
+
+def torch_click(seed=2100):
+    return finish(mix(tick(2600, 0.03, 0.8), at(tick(1700, 0.04, 0.5), 0.035, 0.1)), 0.6, 1.0)
+
+
 def build(out):
     w = os.path.join(out, 'audio')
     files = {
@@ -582,9 +654,17 @@ def build(out):
         'foley/crank.wav': mech(735, 1.2, [(i * 0.15, 0.7, 500, 3500, 70) for i in range(8)]),
         'foley/blast_door.wav': motor_run(7.0, 740, hz=28.0),
         'foley/door_slide.wav': motor_run(1.6, 745, hz=70.0, clunk=False),
-        'ambient/forest.wav': forest_bed(),
+        # storm night: the valley beds are rain, not birdsong (the day versions stay for the menu)
+        'ambient/forest_day.wav': forest_bed(),
+        'ambient/forest.wav': night_forest_bed(),
+        'ambient/roof_rain.wav': roof_rain_bed(),
+        'ambient/thunder_0.wav': thunder(2001, 7.5, 0.9),
+        'ambient/thunder_1.wav': thunder(2002, 6.0, 0.3),
+        'ambient/thunder_2.wav': thunder(2003, 8.5, 0.0),
+        'foley/torch_click.wav': torch_click(),
         'ambient/creek.wav': creek_bed(),
-        'ambient/camp.wav': camp_bed(),
+        'ambient/camp_day.wav': camp_bed(),
+        'ambient/camp.wav': night_camp_bed(),
         'ambient/interior.wav': hum_bed(),
         'ambient/bunker.wav': bunker_bed(),
         'ambient/basement.wav': hum_bed(10.0, 950, 60.0, 0.9),

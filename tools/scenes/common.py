@@ -34,6 +34,36 @@ def environment(sc: Scene, preset="forest", **over):
                     "sky_zenith": [0.3, 0.3, 0.34, 1], "sky_horizon": [0.3, 0.3, 0.32, 1], "ground": [0.1, 0.1, 0.1, 1],
                     "fog_density": 0.015, "fog_color": [0.2, 0.2, 0.24, 1], "vignette": 0.28},
         "range": {"fog": "none"},
+        # Kestrel Valley, 02:40-05:30: overcast storm night. Moonlight leaks through the cloud
+        # deck as a weak blue key; the sky glows faintly at the horizon (town light under the
+        # cloud). Rain, wet ground with puddles, low ground fog lit by lamps and searchlights.
+        "night_storm": {
+            "sky_zenith": [0.010, 0.013, 0.020, 1], "sky_horizon": [0.040, 0.046, 0.056, 1],
+            "ground": [0.012, 0.013, 0.012, 1], "ambient_intensity": 0.55,
+            "clear_color": [0.01, 0.012, 0.016, 1], "exposure": 1.0, "exposure_compensation": 1.6,
+            "auto_exposure": False, "saturation": 0.86, "contrast": 1.08, "vignette": 0.3,
+            "bloom_intensity": 0.06, "bloom_threshold": 0.9, "shadow_distance": 40,
+            "fog": "exponential", "fog_color": [0.030, 0.035, 0.042, 1], "fog_start": 4, "fog_end": 260,
+            "fog_density": 0.018, "fog_max_opacity": 0.96,
+            "precipitation": "rain", "precipitation_intensity": 0.85, "precipitation_wind": [2.2, 0.0, 1.1],
+            "precipitation_radius": 15.0, "precipitation_brightness": 1.6, "precipitation_opacity": 0.0,
+            "wetness": 0.8, "puddles": 0.42, "puddle_size": 2.6, "precipitation_ripples": 1.0,
+            "precipitation_splashes": 0.8,
+            "volumetric_fog": True, "volumetric_density": 0.022, "volumetric_height": 4.0,
+            "volumetric_falloff": 0.08, "volumetric_albedo": [0.72, 0.76, 0.82, 1], "volumetric_anisotropy": 0.62,
+            "volumetric_distance": 140.0, "volumetric_sun": 0.6, "volumetric_ambient": 0.5,
+            "volumetric_local_lights": 1.4, "volumetric_temporal": 0.9,
+        },
+        # 05:52 epilogue: the storm has passed east, low cloud breaking, cold blue-grey dawn
+        "dawn": {
+            "sky_zenith": [0.20, 0.25, 0.34, 1], "sky_horizon": [0.62, 0.52, 0.46, 1], "ground": [0.07, 0.08, 0.07, 1],
+            "ambient_intensity": 0.6, "exposure_compensation": 0.4, "saturation": 0.9, "contrast": 1.06,
+            "fog_color": [0.46, 0.48, 0.52, 1], "fog_start": 8, "fog_end": 400, "fog_density": 0.008,
+            "fog_max_opacity": 0.9, "precipitation": "rain", "precipitation_intensity": 0.08,
+            "wetness": 0.7, "puddles": 0.42, "puddle_size": 2.6, "precipitation_ripples": 0.2,
+            "volumetric_fog": True, "volumetric_density": 0.012, "volumetric_height": 6.0, "volumetric_falloff": 0.06,
+            "volumetric_albedo": [0.9, 0.88, 0.86, 1], "volumetric_anisotropy": 0.7, "volumetric_distance": 160.0,
+        },
     }
     env.update(presets[preset])
     env.update(over)

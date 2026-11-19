@@ -245,6 +245,7 @@ def place(sc, name, model, x, z, yaw, H=None, y=None, sink=0.05, tags=None, extr
                              z - c['c'][0] * math.sin(math.radians(yaw)) + c['c'][2] * math.cos(math.radians(yaw))))
         y = min(hs) - sink
     root = sc.prop(name, STRUCT + model + '.glb', (x, y, z), yaw, tags=tags, extra=extra)
+    PLACED[name] = (model, x, y, z, yaw)
     for k, c in enumerate(struct_layout()[model]['colliders']):
         sc.add(f'{name} Collider {k}', {'Transform': transform(tuple(c['c']), yaw=c['yaw']),
                                         'Collider': collider('box', tuple(2 * v for v in c['h'])),
@@ -262,6 +263,8 @@ def anchor_world(model, key, x, y, z, yaw):
 
 # Where the mission scripts find things (written to scripts/world/kestrel_points.luau).
 POINTS = {}
+# Structures placed by add_structures: name -> (model, x, y, z, yaw), for lights added later.
+PLACED = {}
 
 
 def add_structures(sc, H, masks):
@@ -289,7 +292,7 @@ def add_structures(sc, H, masks):
         POINTS['cabin_' + key] = anchor_world('ranger_cabin', key, 71.0, cy, 122.0, 90.0)[0]
     lamp = POINTS['cabin_lamp']
     sc.add('Cabin Lamp Light', {'Transform': transform(lamp), 'Light': {
-        'type': 'point', 'color': [1.0, 0.72, 0.42], 'intensity': 6.0, 'range': 7.0, 'cast_shadows': False}})
+        'type': 'point', 'color': [1.0, 0.72, 0.42], 'intensity': 6.0, 'range': 7.0, 'shadows': False}})
     place(sc, 'Cabin Crates', 'supply_crates', 66.5, 128.5, 10.0, H)
     # Greyline relay on the knoll west of the trail
     _, ry = place(sc, 'Relay Mast', 'relay_mast', -50.0, 14.0, 70.0, H, sink=0.1, tags='Relay Scannable')

@@ -21,6 +21,7 @@ import worldmap as M  # noqa: E402
 import worldgen as WG  # noqa: E402
 import world_scene as WS  # noqa: E402
 import actors  # noqa: E402
+import night  # noqa: E402
 from vscene import Scene, transform, script  # noqa: E402
 
 GAME = WS.GAME
@@ -192,6 +193,7 @@ def build():
                 ahead = road.p[min(len(road.p) - 1, k + 6)]
                 e['components']['Transform'] = transform(mc, yaw=flat_yaw(mc, (ahead[0], 0, ahead[1])))
         sc = Scene(doc['name'])
+        night.apply(doc, sc, chapter)
         actors.add_ensemble(sc)
         add_cast(sc, chapter, H)
         add_markers(sc)
