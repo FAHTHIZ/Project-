@@ -135,3 +135,39 @@ tools/test/shot.sh scenes/tests/pause_ui.vscene 75 /tmp/pause.png
 - Mouse capture: `Window::set_relative_mouse` exists in `engine/platform` but is not exposed to Luau or used by the player, so desktop mouse-look reads `input.mouse_delta()` without cursor capture; the pointer can leave the window. Gamepad and touch are unaffected.
 - Touch is verified through `Controls.virtual` injection and layout screenshots only; no physical touchscreen or phone is attached to this environment.
 - Screenshots are Mesa lavapipe (software Vulkan) renders; they prove layout and content, not phone performance.
+
+## P1 weapons — first-person viewmodels, pulse carbine, sidearm, scanner — 2026-11-19
+
+Engine: VICTUS 82bfd17 (release build `build/rel`). Game base: 88b0bd7.
+
+### What was built
+
+- `tools/props/build_weapons.py` → `assets/models/weapons/*.glb` (carbine body/cell, sidearm body/slide/cell, gloved hands, pulse bolt, stun target).
+- `tools/audio/build_sfx.py` → synthesized WAVs in `assets/audio/{weapons,ui,foley}` (numpy/scipy, original, see ASSET_PROVENANCE).
+- `lib/combat.luau` — damage/stun handler registry, ray helper, noise events, stats.
+- `weapons.luau` — states idle/equip/lower/reload, hitscan with spread cone, head zone, recoil with recovery, sway/bob/breathing/sprint and wall retract, reload choreography (cell out/in, off hand), slide kick, muzzle light, tracers, impact particles, ADS with FOV zoom, field scanner tool (tags `Scannable`, cooldown), touch aim toggle, HUD panel, save/load state; hidden during cinematics.
+- `range_target.luau` — stun target that folds back and resets.
+- `rig.py` viewmodel/FX rig; dev range targets.
+
+### Commands and results
+
+```sh
+victus import game
+cd tools/scenes && python3 build_dev_range.py movement hud pause_ui weapons vm_ads vm_reload vm_sidearm vm_scan && cd ../..
+victus check game                   # PASS: 11 scenes, 13 scripts, 0 problems
+python3 tools/test/run_autotests.py # movement 13/13, hud 2/2, pause_ui 2/2, weapons 26/26, vm_* screenshot plans clean
+tools/test/shot.sh scenes/tests/vm_ads.vscene 200 /tmp/vm_ads.png    # sight ring centred on reticle
+tools/test/shot.sh scenes/tests/vm_reload.vscene 200 /tmp/vm_reload.png # weapon tilted, cell out, HUD RELOADING
+tools/test/shot.sh scenes/tests/vm_sidearm.vscene 200 /tmp/vm_sidearm.png
+tools/test/shot.sh scenes/tests/vm_scan.vscene 200 /tmp/vm_scan.png  # device raised, "SCAN 6 contacts"
+```
+
+### Defects found and fixed
+
+- `entity:set_visible` errors on entities without a renderer; viewmodel visibility now recurses into renderer children (caused movement/hud/pause_ui to fail once weapons were added).
+- First hip pose was too close and bulky in screenshots; moved further out, slimmer open-tube sight.
+- Reload screenshot plan started with a full cell (reload correctly refused); plan now empties the cell first.
+
+### Status
+
+Implemented, simulated headless, visually inspected under lavapipe. Not tested on a phone or with a physical gamepad/touchscreen.

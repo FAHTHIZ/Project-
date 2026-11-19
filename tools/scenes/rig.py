@@ -75,7 +75,60 @@ def add_player(sc: Scene, pos, yaw, viewmodel_builder=None, with_weapons=True):
     vm = sc.add("Viewmodel", vmc, cam)
     if viewmodel_builder:
         viewmodel_builder(sc, vm)
+    elif with_weapons:
+        add_viewmodel(sc, vm)
+        add_weapon_fx(sc)
     return player
+
+
+W = "models/weapons/"
+
+
+def _vm_prop(sc, name, rel, parent, pos=(0, 0, 0), yaw=0.0, rot=None, scale=1.0):
+    # Viewmodel parts never cast shadows (the player has no body shadow either).
+    return sc.prop(name, rel, pos, yaw=yaw, rot=rot, scale=scale, parent=parent, shadows=False)
+
+
+def add_viewmodel(sc: Scene, vm):
+    """First-person weapons (see scripts/weapons.luau for the entity contract)."""
+    pivot = sc.add("VM Pivot", {"Transform": transform((0.135, -0.148, -0.3))}, vm)
+    for root, parts, hand_l, muzzle in [
+        ("Carbine", [("Body", "pc7_body"), ("Cell", "pc7_cell")], ((0, 0.0, -0.21), (0, 0, 0)), (0, 0.045, -0.515)),
+        ("Sidearm", [("Body", "sp2_body"), ("Slide", "sp2_slide"), ("Cell", "sp2_cell")],
+         ((-0.014, -0.006, 0.012), (0, -12, 0)), (0, 0.012, -0.152)),
+    ]:
+        r = sc.add(root, {"Transform": transform()}, pivot)
+        for nm, glb in parts:
+            _vm_prop(sc, f"{root} {nm}", W + glb + ".glb", r)
+        _vm_prop(sc, f"{root} Hand R", W + "hand_r.glb", r)
+        _vm_prop(sc, f"{root} Hand L", W + "hand_l.glb", r, hand_l[0], rot=quat_euler(*hand_l[1]))
+        m = sc.add(f"{root} Muzzle", {"Transform": transform(muzzle),
+                                      "Light": {"type": "point", "color": [0.45, 0.9, 1.0, 1], "intensity": 0.0,
+                                                "range": 5.0, "shadows": False}}, r)
+        _vm_prop(sc, f"{root} Flash", W + "pulse_bolt.glb", m, (0, 0, 0.01), scale=(4.0, 4.0, 0.09))
+    dev = sc.add("Device", {"Transform": transform((-0.3, 0.03, 0.0), quat_euler(10, 200, 0))}, pivot)
+    _vm_prop(sc, "Device Model", "models/env/field_device.glb", dev)
+    _vm_prop(sc, "Device Hand L", W + "hand_l.glb", dev, (0.0, 0.0, 0.0), rot=quat_euler(0, 180, 0))
+    return pivot
+
+
+def add_weapon_fx(sc: Scene):
+    """World-space pulse tracers and impact particles used by scripts/weapons.luau."""
+    for i in range(6):
+        sc.prop(f"Tracer {i}", W + "pulse_bolt.glb", (0, -50, 0), shadows=False)
+    sc.add("Impact Sparks", {"Transform": transform((0, -50, 0)), "ParticleEmitter": {
+        "emitting": False, "loop": False, "world_space": True, "duration": 0, "rate": 0, "burst": 0,
+        "max_particles": 96, "lifetime_min": 0.12, "lifetime_max": 0.32, "shape": "cone", "radius": 0.02,
+        "angle": 60, "speed_min": 1.5, "speed_max": 5.0, "gravity": [0, -7, 0], "drag": 1.5,
+        "size_start": 0.03, "size_end": 0.0, "size_variation": 0.5, "color_start": [0.55, 0.92, 1.0, 1],
+        "color_end": [0.3, 0.7, 1.0, 0], "intensity": 5.0, "blend": "additive", "softness": 0.02,
+        "velocity_stretch": 0.025}})
+    sc.add("Impact Dust", {"Transform": transform((0, -50, 0)), "ParticleEmitter": {
+        "emitting": False, "loop": False, "world_space": True, "duration": 0, "rate": 0, "burst": 0,
+        "max_particles": 40, "lifetime_min": 0.5, "lifetime_max": 1.0, "shape": "cone", "radius": 0.04,
+        "angle": 35, "speed_min": 0.3, "speed_max": 1.0, "gravity": [0, -0.4, 0], "drag": 2.5,
+        "size_start": 0.08, "size_end": 0.32, "size_variation": 0.4, "color_start": [0.5, 0.47, 0.4, 0.5],
+        "color_end": [0.5, 0.47, 0.4, 0], "intensity": 1.0, "blend": "alpha", "softness": 0.2}})
 
 
 def add_hud(sc: Scene):
