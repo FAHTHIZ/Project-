@@ -34203,8 +34203,8 @@
    "components": {
     "Transform": {
      "position": [
-      -53.9056,
-      27.435,
+      -54.7056,
+      27.4818,
       292.5417
      ],
      "rotation": [
@@ -35535,8 +35535,8 @@
    "components": {
     "Transform": {
      "position": [
-      -52.3056,
-      27.3818,
+      -53.1056,
+      27.3982,
       293.5417
      ],
      "rotation": [
@@ -36867,8 +36867,8 @@
    "components": {
     "Transform": {
      "position": [
-      -50.7056,
-      27.3913,
+      -51.5056,
+      27.3834,
       292.5417
      ],
      "rotation": [
@@ -38199,8 +38199,8 @@
    "components": {
     "Transform": {
      "position": [
-      -49.1056,
-      27.3807,
+      -49.9056,
+      27.3903,
       293.5417
      ],
      "rotation": [
@@ -39524,6 +39524,1338 @@
     }
    },
    "parent": "749dd5fa-491c-5d65-8282-0e49012fb07d"
+  },
+  {
+   "uuid": "785fa7c8-c589-5c6a-9a7e-63f9390fbfc4",
+   "name": "Brick",
+   "components": {
+    "Transform": {
+     "position": [
+      -48.3056,
+      27.3913,
+      292.5417
+     ],
+     "rotation": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "CharacterController": {
+     "radius": 0.3,
+     "height": 1.76,
+     "max_slope": 48,
+     "step_height": 0.36,
+     "gravity_scale": 1,
+     "mass": 75,
+     "push_force": 60,
+     "air_control": 0.3,
+     "layer": 0,
+     "mask": 65535
+    },
+    "Perceptible": {
+     "team": 1,
+     "height": 1.45,
+     "enabled": true
+    },
+    "Tags": {
+     "tags": "Squad Operator"
+    },
+    "Script": {
+     "script": "scripts/operator.luau",
+     "enabled": true,
+     "properties": {
+      "who": "Brick",
+      "role": "breacher"
+     }
+    },
+    "Perception": {
+     "sight_range": 30,
+     "fov": 150,
+     "eye_height": 1.6,
+     "hearing_range": 18,
+     "memory": 4,
+     "target_mask": 2,
+     "occlusion_mask": 65535,
+     "line_of_sight": true,
+     "target_key": "target"
+    }
+   }
+  },
+  {
+   "uuid": "d77b3c61-976c-5f1c-9b43-94ccada101b1",
+   "name": "Voice",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "AudioSource": {
+     "clip": "",
+     "bus": "voice",
+     "volume": 1.0,
+     "pitch": 1.0,
+     "loop": false,
+     "play_on_start": false,
+     "stream": false,
+     "spatial": true,
+     "attenuation": "inverse",
+     "min_distance": 2.0,
+     "max_distance": 40.0,
+     "rolloff": 1.0,
+     "priority": 230,
+     "occlusion": false
+    }
+   },
+   "parent": "785fa7c8-c589-5c6a-9a7e-63f9390fbfc4"
+  },
+  {
+   "uuid": "3af11a79-0c9a-5e9d-8faf-fa3703096ff9",
+   "name": "Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Animator": {
+     "model": "e109d7f1-270b-4179-8cb9-4631e2d319bf",
+     "clip_source": null,
+     "clip": "Idle",
+     "controller": "anim/characters/human.vanim",
+     "playing": true,
+     "loop": true,
+     "speed": 1,
+     "crossfade": 0.2,
+     "time": 0,
+     "apply_root_motion": false
+    }
+   },
+   "parent": "785fa7c8-c589-5c6a-9a7e-63f9390fbfc4"
+  },
+  {
+   "uuid": "df09a160-d648-5944-8038-5dc0ac56b7c8",
+   "name": "Brick",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3af11a79-0c9a-5e9d-8faf-fa3703096ff9"
+  },
+  {
+   "uuid": "46d658a0-f590-5bb4-b4ba-963a65a700f6",
+   "name": "Socket.Root",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "df09a160-d648-5944-8038-5dc0ac56b7c8"
+  },
+  {
+   "uuid": "438e0d29-e159-54a8-b507-fd3e495f1ed8",
+   "name": "Brick_Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e109d7f1-270b-4179-8cb9-4631e2d319bf",
+     "mesh_index": 1
+    },
+    "SkinnedMesh": {
+     "skeleton": "3af11a79-0c9a-5e9d-8faf-fa3703096ff9",
+     "skin": 0
+    }
+   },
+   "parent": "df09a160-d648-5944-8038-5dc0ac56b7c8"
+  },
+  {
+   "uuid": "4ae522e7-6411-55a5-9308-524640aac4cb",
+   "name": "Brick_Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e109d7f1-270b-4179-8cb9-4631e2d319bf",
+     "mesh_index": 0
+    },
+    "SkinnedMesh": {
+     "skeleton": "3af11a79-0c9a-5e9d-8faf-fa3703096ff9",
+     "skin": 0
+    }
+   },
+   "parent": "df09a160-d648-5944-8038-5dc0ac56b7c8"
+  },
+  {
+   "uuid": "11315e7c-02b8-536a-98b8-8f6ed8045440",
+   "name": "Hips",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.9200000166893005,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "df09a160-d648-5944-8038-5dc0ac56b7c8"
+  },
+  {
+   "uuid": "17ac026f-670f-55cb-ae53-56a0b21f87fd",
+   "name": "Spine",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.09999996423721313,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11315e7c-02b8-536a-98b8-8f6ed8045440"
+  },
+  {
+   "uuid": "3694fc3e-ed50-5070-8ac3-e21de2f11dbd",
+   "name": "Chest",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.1499999761581421,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "17ac026f-670f-55cb-ae53-56a0b21f87fd"
+  },
+  {
+   "uuid": "8257119b-0bf2-5039-88ca-90e10af99d9f",
+   "name": "Neck",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.28000009059906006,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3694fc3e-ed50-5070-8ac3-e21de2f11dbd"
+  },
+  {
+   "uuid": "f53be0a8-2146-57dd-9185-eefd3ffb4c5f",
+   "name": "Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.06999993324279785,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "look_at",
+     "enabled": true,
+     "weight": 0.0,
+     "chain_length": 1,
+     "aim_axis": [
+      0,
+      0,
+      1
+     ],
+     "max_angle": 65,
+     "target_position": [
+      0,
+      1.6,
+      10
+     ]
+    }
+   },
+   "parent": "8257119b-0bf2-5039-88ca-90e10af99d9f"
+  },
+  {
+   "uuid": "f8b10429-87c7-5302-9927-cbde9cc31b8d",
+   "name": "Socket.Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.1950000524520874,
+      0.0
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f53be0a8-2146-57dd-9185-eefd3ffb4c5f"
+  },
+  {
+   "uuid": "d39cb65f-4724-522b-99e7-338e595a753e",
+   "name": "Shoulder.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.05000000074505806,
+      0.2200000286102295,
+      0.0
+     ],
+     "rotation": [
+      -0.5,
+      -0.5,
+      -0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "3694fc3e-ed50-5070-8ac3-e21de2f11dbd"
+  },
+  {
+   "uuid": "66732bb5-ede4-58fe-bc7e-1aa73692388e",
+   "name": "UpperArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -4.3711168018489843e-10,
+      0.15000000596046448,
+      -0.009999990463256836
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      -0.3830222487449646,
+      0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d39cb65f-4724-522b-99e7-338e595a753e"
+  },
+  {
+   "uuid": "4907581c-1e11-51f9-97c0-833905274adc",
+   "name": "LowerArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      2.5101270395566644e-08,
+      0.2799999415874481,
+      3.540481685604391e-08
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      -4.470348358154297e-08,
+      3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "66732bb5-ede4-58fe-bc7e-1aa73692388e"
+  },
+  {
+   "uuid": "d18e2a6f-4599-582a-bae5-95e4f9ec130e",
+   "name": "Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -9.720874061258655e-08,
+      0.2550000846385956,
+      -2.0504526077047558e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      4.470348358154297e-08,
+      3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "763f43a6-b312-5af3-b9ff-374ff9f327ab",
+     "pole": "a0ca07f8-13d3-51fa-8e15-c2891810ab46",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "4907581c-1e11-51f9-97c0-833905274adc"
+  },
+  {
+   "uuid": "a3f5edb8-8965-51c0-8578-46b036e81990",
+   "name": "Socket.Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      0.32139384746551514,
+      0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d18e2a6f-4599-582a-bae5-95e4f9ec130e"
+  },
+  {
+   "uuid": "47c8e284-c7a6-5b4d-8259-55114dc0e534",
+   "name": "Shoulder.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.05000000074505806,
+      0.2200000286102295,
+      0.0
+     ],
+     "rotation": [
+      -0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "3694fc3e-ed50-5070-8ac3-e21de2f11dbd"
+  },
+  {
+   "uuid": "bd886696-0b05-59a7-b895-8b5824e17b27",
+   "name": "UpperArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      4.3711168018489843e-10,
+      0.15000000596046448,
+      -0.009999990463256836
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      0.3830222487449646,
+      -0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "47c8e284-c7a6-5b4d-8259-55114dc0e534"
+  },
+  {
+   "uuid": "1a2eaac0-ce1e-5687-a710-f74eee17d861",
+   "name": "LowerArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.5101270395566644e-08,
+      0.2799999415874481,
+      3.540481685604391e-08
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      4.470348358154297e-08,
+      -3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bd886696-0b05-59a7-b895-8b5824e17b27"
+  },
+  {
+   "uuid": "dbd273c6-407a-5f84-8141-751329ae3bb1",
+   "name": "Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      9.720874061258655e-08,
+      0.2550000846385956,
+      -2.0504526077047558e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      -4.470348358154297e-08,
+      -3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "6d3eeebf-ab26-578e-947a-f4b176f5316c",
+     "pole": "1f5321a7-bf44-5029-a95d-7fa867def25f",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "1a2eaac0-ce1e-5687-a710-f74eee17d861"
+  },
+  {
+   "uuid": "7a47ca32-8aad-56fd-bba2-643783767650",
+   "name": "Socket.Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      -0.32139384746551514,
+      -0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dbd273c6-407a-5f84-8141-751329ae3bb1"
+  },
+  {
+   "uuid": "310df027-ee34-5530-b255-b00a0cb6ca60",
+   "name": "Socket.Back",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.16000008583068848,
+      -0.1599999964237213
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3694fc3e-ed50-5070-8ac3-e21de2f11dbd"
+  },
+  {
+   "uuid": "dc06da67-0714-5507-a28e-246a1124e683",
+   "name": "UpperLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.10000000149011612,
+      -0.020000040531158447,
+      0.0
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11315e7c-02b8-536a-98b8-8f6ed8045440"
+  },
+  {
+   "uuid": "3250bc41-c330-5e8d-8c3a-1927939c1b94",
+   "name": "LowerLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.41999995708465576,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dc06da67-0714-5507-a28e-246a1124e683"
+  },
+  {
+   "uuid": "8171aefb-bfc4-5823-899b-8cb91262691b",
+   "name": "Foot.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.38999998569488525,
+      0.0
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3250bc41-c330-5e8d-8c3a-1927939c1b94"
+  },
+  {
+   "uuid": "8da3eb31-10d3-5fee-becc-570f7cf2690c",
+   "name": "Toe.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -7.450580596923828e-09,
+      0.13416408002376556,
+      1.862645149230957e-09
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "8171aefb-bfc4-5823-899b-8cb91262691b"
+  },
+  {
+   "uuid": "2105b8e1-4912-5635-9b54-b8d5bef61141",
+   "name": "UpperLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.10000000149011612,
+      -0.020000040531158447,
+      0.0
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11315e7c-02b8-536a-98b8-8f6ed8045440"
+  },
+  {
+   "uuid": "21c90c23-77ec-5668-b3ee-23ffeae6f96f",
+   "name": "LowerLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.41999995708465576,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2105b8e1-4912-5635-9b54-b8d5bef61141"
+  },
+  {
+   "uuid": "c20e0c98-1f98-56af-a259-bb80f7a20e0a",
+   "name": "Foot.R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.38999998569488525,
+      0.0
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "21c90c23-77ec-5668-b3ee-23ffeae6f96f"
+  },
+  {
+   "uuid": "e86facc7-fa05-5dea-bbde-f30bf16e234a",
+   "name": "Toe.R",
+   "components": {
+    "Transform": {
+     "position": [
+      7.450580596923828e-09,
+      0.13416408002376556,
+      1.862645149230957e-09
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "c20e0c98-1f98-56af-a259-bb80f7a20e0a"
+  },
+  {
+   "uuid": "6a698a0c-3e2a-5db1-81fd-128a6a19b358",
+   "name": "Carry",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.07,
+      1.14,
+      0.27
+     ],
+     "rotation": [
+      0.079843,
+      0.9137288,
+      0.3325701,
+      -0.2193669
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3af11a79-0c9a-5e9d-8faf-fa3703096ff9"
+  },
+  {
+   "uuid": "dfddd2e0-39f7-583c-9f7a-980d5fc2b3e6",
+   "name": "Carry Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6a698a0c-3e2a-5db1-81fd-128a6a19b358"
+  },
+  {
+   "uuid": "e93dcd58-89c3-5154-a37c-d460b68b2ea0",
+   "name": "Carry Body[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dfddd2e0-39f7-583c-9f7a-980d5fc2b3e6"
+  },
+  {
+   "uuid": "0bfc6e3f-1e03-58d5-afda-6f7501537402",
+   "name": "Carry Body[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dfddd2e0-39f7-583c-9f7a-980d5fc2b3e6"
+  },
+  {
+   "uuid": "08953c38-06c1-5504-b97d-1502b210795a",
+   "name": "Carry Body[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dfddd2e0-39f7-583c-9f7a-980d5fc2b3e6"
+  },
+  {
+   "uuid": "f3e3c7da-424e-5a52-bb5d-cf1a53fce87e",
+   "name": "Carry Cell",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6a698a0c-3e2a-5db1-81fd-128a6a19b358"
+  },
+  {
+   "uuid": "0f39f38a-c892-514c-a74f-f8f3736e0801",
+   "name": "Carry Cell[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f3e3c7da-424e-5a52-bb5d-cf1a53fce87e"
+  },
+  {
+   "uuid": "b0f13631-d36c-5af1-8182-a4312951946c",
+   "name": "Carry Cell[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f3e3c7da-424e-5a52-bb5d-cf1a53fce87e"
+  },
+  {
+   "uuid": "6d3eeebf-ab26-578e-947a-f4b176f5316c",
+   "name": "Grip R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -0.035,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6a698a0c-3e2a-5db1-81fd-128a6a19b358"
+  },
+  {
+   "uuid": "763f43a6-b312-5af3-b9ff-374ff9f327ab",
+   "name": "Grip L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.012,
+      -0.05,
+      -0.12
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6a698a0c-3e2a-5db1-81fd-128a6a19b358"
+  },
+  {
+   "uuid": "d514e8b6-c308-5403-b1af-e1cb31cb46dd",
+   "name": "Carry Muzzle",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.045,
+      -0.52
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6a698a0c-3e2a-5db1-81fd-128a6a19b358"
+  },
+  {
+   "uuid": "1f5321a7-bf44-5029-a95d-7fa867def25f",
+   "name": "Pole R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.45,
+      -0.3,
+      -0.15
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3694fc3e-ed50-5070-8ac3-e21de2f11dbd"
+  },
+  {
+   "uuid": "a0ca07f8-13d3-51fa-8e15-c2891810ab46",
+   "name": "Pole L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.4,
+      -0.35,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3694fc3e-ed50-5070-8ac3-e21de2f11dbd"
   },
   {
    "uuid": "3f7ada43-7a20-5dde-97b3-b376d7e937ba",

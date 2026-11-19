@@ -123,10 +123,15 @@ def add_cast(sc, chapter, H):
         for who, (dx, dz) in spots.items():
             x, z = t[0] + dx, t[2] + dz
             actors.add_operator(sc, who, (x, WS.ground(H, x, z) + 0.05, z), char_yaw((x, 0, z), t), order='hold')
+        # Brick went ahead to clear the washout; he waits at the trailhead beside the cut tree
+        b = P('trail_start')
+        x, z = b[0] + 2.6, b[2] - 2.2
+        actors.add_operator(sc, 'Brick', (x, WS.ground(H, x, z) + 0.05, z), char_yaw((x, 0, z), P('mule_park')),
+                            order='hold')
     else:
         base = {'op01': P('trail_start'), 'op02': P('poi_saddle'), 'op03': (P('gate')[0], 0, P('gate')[2] - 14)}[chapter]
-        for i, who in enumerate(('Anchor', 'Patch', 'Echo', 'Tally')):
-            x, z = base[0] + (i - 1.5) * 1.6, base[2] + 2.5 + (i % 2)
+        for i, who in enumerate(('Anchor', 'Patch', 'Echo', 'Tally', 'Brick')):
+            x, z = base[0] + (i - 2.0) * 1.6, base[2] + 2.5 + (i % 2)
             actors.add_operator(sc, who, (x, WS.ground(H, x, z) + 0.05, z), 180.0)
     # Hollis waits on his porch, watching the trail
     if start <= ORDER.index('op01'):

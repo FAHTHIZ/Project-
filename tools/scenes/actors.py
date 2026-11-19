@@ -19,6 +19,7 @@ SQUAD = {
     "Patch": ("models/characters/sops_patch.glb", "Patch", "medic"),
     "Echo": ("models/characters/sops_echo.glb", "Echo", "scout"),
     "Tally": ("models/characters/sops_tally.glb", "Tally", "comms"),
+    "Brick": ("models/characters/sops_brick.glb", "Brick", "breacher"),
 }
 ENEMY_MODELS = ["models/characters/sops_greyline_a.glb", "models/characters/sops_greyline_b.glb"]
 

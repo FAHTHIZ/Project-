@@ -17,6 +17,9 @@ Squad.ROSTER = {
              cadence = 0.9, speed = 3.9, emotion = "deadpan" },
     Tally = { key = "tally", name = "Tally", role = "comms", slot = vector.create(2.6, 0, 4.4), accuracy = 0.6,
               cadence = 1.2, speed = 3.4, emotion = "smile" },
+    -- Brick (story bible rev 2): breacher, walks at the back of the stack, slow but steady
+    Brick = { key = "brick", name = "Brick", role = "breacher", slot = vector.create(-0.6, 0, 5.4), accuracy = 0.7,
+              cadence = 1.4, speed = 3.3, emotion = "deadpan" },
 }
 
 local st = nil
@@ -77,7 +80,8 @@ function Squad.order(mode, points, opts)
     local s = Squad.state()
     s.mode = mode
     Squad.each(function(k, m)
-        m:set_order(mode, points and points[k], opts)
+        -- a pinned operator has a standing job (Brick guarding Venn) and ignores squad orders
+        if not m.pinned then m:set_order(mode, points and points[k], opts) end
     end)
     Game.emit("squad_order", mode)
 end

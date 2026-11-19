@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Vellwood facility interiors: Operations 04-07 (all original).
+"""Kestrel Station interiors: Operations 04-07 (all original).
 
     python3 tools/levels/build_facility.py            (models + scenes)
     python3 tools/levels/build_facility.py --scenes   (scenes only, models unchanged)
@@ -471,10 +471,10 @@ def k_doors(out):
 
 
 def k_signs(out):
-    for key, text, sub in (('sign_soil', 'VELLWOOD', 'Soil Science Annexe'), ('sign_switch', 'SWITCH ROOM', 'Authorised staff'),
+    for key, text, sub in (('sign_soil', 'KESTREL STATION', 'Records Annexe'), ('sign_switch', 'SWITCH ROOM', 'Authorised staff'),
                            ('sign_level4', 'LEVEL -4', 'Deep Store'), ('sign_archive', 'ARCHIVE', 'Do not lean on shelves'),
-                           ('sign_chamber', 'TRIAL CHAMBER', 'Seating programme'), ('sign_visitor', 'VISITORS', 'Please sign in'),
-                           ('sign_pump', 'PUMP ROOM', 'Wet floor'), ('sign_manager', 'SITE MANAGER', 'Knock first')):
+                           ('sign_chamber', 'REVIEW CHAMBER', 'Recording in progress'), ('sign_visitor', 'VISITORS', 'Please sign in'),
+                           ('sign_pump', 'PUMP ROOM', 'Wet floor'), ('sign_manager', 'SOURCE VAULT', 'Authorised archivists only')):
         k = Kit(key)
         pl = k.part('Plate', tex_sign(text, sub, bg='#eceae2', fg='#1f2a33', w=1024, h=512), tile=1.0, rough=0.6)
         P, N, I, UV = BS.hexa(BS.box_c((-0.6, 0, -0.02), (0.6, 0.6, 0)))
@@ -715,7 +715,7 @@ def level_op06():
     O = [
         door('foot_arch', 'x', 34, -2, 2, 'arch', h=3.6),
         door('arch_pump', 'z', -30, 9, 12, 'auto'),
-        door('arch_mgr', 'z', 30, 15, 17, 'auto'),
+        door('arch_mgr', 'z', 30, 15, 17, 'auto', locked=True),
         door('arch_north', 'x', -10, -2, 2, 'arch', h=3.6),
         door('north_ante', 'x', -30, -1, 1, 'auto', locked=True),
     ]
@@ -847,7 +847,9 @@ def furnish(sc, lv):
         kit_prop(sc, 'Manager Desk', 'desk', 36, 13, 0.0, tags='ManagerDesk')
         kit_prop(sc, 'Manager Chair', 'office_chair', 36, 12.2, 0.0)
         kit_prop(sc, 'Manager Shelf', 'shelf_unit', 41.2, 18, 90.0)
-        kit_prop(sc, 'Key Ring', 'key_ring', 35.4, 13.1, 20.0, y=0.765, collide=False)
+        # the Source Vault: originals boxed on the desk and shelved behind it
+        kit_prop(sc, 'Vault Crates', 'crate_stack', 39.5, 20.5, 0.0)
+        kit_prop(sc, 'Vault Crates B', 'crate_stack', 31.5, 20.5, 90.0)
         for i, x in enumerate((-9, 9)):
             kit_prop(sc, f'Ante Crates {i}', 'crate_stack', x, -34, 90.0 * i)
         # the trial chamber's doors (opened from the chamber side in Operation 07)
@@ -855,8 +857,12 @@ def furnish(sc, lv):
             sc.prop(f'Chamber Door {nm}', KIT + 'door_leaf.glb', (s_ * 0.75, 0, -43.8), 0.0, (1.5, 1.25, 1))
     if k == 'op07':
         kit_prop(sc, 'Test Chair', 'test_chair', 0, -4, 0.0, tags='TestChair')
+        # V-01: the existing VICTUS Vanguard V-01 model as a static display dummy standing stiffly
+        # behind the chair. No Animator, no script: it never moves (AGENTS.md).
         bx, by, bz = anchor('test_chair', 'behind', 0, -4, 0.0)
-        kit_prop(sc, 'V-01', 'v01_dummy', bx, bz + 0.3, 180.0, tags='V01 Scannable')
+        v01 = sc.prop('V-01', 'models/characters/victus_vanguard_01.glb', (bx, 0.0, bz - 0.25), 0.0, tags='V01 Scannable')
+        sc.add('V-01 Col', {'Transform': transform((0, 0.9, 0)), 'Collider': collider('box', (0.5, 1.8, 0.35)),
+                            'RigidBody': body('static')}, v01)
         kit_prop(sc, 'Chamber Rack A', 'server_rack', -10.5, -10, 90.0)
         kit_prop(sc, 'Chamber Rack B', 'server_rack', -10.5, -8.5, 90.0)
         kit_prop(sc, 'Observation Desk', 'desk', 8, 8, 180.0)
@@ -915,25 +921,36 @@ ENEMIES = {
              ('Greyline Last 1', -6, -36, 180, 'last', dict()),
              ('Greyline Last 2', 6, -36, 180, 'last', dict(voice='greyline1')),
              ('Greyline Last 3', -9, -41, 180, 'last', dict()),
-             ('Greyline Last 4', 9, -41, 180, 'last', dict(voice='greyline2'))],
-    'op07': [],
+             ('Greyline Last 4', 9, -41, 180, 'last', dict(voice='greyline2')),
+             # Sorn and his escort arrive at the vault once the originals are bagged
+             ('Sorn', 28, 14, -90, 'sorn', dict(voice='sorn', stun=160, dormant=True, variant=1)),
+             ('Greyline Escort 1', 26, 18, -90, 'sorn', dict(dormant=True)),
+             ('Greyline Escort 2', 26, 10, -90, 'sorn', dict(dormant=True))],
+    'op07': [('Sorn', 0, 14, 180, 'sorn', dict(voice='sorn', stun=160, dormant=True, variant=1)),
+             ('Greyline Guard 1', -3, 15, 180, 'sorn', dict(dormant=True, voice='greyline1')),
+             ('Greyline Guard 2', 3, 15, 180, 'sorn', dict(dormant=True))],
 }
 START = {'op04': ((0, 0.05, 43), 0.0), 'op05': ((0, 0.05, 34), 0.0), 'op06': ((0, 0.05, 39), 0.0),
          'op07': ((0, 0.05, 19), 0.0)}
 MARKS = {
     'op04': {'Mark Visitor Log': ('reception_desk', 'log', -4, 23, 180.0), 'Mark Breakers': ('breaker_wall', 'main', 28, -11.7, 180.0),
-             'Mark Lift': (None, (1.2, 1.2, -37.5))},
-    'op05': {'Mark Crank': (None, (2.4, 1.2, 15.2)), 'Mark Stairs': (None, (0, 1.0, -22))},
-    'op06': {'Mark Keys': (None, (35.4, 0.9, 13.1)), 'Mark Chamber Door': (None, (0, 1.2, -43.3))},
-    'op07': {'Mark V01': (None, (0, 0.6, -2.4))},
+             'Mark Lift': (None, (1.2, 1.2, -37.5)), 'Mark Records': (None, (-18.4, 1.2, 9.0)),
+             'Mark Venn Recorder': (None, (-9.0, 0.95, 13.0)), 'Fan Point': (None, (-14.0, 2.6, -4.0))},
+    'op05': {'Mark Crank': (None, (2.4, 1.2, 15.2)), 'Mark Stairs': (None, (0, 1.0, -22)),
+             'Venn Post': (None, (24.0, 0.05, -2.0)), 'Pipe Point': (None, (12.0, 3.0, -8.0))},
+    'op06': {'Mark Evidence': (None, (35.4, 0.9, 13.1)), 'Mark Chamber Door': (None, (0, 1.2, -43.3)),
+             'Mark Plaque': (None, (-43.6, 1.6, 11.0)), 'Mark Vault Keypad': (None, (29.6, 1.3, 13.6)),
+             'Fan Point': (None, (-20.0, 4.5, 18.0)), 'Tag Point': (None, (10.0, 2.0, 6.0)),
+             'Speaker Point': (None, (0.0, 4.5, -8.0))},
+    'op07': {'Mark V01': (None, (0, 0.6, -2.4)), 'Mark Review Terminal': (None, (8.0, 1.0, 7.4))},
 }
 
 
 def build_scene(key):
     lv = LEVELS[key]()
     cols = json.loads((HERE / f'{key}_cols.json').read_text())
-    sc = Scene({'op04': 'Operation 04 - Quiet Rooms', 'op05': 'Operation 05 - Deep Store',
-                'op06': 'Operation 06 - Undercroft', 'op07': 'Operation 07 - The Chair'}[key])
+    sc = Scene({'op04': 'Operation 04 - The Paper War', 'op05': 'Operation 05 - Below the Line',
+                'op06': 'Operation 06 - The Source Vault', 'op07': 'Operation 07 - V-01'}[key])
     common.environment(sc, lv.env, fog_density=0.004, fog_start=20, fog_end=200, fog_max_opacity=0.4,
                        ambient_intensity={'interior': 0.42, 'bunker': 0.34, 'basement': 0.32, 'chamber': 0.5}[lv.env],
                        shadow_distance=24)
@@ -961,13 +978,19 @@ def build_scene(key):
     rig.add_hud(sc)
     actors.USE_NAV = True
     actors.add_ensemble(sc)
-    for i, who in enumerate(('Anchor', 'Patch', 'Echo', 'Tally')):
-        x, z = pos[0] + (i - 1.5) * 1.3, pos[2] + 2.2 + (i % 2) * 0.8
+    # Brick stays with Venn in the bunker stores from Op05 onward (story bible rev 2)
+    squad = ('Anchor', 'Patch', 'Echo', 'Tally') + (('Brick',) if key in ('op04', 'op05') else ())
+    for i, who in enumerate(squad):
+        x, z = pos[0] + (i - (len(squad) - 1) / 2) * 1.3, pos[2] + 2.2 + (i % 2) * 0.8
         actors.add_operator(sc, who, (x, 0.05, z), 180.0, surface='concrete')
     for name, x, z, yaw, group, extra in ENEMIES[key]:
-        actors.add_enemy(sc, name, (x, 0.05, z), yaw, variant=hash(name) % 2, group=group, surface='concrete', **extra)
-    if key == 'op07':
-        actors.add_npc(sc, 'Voss', 'models/characters/sops_greyline_a.glb', (2.5, 0.05, -1.5), 200.0, who='voss')
+        extra = dict(extra)
+        variant = extra.pop('variant', sum(map(ord, name)) % 2)
+        actors.add_enemy(sc, name, (x, 0.05, z), yaw, variant=variant, group=group, surface='concrete', **extra)
+    if key == 'op05':
+        # Major Venn, held in the dormitory; Brick stays with him in the stores comms room
+        actors.add_npc(sc, 'Venn', 'models/characters/sops_explorer.glb', (-26.5, 0.05, 2.0), 90.0, who='venn',
+                       surface='concrete')
     # music and room tone
     root = sc.add('Music', {'Transform': transform(), 'Script': script('scripts/music.luau')})
     for nm, clip, bus, vol, loop in (('Explore', f'audio/music/{MUSIC[key]}_explore.ogg', 'music', 0.5, True),
@@ -978,6 +1001,9 @@ def build_scene(key):
             'stream': bus == 'music', 'spatial': False, 'priority': 250, 'occlusion': False}}, root)
     sc.add('Mission', {'Transform': transform(), 'Script': script('scripts/missions/facility.luau', chapter=key)})
     sc.save(SCENE_PATH[key])
+    # the same chapter with an Autotest driver (tools/test/run_autotests.py story_<key>)
+    common.autotest(sc, f'story_{key}')
+    sc.save(f'scenes/tests/story_{key}.vscene')
     print(key, SCENE_PATH[key], len(sc.entities), 'entities', len(lights), 'lights', len(cols), 'colliders')
 
 

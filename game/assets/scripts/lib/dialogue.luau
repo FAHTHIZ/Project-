@@ -72,7 +72,18 @@ function Dialogue.conversation(ids, opts)
     local s = state()
     s.seq += 1
     local group = "conv" .. s.seq
+    -- drop lines missing from voice_data (a stale render) so `done` still fires on the last one
+    local known = {}
+    for _, entry in ids do
+        local id = type(entry) == "table" and entry[1] or entry
+        if V[id] then table.insert(known, entry) else print("dialogue: unknown line " .. tostring(id)) end
+    end
+    ids = known
     local n = #ids
+    if n == 0 then
+        if opts.done then opts.done() end
+        return group
+    end
     for i, entry in ids do
         local id, to = entry, nil
         if type(entry) == "table" then id, to = entry[1], entry.to end

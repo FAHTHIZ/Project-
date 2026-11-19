@@ -180,7 +180,7 @@ S.brief = {
         self.wait -= dt
         if self.wait <= 0 and near(PT.camp_table, 7) then
             self.started_brief = true
-            self:say({ "pro_01", "pro_02", "pro_03", "pro_04", "pro_05", "pro_06", "pro_07", "pro_08",
+            self:say({ "pro_01", "pro_02", "pro_02b", "pro_03", "pro_04", "pro_05", "pro_06", "pro_07", "pro_08", "pro_08b",
                        "pro_09", "pro_10", "pro_11", "pro_12" }, function() self.brief_done = true end)
         end
         return nil
@@ -213,7 +213,7 @@ S.board = {
         if self.boarding >= 0.6 and not self.seated then
             self.seated = true
             local v = mule()
-            Squad.each(function(who, op) op:board(v, SEATS[who]) end)
+            Squad.each(function(who, op) if SEATS[who] then op:board(v, SEATS[who]) end end)
             Game.player_state:ride(v, "rear_middle")
             for _, d in { "fl", "fr", "rl", "rr" } do v:set_door(d, false) end
         end
@@ -253,7 +253,7 @@ S.ride = {
         self.ride_t += dt
         if self.ride_t > 3 and not self.ride_lines then
             self.ride_lines = true
-            self:say({ "ride_01", "ride_02", "ride_03", "ride_04", "ride_05", "ride_06", "ride_07", "ride_08" })
+            self:say({ "ride_01", "ride_02", "ride_03", "ride_03b", "ride_03c", "ride_03d", "ride_04", "ride_05", "ride_06", "ride_07", "ride_08" })
         end
         if not v:driving() then return "arrive" end
         return nil
@@ -272,7 +272,10 @@ S.arrive = {
             Echo = PT.trail_start + V(-0.6, 0, -3.0), Tally = PT.trail_start + V(2.4, 0, 1.6),
         }
         Squad.each(function(who, op)
-            op:exit_vehicle(DOORS[op.seat], { delay = delays[who], regroup = regroup[who], face = PT.trail_start })
+            -- Brick never rode: he went ahead to clear the washout and waits at the trailhead
+            if SEATS[who] then
+                op:exit_vehicle(DOORS[op.seat], { delay = delays[who], regroup = regroup[who], face = PT.trail_start })
+            end
         end)
     end,
     update = function(self, dt)
@@ -286,7 +289,7 @@ S.arrive = {
             self.exchange = true
             Squad.order("follow")
             self:advance("prologue", "op01")
-            self:say({ "op1_arrive_01", "op1_arrive_02", "op1_arrive_03", "op1_arrive_04" },
+            self:say({ "op1_arrive_01", "op1_arrive_01b", "op1_arrive_01c", "op1_arrive_03", "op1_arrive_04" },
                      function() self.arrived = true end)
         end
         if self.arrived then return "trail" end
@@ -307,7 +310,7 @@ S.op01_start = {
         if self.wait > 0 then return nil end
         if not self.started then
             self.started = true
-            self:say({ "op1_arrive_01", "op1_arrive_02", "op1_arrive_03", "op1_arrive_04" },
+            self:say({ "op1_arrive_01", "op1_arrive_01b", "op1_arrive_01c", "op1_arrive_03", "op1_arrive_04" },
                      function() self.go = true end)
         end
         return self.go and "trail" or nil
@@ -556,7 +559,7 @@ S.fence = {
         end
         if near(PT.fence_approach, 30) or group_engaged("towers") then
             if self.sign_t then Squad.order("follow"); self.sign_t = nil end
-            self:say({ "op2_01", "op2_02", "op2_03", "op2_04" })
+            self:say({ "op2_01", "op2_01b", "op2_02", "op2_03", "op2_04" })
             return "towers"
         end
         return nil
@@ -687,7 +690,7 @@ S.yard = {
     enter = function(self)
         if not self.flags.yard_talk then
             self.flags.yard_talk = true
-            self:say({ "op3_01", "op3_02", "op3_03" })
+            self:say({ "op3_01", "op3_02", "op3_03", "op3_crates_01", "op3_crates_02" })
         end
         self:objective("Clear the service yard", PT.poi_compound, "YARD")
     end,
