@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "parameters": [
+    { "name": "speed", "type": "float" },
+    { "name": "grounded", "type": "bool", "default": true },
+    { "name": "crouch", "type": "bool" },
+    { "name": "stunned", "type": "bool" },
+    { "name": "stumble", "type": "trigger" },
+    { "name": "interact", "type": "trigger" },
+    { "name": "inspect", "type": "trigger" },
+    { "name": "scan", "type": "bool" },
+    { "name": "halt", "type": "trigger" },
+    { "name": "point", "type": "trigger" },
+    { "name": "beckon", "type": "trigger" },
+    { "name": "wave", "type": "trigger" },
+    { "name": "talk", "type": "bool" }
+  ],
+  "default_state": "Locomotion",
+  "states": [
+    { "name": "Locomotion", "blend1d": { "parameter": "speed", "points": [
+        { "clip": "Idle", "at": 0 }, { "clip": "Walk", "at": 2.2 }, { "clip": "Run", "at": 4.6 } ] } },
+    { "name": "Fall", "clip": "Fall" },
+    { "name": "Land", "clip": "Land", "loop": false },
+    { "name": "Kneel", "clip": "Kneel" },
+    { "name": "Interact", "clip": "Interact", "loop": false },
+    { "name": "Inspect", "clip": "Inspect", "loop": false },
+    { "name": "Scan", "clip": "Scan" },
+    { "name": "Stumble", "clip": "Stumble", "loop": false },
+    { "name": "GetUp", "clip": "GetUp", "loop": false },
+    { "name": "Surrender", "clip": "Surrender", "loop": false }
+  ],
+  "transitions": [
+    { "from": "Locomotion", "to": "Fall", "duration": 0.25, "conditions": [ { "parameter": "grounded", "op": "false" } ] },
+    { "from": "Fall", "to": "Land", "duration": 0.06, "conditions": [ { "parameter": "grounded", "op": "true" } ] },
+    { "from": "Land", "to": "Locomotion", "duration": 0.2, "exit_time": 0.6 },
+    { "from": "Locomotion", "to": "Surrender", "duration": 0.2, "conditions": [ { "parameter": "stunned", "op": "true" } ] },
+    { "from": "Kneel", "to": "Surrender", "duration": 0.2, "conditions": [ { "parameter": "stunned", "op": "true" } ] },
+    { "from": "Surrender", "to": "GetUp", "duration": 0.3, "conditions": [ { "parameter": "stunned", "op": "false" } ] },
+    { "from": "Locomotion", "to": "Kneel", "duration": 0.3, "conditions": [ { "parameter": "crouch", "op": "true" }, { "parameter": "speed", "op": "<", "value": 0.4 } ] },
+    { "from": "Kneel", "to": "Locomotion", "duration": 0.3, "conditions": [ { "parameter": "crouch", "op": "false" } ] },
+    { "from": "Kneel", "to": "Locomotion", "duration": 0.25, "conditions": [ { "parameter": "speed", "op": ">", "value": 0.8 } ] },
+    { "from": "Locomotion", "to": "Interact", "duration": 0.15, "conditions": [ { "parameter": "interact" } ] },
+    { "from": "Interact", "to": "Locomotion", "duration": 0.25, "exit_time": 0.92 },
+    { "from": "Locomotion", "to": "Inspect", "duration": 0.2, "conditions": [ { "parameter": "inspect" } ] },
+    { "from": "Inspect", "to": "Locomotion", "duration": 0.3, "exit_time": 0.95 },
+    { "from": "Locomotion", "to": "Scan", "duration": 0.25, "conditions": [ { "parameter": "scan", "op": "true" } ] },
+    { "from": "Scan", "to": "Locomotion", "duration": 0.3, "conditions": [ { "parameter": "scan", "op": "false" } ] },
+    { "from": "Locomotion", "to": "Stumble", "duration": 0.08, "conditions": [ { "parameter": "stumble" } ] },
+    { "from": "Stumble", "to": "GetUp", "duration": 0.15, "exit_time": 1.0 },
+    { "from": "GetUp", "to": "Locomotion", "duration": 0.25, "exit_time": 0.95 }
+  ],
+  "layers": [
+    { "name": "LeftArm", "mask": ["Shoulder.L"], "default_state": "None",
+      "states": [ { "name": "None" }, { "name": "Halt", "clip": "Halt", "loop": false },
+                  { "name": "Point", "clip": "Point", "loop": false }, { "name": "Beckon", "clip": "Beckon", "loop": false } ],
+      "transitions": [
+        { "from": "None", "to": "Halt", "duration": 0.15, "conditions": [ { "parameter": "halt" } ] },
+        { "from": "None", "to": "Point", "duration": 0.15, "conditions": [ { "parameter": "point" } ] },
+        { "from": "None", "to": "Beckon", "duration": 0.15, "conditions": [ { "parameter": "beckon" } ] },
+        { "from": "Halt", "to": "None", "duration": 0.25, "exit_time": 1.0 },
+        { "from": "Point", "to": "None", "duration": 0.25, "exit_time": 1.0 },
+        { "from": "Beckon", "to": "None", "duration": 0.25, "exit_time": 1.0 } ] },
+    { "name": "Arms", "mask": ["Shoulder.L", "Shoulder.R"], "default_state": "None",
+      "states": [ { "name": "None" }, { "name": "Wave", "clip": "Wave", "loop": false }, { "name": "Talk", "clip": "Talk" } ],
+      "transitions": [
+        { "from": "None", "to": "Wave", "duration": 0.15, "conditions": [ { "parameter": "wave" } ] },
+        { "from": "Wave", "to": "None", "duration": 0.25, "exit_time": 1.0 },
+        { "from": "None", "to": "Talk", "duration": 0.3, "conditions": [ { "parameter": "talk", "op": "true" } ] },
+        { "from": "Talk", "to": "None", "duration": 0.4, "conditions": [ { "parameter": "talk", "op": "false" } ] } ] }
+  ]
+}

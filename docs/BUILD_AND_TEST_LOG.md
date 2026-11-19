@@ -171,3 +171,45 @@ tools/test/shot.sh scenes/tests/vm_scan.vscene 200 /tmp/vm_scan.png  # device ra
 ### Status
 
 Implemented, simulated headless, visually inspected under lavapipe. Not tested on a phone or with a physical gamepad/touchscreen.
+
+## P3 — Halyard Team, dialogue, faces, Greyline contractors — 2026-11-19
+
+Engine: VICTUS 82bfd17. Game base: 4be5c63.
+
+### What was built
+
+- Cast (`tools/characters/build_humans.py`): Anchor (lead), Patch (medic), Echo (scout), Tally (comms), Greyline A/B contractors, plus the existing Explorer and Ranger Hollis, on the shared Vanguard skeleton. Each head has 11 morph targets (Blink JawOpen Smile Frown BrowUp BrowDown MouthO LookL/R/Up/Down). New clips Kneel, Surrender, Halt, Point, Beckon. About 17–21k triangles per character.
+- `anim/characters/human.vanim`: locomotion blend, fall/land, kneel, interact, inspect, scan, stumble/get-up, surrender; LeftArm gesture layer and an Arms talk layer.
+- `tools/scenes/actors.py`: operators, contractors and civilians as CharacterController + NavAgent roots with a spatial `Voice` source, carried PC-7 with two-bone hand IK and look-at head IK; `add_ensemble` (scene runner + flat radio voice) and an NPC tracer pool.
+- Dialogue: `tools/dialogue/lines.py` (76 lines: prologue, Op01 beats, squad-to-squad chatter, barks, Greyline barks); `tools/audio/build_voices.py` renders them offline with Kokoro-82M (see RESEARCH_REGISTER §6) and writes `lib/voice_data.luau` with a 30 Hz jaw envelope and mouth shapes.
+- Runtime: `lib/dialogue.luau` (one line at a time, priorities bark/chatter/story/cinematic, stale barks dropped, per-line and per-kind cooldowns, rotating variants among present speakers, conversations with gaps and done callbacks, subtitles with speaker names, spatial voice from the speaker or radio, pause-aware, listener eye-lines, line log), `lib/face.luau` (blinks, emotions, saccades, eye look, lip sync; writes morphs only on change; frozen beyond 22 m), `lib/actor.luau` (facing, animation parameters, carry pose low-ready↔aim, support-hand release for gestures/talk, head look, footsteps), `lib/squad.luau` (roster, orders follow/hold/move, formation slots, NPC hitscan with spread, tracers, near-miss events), `operator.luau`, `enemy.luau` (patrol, hearing, group alerts, 0.6–1.0 s reaction, three-round bursts with pauses, distance/motion spread, stun pool, surrender), `npc.luau`, `ensemble.luau`.
+
+### Commands and results
+
+```sh
+python3 tools/characters/build_humans.py --rig ../victus/engine/project/data/characters/victus_vanguard_02.glb --out game/assets/models/characters
+python3 tools/audio/build_voices.py --model /tmp/kok          # 76 lines, 1.8 MB OGG
+cd tools/scenes && python3 build_dev_range.py movement hud pause_ui weapons vm_ads vm_reload vm_sidearm vm_scan squad squad_combat enemy_fire squad_look && cd ../..
+victus import game && victus check game   # 15 scenes, 2 controllers, 23 scripts: 0 problems
+python3 tools/test/run_autotests.py movement hud pause_ui weapons squad squad_combat enemy_fire
+#   movement PASS, hud PASS, pause_ui PASS, weapons PASS,
+#   squad 17/17 (registry, faces, voices, carry IK < 6 cm, formation follow, hold, resume, subtitle,
+#                lip sync moving, listeners look, no overlapping lines, conversation callback, cooldown),
+#   squad_combat 5/5 (squad stuns two alerted contractors, both surrender, contact bark, player unhurt),
+#   enemy_fire 3/3 (contractor hurts the player, player's carbine stuns it, it stops firing)
+tools/test/shot.sh scenes/tests/squad_look.vscene 60 /tmp/sq1.png      # squad at low-ready, faces readable
+tools/test/shot.sh scenes/tests/squad_combat.vscene 420 /tmp/sq2.png   # contractor surrendering, Greyline subtitle
+```
+
+### Defects found and fixed
+
+- `entity:set(component, field, value)` is not the API; it takes a partial table (`set("NavAgent", {speed = 3})`).
+- Head morph targets do not resolve during `start()`; `Face` retries for 30 frames.
+- `entity.id` is a string; seeds are hashed from the entity name.
+- `entity:look_at` works in the parent's space; the carried weapon is aimed with a character-space direction, and the carry is parented to the model root rather than the Chest bone (chest axes made the pose unpredictable).
+- Euler `.y` is ambiguous at 180°; facing is read from `entity.forward`.
+- Support hand was 10 cm short of the grip at low-ready; carry moved inward and the grip forward.
+
+### Status
+
+Implemented, simulated headless and visually inspected under lavapipe on the dev range. Voices were listened to only as waveforms/lengths (no speakers on the build machine). Not tested on a phone; the squad-of-four cost on the Infinix Hot 10S is unmeasured.

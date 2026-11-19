@@ -8,6 +8,7 @@ import sys
 from vscene import Scene, GROUND_MATERIAL, collider, body, script, transform
 from common import environment, sun, autotest
 import rig
+import actors
 
 
 TARGETS = [(0, -6), (-5, -12), (5, -12), (-9, -22), (0, -26), (9, -22)]
@@ -21,6 +22,26 @@ def add_target(sc, name, pos, yaw=0.0, reset=3.0, group=""):
                          "Script": script("scripts/range_target.luau", reset_time=reset, group=group)})
     sc.prop(name + " Model", "models/weapons/stun_target.glb", parent=root)
     return root
+
+
+# Plans that place the Halyard Team, Greyline contractors and Ranger Hollis on the range.
+SQUAD_PLANS = {"squad", "squad_combat", "enemy_fire", "squad_look"}
+
+
+def add_squad_setup(sc, plan):
+    actors.add_ensemble(sc)
+    actors.add_npc_tracers(sc)
+    if plan != "enemy_fire":
+        for who, (x, z) in (("Anchor", (-1.7, 8.0)), ("Patch", (1.6, 8.6)), ("Echo", (-3.0, 9.6)), ("Tally", (2.6, 10.4))):
+            actors.add_operator(sc, who, (x, 0, z), 180.0 if plan == "squad_look" else 0.0)
+    if plan == "squad":
+        actors.add_npc(sc, "Hollis", "models/characters/sops_ranger.glb", (8, 0, 4), -90.0, who="hollis",
+                       prompt="Talk", event="talk_hollis")
+    if plan == "squad_combat":
+        actors.add_enemy(sc, "Greyline 1", (-8, 0, -8), 0.0, variant=0, voice="greyline1", group="range", alert=True)
+        actors.add_enemy(sc, "Greyline 2", (8, 0, -8), 0.0, variant=1, voice="greyline2", group="range", alert=True)
+    if plan == "enemy_fire":
+        actors.add_enemy(sc, "Greyline 1", (3, 0, -3), -20.0, variant=0, voice="greyline1")
 
 
 def build(plan=None):
@@ -38,6 +59,8 @@ def build(plan=None):
     # Pop-up stun targets at several distances (scripts/range_target.luau).
     for i, (x, z) in enumerate(TARGETS):
         add_target(sc, f"Target {i}", (x, 0, z))
+    if plan in SQUAD_PLANS:
+        add_squad_setup(sc, plan)
     rig.add_player(sc, (0, 0, 6), 0, with_weapons=True)
     rig.add_hud(sc)
     if plan:
@@ -48,5 +71,5 @@ def build(plan=None):
 
 if __name__ == "__main__":
     build()
-    for p in sys.argv[1:]:
+    for p in sys.argv[1:] or []:
         build(p)

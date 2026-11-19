@@ -9,10 +9,8 @@ This plan is an execution queue, not a reason to stop coding after a design docu
 | P0 baseline: VICTUS built, project generated, character/forest asset generators | Done | log P0 |
 | P1 scene tooling, first-person controller, unified input, HUD, pause/settings, menu, credits, autotests | Done (desktop/headless; no phone) | log P1, autotests movement/hud/pause_ui |
 | Weapons and viewmodel (PC-7 Lantern carbine, SP-2 Wren sidearm, field scanner) | Done (implemented, simulated, visually inspected on lavapipe; not device-tested) | log P1 weapons, autotest weapons 26/26 |
-| Squad operators, companions, dialogue, enemies | Next | |
-| Op01 forest scene | Pending | |
-| Squad, Greyline enemies, ranger; companion and enemy AI | Pending | |
-| Dialogue, voices, subtitles, facial performance | Pending | |
+| Squad operators, companions, dialogue, enemies (Anchor, Patch, Echo, Tally; Greyline A/B; Ranger Hollis; 76 voiced lines) | Done on the dev range (implemented, simulated, visually inspected on lavapipe; not device-tested; squad size not yet profiled on the phone) | log P3 squad, autotests squad 17/17, squad_combat 5/5, enemy_fire 3/3 |
+| Op01 forest scene | Next | |
 | Cinematics (12 beats) | Pending | |
 | Prologue, Op02-Op07, V-01 reveal, ending | Pending | |
 | Audio, adaptive quality, packaging (desktop export, Android attempt) | Pending | |
