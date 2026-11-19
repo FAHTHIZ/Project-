@@ -277,6 +277,10 @@ def add_structures(sc, H, masks):
     place(sc, 'Camp Tent B', 'camp_tent', cx + 7, cz + 5, -70.0, H)
     _, by = place(sc, 'Camp Table', 'camp_table', cx - 1, cz, 75.0, H)
     place(sc, 'Camp Crates', 'supply_crates', cx + 1, cz - 6, 20.0, H)
+    # the squad's open arms case: KV-5 Hornet, BR-9 Ram and MR-6 Kestrel for the player to swap in
+    ax, az = cx - 2.0, cz - 3.2
+    vehicle.add_arms_case(sc, 'Camp Arms Case', (ax, ground(H, ax, az) - 0.02, az), 160.0)
+    PLACED['Camp Arms Case'] = ('arms_case', ax, ground(H, ax, az), az, 160.0)
     place(sc, 'Camp Generator', 'generator', cx + 10, cz + 1, 80.0, H)
     place(sc, 'Camp Flood A', 'floodlight', cx - 5, cz - 4, 60.0, H)
     place(sc, 'Camp Flood B', 'floodlight', cx + 2, cz + 7, 200.0, H)

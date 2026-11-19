@@ -12,14 +12,14 @@ Squad.ROSTER = {
     Anchor = { key = "anchor", name = "Anchor", role = "lead", slot = vector.create(-1.7, 0, 1.9), accuracy = 0.8,
                cadence = 1.0, speed = 3.6, emotion = "focus" },
     Patch = { key = "patch", name = "Patch", role = "medic", slot = vector.create(1.6, 0, 2.6), accuracy = 0.65,
-              cadence = 1.25, speed = 3.5, emotion = "neutral" },
+              cadence = 1.25, speed = 3.5, emotion = "neutral", weapon = "pdw", sound = "audio/weapons/kv5_fire.wav" },
     Echo = { key = "echo", name = "Echo", role = "scout", slot = vector.create(-3.0, 0, 3.6), accuracy = 0.9,
-             cadence = 0.9, speed = 3.9, emotion = "deadpan" },
+             cadence = 0.9, speed = 3.9, emotion = "deadpan", weapon = "dmr", sound = "audio/weapons/mr6_fire.wav" },
     Tally = { key = "tally", name = "Tally", role = "comms", slot = vector.create(2.6, 0, 4.4), accuracy = 0.6,
               cadence = 1.2, speed = 3.4, emotion = "smile" },
     -- Brick (story bible rev 2): breacher, walks at the back of the stack, slow but steady
     Brick = { key = "brick", name = "Brick", role = "breacher", slot = vector.create(-0.6, 0, 5.4), accuracy = 0.7,
-              cadence = 1.4, speed = 3.3, emotion = "deadpan" },
+              cadence = 1.4, speed = 3.3, emotion = "deadpan", weapon = "breacher", sound = "audio/weapons/br9_fire.wav" },
 }
 
 local st = nil

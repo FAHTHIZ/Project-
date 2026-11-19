@@ -15729,6 +15729,84 @@
    }
   },
   {
+   "uuid": "26f385aa-1c8d-5ee6-9b6f-3b7f7dbd1c9b",
+   "name": "Mule Headlight L",
+   "parent": "f29b0236-6b33-55e5-ae37-0fe42f4f290a",
+   "components": {
+    "Light": {
+     "type": "spot",
+     "color": [
+      1,
+      0.949999988079071,
+      0.8600000143051147,
+      1
+     ],
+     "intensity": 30,
+     "range": 45,
+     "shadows": false,
+     "inner_angle": 16,
+     "outer_angle": 34
+    },
+    "Transform": {
+     "position": [
+      -0.7200000286102295,
+      0.9300000071525574,
+      -2.4700000286102295
+     ],
+     "rotation": [
+      -0.04361940547823906,
+      0,
+      0,
+      0.9990482330322266
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "bff87984-fb8e-5356-8765-151098c96c8f",
+   "name": "Mule Headlight R",
+   "parent": "f29b0236-6b33-55e5-ae37-0fe42f4f290a",
+   "components": {
+    "Light": {
+     "type": "spot",
+     "color": [
+      1,
+      0.949999988079071,
+      0.8600000143051147,
+      1
+     ],
+     "intensity": 30,
+     "range": 45,
+     "shadows": false,
+     "inner_angle": 16,
+     "outer_angle": 34
+    },
+    "Transform": {
+     "position": [
+      0.7200000286102295,
+      0.9300000071525574,
+      -2.4700000286102295
+     ],
+     "rotation": [
+      -0.04361940547823906,
+      0,
+      0,
+      0.9990482330322266
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
    "uuid": "07b3c956-6572-5bd2-a42a-9cb30cfd7bf7",
    "name": "Mule Cargo Lamp",
    "parent": "f29b0236-6b33-55e5-ae37-0fe42f4f290a",
@@ -18698,6 +18776,2385 @@
    }
   },
   {
+   "uuid": "bbc91564-ef38-5848-9bbd-c230a03ebb1b",
+   "name": "Camp Arms Case",
+   "components": {
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.96,
+      0.12,
+      1.22
+     ],
+     "radius": 0.5,
+     "height": 1,
+     "offset": [
+      0,
+      0.06,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 0,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "static",
+     "mass": 20,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Transform": {
+     "position": [
+      -22,
+      50.43539810180664,
+      482.79998779296875
+     ],
+     "rotation": [
+      0,
+      0.9848077893257141,
+      0,
+      0.1736481934785843
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "51629038-f7c9-5379-a87c-cec14f6ccb55",
+   "name": "Camp Arms Case[0]",
+   "parent": "bbc91564-ef38-5848-9bbd-c230a03ebb1b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "07fb580b-ab47-4eae-bda7-d1a78567835c",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "6af9d413-3cb9-5877-8575-691c7759b5c2",
+   "name": "Camp Arms Case[1]",
+   "parent": "bbc91564-ef38-5848-9bbd-c230a03ebb1b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "07fb580b-ab47-4eae-bda7-d1a78567835c",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "375d6d2e-b567-56db-994d-bd7c30066c84",
+   "name": "Camp Arms Case[2]",
+   "parent": "bbc91564-ef38-5848-9bbd-c230a03ebb1b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "07fb580b-ab47-4eae-bda7-d1a78567835c",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "name": "Camp Arms Case Cargo",
+   "parent": "bbc91564-ef38-5848-9bbd-c230a03ebb1b",
+   "components": {
+    "Script": {
+     "script": "scripts/storage.luau",
+     "enabled": true,
+     "properties": {
+      "id": "camp_arms_case",
+      "contents": "pdw,breacher,dmr",
+      "owner": "none"
+     }
+    },
+    "Tags": {
+     "tags": "Storage"
+    },
+    "Transform": {
+     "position": [
+      0,
+      0.12999999523162842,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "bc721a41-c496-5a15-98e7-49c92b879683",
+   "name": "Camp Arms Case Cargo Slot L1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.2800000011920929,
+      0,
+      -0.05000000074505806
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2a230995-fed0-5d91-bd71-b7cd74a634c9",
+   "name": "Camp Arms Case Cargo Slot L2",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      -0.05000000074505806
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "49fecc1c-d2c8-51cb-a722-76fd429de7a7",
+   "name": "Camp Arms Case Cargo Slot L3",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Transform": {
+     "position": [
+      0.2800000011920929,
+      0,
+      -0.05000000074505806
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "db2b84e4-b6ba-5fa5-848c-5f54b60f8f44",
+   "name": "Camp Arms Case Cargo Slot S1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.20000000298023224,
+      0,
+      -0.47999998927116394
+     ],
+     "rotation": [
+      0,
+      0.7071068286895752,
+      0,
+      0.7071068286895752
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "353f7ea1-678e-5f7a-8e12-6b574ed8bbc7",
+   "name": "Camp Arms Case Cargo Slot S2",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Transform": {
+     "position": [
+      0.20000000298023224,
+      0,
+      -0.47999998927116394
+     ],
+     "rotation": [
+      0,
+      0.7071068286895752,
+      0,
+      0.7071068286895752
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "8fc59b9e-4fed-5d88-a64f-32e237e635e3",
+   "name": "Camp Arms Case Cargo Item pdw 1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.12,
+      0.1,
+      0.62
+     ],
+     "radius": 0.5,
+     "height": 1,
+     "offset": [
+      0,
+      0.05,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 6,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "kinematic",
+     "mass": 1,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Transform": {
+     "position": [
+      0,
+      -20,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model",
+   "parent": "8fc59b9e-4fed-5d88-a64f-32e237e635e3",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "04b088ab-c066-5abb-a6a2-f553f4e00c31",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[0]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7fc1d5a4-6bac-59df-a237-00200fcd0948",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[1]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "a7b30ef0-dc16-54a7-ae13-006274d51de6",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[2]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "22f39c28-80b6-55c4-81f7-05618382925b",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[3]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "90d035a8-766d-58ce-b192-f4a5186eb45b",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[4]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "72fe010c-b6e9-5ef8-88d4-603b22f4f895",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[5]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 5,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "759febe6-3d8f-5eca-9a48-526eb0d2d639",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[6]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 6,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2ebc8fde-bd04-51a2-9e35-c2ca8b3fb167",
+   "name": "Camp Arms Case Cargo Item pdw 1 Model[7]",
+   "parent": "d54ec054-1ba1-553f-adbe-fe3b61894077",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "9911fd53-98cd-4bd3-8b7a-b132d8a37f1d",
+     "mesh_index": 7,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "56ec03b8-6c7a-54c9-add6-16203056cdd3",
+   "name": "Camp Arms Case Cargo Item breacher 1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.12,
+      0.1,
+      0.86
+     ],
+     "radius": 0.5,
+     "height": 1,
+     "offset": [
+      0,
+      0.05,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 6,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "kinematic",
+     "mass": 1,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Transform": {
+     "position": [
+      0,
+      -20,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model",
+   "parent": "56ec03b8-6c7a-54c9-add6-16203056cdd3",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "f4bc767e-ec15-524f-93b8-94103c8c4199",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model[0]",
+   "parent": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7fe32fad-9138-42d4-afd8-586b08692e38",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "eaf7beea-7816-53a7-8d04-6977616f3943",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model[1]",
+   "parent": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7fe32fad-9138-42d4-afd8-586b08692e38",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d4adcfcf-042c-5a1f-8aaf-9824af70864b",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model[2]",
+   "parent": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7fe32fad-9138-42d4-afd8-586b08692e38",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "09185d29-f58c-55f2-8fee-125db0f98051",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model[3]",
+   "parent": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7fe32fad-9138-42d4-afd8-586b08692e38",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "ca14c8c2-8f21-592a-9899-64c73d0a7663",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model[4]",
+   "parent": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7fe32fad-9138-42d4-afd8-586b08692e38",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "501bbe06-f12b-5000-bf40-e46a48316557",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model[5]",
+   "parent": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7fe32fad-9138-42d4-afd8-586b08692e38",
+     "mesh_index": 5,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1db5460d-71aa-5647-b0a0-d6102844704f",
+   "name": "Camp Arms Case Cargo Item breacher 1 Model[6]",
+   "parent": "2fd3ac2c-c33d-50a0-a9f1-9f44ce84155f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7fe32fad-9138-42d4-afd8-586b08692e38",
+     "mesh_index": 6,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d1dff0d3-8c43-528f-ae31-53bce60e5201",
+   "name": "Camp Arms Case Cargo Item dmr 1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.12,
+      0.1,
+      0.96
+     ],
+     "radius": 0.5,
+     "height": 1,
+     "offset": [
+      0,
+      0.05,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 6,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "kinematic",
+     "mass": 1,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Transform": {
+     "position": [
+      0,
+      -20,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model",
+   "parent": "d1dff0d3-8c43-528f-ae31-53bce60e5201",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "65b57f0d-8cdc-5776-a273-d56303f4a327",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model[0]",
+   "parent": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7a208ee8-5726-4516-81ab-2a8f526dd46a",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d5a03d24-ab45-54bd-b58d-2d8bba474f16",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model[1]",
+   "parent": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7a208ee8-5726-4516-81ab-2a8f526dd46a",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "4acbb037-b05b-53ff-a78c-4fffab8f1274",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model[2]",
+   "parent": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7a208ee8-5726-4516-81ab-2a8f526dd46a",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "9d6fd0bf-8560-51bb-8b35-eb9f329d9c43",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model[3]",
+   "parent": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7a208ee8-5726-4516-81ab-2a8f526dd46a",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "293426a6-1c42-53a0-82f6-695de31c21e4",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model[4]",
+   "parent": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7a208ee8-5726-4516-81ab-2a8f526dd46a",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7cef5dd8-27ae-541a-9275-0f34c8173358",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model[5]",
+   "parent": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7a208ee8-5726-4516-81ab-2a8f526dd46a",
+     "mesh_index": 5,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d7862c9f-d76e-55cc-af32-3827017c5ac1",
+   "name": "Camp Arms Case Cargo Item dmr 1 Model[6]",
+   "parent": "3a37fd5d-64f2-554a-b8ed-a52c14087c40",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "7a208ee8-5726-4516-81ab-2a8f526dd46a",
+     "mesh_index": 6,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "f7d60b81-02f7-599b-88f8-0cfb9b0c225a",
+   "name": "Camp Arms Case Cargo Item carbine 1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.12,
+      0.1,
+      0.75
+     ],
+     "radius": 0.5,
+     "height": 1,
+     "offset": [
+      0,
+      0.05,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 6,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "kinematic",
+     "mass": 1,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Transform": {
+     "position": [
+      0,
+      -20,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "105756c6-7684-51e4-ba10-af091fa69f19",
+   "name": "Camp Arms Case Cargo Item carbine 1 Model",
+   "parent": "f7d60b81-02f7-599b-88f8-0cfb9b0c225a",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "07b33f14-0636-5588-91ad-be8e5b1937c8",
+   "name": "Camp Arms Case Cargo Item carbine 1 Model[0]",
+   "parent": "105756c6-7684-51e4-ba10-af091fa69f19",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bbf2659b-e0e9-4d59-8233-2f44fdb8dbd4",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "805405ca-2b50-5d56-bd28-52b6454cb42a",
+   "name": "Camp Arms Case Cargo Item carbine 1 Model[1]",
+   "parent": "105756c6-7684-51e4-ba10-af091fa69f19",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bbf2659b-e0e9-4d59-8233-2f44fdb8dbd4",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "14cf0f5c-9bb9-5ed5-9bc5-e872bf572b55",
+   "name": "Camp Arms Case Cargo Item carbine 1 Model[2]",
+   "parent": "105756c6-7684-51e4-ba10-af091fa69f19",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bbf2659b-e0e9-4d59-8233-2f44fdb8dbd4",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "b3df1dfa-9b12-5bbd-9149-67a32c55d19a",
+   "name": "Camp Arms Case Cargo Item carbine 1 Model[3]",
+   "parent": "105756c6-7684-51e4-ba10-af091fa69f19",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bbf2659b-e0e9-4d59-8233-2f44fdb8dbd4",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "a71064cf-1303-5868-9d9f-67785efb0c01",
+   "name": "Camp Arms Case Cargo Item carbine 1 Model[4]",
+   "parent": "105756c6-7684-51e4-ba10-af091fa69f19",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bbf2659b-e0e9-4d59-8233-2f44fdb8dbd4",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "e0f77bd7-0b3d-58a5-b43a-8cb10807d71f",
+   "name": "Camp Arms Case Cargo Item marksman 1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.12,
+      0.1,
+      1
+     ],
+     "radius": 0.5,
+     "height": 1,
+     "offset": [
+      0,
+      0.05,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 6,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "kinematic",
+     "mass": 1,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Transform": {
+     "position": [
+      0,
+      -20,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "fcbddfcc-d352-5586-8357-b0701bdce284",
+   "name": "Camp Arms Case Cargo Item marksman 1 Model",
+   "parent": "e0f77bd7-0b3d-58a5-b43a-8cb10807d71f",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "24943852-b162-5402-aff0-9b26df52644a",
+   "name": "Camp Arms Case Cargo Item marksman 1 Model[0]",
+   "parent": "fcbddfcc-d352-5586-8357-b0701bdce284",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "0b1075c2-d5b9-4702-917a-1978cda9d80d",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "056a99bc-3d3b-56b2-8bf9-3319d8afea87",
+   "name": "Camp Arms Case Cargo Item marksman 1 Model[1]",
+   "parent": "fcbddfcc-d352-5586-8357-b0701bdce284",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "0b1075c2-d5b9-4702-917a-1978cda9d80d",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d86482ac-4b57-5ec2-b45b-967769f46797",
+   "name": "Camp Arms Case Cargo Item marksman 1 Model[2]",
+   "parent": "fcbddfcc-d352-5586-8357-b0701bdce284",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "0b1075c2-d5b9-4702-917a-1978cda9d80d",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1e2140c3-b211-5af9-a8ae-90a7b3ad98dd",
+   "name": "Camp Arms Case Cargo Item marksman 1 Model[3]",
+   "parent": "fcbddfcc-d352-5586-8357-b0701bdce284",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "0b1075c2-d5b9-4702-917a-1978cda9d80d",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "6b23d122-a26b-546e-bfcd-692d65a9f3ba",
+   "name": "Camp Arms Case Cargo Item marksman 1 Model[4]",
+   "parent": "fcbddfcc-d352-5586-8357-b0701bdce284",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "0b1075c2-d5b9-4702-917a-1978cda9d80d",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "0d6faef5-b68e-5b83-b39b-d27ca9a762f8",
+   "name": "Camp Arms Case Cargo Item marksman 1 Model[5]",
+   "parent": "fcbddfcc-d352-5586-8357-b0701bdce284",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "0b1075c2-d5b9-4702-917a-1978cda9d80d",
+     "mesh_index": 5,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "08545938-9aa1-5710-89b5-6c11dfa96fd8",
+   "name": "Camp Arms Case Cargo Item sidearm 1",
+   "parent": "f1c10c4d-4445-54d8-a7df-7731a18a8157",
+   "components": {
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.1,
+      0.06,
+      0.24
+     ],
+     "radius": 0.5,
+     "height": 1,
+     "offset": [
+      0,
+      0.03,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 6,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "kinematic",
+     "mass": 1,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Transform": {
+     "position": [
+      0,
+      -20,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1cdaaa80-d2a8-50e1-8217-378b3e1d757c",
+   "name": "Camp Arms Case Cargo Item sidearm 1 Model",
+   "parent": "08545938-9aa1-5710-89b5-6c11dfa96fd8",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "a86d6252-d91b-50ec-ae9d-8d628bd19f38",
+   "name": "Camp Arms Case Cargo Item sidearm 1 Model[0]",
+   "parent": "1cdaaa80-d2a8-50e1-8217-378b3e1d757c",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bc54b13e-6bc5-4f2e-84a2-0d05b4f4312f",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "bbdf507f-277c-5a69-abbb-a8e714db3729",
+   "name": "Camp Arms Case Cargo Item sidearm 1 Model[1]",
+   "parent": "1cdaaa80-d2a8-50e1-8217-378b3e1d757c",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bc54b13e-6bc5-4f2e-84a2-0d05b4f4312f",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "b9f719b6-4984-589e-baf2-35e9ebf2b3ce",
+   "name": "Camp Arms Case Cargo Item sidearm 1 Model[2]",
+   "parent": "1cdaaa80-d2a8-50e1-8217-378b3e1d757c",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bc54b13e-6bc5-4f2e-84a2-0d05b4f4312f",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "537b5ce9-c116-5919-9526-b89fd44cffc1",
+   "name": "Camp Arms Case Cargo Item sidearm 1 Model[3]",
+   "parent": "1cdaaa80-d2a8-50e1-8217-378b3e1d757c",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bc54b13e-6bc5-4f2e-84a2-0d05b4f4312f",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "4e9d7465-97ae-5e44-9658-98687af1aca7",
+   "name": "Camp Arms Case Cargo Item sidearm 1 Model[4]",
+   "parent": "1cdaaa80-d2a8-50e1-8217-378b3e1d757c",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "bc54b13e-6bc5-4f2e-84a2-0d05b4f4312f",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": true,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
    "uuid": "6def176c-14d8-5442-a6b2-c61c9acdba54",
    "name": "Player",
    "components": {
@@ -18799,6 +21256,45 @@
       0,
       0,
       1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "383e40c4-6d56-56b6-b664-a68e28a7fc91",
+   "name": "Weapon Light",
+   "parent": "d767db66-13e3-5e68-8b4b-a3151768cc0c",
+   "components": {
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9200000166893005,
+      0.949999988079071,
+      1,
+      1
+     ],
+     "intensity": 18,
+     "range": 34,
+     "shadows": true,
+     "inner_angle": 9,
+     "outer_angle": 24
+    },
+    "Transform": {
+     "position": [
+      0.1599999964237213,
+      -0.1599999964237213,
+      -0.25
+     ],
+     "rotation": [
+      -0.013089099898934364,
+      -0.00872579962015152,
+      -0.00011419999646022916,
+      0.9998763203620911
      ],
      "scale": [
       1,
@@ -20623,6 +23119,2035 @@
    "uuid": "48e9be7f-3435-54bf-b4c6-e5a55929ad54",
    "name": "Marksman Flash[0]",
    "parent": "13596f29-4aa8-51cd-a153-05dd0646937b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d7b5a7df-fc61-5ae1-95ff-4d2c82e62e2c",
+   "name": "PDW",
+   "parent": "d3be47d9-07a4-5a4c-82f9-cc461127bf41",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "5370f0d0-58b4-5576-9ee7-c9ad1ed822e3",
+   "name": "PDW Body",
+   "parent": "d7b5a7df-fc61-5ae1-95ff-4d2c82e62e2c",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "188ef5e7-519f-526c-aa4f-8e6d5133a6f7",
+   "name": "PDW Body[0]",
+   "parent": "5370f0d0-58b4-5576-9ee7-c9ad1ed822e3",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "357918ed-4e90-5601-9015-8b3afebb84a8",
+   "name": "PDW Body[1]",
+   "parent": "5370f0d0-58b4-5576-9ee7-c9ad1ed822e3",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "e4457218-03e8-5b0e-87e8-09fa5a7ce085",
+   "name": "PDW Body[2]",
+   "parent": "5370f0d0-58b4-5576-9ee7-c9ad1ed822e3",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "5af1da9a-1f5e-56b0-995e-af167c21c919",
+   "name": "PDW Body[3]",
+   "parent": "5370f0d0-58b4-5576-9ee7-c9ad1ed822e3",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "adf29cfb-70f9-5cd5-98e5-f8b007ff7064",
+   "name": "PDW Body[4]",
+   "parent": "5370f0d0-58b4-5576-9ee7-c9ad1ed822e3",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "06bce00a-77fa-5559-a13e-0dc95131523b",
+   "name": "PDW Body[5]",
+   "parent": "5370f0d0-58b4-5576-9ee7-c9ad1ed822e3",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 5,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1958dd6a-c6c8-5c18-84a2-ec9d58f81c0e",
+   "name": "PDW Cell",
+   "parent": "d7b5a7df-fc61-5ae1-95ff-4d2c82e62e2c",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "483a902b-7512-5691-9732-ed4fa17edc65",
+   "name": "PDW Cell[0]",
+   "parent": "1958dd6a-c6c8-5c18-84a2-ec9d58f81c0e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "69e5cee3-c8cb-4991-8774-bbf59cdba781",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "502b0ff1-b7b1-5718-97a9-9ff40a249223",
+   "name": "PDW Cell[1]",
+   "parent": "1958dd6a-c6c8-5c18-84a2-ec9d58f81c0e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "69e5cee3-c8cb-4991-8774-bbf59cdba781",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "4ecf0b07-5c96-5b43-b10a-8d8168e1f62d",
+   "name": "PDW Hand R",
+   "parent": "d7b5a7df-fc61-5ae1-95ff-4d2c82e62e2c",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "79502767-aad1-506d-b52b-7ee7d32ab425",
+   "name": "PDW Hand R[0]",
+   "parent": "4ecf0b07-5c96-5b43-b10a-8d8168e1f62d",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "966cba5c-503e-54a1-96cf-a61318a4fd82",
+   "name": "PDW Hand R[1]",
+   "parent": "4ecf0b07-5c96-5b43-b10a-8d8168e1f62d",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "87ecb03e-98a9-58c8-bcea-948194d16b41",
+   "name": "PDW Hand L",
+   "parent": "d7b5a7df-fc61-5ae1-95ff-4d2c82e62e2c",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      -0.012000000104308128,
+      -0.17000000178813934
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7e20cd0f-a5e4-5c9a-9970-aa879c9ff497",
+   "name": "PDW Hand L[0]",
+   "parent": "87ecb03e-98a9-58c8-bcea-948194d16b41",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "c822fdc7-3d13-5cca-9174-4d92eaa522d5",
+   "name": "PDW Hand L[1]",
+   "parent": "87ecb03e-98a9-58c8-bcea-948194d16b41",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "ceb1c0a6-a2dc-55d8-8b22-c465d88ca850",
+   "name": "PDW Muzzle",
+   "parent": "d7b5a7df-fc61-5ae1-95ff-4d2c82e62e2c",
+   "components": {
+    "Light": {
+     "type": "point",
+     "color": [
+      0.44999998807907104,
+      0.8999999761581421,
+      1,
+      1
+     ],
+     "intensity": 0,
+     "range": 5,
+     "shadows": false
+    },
+    "Transform": {
+     "position": [
+      0,
+      0.05000000074505806,
+      -0.38999998569488525
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "ce418019-39eb-5852-a100-802b4a2f4b86",
+   "name": "PDW Flash",
+   "parent": "ceb1c0a6-a2dc-55d8-8b22-c465d88ca850",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0.009999999776482582
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      4,
+      4,
+      0.09000000357627869
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "89c34252-e13c-561b-a925-545ef3ad36c6",
+   "name": "PDW Flash[0]",
+   "parent": "ce418019-39eb-5852-a100-802b4a2f4b86",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "cc5b8c41-0937-5f82-afbb-74fb437d10d7",
+   "name": "Breacher",
+   "parent": "d3be47d9-07a4-5a4c-82f9-cc461127bf41",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2ff834f0-fc7b-518a-96b3-a83c60898d6b",
+   "name": "Breacher Body",
+   "parent": "cc5b8c41-0937-5f82-afbb-74fb437d10d7",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "3f11a728-5171-54d9-8c18-5d910f6b4714",
+   "name": "Breacher Body[0]",
+   "parent": "2ff834f0-fc7b-518a-96b3-a83c60898d6b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "c12bf65e-bcba-5e3d-9cc2-a3fe61e75879",
+   "name": "Breacher Body[1]",
+   "parent": "2ff834f0-fc7b-518a-96b3-a83c60898d6b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d68b76dd-0972-5453-8773-c19413598696",
+   "name": "Breacher Body[2]",
+   "parent": "2ff834f0-fc7b-518a-96b3-a83c60898d6b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d7a6d568-498b-50b0-8fa5-bf5a6a4cee75",
+   "name": "Breacher Body[3]",
+   "parent": "2ff834f0-fc7b-518a-96b3-a83c60898d6b",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "ab1e98f8-1e68-5a34-8a4b-d0543d595cda",
+   "name": "Breacher Slide",
+   "parent": "cc5b8c41-0937-5f82-afbb-74fb437d10d7",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d8a376a6-cfe0-5399-9190-ffddc164385e",
+   "name": "Breacher Slide[0]",
+   "parent": "ab1e98f8-1e68-5a34-8a4b-d0543d595cda",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "782167eb-8031-49ef-a9bf-64d5f1ce4d16",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2de1a73d-7476-53cc-a33f-946bbb6d5e16",
+   "name": "Breacher Hand L",
+   "parent": "ab1e98f8-1e68-5a34-8a4b-d0543d595cda",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      -0.02800000086426735,
+      -0.2800000011920929
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "47b1dc08-1bd9-510b-8a9b-af5cc55be631",
+   "name": "Breacher Hand L[0]",
+   "parent": "2de1a73d-7476-53cc-a33f-946bbb6d5e16",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2b1c7b6e-c9bb-5850-b021-94825a51cc32",
+   "name": "Breacher Hand L[1]",
+   "parent": "2de1a73d-7476-53cc-a33f-946bbb6d5e16",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "dd797108-62ea-5078-acfc-620894c5361e",
+   "name": "Breacher Cell",
+   "parent": "cc5b8c41-0937-5f82-afbb-74fb437d10d7",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2d95de2a-cc3c-5ab8-a4b4-e1c0994ed012",
+   "name": "Breacher Cell[0]",
+   "parent": "dd797108-62ea-5078-acfc-620894c5361e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "f4647a0e-2486-4519-91a5-1b93a0dcca26",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "c041d94e-d0e5-5941-9bae-d65c0b735e59",
+   "name": "Breacher Cell[1]",
+   "parent": "dd797108-62ea-5078-acfc-620894c5361e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "f4647a0e-2486-4519-91a5-1b93a0dcca26",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "a0c8a7c8-d2b9-514e-a24e-14a086f78ea2",
+   "name": "Breacher Hand R",
+   "parent": "cc5b8c41-0937-5f82-afbb-74fb437d10d7",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "faa8519a-4805-5afb-8ee7-90ea62fad925",
+   "name": "Breacher Hand R[0]",
+   "parent": "a0c8a7c8-d2b9-514e-a24e-14a086f78ea2",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "53a7309d-5d06-5b92-a54e-e0f36b40b9f5",
+   "name": "Breacher Hand R[1]",
+   "parent": "a0c8a7c8-d2b9-514e-a24e-14a086f78ea2",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "73d50c40-4a7d-5408-900f-524f3dc61f90",
+   "name": "Breacher Muzzle",
+   "parent": "cc5b8c41-0937-5f82-afbb-74fb437d10d7",
+   "components": {
+    "Light": {
+     "type": "point",
+     "color": [
+      0.44999998807907104,
+      0.8999999761581421,
+      1,
+      1
+     ],
+     "intensity": 0,
+     "range": 5,
+     "shadows": false
+    },
+    "Transform": {
+     "position": [
+      0,
+      0.057999998331069946,
+      -0.5649999976158142
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "bf3123d9-6201-5a95-a85f-8e0609cb35c4",
+   "name": "Breacher Flash",
+   "parent": "73d50c40-4a7d-5408-900f-524f3dc61f90",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0.009999999776482582
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      4,
+      4,
+      0.09000000357627869
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "a4f8ad1e-f4ef-5e76-9d0b-d05c56395120",
+   "name": "Breacher Flash[0]",
+   "parent": "bf3123d9-6201-5a95-a85f-8e0609cb35c4",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7ec67cb2-f122-52a6-b730-672fdca1bc1b",
+   "name": "DMR",
+   "parent": "d3be47d9-07a4-5a4c-82f9-cc461127bf41",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d10e6aac-5431-515b-8d5b-ca6c6491ed6e",
+   "name": "DMR Body",
+   "parent": "7ec67cb2-f122-52a6-b730-672fdca1bc1b",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "deaf5a4a-6264-53ee-84a3-3d4d8161c9aa",
+   "name": "DMR Body[0]",
+   "parent": "d10e6aac-5431-515b-8d5b-ca6c6491ed6e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2bb786f4-07fc-5639-9362-592029513da8",
+   "name": "DMR Body[1]",
+   "parent": "d10e6aac-5431-515b-8d5b-ca6c6491ed6e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "6f078c09-8a9b-5cfc-8cfb-6e5bb4829c12",
+   "name": "DMR Body[2]",
+   "parent": "d10e6aac-5431-515b-8d5b-ca6c6491ed6e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 2,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "0b911afd-0180-5545-a99f-8033df4fe74a",
+   "name": "DMR Body[3]",
+   "parent": "d10e6aac-5431-515b-8d5b-ca6c6491ed6e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 3,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "b8de27cb-e811-5ad7-a16b-63664af1bdb9",
+   "name": "DMR Body[4]",
+   "parent": "d10e6aac-5431-515b-8d5b-ca6c6491ed6e",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 4,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1f423891-125d-5059-b1a7-216d9531719f",
+   "name": "DMR Cell",
+   "parent": "7ec67cb2-f122-52a6-b730-672fdca1bc1b",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "19dfc421-5286-527a-923e-53f58ec3274e",
+   "name": "DMR Cell[0]",
+   "parent": "1f423891-125d-5059-b1a7-216d9531719f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "2d5d0b10-373e-4868-8d31-822051e50b18",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "ae13d057-e168-52fb-aba5-0b86d5e0e50d",
+   "name": "DMR Cell[1]",
+   "parent": "1f423891-125d-5059-b1a7-216d9531719f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "2d5d0b10-373e-4868-8d31-822051e50b18",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "a2eb8c4c-5cec-56ba-af31-0aff753a7d2f",
+   "name": "DMR Hand R",
+   "parent": "7ec67cb2-f122-52a6-b730-672fdca1bc1b",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "744749bb-f821-54e1-a619-830ad77cc624",
+   "name": "DMR Hand R[0]",
+   "parent": "a2eb8c4c-5cec-56ba-af31-0aff753a7d2f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "9f925b82-06f2-50fa-9f8b-92c624e01ae1",
+   "name": "DMR Hand R[1]",
+   "parent": "a2eb8c4c-5cec-56ba-af31-0aff753a7d2f",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "798753f4-cea3-5806-8bc2-27ce40c187ce",
+   "name": "DMR Hand L",
+   "parent": "7ec67cb2-f122-52a6-b730-672fdca1bc1b",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      -0.3100000023841858
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7d285dca-99b0-5f7f-8682-73243a5afe4a",
+   "name": "DMR Hand L[0]",
+   "parent": "798753f4-cea3-5806-8bc2-27ce40c187ce",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 0,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "92cf96cb-22bb-5096-be91-053852eda5ee",
+   "name": "DMR Hand L[1]",
+   "parent": "798753f4-cea3-5806-8bc2-27ce40c187ce",
+   "components": {
+    "MeshRenderer": {
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 1,
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0,
+     "roughness": 0.8500000238418579,
+     "cast_shadows": false,
+     "visible": true
+    },
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "8a402f2a-bcf3-5ec5-b4ed-640c71c2f01c",
+   "name": "DMR Muzzle",
+   "parent": "7ec67cb2-f122-52a6-b730-672fdca1bc1b",
+   "components": {
+    "Light": {
+     "type": "point",
+     "color": [
+      0.44999998807907104,
+      0.8999999761581421,
+      1,
+      1
+     ],
+     "intensity": 0,
+     "range": 5,
+     "shadows": false
+    },
+    "Transform": {
+     "position": [
+      0,
+      0.04500000178813934,
+      -0.6700000166893005
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "006e7dde-7c99-5f2f-b819-bf7b7db8dc7a",
+   "name": "DMR Flash",
+   "parent": "8a402f2a-bcf3-5ec5-b4ed-640c71c2f01c",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0.009999999776482582
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      4,
+      4,
+      0.09000000357627869
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "b293b00d-5e3c-56e3-97b5-8d9ec48c7e04",
+   "name": "DMR Flash[0]",
+   "parent": "006e7dde-7c99-5f2f-b819-bf7b7db8dc7a",
    "components": {
     "MeshRenderer": {
      "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
@@ -25319,6 +29844,98 @@
     },
     "UiText": {
      "text": "OBJ",
+     "key": "",
+     "font_size": 15,
+     "color": [
+      1,
+      1,
+      1,
+      0.92
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    }
+   }
+  },
+  {
+   "uuid": "863fead6-c4b1-52c7-adb6-5330da701fbf",
+   "name": "Touch light",
+   "parent": "accd3d67-c77b-55ce-a732-4ce4924bf695",
+   "components": {
+    "Transform": {
+     "position": [
+      0,
+      0,
+      0
+     ],
+     "rotation": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "scale": [
+      1,
+      1,
+      1
+     ]
+    },
+    "UiPanel": {
+     "color": [
+      0.05,
+      0.07,
+      0.08,
+      0.35
+     ],
+     "corner_radius": 30,
+     "border_color": [
+      1,
+      1,
+      1,
+      0.45
+     ],
+     "border_width": 2
+    },
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0
+     ],
+     "anchor_max": [
+      1,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      60,
+      60
+     ],
+     "visible": true,
+     "opacity": 1,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "LIGHT",
      "key": "",
      "font_size": 15,
      "color": [
@@ -34155,130 +38772,13 @@
    }
   },
   {
-   "uuid": "33ff8255-5438-4e7a-98ec-d5fb48d9099d",
+   "uuid": "967a0f98-891c-4f61-8cb1-c30a20b71ca1",
    "name": "World Streaming",
    "components": {
     "WorldStreaming": {
      "world": "worlds/kestrel.vworld"
     }
    }
-  },
-  {
-   "uuid": "d533590d-3614-520e-b4e2-72733ec06983",
-   "name": "Weapon Light",
-   "components": {
-    "Transform": {
-     "position": [
-      0.16,
-      -0.16,
-      -0.25
-     ],
-     "rotation": [
-      -0.0130891,
-      -0.0087258,
-      -0.0001142,
-      0.9998763
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "spot",
-     "color": [
-      0.92,
-      0.95,
-      1.0,
-      1
-     ],
-     "intensity": 18.0,
-     "range": 34.0,
-     "shadows": true,
-     "inner_angle": 9.0,
-     "outer_angle": 24.0
-    }
-   },
-   "parent": "d767db66-13e3-5e68-8b4b-a3151768cc0c"
-  },
-  {
-   "uuid": "5ba8404a-3b24-5125-9889-115062ea5aac",
-   "name": "Mule Headlight L",
-   "components": {
-    "Transform": {
-     "position": [
-      -0.72,
-      0.93,
-      -2.47
-     ],
-     "rotation": [
-      -0.0436194,
-      0.0,
-      0.0,
-      0.9990482
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "spot",
-     "color": [
-      1.0,
-      0.95,
-      0.86,
-      1
-     ],
-     "intensity": 30.0,
-     "range": 45.0,
-     "shadows": false,
-     "inner_angle": 16.0,
-     "outer_angle": 34.0
-    }
-   },
-   "parent": "f29b0236-6b33-55e5-ae37-0fe42f4f290a"
-  },
-  {
-   "uuid": "24650655-2061-55b0-ab87-fc56fe5763b6",
-   "name": "Mule Headlight R",
-   "components": {
-    "Transform": {
-     "position": [
-      0.72,
-      0.93,
-      -2.47
-     ],
-     "rotation": [
-      -0.0436194,
-      0.0,
-      0.0,
-      0.9990482
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "spot",
-     "color": [
-      1.0,
-      0.95,
-      0.86,
-      1
-     ],
-     "intensity": 30.0,
-     "range": 45.0,
-     "shadows": false,
-     "inner_angle": 16.0,
-     "outer_angle": 34.0
-    }
-   },
-   "parent": "f29b0236-6b33-55e5-ae37-0fe42f4f290a"
   },
   {
    "uuid": "e5a4cd9f-8ed1-5ac1-b167-4cdf19bd35c4",
@@ -36077,8 +40577,8 @@
    "parent": "c522ea07-f907-53e6-92bd-0c3769e36dd3"
   },
   {
-   "uuid": "72af3539-7602-5799-a3c7-2da3aaf6b2c7",
-   "name": "Carry Cell",
+   "uuid": "f8000751-b6d7-54c2-b22d-6bc9916bc975",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -36102,8 +40602,8 @@
    "parent": "418ebc51-22c9-58d5-92b7-8d32b06ab3da"
   },
   {
-   "uuid": "87715d76-8bac-558d-9603-3a120ffeccae",
-   "name": "Carry Cell[0]",
+   "uuid": "36c89f99-6ee5-5b21-bfb8-f5f3419f1020",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -36138,11 +40638,11 @@
      ]
     }
    },
-   "parent": "72af3539-7602-5799-a3c7-2da3aaf6b2c7"
+   "parent": "f8000751-b6d7-54c2-b22d-6bc9916bc975"
   },
   {
-   "uuid": "259ed88c-5d7f-5043-b0d6-62b7fbd8f1c6",
-   "name": "Carry Cell[1]",
+   "uuid": "5100b778-47bf-59f0-af68-ce08da70f232",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -36177,7 +40677,7 @@
      ]
     }
    },
-   "parent": "72af3539-7602-5799-a3c7-2da3aaf6b2c7"
+   "parent": "f8000751-b6d7-54c2-b22d-6bc9916bc975"
   },
   {
    "uuid": "6dc55340-d4bc-5cb9-bccd-5ba4f210b191",
@@ -37345,7 +41845,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
      "mesh_index": 0
     },
     "Transform": {
@@ -37384,7 +41884,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
      "mesh_index": 1
     },
     "Transform": {
@@ -37423,7 +41923,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
      "mesh_index": 2
     },
     "Transform": {
@@ -37448,8 +41948,125 @@
    "parent": "2deae0a2-c892-52d3-ab6f-31232c3e9fde"
   },
   {
-   "uuid": "baf2dbb2-2c0c-5860-97ac-ec14487d0966",
-   "name": "Carry Cell",
+   "uuid": "7f0f1487-cdb1-5fd7-8458-a9b8806b1182",
+   "name": "Carry Body[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2deae0a2-c892-52d3-ab6f-31232c3e9fde"
+  },
+  {
+   "uuid": "2d6692b1-c421-5bf5-b655-cf9ae7c8be29",
+   "name": "Carry Body[4]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 4
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2deae0a2-c892-52d3-ab6f-31232c3e9fde"
+  },
+  {
+   "uuid": "fc8cfd71-680d-565e-8b32-3324dad20d40",
+   "name": "Carry Body[5]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1fcecd2e-9e20-429a-8654-70bcef87563f",
+     "mesh_index": 5
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2deae0a2-c892-52d3-ab6f-31232c3e9fde"
+  },
+  {
+   "uuid": "d1caf901-b21d-5cd6-8f41-92efefa2eb73",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -37473,8 +42090,8 @@
    "parent": "89c2d9c3-160b-5e8a-a0b2-89ab850c3559"
   },
   {
-   "uuid": "0d8c9c34-8a69-5ba9-925d-6ba44739cfc2",
-   "name": "Carry Cell[0]",
+   "uuid": "a166f2ff-ad33-5300-96f7-d38942162ae5",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -37487,7 +42104,7 @@
      "roughness": 0.85,
      "cast_shadows": false,
      "visible": true,
-     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh": "69e5cee3-c8cb-4991-8774-bbf59cdba781",
      "mesh_index": 0
     },
     "Transform": {
@@ -37509,11 +42126,11 @@
      ]
     }
    },
-   "parent": "baf2dbb2-2c0c-5860-97ac-ec14487d0966"
+   "parent": "d1caf901-b21d-5cd6-8f41-92efefa2eb73"
   },
   {
-   "uuid": "2f51fd14-7e98-55a8-a2ca-c859c4da6da1",
-   "name": "Carry Cell[1]",
+   "uuid": "b0c1c6e9-7386-5bb5-912c-a6a9463189c0",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -37526,7 +42143,7 @@
      "roughness": 0.85,
      "cast_shadows": false,
      "visible": true,
-     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh": "69e5cee3-c8cb-4991-8774-bbf59cdba781",
      "mesh_index": 1
     },
     "Transform": {
@@ -37548,7 +42165,7 @@
      ]
     }
    },
-   "parent": "baf2dbb2-2c0c-5860-97ac-ec14487d0966"
+   "parent": "d1caf901-b21d-5cd6-8f41-92efefa2eb73"
   },
   {
    "uuid": "ce284bca-a1b7-5d93-8a05-5b8aa90a0406",
@@ -37581,9 +42198,9 @@
    "components": {
     "Transform": {
      "position": [
-      0.012,
-      -0.05,
-      -0.12
+      0.01,
+      -0.07,
+      -0.1
      ],
      "rotation": [
       0.0,
@@ -37607,8 +42224,8 @@
     "Transform": {
      "position": [
       0.0,
-      0.045,
-      -0.52
+      0.05,
+      -0.39
      ],
      "rotation": [
       0.0,
@@ -38716,7 +43333,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
      "mesh_index": 0
     },
     "Transform": {
@@ -38755,7 +43372,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
      "mesh_index": 1
     },
     "Transform": {
@@ -38794,7 +43411,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
      "mesh_index": 2
     },
     "Transform": {
@@ -38819,8 +43436,86 @@
    "parent": "2250d3cb-50ee-5a7d-a2a6-e0efc54c25df"
   },
   {
-   "uuid": "bfb8a9ce-ed19-5660-a523-83e5b1299e15",
-   "name": "Carry Cell",
+   "uuid": "cae9a4c5-ad2f-5d05-a368-6a23a3b44dfe",
+   "name": "Carry Body[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2250d3cb-50ee-5a7d-a2a6-e0efc54c25df"
+  },
+  {
+   "uuid": "5e73f179-c708-536a-ac40-61cf1efaf5df",
+   "name": "Carry Body[4]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 4
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2250d3cb-50ee-5a7d-a2a6-e0efc54c25df"
+  },
+  {
+   "uuid": "53a20438-5649-5b8d-89cc-0ed4d81ecc8f",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -38844,8 +43539,8 @@
    "parent": "16da7807-1efb-5d5e-a95b-f8723720ef41"
   },
   {
-   "uuid": "e8ab53e5-117f-556e-91bf-c15ac53b4bf5",
-   "name": "Carry Cell[0]",
+   "uuid": "6423f3e5-fdea-5da5-89f3-c04e7da0aa12",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -38858,7 +43553,7 @@
      "roughness": 0.85,
      "cast_shadows": false,
      "visible": true,
-     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh": "2d5d0b10-373e-4868-8d31-822051e50b18",
      "mesh_index": 0
     },
     "Transform": {
@@ -38880,11 +43575,11 @@
      ]
     }
    },
-   "parent": "bfb8a9ce-ed19-5660-a523-83e5b1299e15"
+   "parent": "53a20438-5649-5b8d-89cc-0ed4d81ecc8f"
   },
   {
-   "uuid": "1115158a-5849-5496-ae6e-2d44a55e305e",
-   "name": "Carry Cell[1]",
+   "uuid": "34b8cffb-131e-5056-a790-0f90a1249a32",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -38897,7 +43592,7 @@
      "roughness": 0.85,
      "cast_shadows": false,
      "visible": true,
-     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh": "2d5d0b10-373e-4868-8d31-822051e50b18",
      "mesh_index": 1
     },
     "Transform": {
@@ -38919,7 +43614,7 @@
      ]
     }
    },
-   "parent": "bfb8a9ce-ed19-5660-a523-83e5b1299e15"
+   "parent": "53a20438-5649-5b8d-89cc-0ed4d81ecc8f"
   },
   {
    "uuid": "36fa0680-045e-5f7a-ae9a-7a041ca59769",
@@ -38954,7 +43649,7 @@
      "position": [
       0.012,
       -0.05,
-      -0.12
+      -0.2
      ],
      "rotation": [
       0.0,
@@ -38979,7 +43674,7 @@
      "position": [
       0.0,
       0.045,
-      -0.52
+      -0.67
      ],
      "rotation": [
       0.0,
@@ -40190,8 +44885,8 @@
    "parent": "043edbac-d126-5fcc-997a-915a0d456b66"
   },
   {
-   "uuid": "8484d7c7-2070-5a2f-a1e1-27587cd302f3",
-   "name": "Carry Cell",
+   "uuid": "9f857747-e8ff-5c80-80c0-d5cd50ac1327",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -40215,8 +44910,8 @@
    "parent": "58d817e4-3a12-5f85-8e0d-716eea61e337"
   },
   {
-   "uuid": "5c9a0a1d-7ae4-5ffc-bf9f-08333530e8b1",
-   "name": "Carry Cell[0]",
+   "uuid": "cd5348c8-f2de-591c-b657-824febb5d60d",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -40251,11 +44946,11 @@
      ]
     }
    },
-   "parent": "8484d7c7-2070-5a2f-a1e1-27587cd302f3"
+   "parent": "9f857747-e8ff-5c80-80c0-d5cd50ac1327"
   },
   {
-   "uuid": "1d8f2377-455a-56f6-84ef-98b0b2415be0",
-   "name": "Carry Cell[1]",
+   "uuid": "0b8874ad-cfab-5509-9068-de0bd5913d9b",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -40290,7 +44985,7 @@
      ]
     }
    },
-   "parent": "8484d7c7-2070-5a2f-a1e1-27587cd302f3"
+   "parent": "9f857747-e8ff-5c80-80c0-d5cd50ac1327"
   },
   {
    "uuid": "8c0c1f16-8899-5668-89a8-2b7a2fb1fb08",
@@ -41458,7 +46153,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
      "mesh_index": 0
     },
     "Transform": {
@@ -41497,7 +46192,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
      "mesh_index": 1
     },
     "Transform": {
@@ -41536,7 +46231,7 @@
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
      "mesh_index": 2
     },
     "Transform": {
@@ -41561,8 +46256,47 @@
    "parent": "dfddd2e0-39f7-583c-9f7a-980d5fc2b3e6"
   },
   {
-   "uuid": "f3e3c7da-424e-5a52-bb5d-cf1a53fce87e",
-   "name": "Carry Cell",
+   "uuid": "ecc8c12e-cd37-55e6-a06b-8dba4f825f41",
+   "name": "Carry Body[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dfddd2e0-39f7-583c-9f7a-980d5fc2b3e6"
+  },
+  {
+   "uuid": "92088f17-52ab-5b97-a64b-13b2a7035dfd",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -41586,8 +46320,8 @@
    "parent": "6a698a0c-3e2a-5db1-81fd-128a6a19b358"
   },
   {
-   "uuid": "0f39f38a-c892-514c-a74f-f8f3736e0801",
-   "name": "Carry Cell[0]",
+   "uuid": "41ba91be-3865-5de0-b4e5-5b138794aa20",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -41600,7 +46334,7 @@
      "roughness": 0.85,
      "cast_shadows": false,
      "visible": true,
-     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh": "782167eb-8031-49ef-a9bf-64d5f1ce4d16",
      "mesh_index": 0
     },
     "Transform": {
@@ -41622,11 +46356,36 @@
      ]
     }
    },
-   "parent": "f3e3c7da-424e-5a52-bb5d-cf1a53fce87e"
+   "parent": "92088f17-52ab-5b97-a64b-13b2a7035dfd"
   },
   {
-   "uuid": "b0f13631-d36c-5af1-8182-a4312951946c",
-   "name": "Carry Cell[1]",
+   "uuid": "9ed40522-ea70-56c8-8fbd-d408871e56df",
+   "name": "Carry Part 2",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6a698a0c-3e2a-5db1-81fd-128a6a19b358"
+  },
+  {
+   "uuid": "bfeb0627-3c57-5c60-bfef-907ba97376a4",
+   "name": "Carry Part 2[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -41639,7 +46398,46 @@
      "roughness": 0.85,
      "cast_shadows": false,
      "visible": true,
-     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh": "f4647a0e-2486-4519-91a5-1b93a0dcca26",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9ed40522-ea70-56c8-8fbd-d408871e56df"
+  },
+  {
+   "uuid": "f7199e2f-cb33-5df4-a21d-154d1e8935dc",
+   "name": "Carry Part 2[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4647a0e-2486-4519-91a5-1b93a0dcca26",
      "mesh_index": 1
     },
     "Transform": {
@@ -41661,7 +46459,7 @@
      ]
     }
    },
-   "parent": "f3e3c7da-424e-5a52-bb5d-cf1a53fce87e"
+   "parent": "9ed40522-ea70-56c8-8fbd-d408871e56df"
   },
   {
    "uuid": "6d3eeebf-ab26-578e-947a-f4b176f5316c",
@@ -41695,8 +46493,8 @@
     "Transform": {
      "position": [
       0.012,
-      -0.05,
-      -0.12
+      -0.06,
+      -0.2
      ],
      "rotation": [
       0.0,
@@ -41720,8 +46518,8 @@
     "Transform": {
      "position": [
       0.0,
-      0.045,
-      -0.52
+      0.058,
+      -0.565
      ],
      "rotation": [
       0.0,
@@ -43840,8 +48638,8 @@
    "parent": "ee17e123-a4db-5a3f-9c73-414234084870"
   },
   {
-   "uuid": "f4ce0087-ea86-5d00-8ea7-3b61648fabe6",
-   "name": "Carry Cell",
+   "uuid": "e9dd426b-3a8b-5891-9601-afead6212a5d",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -43865,8 +48663,8 @@
    "parent": "53293075-9fe1-5f42-938e-cfb27211328c"
   },
   {
-   "uuid": "5a0ed0f3-ff70-58a5-9967-eaab016785d9",
-   "name": "Carry Cell[0]",
+   "uuid": "a6837e18-bf53-5511-bf9e-5921b8ca2cb4",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -43901,11 +48699,11 @@
      ]
     }
    },
-   "parent": "f4ce0087-ea86-5d00-8ea7-3b61648fabe6"
+   "parent": "e9dd426b-3a8b-5891-9601-afead6212a5d"
   },
   {
-   "uuid": "431a2764-8894-5893-bf6f-d6083ec61115",
-   "name": "Carry Cell[1]",
+   "uuid": "554a5bbf-9234-5e62-9665-3dee321c1df1",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -43940,7 +48738,7 @@
      ]
     }
    },
-   "parent": "f4ce0087-ea86-5d00-8ea7-3b61648fabe6"
+   "parent": "e9dd426b-3a8b-5891-9601-afead6212a5d"
   },
   {
    "uuid": "d13d294c-9864-5a10-bacc-3feba347cb9c",
@@ -45212,8 +50010,8 @@
    "parent": "2a4a833d-1415-53bf-8880-41840e3af6f0"
   },
   {
-   "uuid": "d66b6f50-88ac-5a69-8756-eef904cc8c63",
-   "name": "Carry Cell",
+   "uuid": "6268b6fc-2543-53ae-a3ce-4eb1c7af1cdb",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -45237,8 +50035,8 @@
    "parent": "71813eb4-06aa-5f25-8f1e-1f0c1f0bfcda"
   },
   {
-   "uuid": "852eec31-1ed0-542b-9974-495b94769234",
-   "name": "Carry Cell[0]",
+   "uuid": "0579b892-538b-59d9-8578-c4598010d1b7",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -45273,11 +50071,11 @@
      ]
     }
    },
-   "parent": "d66b6f50-88ac-5a69-8756-eef904cc8c63"
+   "parent": "6268b6fc-2543-53ae-a3ce-4eb1c7af1cdb"
   },
   {
-   "uuid": "0d6648e4-4393-5fd8-a2fd-9210a9a16265",
-   "name": "Carry Cell[1]",
+   "uuid": "8b516ab7-a472-5944-bcab-9cbc6eb4d07c",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -45312,7 +50110,7 @@
      ]
     }
    },
-   "parent": "d66b6f50-88ac-5a69-8756-eef904cc8c63"
+   "parent": "6268b6fc-2543-53ae-a3ce-4eb1c7af1cdb"
   },
   {
    "uuid": "4f7d89c0-6673-5cab-aad1-16a4f66fb7d2",
@@ -46583,8 +51381,8 @@
    "parent": "4abcd350-6309-54ca-8565-8455a83747eb"
   },
   {
-   "uuid": "7cb961e4-7473-55d3-93b3-406cf8bf1a16",
-   "name": "Carry Cell",
+   "uuid": "d4c2bc49-cd96-5937-9a1a-349ba664235e",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -46608,8 +51406,8 @@
    "parent": "61cb3a54-575d-513b-8a80-6b6a69f15a5c"
   },
   {
-   "uuid": "5189273c-5623-5d8e-a6d0-c6bc45d798b2",
-   "name": "Carry Cell[0]",
+   "uuid": "7c6614d4-adcc-5af4-bd5f-712857b5c903",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -46644,11 +51442,11 @@
      ]
     }
    },
-   "parent": "7cb961e4-7473-55d3-93b3-406cf8bf1a16"
+   "parent": "d4c2bc49-cd96-5937-9a1a-349ba664235e"
   },
   {
-   "uuid": "4998373d-e59f-5908-8355-1102d2b4e316",
-   "name": "Carry Cell[1]",
+   "uuid": "757be706-2b68-547d-88b6-cffb81bd7ff3",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -46683,7 +51481,7 @@
      ]
     }
    },
-   "parent": "7cb961e4-7473-55d3-93b3-406cf8bf1a16"
+   "parent": "d4c2bc49-cd96-5937-9a1a-349ba664235e"
   },
   {
    "uuid": "57cc69d5-bbf9-5cf6-a066-fff584bb329c",
@@ -47954,8 +52752,8 @@
    "parent": "974b7e7f-4c9a-5292-b241-00af4803234e"
   },
   {
-   "uuid": "bf4ddff9-64dc-5014-9db2-cd283f6140ea",
-   "name": "Carry Cell",
+   "uuid": "2fdd1b93-aefc-57e8-a036-44676198f377",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -47979,8 +52777,8 @@
    "parent": "630cd12f-7b73-5113-a8de-c4db5bd4dbac"
   },
   {
-   "uuid": "de93c780-fd9a-54af-aedd-e069b9bfe802",
-   "name": "Carry Cell[0]",
+   "uuid": "3dddab78-6738-5bfb-ac1d-67a06a2b31b7",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -48015,11 +52813,11 @@
      ]
     }
    },
-   "parent": "bf4ddff9-64dc-5014-9db2-cd283f6140ea"
+   "parent": "2fdd1b93-aefc-57e8-a036-44676198f377"
   },
   {
-   "uuid": "d1d14188-6922-58bf-a45a-744c0d04e165",
-   "name": "Carry Cell[1]",
+   "uuid": "f06e6942-4290-5108-8af0-fc18f8e24271",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -48054,7 +52852,7 @@
      ]
     }
    },
-   "parent": "bf4ddff9-64dc-5014-9db2-cd283f6140ea"
+   "parent": "2fdd1b93-aefc-57e8-a036-44676198f377"
   },
   {
    "uuid": "503ff234-8f9a-56aa-bb8f-2b7ca115524a",
@@ -49324,8 +54122,8 @@
    "parent": "287893a0-5b41-58c1-b217-c171b2a9f515"
   },
   {
-   "uuid": "1ac8dbaa-6833-57f2-b212-6fb2771c5832",
-   "name": "Carry Cell",
+   "uuid": "7af6cb05-3a57-5dd3-b603-69e1eb94ef58",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -49349,8 +54147,8 @@
    "parent": "a094308c-4128-5c3a-8bea-8a715dc62e4d"
   },
   {
-   "uuid": "f0faee89-b35b-5934-9711-b7e0a4d8270d",
-   "name": "Carry Cell[0]",
+   "uuid": "487ac72f-6101-5654-b316-0e14816239cc",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -49385,11 +54183,11 @@
      ]
     }
    },
-   "parent": "1ac8dbaa-6833-57f2-b212-6fb2771c5832"
+   "parent": "7af6cb05-3a57-5dd3-b603-69e1eb94ef58"
   },
   {
-   "uuid": "da226768-e34b-5748-a5eb-be3304016718",
-   "name": "Carry Cell[1]",
+   "uuid": "8be0eebc-8420-5af8-abed-beee63ba7a25",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -49424,7 +54222,7 @@
      ]
     }
    },
-   "parent": "1ac8dbaa-6833-57f2-b212-6fb2771c5832"
+   "parent": "7af6cb05-3a57-5dd3-b603-69e1eb94ef58"
   },
   {
    "uuid": "ea758c8b-b088-56c1-9a5b-042f419dc047",
@@ -50694,8 +55492,8 @@
    "parent": "7fb66b09-d95a-5494-80de-0a2f3b719b25"
   },
   {
-   "uuid": "c6ef4a35-883c-5224-a524-39a61b04509d",
-   "name": "Carry Cell",
+   "uuid": "6226e7f9-89f3-518e-a0b2-f3c9644e795e",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -50719,8 +55517,8 @@
    "parent": "dd5de7da-542f-56c5-95fb-d906e73895f1"
   },
   {
-   "uuid": "6d7d611c-8333-57df-9623-b77b35aeff4c",
-   "name": "Carry Cell[0]",
+   "uuid": "821b7855-bccc-5451-a2f9-85aba15b980d",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -50755,11 +55553,11 @@
      ]
     }
    },
-   "parent": "c6ef4a35-883c-5224-a524-39a61b04509d"
+   "parent": "6226e7f9-89f3-518e-a0b2-f3c9644e795e"
   },
   {
-   "uuid": "62016eed-52d2-5817-8f3c-e3aa6d75cf10",
-   "name": "Carry Cell[1]",
+   "uuid": "f27d67ab-45d0-5afc-ab06-f53a29a901c1",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -50794,7 +55592,7 @@
      ]
     }
    },
-   "parent": "c6ef4a35-883c-5224-a524-39a61b04509d"
+   "parent": "6226e7f9-89f3-518e-a0b2-f3c9644e795e"
   },
   {
    "uuid": "1c4e5277-4d9c-52a8-b9a3-7099cb6ec74b",
@@ -52065,8 +56863,8 @@
    "parent": "8fffa746-d18b-5789-aa8b-6b2537893224"
   },
   {
-   "uuid": "62b037fa-c2df-5c3c-9c11-b07847402352",
-   "name": "Carry Cell",
+   "uuid": "0f08185d-2745-5151-9ca2-6a9634d9459a",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -52090,8 +56888,8 @@
    "parent": "98ea1b36-95ca-5cd3-9d08-868263a3ca8d"
   },
   {
-   "uuid": "c85478e5-cf67-52f8-839d-0372b825782f",
-   "name": "Carry Cell[0]",
+   "uuid": "2daefe6a-dc8c-58a2-ad92-cc3681eb2ed1",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -52126,11 +56924,11 @@
      ]
     }
    },
-   "parent": "62b037fa-c2df-5c3c-9c11-b07847402352"
+   "parent": "0f08185d-2745-5151-9ca2-6a9634d9459a"
   },
   {
-   "uuid": "dda4f37a-3fa4-59dd-8c62-73e670b95042",
-   "name": "Carry Cell[1]",
+   "uuid": "983cd132-1740-5197-8404-35f16ca23918",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -52165,7 +56963,7 @@
      ]
     }
    },
-   "parent": "62b037fa-c2df-5c3c-9c11-b07847402352"
+   "parent": "0f08185d-2745-5151-9ca2-6a9634d9459a"
   },
   {
    "uuid": "c4f15214-78cd-50a5-bf2a-50a4f1582ad0",
@@ -53435,8 +58233,8 @@
    "parent": "70b34b83-dfdc-58cd-b898-017b77ba6ebc"
   },
   {
-   "uuid": "1f4e7264-99e6-548a-90ef-a4b96c1a3d54",
-   "name": "Carry Cell",
+   "uuid": "ef38a3d9-6df7-59f8-bc73-1abbab8c8fa7",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -53460,8 +58258,8 @@
    "parent": "117eab43-9d55-50fd-a4b8-2d47bc392528"
   },
   {
-   "uuid": "d76835fa-6ac7-5326-91cf-aa0bc3ea0599",
-   "name": "Carry Cell[0]",
+   "uuid": "9143fdde-9f0a-518f-bf1e-b3649d9c98ef",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -53496,11 +58294,11 @@
      ]
     }
    },
-   "parent": "1f4e7264-99e6-548a-90ef-a4b96c1a3d54"
+   "parent": "ef38a3d9-6df7-59f8-bc73-1abbab8c8fa7"
   },
   {
-   "uuid": "8ed0537c-9d7c-596e-b136-521cf3758e80",
-   "name": "Carry Cell[1]",
+   "uuid": "6f41c605-b7a5-53af-bbe8-9a82d9b01df7",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -53535,7 +58333,7 @@
      ]
     }
    },
-   "parent": "1f4e7264-99e6-548a-90ef-a4b96c1a3d54"
+   "parent": "ef38a3d9-6df7-59f8-bc73-1abbab8c8fa7"
   },
   {
    "uuid": "12fe6a99-e434-57df-9b2b-d5fd06869802",
@@ -54806,8 +59604,8 @@
    "parent": "5b7e7e3c-9107-5917-aa12-07bfc21aed51"
   },
   {
-   "uuid": "1014671f-9647-5f3f-94b6-a6a8e6358da6",
-   "name": "Carry Cell",
+   "uuid": "4a7f9535-f751-5c03-9eac-b8ea214e7452",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -54831,8 +59629,8 @@
    "parent": "3488440b-0bf0-5f54-bf38-a9ffc45e3a5a"
   },
   {
-   "uuid": "5021bc6a-c9d8-5a97-976a-ac649ac4c6ca",
-   "name": "Carry Cell[0]",
+   "uuid": "3a5281f9-fb90-5369-9411-1e8c4fb46a93",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -54867,11 +59665,11 @@
      ]
     }
    },
-   "parent": "1014671f-9647-5f3f-94b6-a6a8e6358da6"
+   "parent": "4a7f9535-f751-5c03-9eac-b8ea214e7452"
   },
   {
-   "uuid": "9666d28e-85c8-557a-acfd-9c3861ab1619",
-   "name": "Carry Cell[1]",
+   "uuid": "fc0a8a25-a0af-59d9-b831-3a2ceaa68d18",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -54906,7 +59704,7 @@
      ]
     }
    },
-   "parent": "1014671f-9647-5f3f-94b6-a6a8e6358da6"
+   "parent": "4a7f9535-f751-5c03-9eac-b8ea214e7452"
   },
   {
    "uuid": "9bebd345-4400-5934-9724-fe83beab54a4",
@@ -56177,8 +60975,8 @@
    "parent": "2ea21e74-8391-52d1-916f-84b2fe1db78f"
   },
   {
-   "uuid": "91cc6c51-3ba7-5293-97e3-6b4772f6870b",
-   "name": "Carry Cell",
+   "uuid": "75bf7597-1755-59e5-8206-8c358d025a01",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -56202,8 +61000,8 @@
    "parent": "a9ed5334-9857-59f7-8479-da6dbab0b6fe"
   },
   {
-   "uuid": "f7900f3b-b64b-58a2-b4ef-174a81663db1",
-   "name": "Carry Cell[0]",
+   "uuid": "fbec1e14-4298-566a-b907-93db0b791b3f",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -56238,11 +61036,11 @@
      ]
     }
    },
-   "parent": "91cc6c51-3ba7-5293-97e3-6b4772f6870b"
+   "parent": "75bf7597-1755-59e5-8206-8c358d025a01"
   },
   {
-   "uuid": "7614c482-99e8-5252-8d42-458fbdec379d",
-   "name": "Carry Cell[1]",
+   "uuid": "c9052624-0afb-5c4d-8ca1-5b52d17247c0",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -56277,7 +61075,7 @@
      ]
     }
    },
-   "parent": "91cc6c51-3ba7-5293-97e3-6b4772f6870b"
+   "parent": "75bf7597-1755-59e5-8206-8c358d025a01"
   },
   {
    "uuid": "a226b966-2bcc-580e-9925-8e47a611728d",
@@ -57547,8 +62345,8 @@
    "parent": "20c17d1a-2ce3-5c2b-999b-66dd379cf140"
   },
   {
-   "uuid": "e777c753-08ef-51f3-8804-bdfc088f5e01",
-   "name": "Carry Cell",
+   "uuid": "f7eb3d1a-3d09-5f48-87cf-b5f2f8b3bdf5",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -57572,8 +62370,8 @@
    "parent": "8215e727-e98f-58d8-871f-0a0efb6ed7a9"
   },
   {
-   "uuid": "5509f779-c18a-53b7-9e28-eacf8c28092f",
-   "name": "Carry Cell[0]",
+   "uuid": "6508d568-914d-5cdb-9a54-bce8daf3610c",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -57608,11 +62406,11 @@
      ]
     }
    },
-   "parent": "e777c753-08ef-51f3-8804-bdfc088f5e01"
+   "parent": "f7eb3d1a-3d09-5f48-87cf-b5f2f8b3bdf5"
   },
   {
-   "uuid": "e25b589e-d097-5ca4-a047-ccd4caf87e20",
-   "name": "Carry Cell[1]",
+   "uuid": "65559a86-a44d-51a2-b7e7-826198d4c898",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -57647,7 +62445,7 @@
      ]
     }
    },
-   "parent": "e777c753-08ef-51f3-8804-bdfc088f5e01"
+   "parent": "f7eb3d1a-3d09-5f48-87cf-b5f2f8b3bdf5"
   },
   {
    "uuid": "b74cc5b1-8fcc-5499-b2ed-8a1f0482d0a7",
@@ -58918,8 +63716,8 @@
    "parent": "5c1fe6af-d1e4-5a3d-bc21-7b3a18512c23"
   },
   {
-   "uuid": "53993317-4444-5acd-9b19-f2ce29fb287d",
-   "name": "Carry Cell",
+   "uuid": "e61b8a47-e729-5ebe-8228-01771ae474b4",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -58943,8 +63741,8 @@
    "parent": "58ee0007-125d-5b4b-912d-a0442c386c93"
   },
   {
-   "uuid": "ca457928-51b7-5cb0-938c-1ceb0f567af4",
-   "name": "Carry Cell[0]",
+   "uuid": "e68dd82f-0446-5e0f-ab49-1a87507da50d",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -58979,11 +63777,11 @@
      ]
     }
    },
-   "parent": "53993317-4444-5acd-9b19-f2ce29fb287d"
+   "parent": "e61b8a47-e729-5ebe-8228-01771ae474b4"
   },
   {
-   "uuid": "88c4f265-0087-5b96-a660-00f43af166cb",
-   "name": "Carry Cell[1]",
+   "uuid": "391cdb51-07ce-5c53-a211-eb32de058797",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -59018,7 +63816,7 @@
      ]
     }
    },
-   "parent": "53993317-4444-5acd-9b19-f2ce29fb287d"
+   "parent": "e61b8a47-e729-5ebe-8228-01771ae474b4"
   },
   {
    "uuid": "8e4837fe-6061-53c7-8ccc-1ae1fd1623f7",
@@ -60288,8 +65086,8 @@
    "parent": "913d8b52-6984-57d3-a207-c51a0d5c69ab"
   },
   {
-   "uuid": "91ec0cef-f834-532e-85de-19929a50f940",
-   "name": "Carry Cell",
+   "uuid": "a662d80a-66ae-5729-824e-937184ce3a53",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -60313,8 +65111,8 @@
    "parent": "08657bb9-2f4b-5b5f-9677-1f4ddf737928"
   },
   {
-   "uuid": "40c39b8c-b083-5899-8b9e-beae394eeb66",
-   "name": "Carry Cell[0]",
+   "uuid": "bfd27a13-4438-5742-a69c-4f778a8fae19",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -60349,11 +65147,11 @@
      ]
     }
    },
-   "parent": "91ec0cef-f834-532e-85de-19929a50f940"
+   "parent": "a662d80a-66ae-5729-824e-937184ce3a53"
   },
   {
-   "uuid": "66198d30-e72c-5008-8b97-86af7972f2f9",
-   "name": "Carry Cell[1]",
+   "uuid": "1dab21d8-4a2f-5a9c-862e-7f2a6eb7b444",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -60388,7 +65186,7 @@
      ]
     }
    },
-   "parent": "91ec0cef-f834-532e-85de-19929a50f940"
+   "parent": "a662d80a-66ae-5729-824e-937184ce3a53"
   },
   {
    "uuid": "770e1533-4540-5208-a663-e6fa7aec242e",
@@ -61658,8 +66456,8 @@
    "parent": "2ff75a39-1cb2-5c61-bbbf-7ef87ee2c172"
   },
   {
-   "uuid": "bc9f6e0a-db72-55c2-8aa9-d985736cda7e",
-   "name": "Carry Cell",
+   "uuid": "7e0f5ce6-b428-5785-b364-208dc1789ea9",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -61683,8 +66481,8 @@
    "parent": "19779d5d-6990-5e9b-ab32-a216e763bbcb"
   },
   {
-   "uuid": "9ba4baa0-8715-504b-b090-34a451cdb66b",
-   "name": "Carry Cell[0]",
+   "uuid": "e941e13e-5502-5ab1-97a3-88980ae93aff",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -61719,11 +66517,11 @@
      ]
     }
    },
-   "parent": "bc9f6e0a-db72-55c2-8aa9-d985736cda7e"
+   "parent": "7e0f5ce6-b428-5785-b364-208dc1789ea9"
   },
   {
-   "uuid": "5db905fd-7a75-5cf0-849a-152a6b958864",
-   "name": "Carry Cell[1]",
+   "uuid": "8a6eb953-b865-55f6-86d1-068dcced14db",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -61758,7 +66556,7 @@
      ]
     }
    },
-   "parent": "bc9f6e0a-db72-55c2-8aa9-d985736cda7e"
+   "parent": "7e0f5ce6-b428-5785-b364-208dc1789ea9"
   },
   {
    "uuid": "ae03e386-a436-594c-ada7-b0230d0893ab",
@@ -63030,8 +67828,8 @@
    "parent": "6c0195c4-8ee0-59f2-a427-a7031f3a9aa6"
   },
   {
-   "uuid": "db3ade9b-b68d-58e8-9448-e2a128416fc7",
-   "name": "Carry Cell",
+   "uuid": "65953155-2e25-5619-b6ba-6cf2400888a3",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -63055,8 +67853,8 @@
    "parent": "712cd895-483b-55e3-944c-271f34eab445"
   },
   {
-   "uuid": "23e9ccd9-0a6f-50a5-b601-07664188e5d0",
-   "name": "Carry Cell[0]",
+   "uuid": "f451daee-a63f-5486-a646-f4ccca3f7948",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -63091,11 +67889,11 @@
      ]
     }
    },
-   "parent": "db3ade9b-b68d-58e8-9448-e2a128416fc7"
+   "parent": "65953155-2e25-5619-b6ba-6cf2400888a3"
   },
   {
-   "uuid": "4e324f34-cc5b-53c7-a497-c055408c7db3",
-   "name": "Carry Cell[1]",
+   "uuid": "a70ab675-d612-5fae-b8f5-44997474876f",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -63130,7 +67928,7 @@
      ]
     }
    },
-   "parent": "db3ade9b-b68d-58e8-9448-e2a128416fc7"
+   "parent": "65953155-2e25-5619-b6ba-6cf2400888a3"
   },
   {
    "uuid": "f465e064-9760-5bf3-84a7-d0b7b7ed3082",
@@ -64401,8 +69199,8 @@
    "parent": "b42c50d8-e840-599a-85f3-1d042574c4b1"
   },
   {
-   "uuid": "cd7bb620-6b68-5013-8da9-80b5f6ffbfa7",
-   "name": "Carry Cell",
+   "uuid": "6512d4a8-48ea-5c53-87e3-5c1fb4858bbb",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -64426,8 +69224,8 @@
    "parent": "5765bb3c-2d7c-514a-85c7-9a06a56aa0fc"
   },
   {
-   "uuid": "51d9428f-e146-5a98-8078-1eb769e4f618",
-   "name": "Carry Cell[0]",
+   "uuid": "6481090b-cca1-5073-8a0e-6206f9867f40",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -64462,11 +69260,11 @@
      ]
     }
    },
-   "parent": "cd7bb620-6b68-5013-8da9-80b5f6ffbfa7"
+   "parent": "6512d4a8-48ea-5c53-87e3-5c1fb4858bbb"
   },
   {
-   "uuid": "e422d531-d32d-59f0-a0ea-e79e7b83d180",
-   "name": "Carry Cell[1]",
+   "uuid": "ca11187a-f54b-5774-b553-fcf2e0997053",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -64501,7 +69299,7 @@
      ]
     }
    },
-   "parent": "cd7bb620-6b68-5013-8da9-80b5f6ffbfa7"
+   "parent": "6512d4a8-48ea-5c53-87e3-5c1fb4858bbb"
   },
   {
    "uuid": "ccba6579-b146-5870-8b85-7b4ca287efd2",
@@ -65771,8 +70569,8 @@
    "parent": "866651a0-e6df-5a2f-ba1c-c80fb7a683bc"
   },
   {
-   "uuid": "28a6a9dd-ee00-53eb-b6f0-829253b0757e",
-   "name": "Carry Cell",
+   "uuid": "c90053d7-3ebd-5fe1-90a2-04e007e2b64d",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -65796,8 +70594,8 @@
    "parent": "b789a737-49e6-5a4a-ab5f-432d9274e3ee"
   },
   {
-   "uuid": "2464ca4a-596d-5d79-ab6b-9f9887c5dbd0",
-   "name": "Carry Cell[0]",
+   "uuid": "ffe62ead-bd02-5eec-b305-b2d1c7bacb6a",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -65832,11 +70630,11 @@
      ]
     }
    },
-   "parent": "28a6a9dd-ee00-53eb-b6f0-829253b0757e"
+   "parent": "c90053d7-3ebd-5fe1-90a2-04e007e2b64d"
   },
   {
-   "uuid": "65080510-8d60-53c5-b118-d84249e0042c",
-   "name": "Carry Cell[1]",
+   "uuid": "3dd93d73-209e-5e77-aa9f-43a01672611e",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -65871,7 +70669,7 @@
      ]
     }
    },
-   "parent": "28a6a9dd-ee00-53eb-b6f0-829253b0757e"
+   "parent": "c90053d7-3ebd-5fe1-90a2-04e007e2b64d"
   },
   {
    "uuid": "c8360c4a-ac56-52df-b6eb-214908fb129f",
@@ -67142,8 +71940,8 @@
    "parent": "d623556f-47eb-5c4b-a938-8153310a99b7"
   },
   {
-   "uuid": "a24e35c8-7c3e-5e45-9184-4b7c28bf41d9",
-   "name": "Carry Cell",
+   "uuid": "3153ba94-0ae3-5b10-acc3-1c160e3887f0",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -67167,8 +71965,8 @@
    "parent": "03c7dbfd-b9c9-52aa-95d4-6f9c7b551f36"
   },
   {
-   "uuid": "31dd8401-2d47-548b-a76f-8f429ce36146",
-   "name": "Carry Cell[0]",
+   "uuid": "de65d959-b1a3-5372-9516-135d455b0be4",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -67203,11 +72001,11 @@
      ]
     }
    },
-   "parent": "a24e35c8-7c3e-5e45-9184-4b7c28bf41d9"
+   "parent": "3153ba94-0ae3-5b10-acc3-1c160e3887f0"
   },
   {
-   "uuid": "9a88c03f-201f-5ddf-be31-6d7df329ec8e",
-   "name": "Carry Cell[1]",
+   "uuid": "d4d1ea33-a581-5aa5-89f1-a3a236d7a8b7",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -67242,7 +72040,7 @@
      ]
     }
    },
-   "parent": "a24e35c8-7c3e-5e45-9184-4b7c28bf41d9"
+   "parent": "3153ba94-0ae3-5b10-acc3-1c160e3887f0"
   },
   {
    "uuid": "c7c17665-1d2f-53dd-9935-be90a5e1c22d",
@@ -68513,8 +73311,8 @@
    "parent": "28298ba7-ee57-5407-8625-b447aaff96c9"
   },
   {
-   "uuid": "51e79288-618f-507f-9814-07b8c82b19aa",
-   "name": "Carry Cell",
+   "uuid": "5c1daf3a-cafe-5053-ba0c-1101623db370",
+   "name": "Carry Part 1",
    "components": {
     "Transform": {
      "position": [
@@ -68538,8 +73336,8 @@
    "parent": "6ff73e8c-2dbf-5a12-a6e9-0343ae89f48b"
   },
   {
-   "uuid": "dc3e05ef-72d1-5329-881d-6d526e5bacb0",
-   "name": "Carry Cell[0]",
+   "uuid": "0874feb0-aa28-598a-a782-f6b4da110571",
+   "name": "Carry Part 1[0]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -68574,11 +73372,11 @@
      ]
     }
    },
-   "parent": "51e79288-618f-507f-9814-07b8c82b19aa"
+   "parent": "5c1daf3a-cafe-5053-ba0c-1101623db370"
   },
   {
-   "uuid": "4f535b1e-59a6-5cb4-a402-032ff5eeeeec",
-   "name": "Carry Cell[1]",
+   "uuid": "4e7f9f09-b99c-5557-8e49-a1c85355018e",
+   "name": "Carry Part 1[1]",
    "components": {
     "MeshRenderer": {
      "base_color": [
@@ -68613,7 +73411,7 @@
      ]
     }
    },
-   "parent": "51e79288-618f-507f-9814-07b8c82b19aa"
+   "parent": "5c1daf3a-cafe-5053-ba0c-1101623db370"
   },
   {
    "uuid": "18e8301e-3a8a-549e-83d6-59fa9b53fae3",

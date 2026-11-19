@@ -318,7 +318,8 @@ function Op:fire(dt, tp, dist)
     self.fire_t -= dt
     if self.fire_t > 0 then return end
     local spread = (2.2 + dist * 0.06) / self.r.accuracy
-    local _, struck = Squad.shoot(self, tp, { spread = spread, amount = 14, team = "squad", volume = 0.5 })
+    local _, struck = Squad.shoot(self, tp, { spread = spread, amount = 14, team = "squad", volume = 0.5,
+                                                 sound = self.r.sound })
     if struck then Game.emit("squad_hit", self.who) end
     self.shots += 1
     self.burst += 1

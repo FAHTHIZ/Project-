@@ -39,6 +39,9 @@ ITEM_WORLD = {
     "carbine": ("models/weapons/pc7_world.glb", (0.12, 0.1, 0.75)),
     "marksman": ("models/weapons/lr4_world.glb", (0.12, 0.1, 1.0)),
     "sidearm": ("models/weapons/sp2_world.glb", (0.1, 0.06, 0.24)),
+    "pdw": ("models/weapons/kv5_world.glb", (0.12, 0.1, 0.62)),
+    "breacher": ("models/weapons/br9_world.glb", (0.12, 0.1, 0.86)),
+    "dmr": ("models/weapons/mr6_world.glb", (0.12, 0.1, 0.96)),
     "field_kit": ("models/props/field_kit.glb", (0.32, 0.16, 0.22)),
     "cell_pack": ("models/props/cell_pack.glb", (0.16, 0.14, 0.08)),
 }
@@ -55,6 +58,23 @@ def add_storage_pool(sc: Scene, storage_name, parent, ids):
             "Transform": transform((0, -20, 0)), "RigidBody": body("kinematic"),
             "Collider": collider("box", size, offset=(0, size[1] / 2, 0), layer=VEHICLE_LAYER)}, parent)
         sc.prop(f"{storage_name} Item {iid} {count[iid]} Model", rel, parent=e)
+
+
+def add_arms_case(sc: Scene, name, pos, yaw, contents=("pdw", "breacher", "dmr"),
+                  pool_extra=("carbine", "marksman", "sidearm")):
+    """Open arms case (models/props/arms_case.glb) that is always accessible: three long cut-outs
+    across the foam (L1..L3) and two short ones at the front (S1, S2). Anything the player swaps
+    out is laid back in the cut-out the new weapon came from (lib/storage.luau)."""
+    root = sc.prop(name, "models/props/arms_case.glb", pos, yaw,
+                   col=collider("box", (0.96, 0.12, 1.22), offset=(0, 0.06, 0)), kind="static")
+    cargo = sc.add(f"{name} Cargo", {"Transform": transform((0, 0.13, 0)), "Tags": {"tags": "Storage"},
+                                     "Script": script("scripts/storage.luau", id=name.lower().replace(" ", "_"),
+                                                      contents=",".join(contents), owner="none")}, root)
+    for nm, x, z, ry in [("L1", -0.28, -0.05, 0), ("L2", 0.0, -0.05, 0), ("L3", 0.28, -0.05, 0),
+                         ("S1", -0.2, -0.48, 90), ("S2", 0.2, -0.48, 90)]:
+        sc.add(f"{name} Cargo Slot {nm}", {"Transform": transform((x, 0, z), yaw=ry)}, cargo)
+    add_storage_pool(sc, f"{name} Cargo", cargo, list(contents) + list(pool_extra))
+    return root
 
 
 def add_vehicle(sc: Scene, name, pos, yaw, cargo=None, pool_extra=("carbine", "sidearm"), hatch_prompt="Open hatch",

@@ -8,7 +8,7 @@
 --
 -- Entity: "<owner> Cargo" with "<...> Slot L1|L2|S1.." anchors and "<...> Item <id> <n>" pool children.
 -- Properties: id (save key), contents ("id,id,..." initial), owner (vehicle name gating access by
--- its hatch; empty = always open).
+-- its hatch; empty = derived from the name, "none" = always open).
 local Game = require("scripts/lib/game")
 local Items = require("scripts/lib/items")
 local Inventory = require("scripts/lib/inventory")
@@ -42,8 +42,9 @@ function S:start()
         local i = string.find(n, " Cargo", 1, true)
         if i then self.owner = string.sub(n, 1, i - 1) end
     end
+    if self.owner == "none" then self.owner = "" end  -- free-standing case or locker, always open
     self.slots = {}
-    for _, key in { "L1", "L2", "S1", "S2", "S3", "S4" } do
+    for _, key in { "L1", "L2", "L3", "L4", "S1", "S2", "S3", "S4" } do
         local a = scene.find(n .. " Slot " .. key)
         if a then table.insert(self.slots, { key = key, anchor = a, long = string.sub(key, 1, 1) == "L" }) end
     end
