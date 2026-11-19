@@ -110,7 +110,7 @@ VICTUS documents low-level touch APIs but no built-in on-screen virtual joystick
 - Releasing or cancelling the pointer returns movement to neutral immediately.
 - The stick drives camera-relative movement through the player input abstraction.
 
-### Right camera-look surface
+### Right first-person look/aim surface
 
 - A large right-side touch region for first-person look/aim.
 - A distinct pointer id from the left movement stick.
