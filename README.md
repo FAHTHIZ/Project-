@@ -50,10 +50,11 @@ docs/
   OPERATORS_AND_WEAPON_DESIGN.md
   PRODUCTION_PLAN.md
   RESEARCH_REGISTER.md
+  BUILD_AND_TEST_LOG.md
 ```
 
 The agent should create a normal VICTUS game project, its scenes, scripts, metadata, assets, tests and packaging configuration after checking the live engine repository. Generated build output must stay out of Git.
 
 ## What "finished" means
 
-A complete playable vertical slice—not a mock-up, isolated environment render or pile of assets. It must boot on the target phone, run in landscape, support multitouch and gamepad, deliver a complete first-person shooter campaign from the forest through the perimeter, facility, bunker and lower basement to the V-01 chair reveal, include its authored cutscenes and real dialogue audio with subtitles, save progress, and pass repeatable gameplay and packaging tests. It must package through VICTUS and have repeatable automated tests. Final reports must separate tested facts from targets and unknowns.
+A complete playable campaign—not a mock-up, isolated environment render, single-stage demo or pile of assets. It must boot on the target phone, run in landscape, support multitouch and gamepad, deliver a complete first-person shooter campaign from the forest through the perimeter, facility, bunker and lower basement to the V-01 chair reveal, include its authored cutscenes and real dialogue audio with subtitles, save progress, and pass repeatable gameplay and packaging tests. It must package through VICTUS and have repeatable automated tests. Final reports must separate tested facts from targets and unknowns.
