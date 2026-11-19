@@ -7,7 +7,7 @@
 
 Create a small, memorable ensemble rather than a crowd of interchangeable masked characters. Research and propose a compact cast with distinct silhouettes, clothing palettes, voices, personalities and story roles. At minimum consider:
 - The player character / mission protagonist.
-- Two or three allied operators who can appear in gameplay and cinematics.
+- A recurring full squad of the first-person player plus three or four allied operators, all present in gameplay and cinematics where mission staging allows.
 - A facility/security group with a clearly different visual identity.
 - One or two named speaking characters who carry important story information.
 
@@ -94,7 +94,9 @@ The autonomous agent must conduct research before locking character or weapon vi
 
 1. Establish the first-person camera, movement, touch/gamepad/keyboard input and viewmodel framing.
 2. Create one complete first-person weapon loop using an original fictional model and invented game parameters.
-3. Add one allied operator and one opposing character with distinct costumes and readable animation.
+3. Build the complete allied squad roster: every member gets a finished face, costume, voice, personality, animation identity and mission role. Implement them as companions, not just cutscene extras.
+4. Add companion navigation, regroup/wait/follow states, contextual squad chatter, spatial dialogue and radio communication.
+5. Add one opposing character with distinct costume and readable animation.
 4. Integrate one complete shooter encounter into the actual mission, including AI, HUD, audio, effects and checkpoint behaviour.
 5. Validate the slice on desktop and the target phone before expanding the cast or weapon inventory.
 6. Add the remaining operator designs and weapon variants only as required by the campaign and measured performance.
@@ -102,7 +104,8 @@ The autonomous agent must conduct research before locking character or weapon vi
 
 ## 7. Completion checks
 
-- The campaign contains original, visually distinct operator and opposing-character designs.
+- The campaign contains a recurring full squad of the player plus three or four original, visually distinct allied operators and a distinct opposing cast.
+- Squad members appear together in playable missions and cinematics, communicate naturally, react to one another and retain continuity between operations.
 - The player character has a polished first-person arms/hand presentation.
 - A usable primary and secondary fictional game weapon exist and are integrated into missions.
 - Aim, fire, reload, switch, effects, sounds, HUD and enemy reactions all work in the exported game.
