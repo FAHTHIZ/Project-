@@ -17,12 +17,16 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Weapons and viewmodel (PC-7 Lantern carbine, SP-2 Wren sidearm, field scanner) | Done (implemented, simulated, visually inspected on lavapipe; not device-tested) | log P1 weapons, autotest weapons 26/26 |
 | Squad operators, companions, dialogue, enemies (Anchor, Patch, Echo, Tally; Greyline A/B; Ranger Hollis; 76 voiced lines) | Done on the dev range (implemented, simulated, visually inspected on lavapipe; not device-tested; squad size not yet profiled on the phone) | log P3 squad, autotests squad 17/17, squad_combat 5/5, enemy_fire 3/3 |
 | Mule vehicle (drive-in, park, staggered squad egress), cargo trunk storage, shared inventory, LR-4 scope, field kit | Done on the dev range (implemented, simulated, visually inspected on lavapipe; not device-tested) | log "Vehicle, cargo storage…", autotests vehicle 14/14, trunk 26/26, sniper 19/19, docs/evidence/ |
-| Squad dark-comedy dialogue, environmental scare-comedy and location-specific ambience guide | Design specified; dialogue/audio implementation pending | docs/SQUAD_BANTER_AND_AMBIENCE.md; docs/CAMPAIGN_STORY_BIBLE.md |
-| Campaign story bible — Operation Iron Veil, complete prologue-to-credits narrative | Design specified; mission implementation pending | docs/CAMPAIGN_STORY_BIBLE.md |
-| Open-world map (forest → hillside → perimeter → facility approach), Op01 forest | Next | |
-| Cinematics (12 beats) | Pending | |
-| Prologue, Op02-Op07, V-01 reveal, ending | Pending | |
-| Audio, adaptive quality, packaging (desktop export, Android attempt) | Pending | |
+| Squad dark-comedy dialogue, scare-comedy ambience, idle squad chatter on quiet walks | Done (303 voiced lines; chatter plan 5/5; not device-tested) | log "Story revision 2" |
+| Campaign story bible revision 2 (storm night 02:40-05:52, convoy deadline, Brick, seeded V-01, Sorn stand-down, epilogue) | Done (design) | docs/CAMPAIGN_STORY_BIBLE.md section 1A, `f30aeb7` |
+| Kestrel Valley open world (lay-by, woods, perimeter, yard) and interiors (station, bunker, basement, review chamber) | Done (desktop/headless) | `28eea22`, `3c133b4`, `5ad387b` |
+| Prologue, Op01-Op07, V-01 reveal, epilogue, credits | Done (story autotests pass on desktop; Op01 intermittent face watchdog, see log) | story_* autotests |
+| Storm night: rain, wet ground, puddles, volumetric fog, moon, lamps, searchlights, lightning/thunder, weapon light | Done (lavapipe-inspected; unprofiled on phone) | `7a235c7`, docs/evidence/night_prologue.png |
+| Five-operator squad (Brick added) and extra firearms (KV-5 Hornet, BR-9 Ram, MR-6 Kestrel, camp arms case) | Done (armory 20/20) | `8d6a7b6` |
+| Night menu/credits, README rewrite | Done | `35172db`, `26c532e`, docs/evidence/menu_night.png |
+| Desktop export | Done (export builds and boots to the menu under xvfb) | log "Story revision 2" |
+| Android APK | Attempted on the build machine; see log for the result. Device install/run not done (no phone) | log |
+| Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof
 
