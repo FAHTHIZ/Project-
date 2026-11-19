@@ -16,6 +16,96 @@ This is the authoritative story source for the campaign. Mission briefs, dialogu
 
 A few days after a series of coordinated attacks along the Northline border corridor, the Karsovian Republic is preparing to blame its neighbour, the Lydrian Republic, and authorize a major military response. Halyard Team is sent to a supposedly decommissioned Karsovian relay installation called Kestrel Station to find missing military intelligence auditor Major Elias Venn and recover the evidence he says can explain the attacks. The station is guarded by Greyline, a private security force whose orders are to keep everyone out. As Halyard moves from the forest perimeter into the facility and its underground levels, the team discovers that a faction inside Karsovia's own security establishment staged the Northline incidents to manufacture a crisis, seize emergency powers and secure control of the corridor. The original records are stored deep below the facility. Halyard must recover them before the crisis becomes an open conflict. At the end, the feared VICTUS project proves to be a clandestine records-and-rehearsal operation, while the mysterious V-01 turns out to be an inert, awkwardly placed Vanguard demonstration dummy behind a chair—not a weapon, boss or intelligent machine.
 
+## 1A. Revision 2 — the storm night (owner-approved changes)
+
+The owner asked for a stronger, tighter story set at night in rain and fog. Revision 2 keeps every
+character, faction, location and the V-01 punchline above, and changes or adds the following. Where
+this section conflicts with later sections, **this section wins**.
+
+### When it happens
+
+The whole campaign is one night, from 02:40 to first light at 05:52, under a slow-moving storm front.
+
+| Time  | Chapter | Weather and light |
+|-------|---------|-------------------|
+| 02:40 | Prologue — lay-by off Route 9 | Light rain, low cloud, moon behind cloud; Mule headlights and work lamps |
+| 03:05 | Op01 Green Silence — Kestrel woods | Steady rain, ground fog in hollows, lightning far to the west; torch beams in mist |
+| 03:40 | Op02 Dead Ground — perimeter | Heavy rain, wind, sodium floodlights haloed by fog, lightning close enough to count |
+| 04:05 | Op03 Hard Entry — station yard | Downpour, flooded concrete, puddle reflections of floodlights, thunder on the PA |
+| 04:20 | Op04 The Paper War — station interior | Rain drumming on the roof, leaks, emergency lighting after the breakers |
+| 04:45 | Op05 Below the Line — bunker | Muffled thunder through concrete, condensation, cold sodium work lamps |
+| 05:10 | Op06 The Source Vault — lower basement | Groundwater seep, archive dehumidifiers, dust in torch beams |
+| 05:30 | Op07 V-01 — review chamber | Sealed and dry; the quietest room in the campaign |
+| 05:52 | Epilogue — First Light | Rain easing to drizzle, fog lifting off the valley, blue dawn turning gold |
+
+### Why the storm matters (it is not decoration)
+
+- **Lamplight picks the storm.** Greyline's two perimeter drones cannot fly in it and their thermal
+  masts see almost nothing through rain and fog. The front is Halyard's only cover; it passes before
+  dawn. That is why the team moves at 02:40 and not later.
+- **The storm explains the scares.** Rain on sheet metal, gusts in vents, thunder carried through
+  pipes, a loose sign in wind, animals calling in the wet. Every scare still has an ordinary source.
+- **The storm explains Hollis.** The main valley road floods every storm; only the old forestry
+  service track is passable. Hollis has driven it in worse.
+
+### The deadline: the transfer convoy
+
+Greyline is not guarding Kestrel Station forever. Kade's emergency vote sits at 07:00 in the
+capital. At 06:00, Greyline trucks are scheduled to move the Source Vault originals to a Directorate
+site where Halyard can never reach them.
+
+- Kade does **not** destroy the originals because they are his leash: every signature on them binds
+  the officers and contractors who took part. Burn them and those people are free to turn on him.
+  Venn says this plainly in Op05.
+- The fresh tyre ruts in Op01 are the convoy staging. The flatbeds and stacked archive crates in the
+  Op03 yard are the first load. Sorn's PA order in Op03 is "transfer at oh-six-hundred."
+- The clock gives every chapter a reason to keep moving and gives the epilogue a hard edge: the
+  convoy arrives at dawn to find Halyard, Lamplight's escort and Sorn's own people standing down.
+
+### The fifth operator: Brick
+
+**Staff Sergeant "Brick" — breacher.** Big, slow-spoken, literal, kind. Carries the BR-9 Ram pulse
+breaching gun and a hydraulic spreader. He says very little; when he does, it lands. He is the one
+Tally tries hardest to make laugh and almost never does.
+
+- Prologue to Op05 he is part of the stack: heavy doors, the blast-door crank, the stuck lift gate.
+- **Arc:** in Op05 the team finds Venn injured and unable to climb. Leaving a key witness alone in a
+  hostile bunker would be absurd, so Brick stays with him in the stores room: "Somebody stays. I'm a
+  door." He rejoins in the epilogue, carrying Venn out into the dawn.
+- This fixes the original gap (Venn left alone) and makes the last two operations feel lonelier.
+
+### V-01 is seeded, so the punchline pays off
+
+The squad only fears "V-01" because the paperwork keeps mentioning it:
+
+- Op04 records office: a room inventory reads "V-01 — remains seated. Do not move from review chamber."
+- Op06 vault: an archive tag reads "V-01 camera reference. Never leaves the chair room."
+- Sorn, on the PA in Op06, orders "nobody goes near the review chamber" (he means the transmitter).
+- By Op07 Tally has a full theory. V-01 is the Vanguard demonstration dummy, slumped behind a chair,
+  used as a camera-height reference for rehearsal recordings. It never moves.
+
+### Sorn's ending is a choice, not a defeat
+
+In Op07 Sorn watches Kade's own rehearsal recording promising to blame Greyline for Northline.
+After surrendering he asks for the PA handset and tells his people to stand down. The walk out is
+quiet: contractors sitting against walls with weapons on the floor. This is the payoff of the
+non-lethal direction and of Greyline being people with mixed motives.
+
+### Firearms (all fictional pulse emitters, realistic hardware look)
+
+Modelled as believable modern service weapons — rails, optics, polymer and machined metal, wet
+sheen in the rain — but firing stun pulses with invented values:
+
+| Weapon | Role | Who |
+|--------|------|-----|
+| PC-7 Lantern | pulse carbine | Rook, Anchor, Tally |
+| SP-2 Wren | pulse sidearm | everyone |
+| LR-4 Heron | scoped long emitter | Echo, Rook (storage) |
+| KV-5 Hornet | compact high-rate PDW | Patch, Rook (storage) |
+| BR-9 Ram | close-range breaching spread gun | Brick, Rook (storage) |
+| MR-6 Kestrel | semi-auto marksman emitter, 4x optic | storage, Op02 onward |
+
+
 ## 2. Setting, factions and the actual conspiracy
 
 ### The countries and the crisis
@@ -119,6 +209,12 @@ Echo is quiet, analytical and attentive to details, with an understated delivery
 ### Tally — communications
 
 Tally is sociable, confident, irreverent and the squad's main chatterbox. Tally keeps the team connected to Lamplight, notices contradictory messages and helps preserve the evidence channel when the normal command picture becomes unreliable. Tally is quick with a joke and occasional strong profanity, but becomes the easiest member to startle when a howl, growl or unexplained metallic noise breaks the silence. Tally then insists they were never scared. The humour should be character-based, varied and never allowed to bury the mission.
+
+### Brick — breacher (Revision 2)
+
+Staff Sergeant, the stack's heavy door man. Quiet, literal, gentle with civilians, immovable under
+pressure. His comedy is understatement and timing. He stays behind with Venn in Op05 and carries him
+out at dawn.
 
 ### Lamplight — headquarters radio handler
 
@@ -400,7 +496,7 @@ The game's target tone is **military dark comedy with atmospheric scare-comedy**
 
 These rules prevent later implementation from drifting away from the agreed story:
 
-- The player character is Rook. Halyard's established cast is Anchor, Patch, Echo and Tally. Preserve their existing roles and voices.
+- The player character is Rook. Halyard's established cast is Anchor, Patch, Echo, Tally and (Revision 2) Brick. Preserve their existing roles and voices.
 - Hollis remains a civilian ranger and guide for the forest operation.
 - Lamplight remains the headquarters radio handler.
 - Use the existing fictional non-lethal pulse-weapon direction. Greyline encounters are not a mass-killing campaign.
