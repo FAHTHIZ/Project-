@@ -72,6 +72,24 @@ local function nearest_index(list, p)
     return bi
 end
 
+-- Any live contractor fighting or searching within `r` metres of `p`.
+local function fight_near(p, r)
+    for _, rr in Squad.state().enemies do
+        local e = rr.ctl
+        if rr.entity.valid and e and not e.down and e.state ~= "patrol" and flat(rr.entity.position, p) < r then
+            return true
+        end
+    end
+    return false
+end
+
+-- A one-shot positional sound (scares, foley).
+local function sfx(clip, pos, vol)
+    audio.play(clip, { bus = "sfx", volume = vol or 0.9, position = pos })
+end
+
+local function hollis() return Game.npcs and Game.npcs["Hollis"] end
+
 -- Stages ---------------------------------------------------------------------------------------
 local S = {}
 
@@ -276,7 +294,7 @@ S.arrive = {
     end,
 }
 
--- Operation 01: Greenline --------------------------------------------------------------------------
+-- Operation 01: Green Silence --------------------------------------------------------------------------
 S.op01_start = {
     -- chapter start from the menu: the squad is already out of the Mule at the trailhead
     enter = function(self)
@@ -334,6 +352,9 @@ S.cabin = {
         end
         if self.cabin_done then
             Squad.order("follow")
+            local h = hollis()
+            if h then h:follow(7) end
+            self.flags.hollis_guiding = true
             return "relay_path"
         end
         return nil
@@ -344,16 +365,67 @@ S.relay_path = {
     checkpoint = true,
     enter = function(self)
         self:objective("Find the Greyline relay on the north ridge", PT.relay_stand, "RELAY")
+        self.path_from = ppos()
     end,
     update = function(self, dt)
-        -- the patrol by the fallen pines: Echo spots them first, Rook decides when to engage
-        if not self.flags.patrol_seen and group_up("patrol") > 0 and self:spotted("patrol", 42) then
-            self.flags.patrol_seen = true
-            self:say({ "op1_patrol_01", "op1_patrol_02" })
+        local f = self.flags
+        local walked = flat(ppos(), self.path_from)
+        -- the ridge hounds call across the valley, then answer each other further off
+        if not f.howl and walked > 35 and not self.talking then
+            f.howl = true
+            local away = ppos() + V(-140, 30, -60)
+            sfx("audio/scare/howl_far.wav", away, 1.0)
+            self.howl_t = 0
         end
-        if self.flags.patrol_seen and not self.flags.patrol_done and group_up("patrol") == 0 then
-            self.flags.patrol_done = true
-            self:say("op1_patrol_03")
+        if self.howl_t then
+            self.howl_t += dt
+            if self.howl_t > 3.6 and not f.howl_answer then
+                f.howl_answer = true
+                sfx("audio/scare/howl_answer.wav", ppos() + V(160, 40, -150), 0.8)
+            end
+            if self.howl_t > 1.2 and not f.howl_talk then
+                f.howl_talk = true
+                Squad.order("hold")
+                self:say({ "op1_howl_01", "op1_howl_02", "op1_howl_03", "op1_howl_04", "op1_howl_05", "op1_howl_06" },
+                         function() Squad.order("follow"); self.howl_t = nil end)
+            end
+        end
+        -- something big in the undergrowth, close: a growl, a rustle and a snapped branch
+        if f.howl_talk and not self.howl_t and not f.growl and near(PT.poi_relay, 95) and not self.talking then
+            f.growl = true
+            local side = ppos() + V(9, 0.5, 6)
+            sfx("audio/scare/growl.wav", side, 0.9)
+            sfx("audio/scare/rustle.wav", side + V(2, 0, 2), 0.8)
+            self.growl_t = 0
+        end
+        if self.growl_t then
+            self.growl_t += dt
+            if self.growl_t > 1.6 and not f.snap then
+                f.snap = true
+                sfx("audio/scare/branch_snap.wav", ppos() + V(14, 0.5, 12), 0.9)
+                self:say({ "op1_growl_01", "op1_growl_02", "op1_growl_03", "op1_growl_04", "op1_growl_05" })
+                self.growl_t = nil
+            end
+        end
+        -- the patrol by the fallen pines: Echo spots them, they challenge, then it goes loud
+        if not f.patrol_seen and group_up("patrol") > 0 and self:spotted("patrol", 42) then
+            f.patrol_seen = true
+            Dialogue.clear(2)
+            self:say({ "op1_patrol_01", "op1_patrol_02", "op1_patrol_03", "op1_patrol_04" }, function()
+                send_group("patrol", ppos(), 0)
+            end)
+        end
+        -- one down, the other gives up
+        if f.patrol_seen and not f.surrender and group_total("patrol") >= 2 and group_up("patrol") == 1 then
+            self.surr_t = (self.surr_t or 0) + dt
+            if self.surr_t > 1.2 then
+                f.surrender = true
+                for _, e in group("patrol") do
+                    if not e.down then e:surrender() end
+                end
+                Dialogue.clear(1)
+                self:say({ "op1_patrol_05", "op1_surr_01", "op1_surr_02", "op1_surr_03", "op1_surr_04" })
+            end
         end
         if near(PT.relay_stand, 24) then return "relay" end
         return nil
@@ -421,6 +493,8 @@ S.ridge = {
     checkpoint = true,
     enter = function(self)
         self:objective("Climb to the ridge saddle", PT.poi_saddle, "SADDLE")
+        local h = hollis()
+        if h then h:follow(7) end
     end,
     update = function(self, dt)
         if not self.ridge_talk and near(PT.poi_saddle, 10) then
@@ -431,6 +505,15 @@ S.ridge = {
         end
         if self.ridge_done then
             Squad.order("follow")
+            -- Hollis heads back down the trail to the forestry lay-by
+            local h = hollis()
+            if h then
+                local i = nearest_index(PT.trail, PT.poi_saddle)
+                local back = {}
+                for k = i, math.max(1, i - 6), -1 do table.insert(back, PT.trail[k]) end
+                h:walk(back, function() h:hide() end)
+            end
+            self.flags.hollis_gone = true
             self:advance("op01", "op02")
             return "fence"
         end
@@ -438,7 +521,7 @@ S.ridge = {
     end,
 }
 
--- Operation 02: Fenceline ----------------------------------------------------------------------------
+-- Operation 02: Dead Ground ----------------------------------------------------------------------------
 S.op02_start = {
     enter = function(self) self:title("op02"); self.wait = 1.0 end,
     update = function(self, dt) self.wait -= dt; return self.wait <= 0 and "fence" or nil end,
@@ -450,7 +533,29 @@ S.fence = {
         self:objective("Reach the perimeter fence", PT.fence_approach, "FENCE")
     end,
     update = function(self, dt)
+        local f = self.flags
+        if not f.sign and near(PT.fence_approach, 75) and not self.talking and not group_engaged("towers") then
+            f.sign = true
+            local sign = ppos() + V(-6, 0.8, -4)
+            sfx("audio/scare/sign_tap_0.wav", sign, 0.9)
+            self.sign_t = 0
+            self.sign_pos = sign
+        end
+        if self.sign_t then
+            self.sign_t += dt
+            if self.sign_t > 1.0 and not f.sign_talk then
+                f.sign_talk = true
+                Squad.order("hold")
+                self:say({ "op2_sign_01", "op2_sign_02", "op2_sign_03", "op2_sign_04", "op2_sign_05" },
+                         function() Squad.order("follow"); self.sign_t = nil end)
+            end
+            if self.sign_t and self.sign_t > 3.5 and not f.sign_2 then
+                f.sign_2 = true
+                sfx("audio/scare/sign_tap_1.wav", self.sign_pos, 0.8)
+            end
+        end
         if near(PT.fence_approach, 30) or group_engaged("towers") then
+            if self.sign_t then Squad.order("follow"); self.sign_t = nil end
             self:say({ "op2_01", "op2_02", "op2_03", "op2_04" })
             return "towers"
         end
@@ -484,17 +589,42 @@ S.towers = {
 S.booth = {
     checkpoint = true,
     enter = function(self)
-        self:objective("Get Tally to the gate booth panel", PT.booth_panel, "BOOTH")
+        local f = self.flags
+        self:objective("Search the gate booth", PT.booth_panel, "BOOTH")
+        local function evidence(name, prompt, flag, ids)
+            local m = scene.find(name)
+            if not m then f[flag] = true; return end
+            Game.register_interactable(m, prompt, function()
+                if f[flag] or self.talking then return end
+                f[flag] = true
+                Game.set_interactable(m, false)
+                sfx("audio/foley/pickup.wav", m.position, 0.8)
+                self:say(ids)
+            end)
+            if f[flag] then Game.set_interactable(m, false) end
+        end
+        evidence("Mark Booth Records", "Read the duty records", "booth_records", { "op2_rec_01", "op2_rec_02", "op2_rec_03" })
+        evidence("Mark Field Recorder", "Play the field recorder", "venn_recorder", { "op2_venn_01", "op2_venn_02", "op2_venn_03" })
         self.panel = scene.find("Mark Booth Panel")
         if self.panel then
             Game.register_interactable(self.panel, "Hook Tally into the panel", function()
-                self.flags.panel = true
+                if not (f.booth_records and f.venn_recorder) then
+                    Game.toast("Search the booth first", 2.0)
+                    return
+                end
+                if self.talking then return end
+                f.panel = true
                 Game.set_interactable(self.panel, false)
             end)
         end
     end,
     update = function(self, dt)
-        if self.flags.panel then
+        local f = self.flags
+        if f.booth_records and f.venn_recorder and not self.panel_prompt and not self.talking then
+            self.panel_prompt = true
+            self:objective("Get Tally to the gate booth panel", PT.booth_panel, "PANEL")
+        end
+        if f.panel then
             local tally = Squad.member("Tally")
             if tally then tally:set_order("move", PT.booth_panel + V(0.8, 0, 0.8)) end
             self:say({ "op2_07", "op2_08" })
@@ -513,8 +643,8 @@ S.hold_gate = {
     end,
     update = function(self, dt)
         if Game.playing() then self.hack_t += dt end
-        if not self.flags.voss_1 and self.hack_t > 4 then
-            self.flags.voss_1 = true
+        if not self.flags.sorn_radio_1 and self.hack_t > 4 then
+            self.flags.sorn_radio_1 = true
             self:say({ "op2_09", "op2_10" })
         end
         local pct = math.floor(math.clamp(self.hack_t / self.hack_len, 0, 1) * 100)
@@ -542,7 +672,7 @@ S.gate_open = {
     end,
 }
 
--- Operation 03: Service Yard -----------------------------------------------------------------------
+-- Operation 03: Hard Entry -----------------------------------------------------------------------
 S.op03_start = {
     enter = function(self)
         self:title("op03")
@@ -562,7 +692,12 @@ S.yard = {
         self:objective("Clear the service yard", PT.poi_compound, "YARD")
     end,
     update = function(self, dt)
-        if group_up("yard") == 0 then
+        if not self.flags.sorn_pa and (group_engaged("yard") or near(PT.poi_compound, 30)) then
+            self.flags.sorn_pa = true
+            Dialogue.clear(1)
+            self:say({ "op3_sorn_01", "op3_sorn_02", "op3_sorn_03", "op3_sorn_04", "op3_sorn_05" })
+        end
+        if group_up("yard") == 0 and not self.talking then
             self:say("op3_04")
             return "office"
         end
@@ -573,21 +708,38 @@ S.yard = {
 S.office = {
     checkpoint = true,
     enter = function(self)
+        local f = self.flags
         self:objective("Search the site office for an access card", PT.office_desk, "OFFICE")
         self.desk = scene.find("Mark Office Desk")
         if self.desk then
             Game.register_interactable(self.desk, "Take the access card", function()
-                self.flags.card = true
+                if f.card then return end
+                f.card = true
                 Game.set_interactable(self.desk, false)
-                audio.play("audio/foley/pickup.wav", { bus = "sfx", volume = 0.8, position = PT.office_desk })
+                sfx("audio/foley/pickup.wav", PT.office_desk, 0.8)
+                self:say("op3_05")
             end)
+        end
+        local man = scene.find("Mark Site Manifest")
+        if man then
+            Game.register_interactable(man, "Read the site manifest", function()
+                if f.manifest or self.talking then return end
+                f.manifest = true
+                Game.set_interactable(man, false)
+                sfx("audio/foley/item_pick.wav", man.position, 0.7)
+                self:say({ "op3_06", "op3_07" })
+            end)
+        else
+            f.manifest = true
         end
     end,
     update = function(self, dt)
-        if self.flags.card then
-            self:say({ "op3_05", "op3_06" })
-            return "entrance"
+        local f = self.flags
+        if f.card and not f.manifest and not self.manifest_hint and not self.talking then
+            self.manifest_hint = true
+            self:objective("Check the site manifest on the desk", PT.office_desk, "MANIFEST")
         end
+        if f.card and f.manifest and not self.talking then return "entrance" end
         return nil
     end,
 }
@@ -606,9 +758,9 @@ S.entrance = {
         end
     end,
     update = function(self, dt)
-        if not self.flags.voss_2 and near(PT.facility_front, 35) then
-            self.flags.voss_2 = true
-            self:say({ "op3_07", "op3_08", "op3_09", "op3_10" })
+        if not self.flags.lockdown_pa and near(PT.facility_front, 35) then
+            self.flags.lockdown_pa = true
+            self:say({ "op3_08", "op3_09", "op3_10" })
         end
         if self.flags.entered then return "enter_facility" end
         return nil
@@ -658,11 +810,35 @@ function M:update_gate(dt)
     end
 end
 
+-- Hollis walks with the squad from his cabin to the ridge but is no fighter: he stops and waits
+-- whenever contractors are fighting or searching nearby, and catches up once it is quiet.
+function M:update_hollis(dt)
+    local f = self.flags
+    if not f.hollis_guiding or f.hollis_gone then return end
+    local h = hollis()
+    if not h then return end
+    self.hollis_t = (self.hollis_t or 0) - dt
+    if self.hollis_t > 0 then return end
+    self.hollis_t = 0.5
+    local danger = fight_near(ppos(), 70)
+    if danger and h.mode == "follow" then
+        h:hold()
+    elseif not danger and h.mode == "hold" and self.stage_name ~= "ridge" then
+        h:follow(7)
+    end
+end
+
 -- Lifecycle ------------------------------------------------------------------------------------------
 local FIRST = { prologue = "brief", op01 = "op01_start", op02 = "op02_start", op03 = "op03_start" }
 
 function M:start()
     self.flags = {}
+    Game.on("storage_taken", function()
+        if self.chapter_now == "prologue" and not self.flags.trunk_talk then
+            self.flags.trunk_talk = true
+            self:say({ "pro_trunk_01", "pro_trunk_02", "pro_trunk_03", "pro_trunk_04" })
+        end
+    end)
     self.chapter_now = self.chapter
     self.op_title = (Campaign.get(self.chapter) or {}).title or ""
     Game.mission = self
@@ -711,6 +887,15 @@ function M:restore(cp)
     self:place_player(pos, cp.yaw or 0)
     self:place_squad(pos, cp.yaw or 0)
     if self.chapter == "op03" then self:open_gate(true) end
+    local h = hollis()
+    if h then
+        if self.flags.hollis_gone then
+            h:hide()
+        elseif self.flags.hollis_guiding then
+            h.actor:place(pos + V(2.5, 0.2, 3.5), cp.yaw or 0)
+            h:follow(7)
+        end
+    end
     self:title(self.chapter_now)
     self:enter(cp.stage)
     self.restoring = false
@@ -734,6 +919,7 @@ function M:update(dt)
         end
     end
     self:update_gate(dt)
+    self:update_hollis(dt)
     -- downed: Patch can't patch everything; fade and restart from the last checkpoint
     if self.downed_t then
         self.downed_t += dt

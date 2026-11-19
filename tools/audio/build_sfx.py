@@ -400,6 +400,131 @@ def camp_bed(sec=16.0, seed=980):
     return loopify(x / np.max(np.abs(x)) * 0.55)
 
 
+
+# ---- scares and atmosphere (false alarms: every one has an ordinary cause in the story) ------
+
+def howl(sec, seed, f0=420.0, f1=640.0, far=True):
+    """Distant canine howl: a gliding voiced tone with vibrato and formants, low-passed by distance."""
+    t = t_axis(sec)
+    rng = np.random.default_rng(seed)
+    shape = np.interp(t / sec, [0, 0.18, 0.55, 0.85, 1.0], [f0 * 0.8, f1, f1 * 0.97, f0 * 0.9, f0 * 0.7])
+    vib = 1 + 0.012 * np.sin(2 * np.pi * (5.2 + rng.uniform(-0.4, 0.4)) * t)
+    ph = 2 * np.pi * np.cumsum(shape * vib) / SR
+    voiced = np.sin(ph) + 0.45 * np.sin(2 * ph) + 0.2 * np.sin(3 * ph) + 0.08 * np.sin(4 * ph)
+    breath = bp(noise(sec, seed + 1), 600, 2600) * 0.08
+    amp = np.interp(t / sec, [0, 0.12, 0.7, 1.0], [0, 1, 0.8, 0])
+    x = (voiced + breath) * amp
+    x = bp(x, 250, 1800) if far else bp(x, 180, 4000)
+    if far:  # a soft valley echo
+        x = mix(x, at(lp(x, 900) * 0.35, 0.42, sec + 0.5))
+    return finish(pad(x, sec + 0.6), 0.6 if far else 0.85, 1.0, 0.2)
+
+
+def growl(sec, seed):
+    t = t_axis(sec)
+    rumble = lp(noise(sec, seed), 260) * (0.6 + 0.4 * np.sin(2 * np.pi * 11 * t) ** 2)
+    tone = np.sin(2 * np.pi * np.cumsum(82 + 9 * np.sin(2 * np.pi * 0.8 * t)) / SR) * 0.35
+    amp = np.interp(t / sec, [0, 0.2, 0.8, 1.0], [0, 1, 0.9, 0])
+    return finish((rumble * 1.4 + tone) * amp, 0.75, 1.6, 0.15)
+
+
+def rustle(sec, seed, n=14):
+    out = np.zeros(int(SR * sec))
+    rng = np.random.default_rng(seed)
+    for i in range(n):
+        g = cloth(seed + i * 3, rng.uniform(0.08, 0.22), rng.uniform(0.3, 0.8))
+        out += at(hp(g, 900), rng.uniform(0, sec - 0.25), sec)
+    return finish(out, 0.6, 1.2, 0.08)
+
+
+def branch_snap(seed):
+    crack = mech(seed, 0.5, [(0.0, 1.0, 1500, 9000, 160), (0.012, 0.8, 700, 5000, 90), (0.05, 0.4, 2000, 8000, 200)])
+    return finish(mix(crack, at(lp(noise(0.3, seed + 5), 700) * env(t_axis(0.3), 0.004, 14) * 0.4, 0.02, 0.5)), 0.85)
+
+
+def sign_tap(seed, n=3):
+    """A loose metal sign knocking against its post in the wind."""
+    sec = 0.35 * n + 0.6
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * sec))
+    for i in range(n):
+        t = t_axis(0.5)
+        f = rng.uniform(780, 920)
+        ring = (np.sin(2 * np.pi * f * t) + 0.5 * np.sin(2 * np.pi * f * 2.76 * t)) * env(t, 0.001, 22)
+        knock = bp(noise(0.5, seed + i), 300, 2500) * env(t, 0.001, 70)
+        out += at((ring * 0.5 + knock) * rng.uniform(0.6, 1.0), i * 0.35 + rng.uniform(0, 0.08), sec)
+    return finish(out, 0.75, 1.2, 0.05)
+
+
+def vent_growl(sec=3.2, seed=1210):
+    """A ventilation fan spinning up through a rattling duct: reads as the building growling."""
+    t = t_axis(sec)
+    spin = np.interp(t / sec, [0, 0.5, 1.0], [18, 34, 30])
+    blade = np.sin(2 * np.pi * np.cumsum(spin * 7) / SR)
+    rattle = bp(noise(sec, seed), 120, 700) * (0.5 + 0.5 * np.sign(blade))
+    rum = lp(noise(sec, seed + 1), 160) * 1.5
+    amp = np.interp(t / sec, [0, 0.35, 0.85, 1.0], [0, 1, 1, 0])
+    return finish((rattle + rum + 0.3 * blade) * amp, 0.8, 1.8, 0.2)
+
+
+def pa_chime_cut(seed=1220):
+    """Three-note announcement chime that dies on the third note (power fails mid-chime)."""
+    c = mix(at(tick(660, 0.5, 0.6), 0.0, 1.4), at(tick(830, 0.5, 0.6), 0.3, 1.4), at(tick(990, 0.08, 0.6), 0.6, 1.4))
+    hiss = bp(noise(1.4, seed), 1500, 6000) * 0.05 * (t_axis(1.4) < 0.68)
+    return finish(c + hiss, 0.6, 1.0, 0.02)
+
+
+def pipe_knock(seed, n=4):
+    sec = n * 0.42 + 0.8
+    out = np.zeros(int(SR * sec))
+    rng = np.random.default_rng(seed)
+    for i in range(n):
+        t = t_axis(0.8)
+        f = rng.uniform(150, 210)
+        k = (np.sin(2 * np.pi * f * t) + 0.4 * np.sin(2 * np.pi * f * 3.1 * t)) * env(t, 0.002, 9)
+        out += at(k * rng.uniform(0.6, 1.0), i * rng.uniform(0.32, 0.5), sec)
+    return finish(mix(out, at(lp(out, 600) * 0.3, 0.25, sec)), 0.8, 1.3, 0.1)
+
+
+def pressure_groan(sec=3.5, seed=1240):
+    """A heavy pressure door seal flexing: slow metallic moan with creaks."""
+    t = t_axis(sec)
+    f = 62 + 18 * np.sin(2 * np.pi * 0.25 * t) + 6 * np.sin(2 * np.pi * 1.7 * t)
+    moan = np.sin(2 * np.pi * np.cumsum(f) / SR) + 0.5 * np.sin(2 * np.pi * np.cumsum(f * 2.3) / SR)
+    creak = bp(noise(sec, seed), 400, 1800) * (np.sin(2 * np.pi * 23 * t) > 0.6) * 0.5
+    amp = np.interp(t / sec, [0, 0.25, 0.8, 1.0], [0, 1, 0.8, 0])
+    return finish((moan + creak) * amp, 0.8, 1.6, 0.2)
+
+
+def fan_breath(sec=6.0, seed=1250):
+    """Rack cooling fans cycling: slow in-out swells, like breathing."""
+    t = t_axis(sec)
+    air = bp(noise(sec, seed), 200, 1800)
+    swell = 0.25 + 0.75 * (0.5 - 0.5 * np.cos(2 * np.pi * t / 3.0)) ** 1.5
+    hum = np.sin(2 * np.pi * 118 * t) * 0.05
+    return finish(air * swell + hum, 0.6, 1.0, 0.3)
+
+
+def tag_tap(seed=1260, n=5):
+    sec = n * 0.55 + 0.4
+    out = np.zeros(int(SR * sec))
+    rng = np.random.default_rng(seed)
+    for i in range(n):
+        k = hp(noise(0.06, seed + i), 1800) * env(t_axis(0.06), 0.0005, 120)
+        out += at(k * rng.uniform(0.5, 1.0), i * 0.55 + rng.uniform(-0.08, 0.08) + 0.08, sec)
+    return finish(out, 0.55, 1.0, 0.05)
+
+
+def speaker_fragment(seed=1270):
+    """A dying PA speaker: crackle and a band-limited buzz that drops out."""
+    sec = 1.4
+    t = t_axis(sec)
+    buzz = bp(np.sign(np.sin(2 * np.pi * 100 * t)) + noise(sec, seed) * 0.3, 300, 3200)
+    gate = (t < 1.0) * (np.random.default_rng(seed).random(len(t)) > 0.02)
+    crack = bp(noise(sec, seed + 1), 2000, 8000) * (np.random.default_rng(seed + 2).random(len(t)) > 0.995) * 3
+    return finish(buzz * gate * 0.4 + crack, 0.6, 1.2, 0.05)
+
+
 def build(out):
     w = os.path.join(out, 'audio')
     files = {
@@ -463,6 +588,23 @@ def build(out):
         'ambient/interior.wav': hum_bed(),
         'ambient/bunker.wav': bunker_bed(),
         'ambient/basement.wav': hum_bed(10.0, 950, 60.0, 0.9),
+    })
+    files.update({
+        'scare/howl_far.wav': howl(3.4, 1200),
+        'scare/howl_answer.wav': howl(2.8, 1201, 380.0, 560.0),
+        'scare/growl.wav': growl(2.4, 1202),
+        'scare/rustle.wav': rustle(2.2, 1203),
+        'scare/branch_snap.wav': branch_snap(1204),
+        'scare/sign_tap_0.wav': sign_tap(1205, 3),
+        'scare/sign_tap_1.wav': sign_tap(1206, 2),
+        'scare/sign_tap_2.wav': sign_tap(1207, 4),
+        'scare/vent_growl.wav': vent_growl(),
+        'scare/pa_chime_cut.wav': pa_chime_cut(),
+        'scare/pipe_knock.wav': pipe_knock(1230),
+        'scare/pressure_groan.wav': pressure_groan(),
+        'scare/fan_breath.wav': fan_breath(),
+        'scare/tag_tap.wav': tag_tap(),
+        'scare/speaker_fragment.wav': speaker_fragment(),
     })
     for i in range(4):
         files[f'foley/step_dirt_{i}.wav'] = footstep(200 + i, 'dirt')

@@ -4,14 +4,15 @@ local Game = require("scripts/lib/game")
 local Campaign = {}
 
 Campaign.chapters = {
-    { id = "prologue", title = "Prologue: Lantern", subtitle = "Briefing and deployment", scene = "scenes/prologue.vscene" },
-    { id = "op01", title = "Operation 01: Greenline", subtitle = "Forest approach", scene = "scenes/op01_forest.vscene" },
-    { id = "op02", title = "Operation 02: Fenceline", subtitle = "The perimeter", scene = "scenes/op02_perimeter.vscene" },
-    { id = "op03", title = "Operation 03: Service Yard", subtitle = "Facility approach", scene = "scenes/op03_approach.vscene" },
-    { id = "op04", title = "Operation 04: Quiet Rooms", subtitle = "Facility interior", scene = "scenes/op04_interior.vscene" },
-    { id = "op05", title = "Operation 05: Deep Store", subtitle = "The bunker", scene = "scenes/op05_bunker.vscene" },
-    { id = "op06", title = "Operation 06: Undercroft", subtitle = "The lower basement", scene = "scenes/op06_basement.vscene" },
-    { id = "op07", title = "Operation 07: The Chair", subtitle = "VICTUS chamber", scene = "scenes/op07_chamber.vscene" },
+    { id = "prologue", title = "Prologue: Orders Before Dawn", subtitle = "Kestrel Valley, 03:10", scene = "scenes/prologue.vscene" },
+    { id = "op01", title = "Operation 01: Green Silence", subtitle = "The forest road", scene = "scenes/op01_forest.vscene" },
+    { id = "op02", title = "Operation 02: Dead Ground", subtitle = "The perimeter", scene = "scenes/op02_perimeter.vscene" },
+    { id = "op03", title = "Operation 03: Hard Entry", subtitle = "Kestrel Station", scene = "scenes/op03_approach.vscene" },
+    { id = "op04", title = "Operation 04: The Paper War", subtitle = "Records and labs", scene = "scenes/op04_interior.vscene" },
+    { id = "op05", title = "Operation 05: Below the Line", subtitle = "The bunker", scene = "scenes/op05_bunker.vscene" },
+    { id = "op06", title = "Operation 06: The Source Vault", subtitle = "The lower archive", scene = "scenes/op06_basement.vscene" },
+    { id = "op07", title = "Operation 07: V-01", subtitle = "The test chamber", scene = "scenes/op07_chamber.vscene" },
+    { id = "epilogue", title = "Epilogue: First Light", subtitle = "Forestry lay-by, dawn", scene = "scenes/epilogue.vscene" },
     { id = "credits", title = "Credits", subtitle = "", scene = "scenes/credits.vscene" },
 }
 

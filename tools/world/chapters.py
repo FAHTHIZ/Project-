@@ -98,8 +98,17 @@ def add_markers(sc):
     """Invisible interaction points the director registers (fp_player's cone fallback finds them)."""
     for name, key, tags in (('Mark Board', 'mule_camp', ''), ('Mark Relay Cell', 'relay_bay', 'Relay Scannable'),
                             ('Mark Booth Panel', 'booth_panel', ''), ('Mark Office Desk', 'office_desk', ''),
-                            ('Mark Facility Panel', 'facility_panel', '')):
-        comps = {'Transform': transform(P(key))}
+                            ('Mark Facility Panel', 'facility_panel', ''),
+                            # evidence in the gate booth and the site office (Op02/Op03 story beats)
+                            ('Mark Booth Records', ('booth_panel', -1.1, 0.0, 0.7), ''),
+                            ('Mark Field Recorder', ('booth_panel', 0.9, -0.4, -0.9), ''),
+                            ('Mark Site Manifest', ('office_desk', 0.8, 0.0, 0.0), '')):
+        if isinstance(key, tuple):
+            b = P(key[0])
+            key = (b[0] + key[1], b[1] + key[2], b[2] + key[3])
+        else:
+            key = P(key)
+        comps = {'Transform': transform(key)}
         if tags:
             comps['Tags'] = {'tags': tags}
         sc.add(name, comps)
