@@ -85,6 +85,8 @@ function W:start()
             self.w[id] = r
         end
     end
+    self.kit_model = find(self.entity, "Kit")
+    if self.kit_model then self.kit_home = self.kit_model.position; setvis(self.kit_model, false) end
     self.device = self.pivot and find(self.pivot, "Device")
     if self.device then
         self.device_home = self.device.position
@@ -107,7 +109,7 @@ function W:start()
         local id = Inventory.in_slot(slot)
         if id and self.w[id] then self.pending = id; break end
     end
-    Game.on("inventory_changed", function() self:on_inventory() end)
+    Game.on("inventory_changed", function(id, what) self:on_inventory(id, what) end)
     self.scope_level = 1
     self.kit_t = nil
     self.state = "idle"     -- idle | equip | lower | reload | holstered
@@ -150,24 +152,28 @@ function W:sync_inventory()
     end
 end
 
--- Reacts to items entering or leaving the inventory: a dropped current weapon is put away and
--- the next carried weapon raised; a newly taken weapon is raised when nothing is in hand.
-function W:on_inventory()
+-- Reacts to items entering or leaving the inventory. A newly taken weapon is raised (the one in
+-- hand is lowered first, visibly, even when it is the item being handed over); a dropped current
+-- weapon is lowered and the next carried weapon raised; nothing left means holstered.
+function W:on_inventory(id, what)
     self:sync_inventory()
-    if self.current and not Inventory.has(self.current) then
-        if self.w[self.current] then setvis(self.w[self.current].root, false) end
-        self.current = nil
-        self.state = "idle"
-        self.zoom = 0
+    if what == "restored" then return end
+    if id and what == "taken" and self.w[id] and Inventory.has(id) and id ~= self.current then
+        if self.current then self:begin_switch(id) else self:begin_equip(id) end
+        return
     end
-    if not self.current then
-        local nxt = self.prefer and Inventory.has(self.prefer) and self.prefer or nil
+    if self.current and not Inventory.has(self.current) then
+        local nxt = nil
         for _, slot in Items.weapon_slots do
-            local id = Inventory.in_slot(slot)
-            if not nxt and id and self.w[id] then nxt = id end
+            local w = Inventory.in_slot(slot)
+            if not nxt and w and self.w[w] then nxt = w end
         end
-        self.prefer = nil
-        if nxt then self:begin_equip(nxt) end
+        if nxt then
+            self:begin_switch(nxt)
+        elseif self.state ~= "lower" then
+            self.pending = nil
+            self:begin_lower()
+        end
     end
 end
 
@@ -228,12 +234,19 @@ function W:begin_equip(id)
     play("audio/weapons/equip.wav", 0.7)
 end
 
-function W:begin_switch(id)
-    if id == self.current or not self.w[id] or not Inventory.has(id) then return end
-    if self.state == "lower" then self.pending = id; return end
-    self.pending = id
+-- Lowering starts from wherever the weapon is (an interrupted raise or reload does not snap).
+function W:begin_lower()
+    if self.state == "kit" then self:end_kit(false) end
+    self.lower_from = self.lower_amt
     self.state = "lower"
     self.st = 0
+end
+
+function W:begin_switch(id)
+    if id == self.current or not self.w[id] or not Inventory.has(id) then return false end
+    self.pending = id
+    if self.state ~= "lower" then self:begin_lower() end
+    return true
 end
 
 function W:begin_reload()
@@ -407,6 +420,59 @@ function W:scan()
     return true
 end
 
+-- Scope zoom steps ------------------------------------------------------------------------------
+
+function W:cycle_scope()
+    local d = self:weapon() and self:weapon().def
+    if not d or not d.scope then return end
+    self.scope_level = self.scope_level % #d.scope + 1
+    play(d.zoom_sfx or "audio/weapons/aim.wav", 0.5, self.scope_level == 1 and 0.92 or 1.08)
+    Game.emit("scope_zoom", self.scope_level)
+end
+
+-- Field kit (utility slot) -------------------------------------------------------------------------
+-- Lowers the weapon, brings the kit up in the left of the frame, applies the patch two thirds of
+-- the way through and raises the weapon again. Interrupting (switch, take) cancels without
+-- spending the charge.
+
+function W:use_kit(ps)
+    local id = Inventory.in_slot("utility")
+    local kd = Items.get(id)
+    if not kd or not kd.heal then return false end
+    if self.state ~= "idle" or ps.sprinting then return false end
+    if ps.health >= ps.max_health - 0.5 then
+        if Game.toast then Game.toast("Health is full", 1.4) end
+        return false
+    end
+    self.kit = { id = id, def = kd, applied = false }
+    self.lower_from = self.lower_amt
+    self.state = "kit"
+    self.st = 0
+    play(kd.use_sfx or "audio/foley/item_pick.wav", 0.75)
+    Game.emit("kit_started", id)
+    return true
+end
+
+function W:update_kit(dt, ps, d)
+    local k = self.kit
+    if not k then self.state = "idle"; return end
+    local len = k.def.use_time or 1.6
+    local u = self.st / len
+    self.lower_amt = smooth(u / 0.2) * (1 - smooth((u - 0.8) / 0.2))
+    if not k.applied and u >= 0.62 then
+        k.applied = true
+        ps.health = math.min(ps.max_health, ps.health + k.def.heal)
+        Inventory.spend(k.id)
+        Game.emit("kit_used", k.id)
+    end
+    if u >= 1 then self:end_kit(true) end
+end
+
+function W:end_kit(done)
+    self.kit = nil
+    if self.state == "kit" then self.state = "idle"; self.lower_amt = done and 0 or self.lower_amt end
+end
+
 -- Per frame ------------------------------------------------------------------------------------
 
 function W:update(dt)
@@ -456,7 +522,10 @@ function W:update(dt)
         if Controls.pressed("weapon1") and Inventory.in_slot("primary") then self:begin_switch(Inventory.in_slot("primary")) end
         if Controls.pressed("weapon2") and Inventory.in_slot("secondary") then self:begin_switch(Inventory.in_slot("secondary")) end
         if Controls.pressed("reload") then self:begin_reload() end
-        if Controls.pressed("tool") then self:scan() end
+        if Controls.pressed("tool") then
+            if self.scoped then self:cycle_scope() else self:scan() end
+        end
+        if Controls.pressed("utility") then self:use_kit(ps) end
         if touch then
             if Controls.pressed("aim") then self.aim_toggle = not self.aim_toggle end
         else
@@ -464,7 +533,7 @@ function W:update(dt)
         end
     end
     local aiming = playing and (self.aim_toggle or (not touch and Controls.down("aim")))
-    if self.state == "reload" or self.state == "lower" or self.state == "equip" or ps.sprinting then aiming = false end
+    if self.state ~= "idle" or ps.sprinting then aiming = false end
     if ps.sprinting then self.aim_toggle = false end
 
     -- State progression.
@@ -472,8 +541,25 @@ function W:update(dt)
         self.lower_amt = 1 - smooth(self.st / d.equip)
         if self.st >= d.equip then self.state = "idle"; self.lower_amt = 0 end
     elseif self.state == "lower" then
-        self.lower_amt = smooth(self.st / d.lower)
-        if self.st >= d.lower then self:begin_equip(self.pending) end
+        local from = self.lower_from or 0
+        local len = math.max(0.05, d.lower * (1 - from))
+        self.lower_amt = from + (1 - from) * smooth(self.st / len)
+        if self.st >= len then
+            if self.pending and Inventory.has(self.pending) then
+                self:begin_equip(self.pending)
+            else
+                -- nothing to raise: holster
+                self.pending = nil
+                setvis(r.root, false)
+                self.current = nil
+                self.state = "idle"
+                self.zoom = 0
+                ps.zoom = 0
+                return
+            end
+        end
+    elseif self.state == "kit" then
+        self:update_kit(dt, ps, d)
     elseif self.state == "reload" then
         local u = self.st / self.reload_len
         if self.reload_sfx == 0 and u > 0.18 then play(d.cell_out, 0.8); self.reload_sfx = 1 end
@@ -507,6 +593,31 @@ function W:update(dt)
     if self.zoom < 0.002 then self.zoom = 0 end
     ps.zoom = self.zoom
     ps.zoom_fov = Game.settings.fov * d.zoom_fov
+    ps.zoom_sens = 1
+    -- Scope: past scope_at the view goes through the lens; the viewmodel is hidden behind it.
+    local scoped = d.scope ~= nil and self.zoom > (d.scope_at or 0.8) and aiming
+    if scoped ~= (self.scoped == true) then
+        self.scoped = scoped
+        setvis(r.root, not scoped)
+        if scoped then play(d.zoom_sfx or "audio/weapons/aim.wav", 0.45, 1.0) end
+        self.sway_prev = nil
+    end
+    if scoped then
+        local mult = d.scope[self.scope_level] or d.scope[1]
+        ps.zoom_fov = Game.settings.fov * mult
+        ps.zoom_sens = mult / d.zoom_fov
+        -- breathing sway, steadier crouched; applied as a delta so it never accumulates
+        local amp = (d.scope_sway or 0.2) * (ps.crouched and 0.45 or 1) * (self.scope_level == 2 and 1.25 or 1)
+        local tn2 = time.now()
+        local sx = (math.sin(tn2 * 0.83) * 0.6 + math.sin(tn2 * 1.91 + 0.7) * 0.3) * amp
+        local sy = (math.sin(tn2 * 1.27 + 1.3) * 0.5 + math.sin(tn2 * 0.53) * 0.3) * amp
+        if self.sway_prev then
+            ps.yaw += sx - self.sway_prev.x
+            ps.pitch += sy - self.sway_prev.y
+        end
+        self.sway_prev = V(sx, sy, 0)
+    end
+    Game.scope = scoped and { level = self.scope_level, levels = #d.scope } or nil
     if aiming and not self.was_aiming then play("audio/weapons/aim.wav", 0.5) end
     self.was_aiming = aiming
 
@@ -635,6 +746,18 @@ function W:update(dt)
         pos += V(0.03 * sa, -0.02 * sa, 0)
         rot += V(-5 * sa, -6 * sa, 0)
     end
+    if self.kit_model then
+        local ka = 0
+        if self.state == "kit" then
+            local u = self.st / ((self.kit and self.kit.def.use_time) or 1.6)
+            ka = smooth((u - 0.1) / 0.25) * (1 - smooth((u - 0.78) / 0.18))
+        end
+        setvis(self.kit_model, ka > 0.01)
+        if ka > 0.01 then
+            self.kit_model.position = self.kit_home + V(0.02 * (1 - ka), -0.22 * (1 - ka), 0.04 * (1 - ka))
+            self.kit_model.rotation = V(28 - 20 * (1 - ka), 18, -6)
+        end
+    end
     self.pivot.position = pos
     self.pivot.rotation = rot
 
@@ -655,6 +778,13 @@ function W:update(dt)
 end
 
 function W:tool_hud()
+    local kid = Inventory.in_slot("utility")
+    local kst = kid and Inventory.state(kid)
+    Game.kit_hud = kst and kst.charges and string.format("KIT x%d", kst.charges) or nil
+    if self.scoped then
+        Game.tool_hud = "ZOOM STEP [T]"
+        return
+    end
     local left = self.scan_cooldown - self.scan_t
     if self.scan_anim > 0 then
         Game.tool_hud = string.format("SCAN  %d contact%s", self.last_scan, self.last_scan == 1 and "" or "s")

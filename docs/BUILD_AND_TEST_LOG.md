@@ -213,3 +213,41 @@ tools/test/shot.sh scenes/tests/squad_combat.vscene 420 /tmp/sq2.png   # contrac
 ### Status
 
 Implemented, simulated headless and visually inspected under lavapipe on the dev range. Voices were listened to only as waveforms/lengths (no speakers on the build machine). Not tested on a phone; the squad-of-four cost on the Infinix Hot 10S is unmeasured.
+
+## Vehicle, cargo storage, LR-4 scope, field kit, squad egress — 2026-11-19
+
+Base: game `f04419d`, VICTUS `82bfd17`. Machine: 2-core x86-64, lavapipe (software Vulkan), no phone.
+
+### Commands and results
+
+```sh
+python3 tools/characters/build_humans.py --rig ../victus/engine/project/data/characters/victus_vanguard_02.glb --out game/assets/models/characters   # + Sit, SitStand, Lift, Reach
+python3 tools/ui/build_ui_textures.py --out game/assets                          # scope_mask.png
+cd tools/scenes && python3 build_dev_range.py movement hud pause_ui weapons vm_ads vm_reload vm_sidearm vm_scan squad squad_combat enemy_fire squad_look vehicle trunk sniper vehicle_look trunk_look scope_look && cd ../..
+victus import game && victus check game     # 21 scenes, 2 controllers, 28 scripts: 0 problems
+python3 tools/test/run_autotests.py         # 18/18 scenes PASS
+#   vehicle 14/14: registered, 4 seated (worst 0.003 m), engine idle, drives 3.75 m/s on spline, wheels spin,
+#                  occupants follow (worst 0.063 m), parks at target, heading, engine off, doors open in turn,
+#                  all four out, doors closed, none inside the body, all grounded
+#   trunk 26/26:   storage found, contents, locked while closed, hatch prompt/animates/open, look identifies,
+#                  description, take, swap stows carbine, swap lowers first, equip, carbine visible in slot,
+#                  refused when cells full, supply consumed, kit, invalid item, duplicate refused, drop,
+#                  re-pick keeps ammo state, swap back, save/restore inventory + storage, hatch close, reopen preserves
+#   sniper 19/19:  scope FOV/sensitivity, zoom step 2, bounded sway, scoped shot hit, bolt interval,
+#                  unscope, interrupted equip without snap, kit heal/charge/removal/HUD, no kit no use
+sh tools/test/shot.sh scenes/tests/vehicle_look.vscene 90 docs/evidence/vehicle_seated.png
+sh tools/test/shot.sh scenes/tests/trunk_look.vscene 150 docs/evidence/trunk_open.png
+sh tools/test/shot.sh scenes/tests/scope_look.vscene 220 docs/evidence/scope.png
+```
+
+### Defects found and fixed
+
+- `Game.register_interactable` lived in fp_player.luau, so vehicle/storage scripts that started first called nil; moved to lib/game.luau.
+- Seated operators stood with heads through the roof: `set_anim_param` during `start()` was lost and the rider (gravity off) reported not grounded, sending the graph to Fall. The actor now drives `seated`/`grounded` every frame; `seated_pose = false` lets SitStand play while still attached.
+- The HUD never resolved Scope, Scope Zoom, Prompt Detail and Kit Text (missing from its element list) so the scope overlay never showed; added, and the HUD now warns about any missing element.
+- Cargo bay contents were unreadable in shade; added a hatch-switched courtesy lamp.
+- Trunk test assumed reserve below max; it refills first so the "cells full" refusal is actually exercised.
+
+### Status
+
+Implemented, simulated headless (autotests) and visually inspected on lavapipe (three evidence shots above). Drive is an authored spline, not physics driving. No foot IK. Not tested on a phone.

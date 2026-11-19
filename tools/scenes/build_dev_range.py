@@ -9,6 +9,7 @@ from vscene import Scene, GROUND_MATERIAL, collider, body, script, transform
 from common import environment, sun, autotest
 import rig
 import actors
+import vehicle
 
 
 TARGETS = [(0, -6), (-5, -12), (5, -12), (-9, -22), (0, -26), (9, -22)]
@@ -44,6 +45,22 @@ def add_squad_setup(sc, plan):
         actors.add_enemy(sc, "Greyline 1", (3, 0, -3), -20.0, variant=0, voice="greyline1")
 
 
+# Vehicle plans: the Mule on the open north side of the range.
+VEHICLE_PLANS = {"vehicle", "trunk", "sniper", "vehicle_look", "trunk_look", "scope_look"}
+SEATS = (("Anchor", "driver"), ("Patch", "front_right"), ("Echo", "rear_left"), ("Tally", "rear_right"))
+
+
+def add_vehicle_setup(sc, plan):
+    if plan in ("vehicle", "vehicle_look"):
+        vehicle.add_vehicle(sc, "Mule", (-16, 0, 28), -90.0, cargo=["marksman", "field_kit", "cell_pack", "cell_pack"])
+        actors.add_ensemble(sc)
+        actors.add_npc_tracers(sc)
+        for who, seat in SEATS:
+            actors.add_operator(sc, who, (-16, 0, 36), -90.0, order="hold", ride="Mule", seat=seat)
+    else:
+        vehicle.add_vehicle(sc, "Mule", (0, 0, 16), 0.0, cargo=["marksman", "field_kit", "cell_pack", "cell_pack"])
+
+
 def build(plan=None):
     name = "Dev Range" if not plan else f"Test {plan}"
     sc = Scene(name)
@@ -61,7 +78,10 @@ def build(plan=None):
         add_target(sc, f"Target {i}", (x, 0, z))
     if plan in SQUAD_PLANS:
         add_squad_setup(sc, plan)
-    rig.add_player(sc, (0, 0, 6), 0, with_weapons=True)
+    if plan in VEHICLE_PLANS:
+        add_vehicle_setup(sc, plan)
+    ppos = {"trunk": (0, 0, 20.6), "trunk_look": (0, 0, 20.4), "vehicle": (-4, 0, 12), "vehicle_look": (-12.6, 0, 31.4)}.get(plan, (0, 0, 6))
+    rig.add_player(sc, ppos, 0, with_weapons=True)
     rig.add_hud(sc)
     if plan:
         autotest(sc, plan)

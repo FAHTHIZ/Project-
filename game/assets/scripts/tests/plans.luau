@@ -229,5 +229,6 @@ Plans.vm_scan = { { at = 0.6, press = "tool" }, { at = 0.65, release = "tool" },
 for _, n in { "vm_ads", "vm_reload", "vm_sidearm", "vm_scan" } do table.insert(Plans[n], { at = 25 }) end
 
 for k, v in require("scripts/tests/squad_plans") do Plans[k] = v end
+for k, v in require("scripts/tests/vehicle_plans") do Plans[k] = v end
 
 return Plans

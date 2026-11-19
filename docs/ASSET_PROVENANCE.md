@@ -12,6 +12,10 @@ Every shipped asset is listed here with its origin. "Original (generated)" means
 | `game/assets/textures/env/*.png` (ground layers) and the textures embedded in the env GLBs | Original (generated, procedural noise and drawing) | `tools/props/build_forest.py` | Apache-2.0 |
 | `game/assets/models/weapons/*.glb` (PC-7 Lantern carbine body/cell, SP-2 Wren sidearm body/slide/cell, gloved first-person hands, pulse bolt, stun target) | Original (generated); fictional designs, not modelled on any real firearm | `tools/props/build_weapons.py` | Apache-2.0 |
 | `game/assets/audio/weapons/*.wav`, `audio/ui/*.wav`, `audio/foley/*.wav` (pulse shots, cell swaps, charge whine, impacts, target fold, scanner ping, footsteps, cloth, landing, UI ticks) | Original (synthesised from code: oscillators, filtered noise, envelopes; no recordings or samples) | `tools/audio/build_sfx.py` | Apache-2.0 |
+| `game/assets/models/vehicle/mule_*.glb`  (Mule squad utility vehicle: body, glass, four doors, hatch, wheels, steering wheel) and `audio/vehicle/*.wav` (engine idle/load loop, tyres, doors, hatch) | Original (generated); fictional vehicle, not modelled on a real make | `tools/props/build_vehicle.py`, `tools/audio/build_sfx.py` | Apache-2.0 |
+| `game/assets/models/weapons/lr4_*.glb` (LR-4 Heron fictional long pulse emitter) and the field kit / cell pack models in `models/props/` | Original (generated); fictional designs | `tools/props/build_weapons.py` | Apache-2.0 |
+| `game/assets/textures/ui/scope_mask.png` (round lens mask with fictional reticle) | Original (generated) | `tools/ui/build_ui_textures.py` | Apache-2.0 |
+| Clips Sit, SitStand, Lift, Reach in the `sops_*.glb` characters | Original, authored in the generator | `tools/characters/build_humans.py` | Apache-2.0 |
 | `game/assets/models/characters/victus_vanguard_01.glb`, `_02.glb`, `anim/characters/vanguard_locomotion.vanim`, template scripts, `audio/impact.wav`, `textures/ground_grid.png`, materials, shader | VICTUS 3D template (`victus new --template 3d`) | VICTUS `bc0ce15` | Apache-2.0 (VICTUS) |
 
 Authoring tools: Python 3, NumPy, Pillow (no assets from them; libraries only).

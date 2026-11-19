@@ -401,6 +401,41 @@ def authored_clips():
     clips.append(("Beckon", [(0.0, relaxed, (0, 0, 0)), (0.25, beckon, (0, 0, 0)),
                              (0.5, merge(beckon, {'LowerArm.L': [(X, -50)]}), (0, 0, 0)), (0.75, beckon, (0, 0, 0)),
                              (1.0, merge(beckon, {'LowerArm.L': [(X, -50)]}), (0, 0, 0)), (1.3, relaxed, (0, 0, 0))]))
+    # Seated (vehicle bench): thighs level, shins vertical, forearms resting on the thighs. Hips drop
+    # 0.46 m and sit slightly back so the knees land above the feet.
+    sit = merge(relaxed, {'Spine': [(X, -4)], 'UpperLeg.L': [(X, 86), (Z, 4)], 'UpperLeg.R': [(X, 86), (Z, -4)],
+                          'LowerLeg.L': [(X, -84)], 'LowerLeg.R': [(X, -84)], 'Foot.L': [(X, 4)], 'Foot.R': [(X, 4)],
+                          'UpperArm.L': [(X, 38)], 'UpperArm.R': [(X, 38)], 'LowerArm.L': [(X, -46)],
+                          'LowerArm.R': [(X, -46)], 'Head': [(X, 2)]})
+    SIT_T = (0, -0.46, -0.06)
+    clips.append(("Sit", [(0.0, sit, SIT_T), (1.6, merge(sit, {'Chest': [(X, 2)], 'Head': [(Y, 4)]}), SIT_T),
+                          (3.2, sit, SIT_T)]))
+    # Standing up out of a seat: lean forward over the feet, push off the thighs, rise.
+    lean = merge(relaxed, {'Spine': [(X, 30)], 'Chest': [(X, 12)], 'Head': [(X, -14)],
+                           'UpperLeg.L': [(X, 80)], 'UpperLeg.R': [(X, 80)], 'LowerLeg.L': [(X, -90)],
+                           'LowerLeg.R': [(X, -90)], 'Foot.L': [(X, 12)], 'Foot.R': [(X, 12)],
+                           'UpperArm.L': [(X, 34)], 'UpperArm.R': [(X, 34)], 'LowerArm.L': [(X, -30)],
+                           'LowerArm.R': [(X, -30)]})
+    rise = merge(relaxed, {'Spine': [(X, 14)], 'Chest': [(X, 6)], 'Head': [(X, -6)],
+                           'UpperLeg.L': [(X, 36)], 'UpperLeg.R': [(X, 30)], 'LowerLeg.L': [(X, -46)],
+                           'LowerLeg.R': [(X, -40)], 'Foot.L': [(X, 10)], 'Foot.R': [(X, 10)]})
+    clips.append(("SitStand", [(0.0, sit, SIT_T), (0.35, lean, (0, -0.42, 0.04)), (0.75, rise, (0, -0.16, 0.04)),
+                               (1.15, relaxed, (0, 0, 0))]))
+    # Lifting a hatch overhead with both hands, then letting the struts take it.
+    lift_lo = merge(relaxed, {'Spine': [(X, 10)], 'UpperArm.L': [(X, 70), (Z, -10)], 'UpperArm.R': [(X, 70), (Z, 10)],
+                              'LowerArm.L': [(X, -30)], 'LowerArm.R': [(X, -30)], 'Head': [(X, 6)]})
+    lift_hi = merge(relaxed, {'Spine': [(X, -6)], 'UpperArm.L': [(X, 150), (Z, -12)], 'UpperArm.R': [(X, 150), (Z, 12)],
+                              'LowerArm.L': [(X, -18)], 'LowerArm.R': [(X, -18)], 'Head': [(X, -18)]})
+    clips.append(("Lift", [(0.0, relaxed, (0, 0, 0)), (0.35, lift_lo, (0, -0.04, 0.02)), (0.85, lift_hi, (0, 0.02, 0)),
+                           (1.15, lift_hi, (0, 0.02, 0)), (1.6, relaxed, (0, 0, 0))]))
+    # Reaching into a cargo bay at hip height and lifting an item out.
+    reach = merge(relaxed, {'Spine': [(X, 28)], 'Chest': [(X, 10)], 'UpperArm.R': [(X, 62), (Z, 6)],
+                            'LowerArm.R': [(X, -20)], 'UpperArm.L': [(X, 40)], 'LowerArm.L': [(X, -35)],
+                            'UpperLeg.L': [(X, 14)], 'UpperLeg.R': [(X, 14)], 'LowerLeg.L': [(X, -16)],
+                            'LowerLeg.R': [(X, -16)]})
+    clips.append(("Reach", [(0.0, relaxed, (0, 0, 0)), (0.45, reach, (0, -0.06, 0.03)), (0.8, reach, (0, -0.06, 0.03)),
+                            (1.3, merge(relaxed, {'UpperArm.R': [(X, 30)], 'LowerArm.R': [(X, -60)]}), (0, 0, 0)),
+                            (1.6, relaxed, (0, 0, 0))]))
     return clips
 
 

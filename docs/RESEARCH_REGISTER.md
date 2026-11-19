@@ -206,3 +206,17 @@ The agent must research and cite:
 - Android profiling tooling compatible with the phone's actual OS and GPU driver.
 
 Every campaign area and major cinematic should have its own research notes with image references, observations, original design decisions, asset list, licenses, engine fit and mobile performance plan. All source material informs original work; it is not permission to copy another game's missions, characters, weapons, maps, dialogue or compositions.
+
+## 9. Vehicle egress, cargo access and scope presentation (Mule, LR-4) — 2026-11-19
+
+Sources
+- Chateauroux & Wang, "Car egress analysis of younger and older drivers for motion simulation", Applied Ergonomics 2010 ([PubMed 20797693](https://pubmed.ncbi.nlm.nih.gov/20797693/)): two egress strategies, "Left Leg First" and "Two Legs Out" (swivel in the seat, both legs out, then rise).
+- Systematic review of driver ingress/egress ([Longdom](https://www.longdom.org/open-access/a-systematic-review-of-driver-ingress-and-egress-using-passenger-vehicles-considerations-for-designers-21148.html)): ingress/egress phases are door opening, movement adaptation, seat phase; strategies do not depend much on vehicle geometry.
+- Senior drivers' exit strategies ([Preprints 202307.1293](https://www.preprints.org/manuscript/202307.1293)): exit = feet out with the torso and head rotating outward → lean out through the frame → upright, "culminating in the closing of the door".
+- Alternative movement identification in ingress/egress ([academia.edu](https://www.academia.edu/128711540/Alternative_movement_identification_in_the_automobile_ingress_and_egress_for_young_and_elderly_population_with_or_without_prostheses)): "Once both feet were firmly on the ground, they turned to close the door."
+
+Decisions (original implementation, `operator.luau` update_vehicle)
+- Operators use the two-legs-out pattern because the engine has no foot IK and no per-leg contact (an honest limit; we do not claim foot placement): door opens first (0.75 s), the body swivels on the seat toward the door (0.75 s), the SitStand clip leans forward over the feet then rises while the root travels over the sill (1.15 s), then the operator turns back and pushes the door shut before walking off. Exits are staggered by seat so doors never open all at once.
+- Head/eyes lead the motion: the operator looks at the door point before swivelling (listener/looker rule in AGENTS.md).
+- Cargo bay: real vehicles have a courtesy lamp switched by the tailgate; the Mule's lamp ramps with the hatch, which keeps the bay contents legible in shade without inventing ambient light (AGENTS.md: no darkness hiding work, but also no fake fill).
+- Scope: two zoom states only (0.30 and 0.16 × FOV), reduced look sensitivity scaled with zoom, bounded sway, viewmodel hidden while scoped, black housing around a round lens mask. Fictional optic; no real reticle subtensions are reproduced.

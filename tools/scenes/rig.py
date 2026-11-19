@@ -5,7 +5,7 @@ subtitles, damage feedback, touch controls), the pause/settings modal, the diagn
 and the operation director."""
 from __future__ import annotations
 
-from vscene import (Scene, transform, collider, body, mesh_renderer, script, ui_rect, ui_panel, ui_text, ui_button,
+from vscene import (meta_uuid, Scene, transform, collider, body, mesh_renderer, script, ui_rect, ui_panel, ui_text, ui_button,
                     quat_euler)
 
 PAUSE_SETTINGS = [
@@ -96,6 +96,7 @@ def add_viewmodel(sc: Scene, vm):
         ("Carbine", [("Body", "pc7_body"), ("Cell", "pc7_cell")], ((0, 0.0, -0.21), (0, 0, 0)), (0, 0.045, -0.515)),
         ("Sidearm", [("Body", "sp2_body"), ("Slide", "sp2_slide"), ("Cell", "sp2_cell")],
          ((-0.014, -0.006, 0.012), (0, -12, 0)), (0, 0.012, -0.152)),
+        ("Marksman", [("Body", "lr4_body"), ("Cell", "lr4_cell")], ((0, 0.0, -0.27), (0, 0, 0)), (0, 0.045, -0.745)),
     ]:
         r = sc.add(root, {"Transform": transform()}, pivot)
         for nm, glb in parts:
@@ -109,6 +110,10 @@ def add_viewmodel(sc: Scene, vm):
     dev = sc.add("Device", {"Transform": transform((-0.3, 0.03, 0.0), quat_euler(10, 200, 0))}, pivot)
     _vm_prop(sc, "Device Model", "models/env/field_device.glb", dev)
     _vm_prop(sc, "Device Hand L", W + "hand_l.glb", dev, (0.0, 0.0, 0.0), rot=quat_euler(0, 180, 0))
+    # FK-1 field kit, held in the left of the frame while it is used (camera space, not swayed).
+    kit = sc.add("Kit", {"Transform": transform((-0.16, -0.14, -0.34), quat_euler(28, 18, -6))}, vm)
+    _vm_prop(sc, "Kit Model", "models/props/field_kit.glb", kit, scale=(0.55, 0.55, 0.55))
+    _vm_prop(sc, "Kit Hand L", W + "hand_l.glb", kit, (0.06, -0.02, 0.02), rot=quat_euler(0, 160, 0))
     return pivot
 
 
@@ -142,6 +147,17 @@ def add_hud(sc: Scene):
        panel=ui_panel((0, 0, 0, 1), 0, (0, 0, 0, 0), 0))
     ui(sc, "Letterbox Bottom", canvas, ui_rect((0, 0), (0, 0), (0, 0), (0.5, 0), anchor_max=(1, 0), visible=False),
        panel=ui_panel((0, 0, 0, 1), 0, (0, 0, 0, 0), 0))
+    # LR-4 scope overlay: lens mask (square, fits the canvas height) and housing panels to the sides.
+    scope = ui(sc, "Scope", canvas, ui_rect((0, 0), (0, 0), (0, 0), (0.5, 0.5), anchor_max=(1, 1), visible=False))
+    ui(sc, "Scope Lens", scope, ui_rect((0.5, 0.5), (0, 0), (724, 724), (0.5, 0.5)),
+       image={"texture": meta_uuid("textures/ui/scope_mask.png"), "tint": [1, 1, 1, 1], "preserve_aspect": True,
+              "corner_radius": 0})
+    ui(sc, "Scope Left", scope, ui_rect((0.5, 0.5), (-360, 0), (2400, 900), (1, 0.5)),
+       panel=ui_panel((0.004, 0.004, 0.004, 1), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Scope Right", scope, ui_rect((0.5, 0.5), (360, 0), (2400, 900), (0, 0.5)),
+       panel=ui_panel((0.004, 0.004, 0.004, 1), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Scope Zoom", scope, ui_rect((0.5, 0), (0, 40), (300, 28), (0.5, 0)),
+       text=ui_text("", 16, (0.85, 0.95, 1, 0.8), "center", "middle", True))
     # Damage vignette and fade.
     ui(sc, "Damage", canvas, ui_rect((0, 0), (0, 0), (0, 0), (0.5, 0.5), anchor_max=(1, 1), visible=False),
        panel=ui_panel((0.55, 0.08, 0.04, 0.0), 0, (0.8, 0.1, 0.05, 0.0), 26))
@@ -170,6 +186,9 @@ def add_hud(sc: Scene):
     ui(sc, "Prompt", canvas, ui_rect((0.5, 0.5), (0, -88), (520, 40), (0.5, 0.5), visible=False),
        panel=ui_panel((0.03, 0.05, 0.06, 0.55), 6, (1, 1, 1, 0.15), 1),
        text=ui_text("", 21, (1, 1, 1, 1), "center", "middle", True))
+    ui(sc, "Prompt Detail", canvas, ui_rect((0.5, 0.5), (0, -128), (640, 34), (0.5, 0.5), visible=False),
+       panel=ui_panel((0.03, 0.05, 0.06, 0.45), 6, (1, 1, 1, 0.0), 0),
+       text=ui_text("", 16, (0.85, 0.93, 1, 1), "center", "middle", False))
     # Weapon / ammo (bottom right, above touch buttons when touch is off).
     wp = ui(sc, "Weapon Panel", canvas, ui_rect((1, 0), (-28, 24), (300, 88), (1, 0)),
             panel=ui_panel((0.03, 0.05, 0.06, 0.45), 6, (1, 1, 1, 0.12), 1))
@@ -185,7 +204,9 @@ def add_hud(sc: Scene):
     ui(sc, "Health Back", hp, ui_rect((0, 1), (14, -14), (272, 10), (0, 1)), panel=ui_panel((1, 1, 1, 0.15), 3))
     ui(sc, "Health Bar", hp, ui_rect((0, 1), (14, -14), (272, 10), (0, 1)),
        panel=ui_panel((0.55, 0.9, 0.75, 0.95), 3, (0, 0, 0, 0), 0))
-    ui(sc, "Tool Text", hp, ui_rect((0, 0), (14, 8), (272, 34), (0, 0)),
+    ui(sc, "Kit Text", hp, ui_rect((1, 0), (-14, 8), (120, 34), (1, 0)),
+       text=ui_text("", 16, (0.65, 1, 0.8, 1), "right", "middle", True))
+    ui(sc, "Tool Text", hp, ui_rect((0, 0), (14, 8), (170, 34), (0, 0)),
        text=ui_text("", 17, (0.8, 0.95, 1, 1), "left", "middle", False))
     # Subtitles (bottom centre).
     sub = ui(sc, "Subtitle", canvas, ui_rect((0.5, 0), (0, 128), (760, 74), (0.5, 0), visible=False),
@@ -214,7 +235,7 @@ def add_hud(sc: Scene):
     ui(sc, "Stick Knob", touch, ui_rect((0, 1), (220, -470), (76, 76), (0.5, 0.5)),
        panel=ui_panel((1, 1, 1, 0.32), 38, (1, 1, 1, 0.6), 2))
     from_controls = [("fire", 74, "FIRE"), ("aim", 52, "AIM"), ("reload", 44, "RELOAD"), ("switch", 44, "SWITCH"),
-                     ("jump", 44, "JUMP"), ("crouch", 40, "CROUCH"), ("interact", 48, "USE"), ("tool", 44, "TOOL"),
+                     ("jump", 44, "JUMP"), ("crouch", 40, "CROUCH"), ("interact", 48, "USE"), ("tool", 44, "TOOL"), ("utility", 40, "KIT"),
                      ("pause", 34, "II"), ("objectives", 34, "OBJ")]
     for n, r, label in from_controls:
         ui(sc, f"Touch {n}", touch, ui_rect((1, 1), (0, 0), (2 * r, 2 * r), (0.5, 0.5)),

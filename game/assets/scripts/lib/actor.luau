@@ -16,6 +16,7 @@ Actor.__index = Actor
 -- Carry (child of Body, character space: +Z forward, +X the character's left). Low-ready sits at
 -- the right hip with the muzzle down and across; aim raises it to the right shoulder.
 local READY_P, AIM_P = vector.create(-0.07, 1.14, 0.27), vector.create(-0.13, 1.42, 0.34)
+local SEAT_P = vector.create(-0.02, 0.62, 0.36)
 
 local function lerpv(a, b, t) return a + (b - a) * t end
 
@@ -119,6 +120,7 @@ function Actor:update(dt)
         local d = self.focus - e.position
         if d.x * d.x + d.z * d.z > 0.04 then want = math.deg(math.atan2(d.x, d.z)) end
     end
+    if self.hold_yaw then want = nil end -- a vehicle or cinematic owns the body yaw
     if want then
         local diff = wrap(want - self.yaw)
         local rate = (spd > 0.5) and 300 or 200
@@ -128,17 +130,23 @@ function Actor:update(dt)
     -- animation parameters (the walk cycle matches about 1.15 m/s per blend unit)
     self:param("speed", self.speed_now * 1.0)
     local cs = e:character_state()
-    if cs then self:param("grounded", cs.grounded) end
+    -- a seated rider has no ground under the controller (gravity off); keep the graph out of Fall
+    if cs then self:param("grounded", cs.grounded or self.seated == true) end
+    -- seated_pose = false lets the rider stand (SitStand) while still attached to the vehicle
+    self:param("seated", self.seated == true and self.seated_pose ~= false)
     -- carried weapon pose
     self.aim = Game.damp(self.aim, self.aim_want, 8, dt)
+    -- seated: rifle upright between the knees (follows the Sit clip's lowered hips)
+    self.sit_w = Game.damp(self.sit_w or 0, (self.seated and self.seated_pose ~= false) and 1 or 0, 5, dt)
     if self.carry and self.carry.valid then
         local cpos = lerpv(READY_P, AIM_P, self.aim)
+        cpos = lerpv(cpos, SEAT_P, self.sit_w)
         self.carry.position = cpos
         -- muzzle direction in character space (look_at works in the parent's space, -Z forward)
         local p = math.rad(self.aim_pitch)
         local ready_dir = vector.create(0.34, -0.66, 0.67)
         local aim_dir = vector.create(0, math.sin(p), math.cos(p))
-        local dir = vector.normalize(lerpv(ready_dir, aim_dir, self.aim))
+        local dir = vector.normalize(lerpv(lerpv(ready_dir, aim_dir, self.aim), vector.create(0.05, 0.96, 0.28), self.sit_w))
         self.carry:look_at(cpos + dir * 2)
     end
     -- support hand
@@ -170,7 +178,7 @@ function Actor:update(dt)
     -- footsteps
     local moved = vector.magnitude(e.position - self.last_pos)
     self.last_pos = e.position
-    if cs and cs.grounded and moved < 1 then
+    if cs and cs.grounded and moved < 1 and not self.seated then
         self.step_dist += moved
         local stride = spd > 3 and 1.25 or 0.8
         if self.step_dist > stride then
