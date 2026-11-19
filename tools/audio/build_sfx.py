@@ -180,6 +180,109 @@ def footstep(seed, surface):
     return finish(x, 0.55 + r.uniform(-0.05, 0.05), 1.2)
 
 
+# ---- vehicle --------------------------------------------------------------------------------
+
+def loop_noise(sec, seed, lo=None, hi=None):
+    """Noise that loops seamlessly: filtered over two periods, the second one kept."""
+    x = np.tile(noise(sec, seed), 2)
+    if lo and hi: x = bp(x, lo, hi)
+    elif hi: x = lp(x, hi)
+    elif lo: x = hp(x, lo)
+    return x[len(x) // 2:]
+
+
+def engine_idle(sec=2.0, fire_hz=28.0, seed=500):
+    """Diesel-style idle loop: firing pulses with harmonics and pulsed intake/exhaust noise.
+    The firing rate divides the loop length exactly, so the loop has no seam."""
+    t = t_axis(sec)
+    ph = 2 * np.pi * fire_hz * t
+    pulses = (0.5 + 0.5 * np.cos(ph)) ** 6
+    tone = sum(np.sin(ph * k + k * 0.7) / k ** 0.9 for k in range(1, 9))
+    rumble = loop_noise(sec, seed, None, 380) * (0.35 + 0.65 * pulses)
+    clatter = loop_noise(sec, seed + 1, 1200, 4200) * pulses ** 2 * 0.25
+    half = np.sin(ph / 2) * 0.35  # uneven cylinder for character (fire_hz/2 still divides the loop)
+    x = tone * 0.45 + rumble * 1.3 + clatter + half * 0.3
+    x = lp(np.tile(x, 2), 2600)[len(x):]
+    x = np.tanh(x * 1.2)
+    return x / np.max(np.abs(x)) * 0.8
+
+
+def engine_start(sec=1.8, seed=520):
+    t = t_axis(sec)
+    crank = np.zeros(len(t))
+    k = int(SR * 0.7)
+    tc = t[:k]
+    crank[:k] = (bp(noise(0.7, seed), 200, 1400) * (0.5 + 0.5 * np.sign(np.sin(2 * np.pi * 9 * tc))) * 0.5 +
+                 signal.sawtooth(2 * np.pi * 52 * tc) * 0.15)
+    catch_t = t[k:] - t[k]
+    rpm = 28 + 30 * np.exp(-catch_t * 2.5) * (1 - np.exp(-catch_t * 25))
+    ph = 2 * np.pi * np.cumsum(rpm) / SR
+    nz = lp(noise(sec, seed + 1), 450)[:len(ph)]
+    run = sum(np.sin(ph * j) / j for j in range(1, 7)) * 0.5 + nz * 0.8
+    out = crank.copy(); out[k:] += run * np.clip(catch_t / 0.05, 0, 1)
+    return finish(out, 0.8, 1.2, 0.08)
+
+
+def engine_stop(sec=1.6, seed=540):
+    t = t_axis(sec)
+    rpm = 28 * np.exp(-t * 2.2)
+    ph = 2 * np.pi * np.cumsum(rpm) / SR
+    run = (sum(np.sin(ph * j) / j for j in range(1, 7)) * 0.5 + lp(noise(sec, seed), 400) * 0.6) * np.exp(-t * 2.4)
+    shudder = np.sin(2 * np.pi * 9 * t) * np.exp(-((t - 0.55) / 0.12) ** 2) * 0.3
+    ticks = sum(at(bp(noise(0.03, seed + i), 2500, 7000) * env(t_axis(0.03), 0.0003, 200) * 0.12, 0.9 + i * 0.21, sec)
+                for i in range(3))
+    return finish(mix(run + shudder, ticks), 0.75, 1.1, 0.1)
+
+
+def door(seed, opening):
+    sec = 0.6 if opening else 0.5
+    t = t_axis(sec)
+    if opening:
+        latch = bp(noise(0.05, seed), 900, 5000) * env(t_axis(0.05), 0.0003, 150)
+        creak = bp(signal.sawtooth(2 * np.pi * (180 + 60 * t) * t) * 0.3, 300, 2500) * np.sin(np.pi * np.clip((t - 0.08) / 0.4, 0, 1)) * 0.2
+        return finish(mix(latch, creak, at(cloth(seed + 3, 0.3, 0.3) * 0.4, 0.1, sec)), 0.7, 1.1)
+    thump = np.sin(2 * np.pi * 70 * t) * env(t, 0.002, 18) + lp(noise(sec, seed), 600) * env(t, 0.001, 22) * 0.8
+    latch = at(bp(noise(0.05, seed + 1), 1500, 6000) * env(t_axis(0.05), 0.0003, 180) * 0.6, 0.01, sec)
+    rattle = bp(noise(sec, seed + 2), 2000, 5000) * env(t, 0.01, 30) * 0.15
+    return finish(mix(thump, latch, rattle), 0.85, 1.3)
+
+
+def hatch(seed, opening):
+    sec = 1.4 if opening else 0.8
+    t = t_axis(sec)
+    if opening:
+        latch = bp(noise(0.06, seed), 700, 4000) * env(t_axis(0.06), 0.0003, 120)
+        strut = bp(noise(sec, seed + 1), 1800, 7000) * np.clip((t - 0.15) / 0.2, 0, 1) * np.clip((1.25 - t) / 0.2, 0, 1) * 0.12
+        stop = at(np.sin(2 * np.pi * 110 * t_axis(0.2)) * env(t_axis(0.2), 0.002, 30) * 0.4, 1.2, sec)
+        return finish(mix(latch, strut, stop), 0.7, 1.0, 0.05)
+    swing = lp(noise(sec, seed + 4), 900) * np.clip((t - 0.0) / 0.3, 0, 1) * np.clip((0.4 - t) / 0.05, 0, 1) * 0.15
+    thud = at(np.sin(2 * np.pi * 60 * t_axis(0.4)) * env(t_axis(0.4), 0.002, 16) + lp(noise(0.4, seed), 500) * env(t_axis(0.4), 0.001, 20) * 0.8, 0.38, sec)
+    latch = at(bp(noise(0.05, seed + 2), 1500, 6000) * env(t_axis(0.05), 0.0003, 160) * 0.5, 0.39, sec)
+    return finish(mix(swing, thud, latch), 0.85, 1.3)
+
+
+def tyre_roll(sec=2.0, seed=600):
+    """Tyres on a gravel road, loopable: rumble plus sparse stone crunches."""
+    x = loop_noise(sec, seed, None, 500) * 0.8
+    r = np.random.default_rng(seed)
+    n = len(x)
+    for _ in range(90):
+        i = r.integers(0, n); g = r.uniform(0.05, 0.3)
+        grain = bp(noise(0.02, int(r.integers(1e6))), 1500, 6000) * env(t_axis(0.02), 0.0003, 260) * g
+        j = (np.arange(len(grain)) + i) % n
+        x[j] += grain
+    return x / np.max(np.abs(x)) * 0.7
+
+
+def handle(seed, sec=0.35, weight=0.5):
+    """Picking up or setting down a field item: fabric, a soft knock, a strap buckle."""
+    t = t_axis(sec)
+    c = cloth(seed, sec * 0.8, 0.5)
+    knock = at(lp(noise(0.1, seed + 1), 900) * env(t_axis(0.1), 0.001, 40) * weight, sec * 0.45, sec)
+    buckle = at(bp(noise(0.03, seed + 2), 2500, 8000) * env(t_axis(0.03), 0.0003, 220) * 0.3, sec * 0.25, sec)
+    return finish(mix(c, knock, buckle), 0.6, 1.0)
+
+
 def build(out):
     w = os.path.join(out, 'audio')
     files = {
@@ -206,6 +309,25 @@ def build(out):
         'foley/land.wav': finish(mix(lp(noise(0.3, 150), 900) * env(t_axis(0.3), 0.003, 18),
                                      np.sin(2 * np.pi * 60 * t_axis(0.3)) * env(t_axis(0.3), 0.004, 25)), 0.7),
     }
+    files.update({
+        'weapons/lr4_fire.wav': pulse_shot(25, 1700, 130, 62, 0.85, 4500, 5),
+        'weapons/lr4_cell_out.wav': mech(42, 0.5, [(0.0, 1.0, 700, 4500, 80), (0.06, 0.7, 350, 2200, 55), (0.26, 0.45, 500, 2600, 110)]),
+        'weapons/lr4_cell_in.wav': mech(52, 0.45, [(0.0, 0.5, 500, 2600, 110), (0.14, 1.0, 700, 5000, 130), (0.18, 0.8, 250, 1300, 60)]),
+        'weapons/lr4_charge.wav': rising_whine(0.6, 260, 1200, 57),
+        'weapons/lr4_zoom.wav': mech(58, 0.18, [(0.0, 0.8, 1800, 7000, 220), (0.05, 0.5, 1200, 5000, 200)]),
+        'weapons/kit_use.wav': finish(mix(at(bp(noise(0.35, 700), 1500, 7000) * np.sin(np.pi * np.clip(t_axis(0.35) / 0.35, 0, 1)) * 0.6, 0.0, 1.5),
+                                          at(cloth(701, 0.4, 0.5), 0.4, 1.5), at(tick(1100, 0.2, 0.4), 1.2, 1.5)), 0.7, 1.0),
+        'vehicle/engine_idle.wav': engine_idle(),
+        'vehicle/engine_start.wav': engine_start(),
+        'vehicle/engine_stop.wav': engine_stop(),
+        'vehicle/door_open.wav': door(560, True),
+        'vehicle/door_close.wav': door(570, False),
+        'vehicle/hatch_open.wav': hatch(580, True),
+        'vehicle/hatch_close.wav': hatch(590, False),
+        'vehicle/tyre_roll.wav': tyre_roll(),
+        'foley/item_pick.wav': handle(610, 0.35, 0.3),
+        'foley/item_place.wav': handle(620, 0.4, 0.8),
+    })
     for i in range(4):
         files[f'foley/step_dirt_{i}.wav'] = footstep(200 + i, 'dirt')
         files[f'foley/step_concrete_{i}.wav'] = footstep(300 + i, 'concrete')

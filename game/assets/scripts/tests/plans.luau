@@ -137,7 +137,7 @@ Plans.weapons = {
     { at = 1.8, release = "fire", run = function(c)
         local n = shots() - c.data.s0
         c.check("auto_fire", n >= 4 and n <= 7, string.format("%d shots in 0.5 s", n))
-        c.check("ammo_spent", wp().w.carbine.ammo == 30 - n, string.format("ammo %d", wp().w.carbine.ammo))
+        c.check("ammo_spent", wp().w.carbine.st.ammo == 30 - n, string.format("ammo %d", wp().w.carbine.st.ammo))
         c.check("hits_target", wp().hits - c.data.hits0 >= 3, string.format("%d hits", wp().hits - c.data.hits0))
         c.check("recoil_kicks", ps().pitch > c.data.pitch0 + 0.5, string.format("pitch +%.2f", ps().pitch - c.data.pitch0))
     end },
@@ -145,8 +145,8 @@ Plans.weapons = {
         c.check("target_down", Game.combat.stats.downs > c.data.downs0, "target stunned")
         c.check("recoil_recovers", math.abs(ps().pitch - c.data.pitch0) < 1.5,
                 string.format("pitch offset %.2f", ps().pitch - c.data.pitch0))
-        c.data.reserve0 = wp().w.carbine.reserve
-        c.data.ammo0 = wp().w.carbine.ammo
+        c.data.reserve0 = wp().w.carbine.st.reserve
+        c.data.ammo0 = wp().w.carbine.st.ammo
     end },
     { at = 2.4, release = "aim" },
     { at = 2.5, press = "reload" },
@@ -155,10 +155,10 @@ Plans.weapons = {
     end },
     { at = 4.5, run = function(c)
         local r = wp().w.carbine
-        c.check("reload_fills", r.ammo == 30 and r.reserve == c.data.reserve0 - (30 - c.data.ammo0),
-                string.format("ammo %d reserve %d", r.ammo, r.reserve))
+        c.check("reload_fills", r.st.ammo == 30 and r.st.reserve == c.data.reserve0 - (30 - c.data.ammo0),
+                string.format("ammo %d reserve %d", r.st.ammo, r.st.reserve))
         c.check("reload_parts_reset", vector.magnitude(r.cell.position - r.cell_home) < 1e-3, "cell home")
-        r.ammo = 1
+        r.st.ammo = 1
         c.data.s1 = shots()
     end },
     { at = 4.5, press = "fire" },
@@ -220,7 +220,7 @@ Plans.weapons = {
 
 -- Viewmodel poses for screenshots (no checks beyond reaching the pose).
 Plans.vm_ads = { { at = 0.6, press = "aim" }, { at = 1.6, run = function(c) local p = Game.weapons.pivot.position; c.check("ads", ps().zoom > 0.9, string.format("zoom %.2f pivot %.3f %.3f %.3f t %.2f", ps().zoom, p.x, p.y, p.z, time.now())) end } }
-Plans.vm_reload = { { at = 0.5, run = function() Game.weapons.w.carbine.ammo = 20 end }, { at = 0.6, press = "reload" }, { at = 0.62, release = "reload" },
+Plans.vm_reload = { { at = 0.5, run = function() Game.weapons.w.carbine.st.ammo = 20 end }, { at = 0.6, press = "reload" }, { at = 0.62, release = "reload" },
                     { at = 1.2, run = function() Game.weapons.hold_pose = true; Game.weapons.st = Game.weapons.reload_len * 0.36 end } }
 Plans.vm_sidearm = { { at = 0.4, press = "weapon2" }, { at = 0.45, release = "weapon2" }, { at = 0.8, press = "aim" } }
 Plans.vm_scan = { { at = 0.6, press = "tool" }, { at = 0.65, release = "tool" },
