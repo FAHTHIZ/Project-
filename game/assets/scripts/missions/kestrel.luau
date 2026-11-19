@@ -783,6 +783,80 @@ S.enter_facility = {
     end,
 }
 
+-- Epilogue: First Light ---------------------------------------------------------------------------
+-- 05:52, the forestry lay-by. The storm has blown east; Rook walks the last of the footpath out of
+-- the trees to the Mule, where the squad, Venn and Hollis are waiting. Lamplight's report, the
+-- squad's last exchange, then everyone boards and the credits roll.
+local END_LINES = { "end_01", "end_02", "end_02b", "end_03", "end_03b", "end_03c", "end_04", "end_05", "end_06",
+                    "end_07", "end_08", "end_09", "end_10", "end_11", "end_12", "end_13", "end_14" }
+
+S.end_start = {
+    enter = function(self)
+        self:title("epilogue")
+        self.fade_t = 0
+        self:objective("Walk out to the Mule", PT.mule_park, "MULE")
+        local v = mule()
+        if v then v:set_hatch(true) end
+    end,
+    update = function(self, dt)
+        self.fade_t += dt
+        Game.present.fade = math.clamp(1 - self.fade_t / 2.0, 0, 1)
+        if self.fade_t > 2.0 and (near(PT.mule_park, 10) or self.fade_t > 40) then return "end_talk" end
+        return nil
+    end,
+}
+
+S.end_talk = {
+    enter = function(self)
+        self:objective("Regroup with Halyard")
+        Game.waypoint = nil
+        self:say(END_LINES, function() self.flags.end_done = true end)
+    end,
+    update = function(self, dt)
+        return self.flags.end_done and "end_board" or nil
+    end,
+}
+
+S.end_board = {
+    enter = function(self)
+        local v = mule()
+        self:objective("Take the middle seat", v and v:door_point("rl"), "MULE")
+        if v then
+            local pts = {}
+            for who, seat in SEATS do pts[who] = v:door_point(DOORS[seat]) end
+            Squad.order("move", pts)
+        end
+        local mark = scene.find("Mark Board")
+        if mark and v then
+            mark.position = v:door_point("rl")
+            Game.register_interactable(mark, "Board the Mule", function()
+                if self.leaving then return end
+                self.leaving = 0
+                Game.set_interactable(mark, false)
+            end)
+        end
+        -- nobody is made to wait forever: after a while the squad climbs in anyway
+        self.board_t = 0
+    end,
+    update = function(self, dt)
+        self.board_t += dt
+        if not self.leaving and self.board_t > 90 then self.leaving = 0 end
+        if not self.leaving then return nil end
+        self.leaving += dt
+        Game.present.fade = math.clamp(self.leaving / 2.5, 0, 1)
+        if self.leaving > 1.0 and not self.engine then
+            self.engine = true
+            local v = mule()
+            if v then v:set_hatch(false); v:start_engine() end
+        end
+        if self.leaving > 3.2 and not self.loaded then
+            self.loaded = true
+            Campaign.complete("epilogue")
+        end
+        return nil
+    end,
+}
+
 -- Helpers used by stages ---------------------------------------------------------------------------
 -- True when a live member of `name` is within `r` metres of the player or any operator can see one.
 function M:spotted(name, r)
@@ -832,7 +906,8 @@ function M:update_hollis(dt)
 end
 
 -- Lifecycle ------------------------------------------------------------------------------------------
-local FIRST = { prologue = "brief", op01 = "op01_start", op02 = "op02_start", op03 = "op03_start" }
+local FIRST = { prologue = "brief", op01 = "op01_start", op02 = "op02_start", op03 = "op03_start",
+                epilogue = "end_start" }
 
 function M:start()
     self.flags = {}
@@ -943,6 +1018,7 @@ for _, k in { "brief", "board", "ride", "arrive" } do CHAPTER_OF[k] = "prologue"
 for _, k in { "op01_start", "trail", "cabin", "relay_path", "relay", "ambush", "ridge" } do CHAPTER_OF[k] = "op01" end
 for _, k in { "op02_start", "fence", "towers", "booth", "hold_gate", "gate_open" } do CHAPTER_OF[k] = "op02" end
 for _, k in { "op03_start", "yard", "office", "entrance", "enter_facility" } do CHAPTER_OF[k] = "op03" end
+for _, k in { "end_start", "end_talk", "end_board" } do CHAPTER_OF[k] = "epilogue" end
 M.stages = S
 M.chapter_of = CHAPTER_OF
 
