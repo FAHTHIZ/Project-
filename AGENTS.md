@@ -87,6 +87,22 @@ Do not stop after documentation or scaffolding. Never claim that a feature, buil
 - Cutscene requirements: reliable gameplay-to-cinematic transitions, camera ownership, input lock/restore, pause/resume handling, subtitle timing, audio mixing, skip controls, checkpoint/save consistency, and a clean return to first-person gameplay. Critical information must also be available in subtitles/objectives so skipping never blocks progression.
 - Cutscenes must run at the target device's measured quality tier. Profile scene loads, character count, facial animation, camera effects and audio; do not assume desktop cinematic performance transfers to Android.
 
+## Visual quality and rendering acceptance bar
+
+The finished game should look deliberately art-directed and polished, not merely technically rendered. Build a consistent visual identity across forest, perimeter, facility, bunker and basement.
+
+- Research and author each area's composition, silhouette, scale, materials, palette, lighting direction, atmospheric depth, landmarks, prop language and transitions.
+- Use VICTUS's verified PBR materials, physically based lighting/atmosphere, shadows, IBL/reflection probes, fog, decals, LOD, instancing and post-processing where they visibly improve the result.
+- Prioritize strong composition, believable material response, readable silhouettes, contact shadows, controlled highlights, restrained emissive accents, depth cues and a coherent colour grade.
+- Forest: layered canopy, varied trunk/foliage silhouettes, believable ground cover, path readability, natural diffuse light, depth haze and selective shafts of light only if the renderer/device supports them affordably.
+- Facility/bunker/basement: distinct architectural language, convincing material scale, purposeful practical lights, readable dark areas, designed sightlines, prop storytelling and non-repetitive spaces. Do not make every room uniformly dark or rely on fog to hide weak geometry.
+- Character faces, clothing and hands must read under the actual scene lighting. Avoid plastic-looking skin/fabric, over-sharp roughness, floating props, texture repetition and visibly low-quality asset seams.
+- Cinematic shots need deliberate framing, foreground/midground/background separation, exposure continuity, controlled camera movement, motivated lighting, readable faces and a carefully reviewed grade.
+- Use high quality where it matters on screen, then optimize through measured LODs, texture sizes/compression, instancing, culling, shadow budgets, effect budgets and adaptive resolution.
+- Do not assume every listed renderer feature is available, enabled or affordable on Android. Verify current VICTUS main and capture evidence from the actual renderer. Compare quality tiers on the target device.
+- Create reference screenshots and video captures for each environment and major cinematic; inspect for lighting, material, animation, aliasing, shadow, foliage and temporal artefacts.
+- The visual target is the best stable result the Hot 10S can sustain, not an unmeasured desktop Ultra preset. Begin with a stable 30 FPS target and document measured compromises instead of silently accepting broken frame pacing.
+
 ## Stage 02 onward: required reference research
 
 Stage 01 is directly based on the four supplied clips. Later stages are intentionally not visually frozen by this handoff. Research them before production:
