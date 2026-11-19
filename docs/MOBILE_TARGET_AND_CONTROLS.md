@@ -87,12 +87,12 @@ VICTUS's current renderer does not expose GPU timestamp queries. If GPU pass tim
 The game must be landscape by default. Use the device's real wide aspect ratio in layout and camera tests. Some desktop emulator windows will be 16:9; the game must not depend on this exact ratio.
 
 - Reserve safe margins for rounded corners, status/navigation bars and cutouts.
-- Keep the centre of the frame available for the route, characters and environmental clues.
+- Keep the centre of the frame readable for aiming, targets, characters and environmental clues; avoid excessive HUD clutter.
 - Place touch controls near the lower left/right corners, without overlapping core interactions.
 - Use screen-scaled UI anchors and safe areas, not fixed pixel positions that only fit one emulator.
 - Keep the objective and alert state near the top corners or another non-obstructive area.
 - Subtitles should sit above the lower control cluster and remain readable.
-- Do not put a permanent oversized crosshair or combat-style center reticle into the exploration UI.
+- Use a restrained first-person reticle during gameplay, with adjustable size/opacity and appropriate hide/show behaviour in menus and cutscenes.
 - Add UI scaling and opacity options for comfort.
 
 ## 6. Virtual touch controls — required implementation
@@ -112,12 +112,12 @@ VICTUS documents low-level touch APIs but no built-in on-screen virtual joystick
 
 ### Right camera-look surface
 
-- A large right-side touch region for camera orbit/look.
+- A large right-side touch region for first-person look/aim.
 - A distinct pointer id from the left movement stick.
-- Scale sensitivity by screen size and frame delta; clamp extreme touch jumps.
+- Scale first-person look sensitivity by screen size and frame delta; clamp extreme touch jumps.
 - Never rotate the camera when the user presses an on-screen button or drags a modal.
 - Provide sensitivity and inversion settings.
-- Avoid camera pitch ranges that flip the camera or make the player disappear.
+- Avoid pitch ranges that invert the view or cause disorienting motion. Provide sensitivity, inversion and motion-comfort options.
 
 ### Contextual interaction button
 
@@ -126,6 +126,18 @@ VICTUS documents low-level touch APIs but no built-in on-screen virtual joystick
 - A single tap produces one action. Debounce accidental double activation.
 - On success, provide feedback through animation, UI and sound.
 - If the target moves out of range or becomes unavailable, the prompt must update.
+
+### Shooter action buttons
+
+The game is a first-person shooter, so touch combat actions must be usable without interfering with movement or look:
+- Fire: a clearly separated, reachable action button with reliable press/hold semantics chosen by the game design.
+- Aim: an optional hold/toggle action that adjusts the first-person presentation and reticle feedback.
+- Reload: a dedicated action with clear unavailable/in-progress feedback.
+- Weapon switch: a compact, predictable control for the available fictional primary/secondary game weapons.
+- Keep controls visually distinct from interaction and field-tool actions.
+- Support simultaneous movement, look/aim and a combat action without pointer ownership conflicts.
+- Offer button size, opacity, repositioning and left-handed layout options.
+- All timing, recoil, spread, ammunition and damage values are fictional game tuning. The UI is not a real-world weapon training interface.
 
 ### Field-tool button
 
@@ -150,7 +162,7 @@ Maintain one logical action layer for:
 - Keyboard/mouse (desktop).
 - Automated tests/manual input.
 
-The gameplay code should consume logical actions such as move, look, jump/confirm, interact, tool, pause and menu navigation. It should not need to know whether the action came from a finger, controller stick or keyboard.
+The gameplay code should consume logical actions such as move, look, aim, fire, reload, switch weapon, jump/confirm, interact, field tool, pause and menu navigation. It should not need to know whether the action came from a finger, controller stick or keyboard.
 
 When a gamepad becomes active:
 - Hide or fade virtual controls to reduce screen clutter.
@@ -165,7 +177,7 @@ These rules align with Android's game-controller and multi-form-factor guidance.
 
 - Move with left stick while looking with right pointer.
 - Move/look while tapping the interaction button.
-- Tap field-tool while moving.
+- Tap field-tool while moving or looking/aiming.
 - Open pause while holding movement; movement must stop.
 - Receive touch cancellation from system interruption.
 - Resume app after backgrounding; all virtual controls must reset to neutral.
@@ -196,7 +208,7 @@ Smoke test on the physical phone:
 3. Play the forest entry and interact with at least one object.
 4. Verify simultaneous left/right multitouch.
 5. Verify pause/resume and app background/foreground.
-6. Hear dialogue and ambience; test phone speaker and headphones if possible.
+6. Hear dialogue, cutscene voice/music and ambience; test phone speaker and headphones if possible.
 7. Save, close, relaunch and restore.
 8. Reach the end of Stage 01.
 9. Run a sustained 20-minute session and inspect logs, thermals and memory.
