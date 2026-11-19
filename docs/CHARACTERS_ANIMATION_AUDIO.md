@@ -27,9 +27,10 @@ Read the current [VICTUS character guide](https://github.com/FAHTHIZ/VICTUS/blob
 ## 2. Human character needs
 
 The story and reference direction call for readable expressions and voiced character interactions. The Vanguard models are robots and do not supply human faces. If human characters are required, create or acquire a small original, redistributable cast:
-- One player/explorer model.
-- One principal speaking NPC for Stage 01.
-- Optionally one secondary NPC later if a researched stage needs them.
+- A first-person protagonist rig with polished arms/hands/viewmodel, plus a compatible full-body character model for authored cutscenes where the story needs to show the player.
+- A small allied operator cast with distinct visual silhouettes and speaking roles.
+- A small opposing/facility character set for authored shooter encounters.
+- Additional speaking NPCs only where the researched campaign needs them.
 
 Avoid a large crowd on the first phone target. More characters mean more draw calls, animation evaluation, skinning, audio voices and memory.
 
@@ -45,7 +46,21 @@ Character art requirements:
 
 Model provenance and license must be documented before the asset enters the final package. Do not grab a model from an arbitrary asset dump or infer permission from a preview page.
 
-## 3. Animation coverage
+## 3. First-person viewmodel and operator presentation
+
+The gameplay camera is first-person. The protagonist's arms/hands and fictional game-weapon viewmodels are therefore hero assets that are visible for much of the campaign.
+
+Requirements:
+- Model and rig arms/hands to remain stable at the screen edge without clipping, stretching or intersecting the camera.
+- Create consistent sleeve/glove variants that match the protagonist's costume.
+- Animate equip/ready, idle, aim, firing, reload, weapon switch, inspect and stow states as original game animation. These are visual game animations, not real-world instruction.
+- Keep weapon and hands aligned to the camera with a clean separation from world-space character animation.
+- Add a game-owned viewmodel state machine and define how it blends with movement, cutscenes, interactions, pause and scene loading.
+- Keep camera motion comfortable and configurable; viewmodel motion must not obscure the centre of the screen.
+- Character/operator models must use the same approved costume, material, voice and animation identity in gameplay and cutscenes.
+- Full-body character performances, facial animation and external camera angles are used in authored cinematics; gameplay returns to first-person.
+
+## 4. Animation coverage
 
 Create a small, polished animation library rather than dozens of low-quality one-off clips.
 
@@ -79,7 +94,7 @@ Use a layered approach:
 
 The audited VICTUS ragdoll system does not currently provide automatic get-up or gameplay-root/capsule follow. The game must not mark ragdoll recovery complete until it has built and tested the full state transition. Test on uneven ground, slopes and near walls. Prevent a character from being launched, trapped, or stuck in a physics state.
 
-## 4. Facial animation
+## 5. Facial animation
 
 VICTUS's audited glTF path supports morph-target weights and their animation. The current morph deformation is CPU-side; when morph weights change, the engine updates a vertex copy for the affected entity. This is a real cost and should shape the design.
 
@@ -103,7 +118,7 @@ Facial acceptance:
 - Face animation does not produce unacceptable CPU spikes.
 - Face animation on one hero is tested before adding more simultaneously animated faces.
 
-## 5. Dialogue and audio architecture
+## 6. Dialogue and audio architecture
 
 VICTUS already supplies normal audio playback through miniaudio:
 - WAV, Ogg Vorbis, MP3 and FLAC.
@@ -126,7 +141,7 @@ Recommended pipeline:
 
 For the first stage, prioritize a small number of clear, well-performed lines rather than long unedited monologues. Provide subtitles and a way to skip/replay dialogue. Do not make comprehension depend on hearing a quiet background line.
 
-## 6. Offline speech synthesis candidates — research, not automatic approval
+## 7. Offline speech synthesis candidates — research, not automatic approval
 
 The owner prefers free/open tooling and does not want a recurring subscription dependency. These are candidate authoring tools; the agent must verify the exact version, license, voice model, dataset lineage and redistribution obligations before use.
 
@@ -158,7 +173,7 @@ Research references:
 
 A human-recorded line can be an excellent option for a small cast. Obtain clear permission for the recording, performance, editing, use in the game and distribution. Keep the agreement/provenance with the source audio. Do not clone or imitate a real person's voice without permission.
 
-## 7. Lip-sync cue generation
+## 8. Lip-sync cue generation
 
 Rhubarb Lip Sync is a possible offline cue-generation tool. It is MIT-licensed. It analyzes a finished voice recording and outputs timed mouth cues; it is not a voice generator and does not animate a character by itself.
 
@@ -176,7 +191,7 @@ Review:
 
 The exact output format, supported language/recognition mode and current compatibility must be tested against the dialogue material. Do not assume its cue labels map one-to-one to the character's face shapes.
 
-## 8. Animation and dialogue runtime state
+## 9. Animation and dialogue runtime state
 
 Implement a small game-owned dialogue state machine:
 - Idle / available.
@@ -200,7 +215,7 @@ Requirements:
 
 Do not introduce runtime TTS just to avoid recording assets. The story uses a finite set of lines and pre-rendered audio is simpler, faster to load predictably and easier to test on the phone.
 
-## 9. Voice performance and asset budgeting
+## 10. Voice performance and asset budgeting
 
 - Prefer short lines and stream longer dialogue where supported.
 - Use compressed game-ready audio; preserve original masters outside the runtime package.
@@ -211,15 +226,16 @@ Do not introduce runtime TTS just to avoid recording assets. The story uses a fi
 - Store speaker metadata, subtitle text, cue files and audio paths together.
 - Measure package-size impact and audio memory behaviour.
 
-## 10. Character acceptance checklist
+## 11. Character acceptance checklist
 
-- Player controller and visual rig stay aligned.
+- First-person camera, arms/hands and viewmodels remain aligned; full-body cutscene rig matches the same character identity.
 - Walk/run transitions show no obvious snapping or foot sliding.
 - Turns and stops look responsive.
 - Interaction animations match object positions.
 - Safe fall/recovery returns cleanly to control.
 - Ragdoll is not enabled on the player unless the complete root/capsule recovery flow has passed.
 - V-01 uses the existing shared Vanguard controller and clips.
+- Operators and opposing characters remain visually/animationally consistent across first-person encounters, dialogue and cinematics.
 - V-01 dummy is visible, static/idle as intended, behind the chair, and reachable at the end of the route.
 - Human character morphs and dialogue are tested at phone resolution.
 - Voice file rights and model provenance are recorded.
