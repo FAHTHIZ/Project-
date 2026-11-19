@@ -9,55 +9,86 @@
    "components": {
     "Environment": {
      "sky_zenith": [
-      0.32,
-      0.46,
-      0.62,
+      0.01,
+      0.013,
+      0.02,
       1
      ],
      "sky_horizon": [
-      0.66,
-      0.73,
-      0.76,
+      0.04,
+      0.046,
+      0.056,
       1
      ],
      "ground": [
-      0.16,
-      0.17,
-      0.12,
+      0.012,
+      0.013,
+      0.012,
       1
      ],
      "ambient_intensity": 0.55,
      "draw_sky": true,
      "clear_color": [
-      0.05,
-      0.05,
-      0.06,
+      0.01,
+      0.012,
+      0.016,
       1
      ],
      "tonemapper": "aces",
-     "exposure": 1,
-     "exposure_compensation": 0,
+     "exposure": 1.0,
+     "exposure_compensation": 1.6,
      "auto_exposure": false,
-     "saturation": 1.0,
-     "contrast": 1.04,
-     "vignette": 0.22,
-     "bloom_intensity": 0.035,
-     "bloom_threshold": 1.0,
+     "saturation": 0.86,
+     "contrast": 1.08,
+     "vignette": 0.3,
+     "bloom_intensity": 0.06,
+     "bloom_threshold": 0.9,
      "ao_intensity": 1.0,
      "ao_radius": 0.7,
-     "shadow_distance": 45,
+     "shadow_distance": 40,
      "fog": "exponential",
      "fog_color": [
-      0.55,
-      0.62,
-      0.62,
+      0.03,
+      0.035,
+      0.042,
       1
      ],
-     "fog_start": 10,
-     "fog_end": 220,
-     "fog_density": 0.03,
-     "fog_max_opacity": 0.92,
-     "physical_sky": false
+     "fog_start": 4,
+     "fog_end": 260,
+     "fog_density": 0.018,
+     "fog_max_opacity": 0.96,
+     "physical_sky": false,
+     "precipitation": "rain",
+     "precipitation_intensity": 0.85,
+     "precipitation_wind": [
+      2.2,
+      0.0,
+      1.1
+     ],
+     "precipitation_radius": 12.0,
+     "precipitation_brightness": 1.6,
+     "precipitation_opacity": 0.0,
+     "wetness": 0.8,
+     "puddles": 0.42,
+     "puddle_size": 2.6,
+     "precipitation_ripples": 1.0,
+     "precipitation_splashes": 0.8,
+     "volumetric_fog": true,
+     "volumetric_density": 0.022,
+     "volumetric_height": 4.0,
+     "volumetric_falloff": 0.08,
+     "volumetric_albedo": [
+      0.72,
+      0.76,
+      0.82,
+      1
+     ],
+     "volumetric_anisotropy": 0.62,
+     "volumetric_distance": 140.0,
+     "volumetric_sun": 0.6,
+     "volumetric_ambient": 0.5,
+     "volumetric_local_lights": 1.4,
+     "volumetric_temporal": 0.9
     },
     "Transform": {
      "position": [
@@ -80,8 +111,8 @@
    }
   },
   {
-   "uuid": "26f12fe2-4a11-565f-b06c-90d3e95e6dbd",
-   "name": "Sun",
+   "uuid": "ef709560-09af-5b7b-af06-823e9df894aa",
+   "name": "Moon",
    "components": {
     "Transform": {
      "position": [
@@ -90,10 +121,10 @@
       0.0
      ],
      "rotation": [
-      -0.2241439,
-      0.4829629,
-      0.1294095,
-      0.8365163
+      -0.2132118,
+      0.7867882,
+      0.409576,
+      0.409576
      ],
      "scale": [
       1.0,
@@ -104,16 +135,276 @@
     "Light": {
      "type": "directional",
      "color": [
-      1.0,
-      0.94,
-      0.84,
+      0.56,
+      0.66,
+      0.88,
       1
      ],
-     "intensity": 2.6,
+     "intensity": 0.32,
      "range": 10,
      "shadows": true
     }
    }
+  },
+  {
+   "uuid": "350f9373-c0f1-5688-8bc2-0f255167b49f",
+   "name": "Menu Lamp Post",
+   "components": {
+    "Transform": {
+     "position": [
+      2.6,
+      0.0,
+      -7.0
+     ],
+     "rotation": [
+      0.0,
+      0.9848078,
+      0.0,
+      -0.1736482
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "2d3f1474-810d-57c5-85e1-54fd1d249fee",
+   "name": "Menu Lamp Post[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e7a7ec92-212c-4cfc-838a-cefb5ce475fe",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "350f9373-c0f1-5688-8bc2-0f255167b49f"
+  },
+  {
+   "uuid": "23b19b20-2dcf-5da8-8a52-783ae0a0104d",
+   "name": "Menu Lamp Post[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e7a7ec92-212c-4cfc-838a-cefb5ce475fe",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "350f9373-c0f1-5688-8bc2-0f255167b49f"
+  },
+  {
+   "uuid": "8cf18692-4a29-59fc-9a1b-c8535af408de",
+   "name": "Menu Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      2.0,
+      6.2,
+      -6.6
+     ],
+     "rotation": [
+      0.1139235,
+      0.7432438,
+      0.646092,
+      -0.1310539
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.66,
+      0.32,
+      1
+     ],
+     "intensity": 55.0,
+     "range": 24.0,
+     "shadows": true,
+     "inner_angle": 38.0,
+     "outer_angle": 62.0
+    }
+   }
+  },
+  {
+   "uuid": "bd386247-c7fc-575e-b9b2-ad130ca074ef",
+   "name": "Menu Searchlight",
+   "components": {
+    "Transform": {
+     "position": [
+      -14.0,
+      9.0,
+      -60.0
+     ],
+     "rotation": [
+      -0.0121131,
+      0.9824088,
+      0.0686967,
+      0.1732252
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.86,
+      0.92,
+      1.0,
+      1
+     ],
+     "intensity": 140.0,
+     "range": 90.0,
+     "shadows": false,
+     "inner_angle": 4.0,
+     "outer_angle": 9.0
+    },
+    "Script": {
+     "script": "scripts/world/searchlight.luau",
+     "enabled": true,
+     "properties": {
+      "arc": 40.0,
+      "period": 16.0,
+      "phase": 0.2,
+      "pitch": -8.0,
+      "yaw": 160.0
+     }
+    }
+   }
+  },
+  {
+   "uuid": "1305ba44-2d9c-5d1b-a505-e3bc9120d636",
+   "name": "Storm",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Script": {
+     "script": "scripts/world/storm.luau",
+     "enabled": true,
+     "properties": {
+      "min_gap": 14.0,
+      "max_gap": 34.0,
+      "first": 4.0,
+      "volume": 0.7
+     }
+    }
+   }
+  },
+  {
+   "uuid": "8792c56f-5dfe-527a-8922-ce0981f4f2b2",
+   "name": "Lightning",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      50.0,
+      0.0
+     ],
+     "rotation": [
+      -0.1333017,
+      0.82796,
+      0.4974886,
+      0.2218512
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "directional",
+     "color": [
+      0.78,
+      0.84,
+      1.0,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 10,
+     "shadows": false
+    }
+   },
+   "parent": "1305ba44-2d9c-5d1b-a505-e3bc9120d636"
   },
   {
    "uuid": "e2aaa0a0-e791-5c39-b87a-918adb430146",
@@ -139,9 +430,9 @@
     },
     "MeshRenderer": {
      "base_color": [
-      0.22,
-      0.26,
-      0.16,
+      0.1,
+      0.11,
+      0.08,
       1
      ],
      "metallic": 0.0,
@@ -8298,7 +8589,7 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "SPECIAL OPS\n\nA VICTUS field demonstration\n\nCreated by FAHTHIZ\n\nEngine\nVICTUS 0.2.0 (Apache-2.0)\n\nDesign, code, characters, environments and sound\nGenerated in this repository from source scripts\n(see docs/ASSET_PROVENANCE.md)\n\nVoices\nKokoro-82M text-to-speech by hexgrad (Apache-2.0)\nsynthesised offline with kokoro-onnx (MIT)\n\nSquad LANTERN\nRook  -  the player\nMara Ostrova  -  \"Anchor\"\nTheo Okafor  -  \"Patch\"\nInes Calder  -  \"Echo\"\nDmitri Halvorsen  -  \"Brick\"\n\nSpecial thanks\nVanguard V-01, for sitting very still\n\nThank you for playing\n",
+     "text": "SPECIAL OPS\n\nA VICTUS field demonstration\n\nCreated by FAHTHIZ\n\nEngine\nVICTUS 0.2.0 (Apache-2.0)\n\nDesign, code, characters, environments and sound\nGenerated in this repository from source scripts\n(see docs/ASSET_PROVENANCE.md)\n\nVoices\nKokoro-82M text-to-speech by hexgrad (Apache-2.0)\nsynthesised offline with kokoro-onnx (MIT)\n\nSquad LANTERN\nRook  -  the player\nAnchor  -  team lead\nPatch  -  medic\nEcho  -  scout\nTally  -  communications\nBrick  -  breacher\n\nSpecial thanks\nVanguard V-01, for standing very still\n\nThank you for playing\n",
      "key": "",
      "font_size": 26,
      "color": [

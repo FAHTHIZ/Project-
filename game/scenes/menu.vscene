@@ -9,55 +9,86 @@
    "components": {
     "Environment": {
      "sky_zenith": [
-      0.32,
-      0.46,
-      0.62,
+      0.01,
+      0.013,
+      0.02,
       1
      ],
      "sky_horizon": [
-      0.66,
-      0.73,
-      0.76,
+      0.04,
+      0.046,
+      0.056,
       1
      ],
      "ground": [
-      0.16,
-      0.17,
-      0.12,
+      0.012,
+      0.013,
+      0.012,
       1
      ],
      "ambient_intensity": 0.55,
      "draw_sky": true,
      "clear_color": [
-      0.05,
-      0.05,
-      0.06,
+      0.01,
+      0.012,
+      0.016,
       1
      ],
      "tonemapper": "aces",
-     "exposure": 1,
-     "exposure_compensation": 0,
+     "exposure": 1.0,
+     "exposure_compensation": 1.6,
      "auto_exposure": false,
-     "saturation": 1.0,
-     "contrast": 1.04,
-     "vignette": 0.22,
-     "bloom_intensity": 0.035,
-     "bloom_threshold": 1.0,
+     "saturation": 0.86,
+     "contrast": 1.08,
+     "vignette": 0.3,
+     "bloom_intensity": 0.06,
+     "bloom_threshold": 0.9,
      "ao_intensity": 1.0,
      "ao_radius": 0.7,
-     "shadow_distance": 45,
+     "shadow_distance": 40,
      "fog": "exponential",
      "fog_color": [
-      0.55,
-      0.62,
-      0.62,
+      0.03,
+      0.035,
+      0.042,
       1
      ],
-     "fog_start": 10,
-     "fog_end": 220,
-     "fog_density": 0.03,
-     "fog_max_opacity": 0.92,
-     "physical_sky": false
+     "fog_start": 4,
+     "fog_end": 260,
+     "fog_density": 0.018,
+     "fog_max_opacity": 0.96,
+     "physical_sky": false,
+     "precipitation": "rain",
+     "precipitation_intensity": 0.85,
+     "precipitation_wind": [
+      2.2,
+      0.0,
+      1.1
+     ],
+     "precipitation_radius": 12.0,
+     "precipitation_brightness": 1.6,
+     "precipitation_opacity": 0.0,
+     "wetness": 0.8,
+     "puddles": 0.42,
+     "puddle_size": 2.6,
+     "precipitation_ripples": 1.0,
+     "precipitation_splashes": 0.8,
+     "volumetric_fog": true,
+     "volumetric_density": 0.022,
+     "volumetric_height": 4.0,
+     "volumetric_falloff": 0.08,
+     "volumetric_albedo": [
+      0.72,
+      0.76,
+      0.82,
+      1
+     ],
+     "volumetric_anisotropy": 0.62,
+     "volumetric_distance": 140.0,
+     "volumetric_sun": 0.6,
+     "volumetric_ambient": 0.5,
+     "volumetric_local_lights": 1.4,
+     "volumetric_temporal": 0.9
     },
     "Transform": {
      "position": [
@@ -80,8 +111,8 @@
    }
   },
   {
-   "uuid": "fcf66e6b-9aab-5134-896c-42d0f9dd8a00",
-   "name": "Sun",
+   "uuid": "1890329a-3075-5ed6-9028-65ec3eed3421",
+   "name": "Moon",
    "components": {
     "Transform": {
      "position": [
@@ -90,10 +121,10 @@
       0.0
      ],
      "rotation": [
-      -0.2241439,
-      0.4829629,
-      0.1294095,
-      0.8365163
+      -0.2132118,
+      0.7867882,
+      0.409576,
+      0.409576
      ],
      "scale": [
       1.0,
@@ -104,16 +135,276 @@
     "Light": {
      "type": "directional",
      "color": [
-      1.0,
-      0.94,
-      0.84,
+      0.56,
+      0.66,
+      0.88,
       1
      ],
-     "intensity": 2.6,
+     "intensity": 0.32,
      "range": 10,
      "shadows": true
     }
    }
+  },
+  {
+   "uuid": "aa9934cc-a612-51be-af7e-2ebc631f81a3",
+   "name": "Menu Lamp Post",
+   "components": {
+    "Transform": {
+     "position": [
+      2.6,
+      0.0,
+      -7.0
+     ],
+     "rotation": [
+      0.0,
+      0.9848078,
+      0.0,
+      -0.1736482
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "85c8ad27-c4ce-5271-8f04-aeedff3a02b8",
+   "name": "Menu Lamp Post[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e7a7ec92-212c-4cfc-838a-cefb5ce475fe",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "aa9934cc-a612-51be-af7e-2ebc631f81a3"
+  },
+  {
+   "uuid": "65985022-ded3-5470-8f90-6af58371b996",
+   "name": "Menu Lamp Post[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e7a7ec92-212c-4cfc-838a-cefb5ce475fe",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "aa9934cc-a612-51be-af7e-2ebc631f81a3"
+  },
+  {
+   "uuid": "8ed8b637-1e54-55c9-a1bf-dfc5d184160f",
+   "name": "Menu Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      2.0,
+      6.2,
+      -6.6
+     ],
+     "rotation": [
+      0.1139235,
+      0.7432438,
+      0.646092,
+      -0.1310539
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.66,
+      0.32,
+      1
+     ],
+     "intensity": 55.0,
+     "range": 24.0,
+     "shadows": true,
+     "inner_angle": 38.0,
+     "outer_angle": 62.0
+    }
+   }
+  },
+  {
+   "uuid": "c0330f82-e6f6-51a3-890f-32ba8d6b5413",
+   "name": "Menu Searchlight",
+   "components": {
+    "Transform": {
+     "position": [
+      -14.0,
+      9.0,
+      -60.0
+     ],
+     "rotation": [
+      -0.0121131,
+      0.9824088,
+      0.0686967,
+      0.1732252
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.86,
+      0.92,
+      1.0,
+      1
+     ],
+     "intensity": 140.0,
+     "range": 90.0,
+     "shadows": false,
+     "inner_angle": 4.0,
+     "outer_angle": 9.0
+    },
+    "Script": {
+     "script": "scripts/world/searchlight.luau",
+     "enabled": true,
+     "properties": {
+      "arc": 40.0,
+      "period": 16.0,
+      "phase": 0.2,
+      "pitch": -8.0,
+      "yaw": 160.0
+     }
+    }
+   }
+  },
+  {
+   "uuid": "157ca7bf-09bc-5de4-a7c4-eb03bfffcde7",
+   "name": "Storm",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Script": {
+     "script": "scripts/world/storm.luau",
+     "enabled": true,
+     "properties": {
+      "min_gap": 14.0,
+      "max_gap": 34.0,
+      "first": 4.0,
+      "volume": 0.7
+     }
+    }
+   }
+  },
+  {
+   "uuid": "3b1ce1eb-c595-5800-944d-02946abe8593",
+   "name": "Lightning",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      50.0,
+      0.0
+     ],
+     "rotation": [
+      -0.1333017,
+      0.82796,
+      0.4974886,
+      0.2218512
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "directional",
+     "color": [
+      0.78,
+      0.84,
+      1.0,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 10,
+     "shadows": false
+    }
+   },
+   "parent": "157ca7bf-09bc-5de4-a7c4-eb03bfffcde7"
   },
   {
    "uuid": "333709a3-9747-51a4-b9a4-ad5c3ebe0e84",
@@ -139,9 +430,9 @@
     },
     "MeshRenderer": {
      "base_color": [
-      0.22,
-      0.26,
-      0.16,
+      0.1,
+      0.11,
+      0.08,
       1
      ],
      "metallic": 0.0,

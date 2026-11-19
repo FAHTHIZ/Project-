@@ -33,22 +33,40 @@ synthesised offline with kokoro-onnx (MIT)
 
 Squad LANTERN
 Rook  -  the player
-Mara Ostrova  -  "Anchor"
-Theo Okafor  -  "Patch"
-Ines Calder  -  "Echo"
-Dmitri Halvorsen  -  "Brick"
+Anchor  -  team lead
+Patch  -  medic
+Echo  -  scout
+Tally  -  communications
+Brick  -  breacher
 
 Special thanks
-Vanguard V-01, for sitting very still
+Vanguard V-01, for standing very still
 
 Thank you for playing
 """
 
 
 def backdrop(sc: Scene, seed=3):
-    environment(sc, "forest", fog_density=0.03, fog_color=[0.55, 0.62, 0.62, 1])
-    sun(sc, pitch=-30, yaw=60, intensity=2.6)
-    sc.box("Menu Ground", (0, -0.1, 0), (120, 0.2, 120), (0.22, 0.26, 0.16), material=None, collide=False)
+    # The campaign's own night (common.py "night_storm"): rain, wet ground, volumetric ground fog,
+    # a weak moon behind cloud, one sodium lamp pooling light on the trail, a perimeter searchlight
+    # sweeping through the fog far behind the trees, and the storm's lightning (scripts/world/storm.luau).
+    environment(sc, "night_storm", precipitation_radius=12.0)
+    sc.add("Moon", {"Transform": transform((0, 30, 0), quat_euler(-55, 125, 0)), "Light": {
+        "type": "directional", "color": [0.56, 0.66, 0.88, 1], "intensity": 0.32, "range": 10, "shadows": True}})
+    sc.prop("Menu Lamp Post", "models/structures/light_pole.glb", (2.6, 0, -7.0), 200.0)
+    sc.add("Menu Lamp", {"Transform": transform((2.0, 6.2, -6.6), quat_euler(-82, 200, 0)), "Light": {
+        "type": "spot", "color": [1.0, 0.66, 0.32, 1], "intensity": 55.0, "range": 24.0, "shadows": True,
+        "inner_angle": 38.0, "outer_angle": 62.0}})
+    sc.add("Menu Searchlight", {"Transform": transform((-14, 9, -60), quat_euler(-8, 160, 0)),
+                                "Light": {"type": "spot", "color": [0.86, 0.92, 1.0, 1], "intensity": 140.0,
+                                          "range": 90.0, "shadows": False, "inner_angle": 4.0, "outer_angle": 9.0},
+                                "Script": script("scripts/world/searchlight.luau", arc=40.0, period=16.0, phase=0.2,
+                                                 pitch=-8.0, yaw=160.0)})
+    storm = sc.add("Storm", {"Transform": transform(), "Script": script(
+        "scripts/world/storm.luau", min_gap=14.0, max_gap=34.0, first=4.0, volume=0.7)})
+    sc.add("Lightning", {"Transform": transform((0, 50, 0), quat_euler(-62, 150, 0)), "Light": {
+        "type": "directional", "color": [0.78, 0.84, 1.0, 1], "intensity": 0.0, "range": 10, "shadows": False}}, storm)
+    sc.box("Menu Ground", (0, -0.1, 0), (120, 0.2, 120), (0.10, 0.11, 0.08), material=None, collide=False)
     rnd = random.Random(seed)
     trees = ["models/env/tree_broadleaf_a.glb", "models/env/tree_broadleaf_b.glb", "models/env/tree_broadleaf_c.glb",
              "models/env/tree_conifer_a.glb", "models/env/tree_conifer_b.glb"]
