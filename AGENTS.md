@@ -32,6 +32,17 @@ Repeat until blocked by physical hardware, credentials, an owner decision or an 
 
 Do not stop after documentation or scaffolding. Never claim that a feature, build, test, APK, performance target or hardware run succeeded unless it actually did. Never claim background work will continue after the session ends; persist a precise handoff.
 
+## Canonical campaign narrative and production roadmap
+
+Before implementing or changing any campaign mission, read these documents in this order:
+
+1. docs/PRODUCTION_PLAN.md — dependency-ordered execution roadmap and current milestone state.
+2. docs/CAMPAIGN_STORY_BIBLE.md — authoritative end-to-end campaign narrative, character arcs, operation purposes, bunker motivation, VICTUS explanation and ending.
+3. docs/CAMPAIGN_AND_CINEMATICS.md — playable operation staging and cinematic requirements.
+4. docs/PROJECT_BRIEF.md — product-level constraints and first-person experience.
+
+The story bible is now the narrative source of truth. Do not replace its plot, invent a different reason for the bunker descent, turn VICTUS into a superweapon or AI, or change the inert Vanguard V-01 dummy behind the chair. Preserve the established Rook / Halyard cast and the existing non-lethal pulse-weapon direction. Adapt geometry and implementation to verified VICTUS capabilities, not the story's core cause-and-effect. Implement the prologue and Operation 01 first, then continue in roadmap order. Do not stop at documentation, a disconnected test scene or a visual-only environment.
+
 ## Product constraints
 
 - Landscape orientation and landscape composition are mandatory.
