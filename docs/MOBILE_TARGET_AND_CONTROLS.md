@@ -177,6 +177,7 @@ These rules align with Android's game-controller and multi-form-factor guidance.
 
 - Move with left stick while looking with right pointer.
 - Move/look while tapping the interaction button.
+- Move/look while firing; aim while moving; reload or switch weapons without stealing either movement/look pointer.
 - Tap field-tool while moving or looking/aiming.
 - Open pause while holding movement; movement must stop.
 - Receive touch cancellation from system interruption.
@@ -210,7 +211,7 @@ Smoke test on the physical phone:
 5. Verify pause/resume and app background/foreground.
 6. Hear dialogue, cutscene voice/music and ambience; test phone speaker and headphones if possible.
 7. Save, close, relaunch and restore.
-8. Reach the end of Stage 01.
+8. Complete the full campaign route through the perimeter, facility, bunker and lower basement, and reach the V-01 ending. Repeat this full-route check after major changes.
 9. Run a sustained 20-minute session and inspect logs, thermals and memory.
 10. Repeat after a device restart.
 
