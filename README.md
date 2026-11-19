@@ -4,7 +4,7 @@
 
 This repository is the game project, not another engine. VICTUS is the engine. The first physical performance target is the owner's **Infinix Hot 10S, 6 GB RAM variant**. Desktop and emulator workflows are also required, but PC is not the design target.
 
-> **Current state:** project handoff and research only. On 2026-11-19 this repository contained only its starter README. No playable game, scenes, game scripts, asset library or Android package are claimed to exist yet.
+> **Current state:** this repository contains the project handoff and research documents. No playable game, scenes, game scripts, production asset library or Android package are claimed to exist yet.
 
 ## Start here — autonomous coding agent
 
