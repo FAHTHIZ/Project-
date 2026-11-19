@@ -26,7 +26,7 @@ def add_target(sc, name, pos, yaw=0.0, reset=3.0, group=""):
 
 
 # Plans that place the Halyard Team, Greyline contractors and Ranger Hollis on the range.
-SQUAD_PLANS = {"squad", "squad_combat", "enemy_fire", "squad_look"}
+SQUAD_PLANS = {"squad", "squad_combat", "enemy_fire", "squad_look", "chatter"}
 
 
 def add_squad_setup(sc, plan):
@@ -35,6 +35,8 @@ def add_squad_setup(sc, plan):
     if plan != "enemy_fire":
         for who, (x, z) in (("Anchor", (-1.7, 8.0)), ("Patch", (1.6, 8.6)), ("Echo", (-3.0, 9.6)), ("Tally", (2.6, 10.4))):
             actors.add_operator(sc, who, (x, 0, z), 180.0 if plan == "squad_look" else 0.0)
+    if plan == "chatter":
+        actors.add_operator(sc, "Brick", (-0.6, 0, 11.4), 0.0)
     if plan == "squad":
         actors.add_npc(sc, "Hollis", "models/characters/sops_ranger.glb", (8, 0, 4), -90.0, who="hollis",
                        prompt="Talk", event="talk_hollis")

@@ -159,4 +159,45 @@ P.squad_look = {
     { at = 25 },
 }
 
+-- Idle chatter (lib/chatter.luau): only on quiet walk stages, only while moving, never repeats,
+-- outdoor-only lines are skipped indoors, and it stays silent with an awake contractor nearby.
+P.chatter = {
+    { at = 0.5, run = function(c)
+        local Chatter = require("scripts/lib/chatter")
+        c.data.C = Chatter
+        Game.chatter_used = {}
+        Chatter.gap = 1.0
+        Chatter.reset()
+        c.data.started = {}
+        Game.on("squad_chatter", function(i) table.insert(c.data.started, i) end)
+    end },
+}
+-- drive the player forward and tick Chatter from the plan (no mission script in this scene)
+for k = 0, 250 do
+    local t = 0.6 + k * 0.1
+    table.insert(P.chatter, { at = t, run = function(c)
+        local C = c.data.C
+        local stage = t < 4 and "ambush" or "trail"
+        local outdoors = t >= 9
+        -- pace back and forth on open ground (1 m/s)
+        if Game.player then Game.player.position = Game.player.position + V(0, 0, (k % 60 < 30) and -0.1 or 0.1) end
+        C.update(0.1, stage, outdoors, false)
+    end })
+end
+table.insert(P.chatter, { at = 3.9, run = function(c)
+    c.check("silent_off_walk_stages", #c.data.started == 0, tostring(#c.data.started))
+end })
+table.insert(P.chatter, { at = 8.9, run = function(c)
+    local first = c.data.started[1]
+    c.check("starts_on_walk", first ~= nil, tostring(first))
+    c.check("indoor_skips_outdoor_lines", first ~= nil and not c.data.C.GROUPS[first].outdoor, tostring(first))
+    c.check("lines_queued", Dialogue.busy(), "dialogue busy")
+end })
+table.insert(P.chatter, { at = 26.5, run = function(c)
+    local seen, dup = {}, false
+    for _, i in c.data.started do if seen[i] then dup = true end; seen[i] = true end
+    c.check("no_repeats", not dup and #c.data.started >= 2, table.concat(c.data.started, ","))
+end })
+table.sort(P.chatter, function(a, b) return a.at < b.at end)
+
 return P

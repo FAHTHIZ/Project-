@@ -14,6 +14,7 @@ local Campaign = require("scripts/lib/campaign")
 local Dialogue = require("scripts/lib/dialogue")
 local Squad = require("scripts/lib/squad")
 local Inventory = require("scripts/lib/inventory")
+local Chatter = require("scripts/lib/chatter")
 
 local M = {}
 M.chapter = "op04"
@@ -857,6 +858,7 @@ function M:update(dt)
         return
     end
     if Game.paused then return end
+    Chatter.update(dt, self.stage_name, false, self.talking)
     self:update_scare(dt)
     local nxt = self.stage and self.stage.update(self, dt)
     if nxt then self:enter(nxt) end
