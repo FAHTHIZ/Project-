@@ -60,6 +60,37 @@ Requirements:
 - Character/operator models must use the same approved costume, material, voice and animation identity in gameplay and cutscenes.
 - Full-body character performances, facial animation and external camera angles are used in authored cinematics; gameplay returns to first-person.
 
+## 5. Ragdoll and physical-reaction quality bar
+
+Ragdoll physics should demonstrate believable weight, joint limits and contact with the environment, but it must remain controlled, safe and reliable. Do not turn every ordinary hit or stumble into a full ragdoll.
+
+### Where to use it
+- Use authored locomotion and short physical reactions for most ordinary movement and encounter feedback.
+- Reserve full ragdoll for selected non-graphic, clearly staged character falls or physics showcase moments where it adds visible value.
+- Do not use full ragdoll on the first-person player during ordinary gameplay unless a complete tested control/camera recovery path exists.
+- Do not make ragdoll the default death/defeat presentation; keep reactions non-graphic and tuned for the game's tone.
+
+### Physical setup
+- Build a simplified, stable ragdoll skeleton that matches the visual rig.
+- Set sensible joint constraints, mass distribution, damping and collision shapes; avoid excessive body-part collisions and self-collision jitter.
+- Separate the authoritative gameplay root/capsule from the simulated visual body.
+- Define explicit handoff between animation-driven, partially physical and fully simulated states.
+- Avoid uncontrolled impulses, explosive launch behaviour, tunnelling, floor penetration and limbs catching on small props.
+- Ensure the ragdoll settles predictably and does not continue consuming unnecessary simulation work.
+
+### Recovery and blending
+- VICTUS's audited baseline does not automatically reconnect ragdoll to the gameplay root or provide get-up behaviour.
+- Implement a tested state machine: enter physical state, simulate, detect stable rest, select a recovery pose, align the visual rig safely, blend to authored get-up/idle, then restore controller ownership.
+- Never teleport the root blindly to the ragdoll centre. Validate capsule clearance and grounded state before restoring movement.
+- Provide fallback recovery for awkward poses, slopes, stairs, walls and partial obstruction.
+- Test repeated activation, interruption, checkpoint/load and scene transitions.
+
+### Acceptance
+- No visible joint explosions, endless jitter, floating, floor penetration, impossible stretching or accidental launches.
+- No stuck physics state, controller/visual-root separation or broken input after recovery.
+- Performance is measured with the maximum planned simultaneous ragdolls on the target phone.
+- Record the physics setup, recovery cases, test scenes and actual results. Do not claim a realistic ragdoll system from a single successful clip.
+
 ## 4. Animation coverage
 
 Create a small, polished animation library rather than dozens of low-quality one-off clips.
@@ -94,7 +125,34 @@ Use a layered approach:
 
 The audited VICTUS ragdoll system does not currently provide automatic get-up or gameplay-root/capsule follow. The game must not mark ragdoll recovery complete until it has built and tested the full state transition. Test on uneven ground, slopes and near walls. Prevent a character from being launched, trapped, or stuck in a physics state.
 
-## 5. Facial animation
+## 5. Character-motion quality bar
+
+Character movement must feel authored and weighty, not like stock clips snapped between states. Build a compact but coherent motion system and review it at normal gameplay speed and in cinematic close-ups.
+
+### Locomotion and body language
+- Blend idle, walk, run/sprint, start, stop, turns and directional changes without visible snapping.
+- Use acceleration/deceleration curves, foot planting and stride matching so feet do not visibly skate on ordinary ground.
+- Add subtle breathing, head tracking, attention shifts, weight shifts and stance variation where appropriate.
+- Use upper-body layers for looking, aiming, speaking and gestures without destroying the lower-body locomotion.
+- Add IK only where it measurably improves hand placement, foot contact or character interaction; do not stack expensive solvers without need.
+- Characters must respect stairs, slopes, doorways, uneven terrain and tight spaces. Validate root motion versus controller-driven movement and avoid root drift.
+- Give each operator a distinct but restrained idle posture, gesture vocabulary and movement character.
+- First-person hands and viewmodels need their own stable animation treatment; do not inherit full-body camera bob in a way that makes aiming uncomfortable.
+
+### Cinematic performance
+- Author purposeful blocking, eye-lines, pauses, reactions, hand gestures and body turns for dialogue scenes.
+- Use facial expression, eyelids, gaze and mouth motion in sync with the recorded/generated voice; do not rely on mouth flapping alone.
+- Keep character feet grounded and hands connected to props. Check contact points frame by frame in hero shots.
+- Use the same approved character model, costume, materials and animation identity in gameplay and cutscenes.
+- Avoid exaggerated, robotic or repetitive gestures unless intentionally part of that character's personality.
+
+### Motion verification
+- Review transitions at full speed and frame-by-frame.
+- Check foot sliding, joint popping, clipping, ground penetration, hand/prop mismatch, root drift, camera clipping and animation state deadlocks.
+- Verify motion under the actual mobile frame-rate target and on the physical phone where available.
+- Record the tested animation clips, state transitions, device and observed issues in the build/test log.
+
+## 6. Facial animation
 
 VICTUS's audited glTF path supports morph-target weights and their animation. The current morph deformation is CPU-side; when morph weights change, the engine updates a vertex copy for the affected entity. This is a real cost and should shape the design.
 
@@ -118,7 +176,7 @@ Facial acceptance:
 - Face animation does not produce unacceptable CPU spikes.
 - Face animation on one hero is tested before adding more simultaneously animated faces.
 
-## 6. Dialogue and audio architecture
+## 7. Dialogue and audio architecture
 
 VICTUS already supplies normal audio playback through miniaudio:
 - WAV, Ogg Vorbis, MP3 and FLAC.
@@ -141,7 +199,7 @@ Recommended pipeline:
 
 For the first stage, prioritize a small number of clear, well-performed lines rather than long unedited monologues. Provide subtitles and a way to skip/replay dialogue. Do not make comprehension depend on hearing a quiet background line.
 
-## 7. Offline speech synthesis candidates — research, not automatic approval
+## 8. Offline speech synthesis candidates — research, not automatic approval
 
 The owner prefers free/open tooling and does not want a recurring subscription dependency. These are candidate authoring tools; the agent must verify the exact version, license, voice model, dataset lineage and redistribution obligations before use.
 
@@ -173,7 +231,7 @@ Research references:
 
 A human-recorded line can be an excellent option for a small cast. Obtain clear permission for the recording, performance, editing, use in the game and distribution. Keep the agreement/provenance with the source audio. Do not clone or imitate a real person's voice without permission.
 
-## 8. Lip-sync cue generation
+## 9. Lip-sync cue generation
 
 Rhubarb Lip Sync is a possible offline cue-generation tool. It is MIT-licensed. It analyzes a finished voice recording and outputs timed mouth cues; it is not a voice generator and does not animate a character by itself.
 
@@ -191,7 +249,7 @@ Review:
 
 The exact output format, supported language/recognition mode and current compatibility must be tested against the dialogue material. Do not assume its cue labels map one-to-one to the character's face shapes.
 
-## 9. Animation and dialogue runtime state
+## 10. Animation and dialogue runtime state
 
 Implement a small game-owned dialogue state machine:
 - Idle / available.
@@ -215,7 +273,7 @@ Requirements:
 
 Do not introduce runtime TTS just to avoid recording assets. The story uses a finite set of lines and pre-rendered audio is simpler, faster to load predictably and easier to test on the phone.
 
-## 10. Voice performance and asset budgeting
+## 11. Voice performance and asset budgeting
 
 - Prefer short lines and stream longer dialogue where supported.
 - Use compressed game-ready audio; preserve original masters outside the runtime package.
@@ -226,7 +284,7 @@ Do not introduce runtime TTS just to avoid recording assets. The story uses a fi
 - Store speaker metadata, subtitle text, cue files and audio paths together.
 - Measure package-size impact and audio memory behaviour.
 
-## 11. Character acceptance checklist
+## 12. Character acceptance checklist
 
 - First-person camera, arms/hands and viewmodels remain aligned; full-body cutscene rig matches the same character identity.
 - Walk/run transitions show no obvious snapping or foot sliding.
