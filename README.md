@@ -18,6 +18,7 @@ Read these documents before implementation:
 6. [Characters, animation and dialogue](docs/CHARACTERS_ANIMATION_AUDIO.md) — existing V-01/V-02, human character needs, facial motion and voice pipeline.
 7. [Production plan](docs/PRODUCTION_PLAN.md) — dependency-ordered build and test work.
 8. [Research register](docs/RESEARCH_REGISTER.md) — source URLs, dates, licensing and unresolved questions.
+9. [Build and test log](docs/BUILD_AND_TEST_LOG.md) — the evidence record for builds, devices, tests and profiling.
 
 ## Non-negotiable direction
 
