@@ -34,6 +34,13 @@ function P:start()
     Game.player = self.entity
     self.head = self.entity:find_child("Head")
     self.cam = self.head and self.head:find_child("Main Camera")
+    -- weapon light (rig.py): starts on at night; the light action toggles it
+    self.torch = self.cam and self.cam:find_child("Weapon Light")
+    self.torch_on = true
+    if self.torch and self.torch.valid then
+        local l = self.torch:get("Light")
+        self.torch_power = l and l.intensity or 0
+    end
     Game.camera = self.cam
     self.yaw = self.entity.rotation.y
     self.pitch = 0
@@ -265,6 +272,12 @@ function P:update(dt)
     if playing then
         local m = Controls.move()
         if Controls.pressed("crouch") then self.crouched = not self.crouched end
+        if Controls.pressed("light") and self.torch and self.torch.valid then
+            self.torch_on = not self.torch_on
+            local l = self.torch:get("Light")
+            if l then l.intensity = self.torch_on and self.torch_power or 0; self.torch:set("Light", l) end
+            audio.play("audio/foley/torch_click.wav", { bus = "sfx", volume = 0.5 })
+        end
         sprint = Controls.down("sprint") and m.y > 0.3 and self.zoom < 0.3
         if sprint then self.crouched = false end
         local speed = self.walk_speed

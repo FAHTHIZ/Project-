@@ -70,6 +70,12 @@ def add_player(sc: Scene, pos, yaw, viewmodel_builder=None, with_weapons=True, f
         "Camera": {"projection": "perspective", "fov_y": 70, "ortho_height": 10, "near": 0.03, "far": far,
                    "primary": True},
     }, head)
+    # Weapon light: rail-mounted white LED under the barrel line, toggled with the light action
+    # (fp_player.luau). The only shadowed local light the player owns, so wet trunks and fences
+    # throw real shadows through the rain and fog.
+    sc.add("Weapon Light", {"Transform": transform((0.16, -0.16, -0.25), quat_euler(-1.5, -1.0, 0)),
+                            "Light": {"type": "spot", "color": [0.92, 0.95, 1.0, 1], "intensity": 18.0, "range": 34.0,
+                                      "shadows": True, "inner_angle": 9.0, "outer_angle": 24.0}}, cam)
     vmc = {"Transform": transform()}
     if with_weapons:
         vmc["Script"] = script("scripts/weapons.luau")
@@ -243,7 +249,7 @@ def add_hud(sc: Scene):
        panel=ui_panel((1, 1, 1, 0.32), 38, (1, 1, 1, 0.6), 2))
     from_controls = [("fire", 74, "FIRE"), ("aim", 52, "AIM"), ("reload", 44, "RELOAD"), ("switch", 44, "SWITCH"),
                      ("jump", 44, "JUMP"), ("crouch", 40, "CROUCH"), ("interact", 48, "USE"), ("tool", 44, "TOOL"), ("utility", 40, "KIT"),
-                     ("pause", 34, "II"), ("objectives", 34, "OBJ")]
+                     ("pause", 34, "II"), ("objectives", 34, "OBJ"), ("light", 30, "LIGHT")]
     for n, r, label in from_controls:
         ui(sc, f"Touch {n}", touch, ui_rect((1, 1), (0, 0), (2 * r, 2 * r), (0.5, 0.5)),
            panel=ui_panel((0.05, 0.07, 0.08, 0.35), r, (1, 1, 1, 0.45), 2),

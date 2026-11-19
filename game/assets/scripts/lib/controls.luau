@@ -22,11 +22,12 @@ Controls.buttons = {
     { name = "utility",  ax = 1, x = 450, y = 610, r = 40, label = "KIT", needs = "utility" },
     { name = "pause",    ax = 1, x = 60,  y = 56,  r = 34, label = "II" },
     { name = "objectives", ax = 0, x = 60, y = 56, r = 34, label = "OBJ" },
+    { name = "light",    ax = 0, x = 60,  y = 140, r = 30, label = "LIGHT" },
 }
 Controls.stick_zone = 0.42      -- left share of the screen that spawns the floating stick
 Controls.stick_radius = 90      -- canvas units for full deflection
 
-local ACTIONS = { "fire", "aim", "reload", "switch", "interact", "tool", "utility", "jump", "sprint", "crouch", "pause",
+local ACTIONS = { "fire", "aim", "reload", "switch", "interact", "tool", "utility", "light", "jump", "sprint", "crouch", "pause",
                   "objectives", "diagnostics", "quick_save", "quick_load", "skip",
                   "weapon1", "weapon2" }
 

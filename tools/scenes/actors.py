@@ -30,7 +30,7 @@ GRIP_R = (0.0, -0.035, 0.05)                    # wrist target, weapon space (be
 GRIP_L = (0.012, -0.05, -0.12)                  # support wrist under the shroud
 
 
-def _carry(sc: Scene, body, nodes, who, scale=1.0):
+def _carry(sc: Scene, body, nodes, who, scale=1.0, torch=(0.9, 0.94, 1.0, 8.0)):
     chest = nodes["Chest"]
     carry = sc.add("Carry", {"Transform": transform(READY[0], quat_euler(*READY[1]), (scale,) * 3)}, body,
                    key=f"{sc.name}/{who}/carry")
@@ -39,6 +39,12 @@ def _carry(sc: Scene, body, nodes, who, scale=1.0):
     gr = sc.add("Grip R", {"Transform": transform(GRIP_R)}, carry, key=f"{sc.name}/{who}/gripr")
     gl = sc.add("Grip L", {"Transform": transform(GRIP_L)}, carry, key=f"{sc.name}/{who}/gripl")
     muzzle = sc.add("Carry Muzzle", {"Transform": transform((0, 0.045, -0.52))}, carry, key=f"{sc.name}/{who}/muzzle")
+    if torch:
+        # rail light: a soft cone ahead of the muzzle (no shadows; the player's own light has them)
+        sc.add("Carry Light", {"Transform": transform((0.03, 0.0, -0.42), quat_euler(4, 0, 0)),
+                               "Light": {"type": "spot", "color": list(torch[:3]) + [1], "intensity": torch[3],
+                                         "range": 22.0, "shadows": False, "inner_angle": 12.0, "outer_angle": 30.0}},
+               carry, key=f"{sc.name}/{who}/torch")
     pr = sc.add("Pole R", {"Transform": transform((-0.45, -0.3, -0.15))}, chest, key=f"{sc.name}/{who}/poler")
     pl = sc.add("Pole L", {"Transform": transform((0.4, -0.35, 0.05))}, chest, key=f"{sc.name}/{who}/polel")
     for hand, tgt, pole in (("Hand.R", gr, pr), ("Hand.L", gl, pl)):
@@ -123,7 +129,8 @@ def add_enemy(sc: Scene, name, pos, yaw=0.0, variant=0, **props):
                                           "line_of_sight": True, "target_key": "target"})
     body = sc.character("Body", ENEMY_MODELS[variant % len(ENEMY_MODELS)], parent=root, controller=CTRL)
     nodes = sc.last_nodes
-    _carry(sc, body, nodes, name)
+    # contractor lights are warmer (older halogen units), so a beam in the fog says who it is
+    _carry(sc, body, nodes, name, torch=(1.0, 0.86, 0.66, 7.0))
     _head_ik(sc, nodes)
     return root
 

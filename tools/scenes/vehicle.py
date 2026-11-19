@@ -116,6 +116,11 @@ def add_vehicle(sc: Scene, name, pos, yaw, cargo=None, pool_extra=("carbine", "s
     sc.add(f"{name} Tyres", {"Transform": transform((0, 0.3, 0)), "AudioSource": {
         "clip": "audio/vehicle/tyre_roll.wav", "bus": "sfx", "volume": 0.0, "loop": True, "play_on_start": True,
         "spatial": True, "min_distance": 3.0, "max_distance": 45.0}}, root)
+    # Headlights (the lamp lenses on the nose, mule_body.glb): two low-beam spots along -Z.
+    for sx, nm in ((-1, "Headlight L"), (1, "Headlight R")):
+        sc.add(f"{name} {nm}", {"Transform": transform((sx * 0.72, 0.93, -2.47), quat_euler(-5, 0, 0)),
+                                "Light": {"type": "spot", "color": [1.0, 0.95, 0.86, 1], "intensity": 30.0, "range": 45.0,
+                                          "shadows": False, "inner_angle": 16.0, "outer_angle": 34.0}}, ch)
     # Cargo-bay courtesy lamp under the headliner, switched by the hatch (vehicle.luau).
     sc.light(f"{name} Cargo Lamp", (0, 1.78, 1.7), color=(1.0, 0.9, 0.74), intensity=0.0, rng=3.2, parent=ch)
     # Cargo storage: anchors on the bay floor (vehicle frame), filled by lib/storage.luau.

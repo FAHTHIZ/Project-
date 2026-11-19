@@ -9,55 +9,86 @@
    "components": {
     "Environment": {
      "sky_zenith": [
-      0.32,
-      0.46,
-      0.62,
+      0.01,
+      0.013,
+      0.02,
       1
      ],
      "sky_horizon": [
-      0.7,
-      0.76,
-      0.79,
+      0.04,
+      0.046,
+      0.056,
       1
      ],
      "ground": [
-      0.2,
-      0.22,
-      0.14,
+      0.012,
+      0.013,
+      0.012,
       1
      ],
-     "ambient_intensity": 0.85,
+     "ambient_intensity": 0.55,
      "draw_sky": true,
      "clear_color": [
-      0.05,
-      0.05,
-      0.06,
+      0.01,
+      0.012,
+      0.016,
       1
      ],
      "tonemapper": "aces",
-     "exposure": 1,
-     "exposure_compensation": 0,
+     "exposure": 1.0,
+     "exposure_compensation": 1.6,
      "auto_exposure": false,
-     "saturation": 1,
-     "contrast": 1.04,
-     "vignette": 0.22,
-     "bloom_intensity": 0.035,
-     "bloom_threshold": 1,
-     "ao_intensity": 1,
+     "saturation": 0.86,
+     "contrast": 1.08,
+     "vignette": 0.3,
+     "bloom_intensity": 0.06,
+     "bloom_threshold": 0.9,
+     "ao_intensity": 1.0,
      "ao_radius": 0.7,
-     "shadow_distance": 60,
+     "shadow_distance": 40,
      "fog": "exponential",
      "fog_color": [
-      0.63,
-      0.69,
-      0.72,
+      0.03,
+      0.035,
+      0.042,
       1
      ],
-     "fog_start": 60,
-     "fog_end": 900,
-     "fog_density": 0.0035,
-     "fog_max_opacity": 0.75,
-     "physical_sky": false
+     "fog_start": 4,
+     "fog_end": 260,
+     "fog_density": 0.018,
+     "fog_max_opacity": 0.96,
+     "physical_sky": false,
+     "precipitation": "rain",
+     "precipitation_intensity": 0.6,
+     "precipitation_wind": [
+      1.6,
+      0.0,
+      0.8
+     ],
+     "precipitation_radius": 15.0,
+     "precipitation_brightness": 1.6,
+     "precipitation_opacity": 0.0,
+     "wetness": 0.8,
+     "puddles": 0.42,
+     "puddle_size": 2.6,
+     "precipitation_ripples": 1.0,
+     "precipitation_splashes": 0.8,
+     "volumetric_fog": true,
+     "volumetric_density": 0.02,
+     "volumetric_height": 4.0,
+     "volumetric_falloff": 0.08,
+     "volumetric_albedo": [
+      0.72,
+      0.76,
+      0.82,
+      1
+     ],
+     "volumetric_anisotropy": 0.62,
+     "volumetric_distance": 140.0,
+     "volumetric_sun": 0.6,
+     "volumetric_ambient": 0.5,
+     "volumetric_local_lights": 1.4,
+     "volumetric_temporal": 0.9
     },
     "Transform": {
      "position": [
@@ -81,36 +112,36 @@
   },
   {
    "uuid": "8535c92e-c274-5b8f-bef4-6ffa6d162acc",
-   "name": "Sun",
+   "name": "Moon",
    "components": {
     "Light": {
      "type": "directional",
      "color": [
-      1,
-      0.9399999976158142,
-      0.8399999737739563,
+      0.56,
+      0.66,
+      0.88,
       1
      ],
-     "intensity": 3.4000000953674316,
+     "intensity": 0.32,
      "range": 10,
      "shadows": true
     },
     "Transform": {
      "position": [
-      0,
-      30,
-      0
+      0.0,
+      30.0,
+      0.0
      ],
      "rotation": [
-      -0.310499906539917,
-      -0.2843228876590729,
-      -0.09790019690990448,
-      0.9017571210861206
+      -0.2132118,
+      0.7867882,
+      0.409576,
+      0.409576
      ],
      "scale": [
-      1,
-      1,
-      1
+      1.0,
+      1.0,
+      1.0
      ]
     }
    }
@@ -34133,6 +34164,750 @@
    }
   },
   {
+   "uuid": "798f6a19-f9d4-5e8a-a1ad-5f30483419e4",
+   "name": "Weapon Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.16,
+      -0.16,
+      -0.25
+     ],
+     "rotation": [
+      -0.0130891,
+      -0.0087258,
+      -0.0001142,
+      0.9998763
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.92,
+      0.95,
+      1.0,
+      1
+     ],
+     "intensity": 18.0,
+     "range": 34.0,
+     "shadows": true,
+     "inner_angle": 9.0,
+     "outer_angle": 24.0
+    }
+   },
+   "parent": "d767db66-13e3-5e68-8b4b-a3151768cc0c"
+  },
+  {
+   "uuid": "fbe0f8ae-2984-5400-b918-156beb4f78fa",
+   "name": "Mule Headlight L",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.72,
+      0.93,
+      -2.47
+     ],
+     "rotation": [
+      -0.0436194,
+      0.0,
+      0.0,
+      0.9990482
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.95,
+      0.86,
+      1
+     ],
+     "intensity": 30.0,
+     "range": 45.0,
+     "shadows": false,
+     "inner_angle": 16.0,
+     "outer_angle": 34.0
+    }
+   },
+   "parent": "f29b0236-6b33-55e5-ae37-0fe42f4f290a"
+  },
+  {
+   "uuid": "31910d87-ea3b-5715-b8ca-ab15d02d3548",
+   "name": "Mule Headlight R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.72,
+      0.93,
+      -2.47
+     ],
+     "rotation": [
+      -0.0436194,
+      0.0,
+      0.0,
+      0.9990482
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.95,
+      0.86,
+      1
+     ],
+     "intensity": 30.0,
+     "range": 45.0,
+     "shadows": false,
+     "inner_angle": 16.0,
+     "outer_angle": 34.0
+    }
+   },
+   "parent": "f29b0236-6b33-55e5-ae37-0fe42f4f290a"
+  },
+  {
+   "uuid": "2a634a92-c6ad-5749-8799-3802b886a52d",
+   "name": "Camp Flood A Beam",
+   "components": {
+    "Transform": {
+     "position": [
+      -25.1732,
+      53.1054,
+      481.9
+     ],
+     "rotation": [
+      -0.1652454,
+      0.4908136,
+      0.0954045,
+      0.8501141
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 60.0,
+     "range": 38.0,
+     "shadows": true,
+     "inner_angle": 22.0,
+     "outer_angle": 48.0
+    }
+   }
+  },
+  {
+   "uuid": "2fcc8bcd-cfab-5fac-a5cd-a174e58fc81a",
+   "name": "Camp Flood B Beam",
+   "components": {
+    "Transform": {
+     "position": [
+      -17.9316,
+      53.1054,
+      493.1879
+     ],
+     "rotation": [
+      0.0331336,
+      0.9667141,
+      0.1879102,
+      -0.1704578
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 60.0,
+     "range": 38.0,
+     "shadows": false,
+     "inner_angle": 22.0,
+     "outer_angle": 48.0
+    }
+   }
+  },
+  {
+   "uuid": "885f81ca-72f0-52c4-a91f-5a57e61e1720",
+   "name": "Camp Generator Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      -10.0,
+      51.7054,
+      487.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      0.4,
+      1.0,
+      0.5,
+      1
+     ],
+     "intensity": 1.5,
+     "range": 3.0,
+     "shadows": false
+    }
+   }
+  },
+  {
+   "uuid": "9cf31781-5dc3-54fc-9bc1-d3be9719fedd",
+   "name": "Portal Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.0,
+      76.2462,
+      -443.2
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      1.0,
+      0.62,
+      0.3,
+      1
+     ],
+     "intensity": 26.0,
+     "range": 16.0,
+     "shadows": false
+    }
+   }
+  },
+  {
+   "uuid": "5f0fc9fc-fb78-5598-8a5e-e486429a7502",
+   "name": "Booth Strip Light",
+   "components": {
+    "Transform": {
+     "position": [
+      57.0,
+      72.4943,
+      -348.8
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      0.86,
+      0.95,
+      1.0,
+      1
+     ],
+     "intensity": 5.0,
+     "range": 6.0,
+     "shadows": false
+    }
+   }
+  },
+  {
+   "uuid": "376e15a0-518b-5ada-8d87-375cbc80f486",
+   "name": "Gate Light Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      54.0554,
+      75.7772,
+      -342.2784
+     ],
+     "rotation": [
+      -0.1139235,
+      0.7432438,
+      0.646092,
+      0.1310539
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.68,
+      0.36,
+      1
+     ],
+     "intensity": 55.0,
+     "range": 24.0,
+     "shadows": false,
+     "inner_angle": 38.0,
+     "outer_angle": 62.0
+    }
+   }
+  },
+  {
+   "uuid": "358d821e-0484-5009-b033-4185b8176b67",
+   "name": "Office Desk Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      29.0,
+      71.95,
+      -370.4
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      1.0,
+      0.8,
+      0.55,
+      1
+     ],
+     "intensity": 4.0,
+     "range": 6.0,
+     "shadows": false
+    }
+   }
+  },
+  {
+   "uuid": "5545cf24-67e4-57b7-b946-4b0baced93e3",
+   "name": "Watchtower 0 Searchlight",
+   "components": {
+    "Transform": {
+     "position": [
+      -120.0,
+      77.5227,
+      -345.3
+     ],
+     "rotation": [
+      -0.0,
+      0.9969173,
+      0.0784591,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 140.0,
+     "range": 90.0,
+     "shadows": false,
+     "inner_angle": 4.0,
+     "outer_angle": 9.0
+    },
+    "Script": {
+     "script": "scripts/world/searchlight.luau",
+     "enabled": true,
+     "properties": {
+      "arc": 38.0,
+      "period": 13.0,
+      "phase": 0.0,
+      "pitch": -9.0,
+      "yaw": 180.0
+     }
+    }
+   }
+  },
+  {
+   "uuid": "63fb670c-ebc4-53de-b4e8-e66c40ca456a",
+   "name": "Watchtower 1 Searchlight",
+   "components": {
+    "Transform": {
+     "position": [
+      140.0,
+      76.8262,
+      -341.3
+     ],
+     "rotation": [
+      -0.0,
+      0.9969173,
+      0.0784591,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 140.0,
+     "range": 90.0,
+     "shadows": false,
+     "inner_angle": 4.0,
+     "outer_angle": 9.0
+    },
+    "Script": {
+     "script": "scripts/world/searchlight.luau",
+     "enabled": true,
+     "properties": {
+      "arc": 44.0,
+      "period": 16.0,
+      "phase": 0.3,
+      "pitch": -11.0,
+      "yaw": 180.0
+     }
+    }
+   }
+  },
+  {
+   "uuid": "c50a5d61-0920-54a0-aaa8-fb8e71bbda9f",
+   "name": "Watchtower 2 Searchlight",
+   "components": {
+    "Transform": {
+     "position": [
+      -40.0,
+      77.0373,
+      -346.3
+     ],
+     "rotation": [
+      -0.0,
+      0.9969173,
+      0.0784591,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 140.0,
+     "range": 90.0,
+     "shadows": false,
+     "inner_angle": 4.0,
+     "outer_angle": 9.0
+    },
+    "Script": {
+     "script": "scripts/world/searchlight.luau",
+     "enabled": true,
+     "properties": {
+      "arc": 50.0,
+      "period": 19.0,
+      "phase": 0.6,
+      "pitch": -13.0,
+      "yaw": 180.0
+     }
+    }
+   }
+  },
+  {
+   "uuid": "709fd628-dd5f-5c5e-8f18-3ab6c1c927d6",
+   "name": "Yard Light 0 Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      -6.0,
+      77.65,
+      -363.3
+     ],
+     "rotation": [
+      -0.656059,
+      0.0,
+      0.0,
+      0.7547096
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.68,
+      0.36,
+      1
+     ],
+     "intensity": 55.0,
+     "range": 24.0,
+     "shadows": false,
+     "inner_angle": 38.0,
+     "outer_angle": 62.0
+    }
+   }
+  },
+  {
+   "uuid": "7e48fc0d-ca7b-5d65-b3ce-61cb5daed254",
+   "name": "Yard Light 1 Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      47.35,
+      77.65,
+      -405.1258
+     ],
+     "rotation": [
+      -0.6337044,
+      0.1953332,
+      0.1698006,
+      0.7289935
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.68,
+      0.36,
+      1
+     ],
+     "intensity": 55.0,
+     "range": 24.0,
+     "shadows": false,
+     "inner_angle": 38.0,
+     "outer_angle": 62.0
+    }
+   }
+  },
+  {
+   "uuid": "2fef3e8f-f926-543f-aa0a-88a50d386dc9",
+   "name": "Yard Light 2 Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      -45.1258,
+      77.65,
+      -414.65
+     ],
+     "rotation": [
+      -0.5681638,
+      0.3773548,
+      0.3280295,
+      0.6535977
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.68,
+      0.36,
+      1
+     ],
+     "intensity": 55.0,
+     "range": 24.0,
+     "shadows": false,
+     "inner_angle": 38.0,
+     "outer_angle": 62.0
+    }
+   }
+  },
+  {
+   "uuid": "66141a0e-5e1c-5833-8ec2-6f1ab2990d17",
+   "name": "Yard Light 3 Lamp",
+   "components": {
+    "Transform": {
+     "position": [
+      16.7,
+      77.65,
+      -430.0
+     ],
+     "rotation": [
+      -0.4639038,
+      0.5336603,
+      0.4639038,
+      0.5336603
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.68,
+      0.36,
+      1
+     ],
+     "intensity": 55.0,
+     "range": 24.0,
+     "shadows": false,
+     "inner_angle": 38.0,
+     "outer_angle": 62.0
+    }
+   }
+  },
+  {
+   "uuid": "b2e3bcde-6db0-5fd7-b136-0fe26f70d54d",
+   "name": "Storm",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Script": {
+     "script": "scripts/world/storm.luau",
+     "enabled": true,
+     "properties": {
+      "min_gap": 40.0,
+      "max_gap": 110.0,
+      "first": 25.0
+     }
+    }
+   }
+  },
+  {
+   "uuid": "509686a1-2e46-50cc-8b6b-a9d3066f818f",
+   "name": "Lightning",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      50.0,
+      0.0
+     ],
+     "rotation": [
+      -0.1333017,
+      0.82796,
+      0.4974886,
+      0.2218512
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "directional",
+     "color": [
+      0.78,
+      0.84,
+      1.0,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 10,
+     "shadows": false
+    }
+   },
+   "parent": "b2e3bcde-6db0-5fd7-b136-0fe26f70d54d"
+  },
+  {
    "uuid": "7ad8e9cc-9ed2-5537-ab7e-033b28711dac",
    "name": "Ensemble",
    "components": {
@@ -35480,6 +36255,45 @@
    "parent": "df6988cd-4c3e-53e5-b5d1-85b65e1640b5"
   },
   {
+   "uuid": "9172f663-23b4-5eec-b1e1-7fd1beccae15",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "df6988cd-4c3e-53e5-b5d1-85b65e1640b5"
+  },
+  {
    "uuid": "00ab40cb-2775-5049-8b82-9ab7046ad608",
    "name": "Pole R",
    "components": {
@@ -36807,6 +37621,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "6e657bcb-b463-514b-927e-47a2bdae51a9"
+  },
+  {
+   "uuid": "eaa5fe2b-a98d-5841-ba42-578ae477cb3f",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "6e657bcb-b463-514b-927e-47a2bdae51a9"
@@ -38144,6 +38997,45 @@
    "parent": "8b54b90f-f5a8-5b06-ad8a-77d0a9ff2196"
   },
   {
+   "uuid": "b6b76e9f-aa40-559f-94d4-5720da906ec1",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "8b54b90f-f5a8-5b06-ad8a-77d0a9ff2196"
+  },
+  {
    "uuid": "bf37fbf1-3aa2-5f14-a12b-2943a2ad2e8c",
    "name": "Pole R",
    "components": {
@@ -39476,6 +40368,45 @@
    "parent": "da7ab2f0-7408-54ca-8df2-784de9e5d613"
   },
   {
+   "uuid": "df4bd26e-9596-5787-9982-c74cc57f9c22",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "da7ab2f0-7408-54ca-8df2-784de9e5d613"
+  },
+  {
    "uuid": "1b673651-7f75-5625-abcb-4bc613bf1b23",
    "name": "Pole R",
    "components": {
@@ -40803,6 +41734,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "3750ca72-c027-57ae-a1ce-cc756b236ddd"
+  },
+  {
+   "uuid": "ecd1af24-e176-522e-99c0-297114ddf5c6",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "3750ca72-c027-57ae-a1ce-cc756b236ddd"
@@ -42141,6 +43111,45 @@
    "parent": "b2f334df-86ec-5f66-a756-61370d3c8f88"
   },
   {
+   "uuid": "ec3220b2-613c-561b-8ccd-527278130164",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "b2f334df-86ec-5f66-a756-61370d3c8f88"
+  },
+  {
    "uuid": "cff4a355-5774-56f9-9e4b-3ce918f13bee",
    "name": "Pole R",
    "components": {
@@ -43473,6 +44482,45 @@
    "parent": "f2109613-909f-5104-851a-14f43431619f"
   },
   {
+   "uuid": "38a70a25-711c-5d8b-9fab-30ae0ed4893f",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "f2109613-909f-5104-851a-14f43431619f"
+  },
+  {
    "uuid": "a54c4d82-9c58-5e31-abf1-b6a41104d0c4",
    "name": "Pole R",
    "components": {
@@ -44799,6 +45847,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "617eaf3f-22fe-5f01-996a-7d9934e14dc8"
+  },
+  {
+   "uuid": "97c4299d-cbac-5ae4-a57f-e67cd0012aa1",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "617eaf3f-22fe-5f01-996a-7d9934e14dc8"
@@ -46136,6 +47223,45 @@
    "parent": "3ba7729e-63ec-5e3d-9b1a-a99cfc9b5682"
   },
   {
+   "uuid": "75ebc19f-3b7f-5556-a649-114fefb62024",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "3ba7729e-63ec-5e3d-9b1a-a99cfc9b5682"
+  },
+  {
    "uuid": "e0fdfb15-756a-5ae6-b575-3ccf9552fda4",
    "name": "Pole R",
    "components": {
@@ -47463,6 +48589,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "71c5776d-a07a-5bc6-8c31-8f12881cd083"
+  },
+  {
+   "uuid": "92479b74-0808-5b24-89e7-244c1ae58c45",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "71c5776d-a07a-5bc6-8c31-8f12881cd083"

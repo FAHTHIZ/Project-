@@ -13572,6 +13572,45 @@
    "parent": "aa3091d9-9496-57ca-a8cc-04187230ffe1"
   },
   {
+   "uuid": "905e37d5-4164-5d6e-b614-11234bb8892f",
+   "name": "Weapon Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.16,
+      -0.16,
+      -0.25
+     ],
+     "rotation": [
+      -0.0130891,
+      -0.0087258,
+      -0.0001142,
+      0.9998763
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.92,
+      0.95,
+      1.0,
+      1
+     ],
+     "intensity": 18.0,
+     "range": 34.0,
+     "shadows": true,
+     "inner_angle": 9.0,
+     "outer_angle": 24.0
+    }
+   },
+   "parent": "a8bcd3a0-f9b4-5fb8-9fc3-ed8919b8d19f"
+  },
+  {
    "uuid": "1ebcd3d1-d211-5e99-911f-aa188bed6098",
    "name": "Viewmodel",
    "components": {
@@ -20570,6 +20609,98 @@
     },
     "UiText": {
      "text": "OBJ",
+     "key": "",
+     "font_size": 15,
+     "color": [
+      1,
+      1,
+      1,
+      0.92
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "aeb7bfa9-3aad-52d4-9e79-0a57b977cffe"
+  },
+  {
+   "uuid": "46835ee7-3c5c-51bd-9865-66149c6481d4",
+   "name": "Touch light",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0
+     ],
+     "anchor_max": [
+      1,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      60,
+      60
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.05,
+      0.07,
+      0.08,
+      0.35
+     ],
+     "corner_radius": 30,
+     "border_color": [
+      1,
+      1,
+      1,
+      0.45
+     ],
+     "border_width": 2
+    },
+    "UiText": {
+     "text": "LIGHT",
      "key": "",
      "font_size": 15,
      "color": [
@@ -30783,6 +30914,45 @@
    "parent": "228d9526-73c4-5d5a-bd62-acbaa3922f7c"
   },
   {
+   "uuid": "f6a2e6a5-bc6b-54a6-bbb2-fc54ffd783bd",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "228d9526-73c4-5d5a-bd62-acbaa3922f7c"
+  },
+  {
    "uuid": "5d838f1e-3895-5446-8550-8aab95bd64a8",
    "name": "Pole R",
    "components": {
@@ -32121,6 +32291,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "850fd55e-221e-5b89-bd1f-b262c6d63a06"
+  },
+  {
+   "uuid": "6325c2a5-f501-5955-ae52-72a97658906c",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "850fd55e-221e-5b89-bd1f-b262c6d63a06"
@@ -33469,6 +33678,45 @@
    "parent": "5d4a4db0-6cef-5318-8020-401af422a851"
   },
   {
+   "uuid": "5f909114-881c-5cba-97be-520ad72d121c",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "5d4a4db0-6cef-5318-8020-401af422a851"
+  },
+  {
    "uuid": "e3a50286-3973-5e5f-ac6d-22c060ab1e31",
    "name": "Pole R",
    "components": {
@@ -34812,6 +35060,45 @@
    "parent": "555febef-05e1-578c-82a2-37ece51fff11"
   },
   {
+   "uuid": "5442405e-dd3e-5c9a-8632-2d37c0ce6c3a",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "555febef-05e1-578c-82a2-37ece51fff11"
+  },
+  {
    "uuid": "5ba7e4f8-610e-5ebd-8508-ae3dee234a00",
    "name": "Pole R",
    "components": {
@@ -36150,6 +36437,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "1f361d01-ad19-564f-8f3a-09b84953a3b7"
+  },
+  {
+   "uuid": "ccc3aa0c-5129-5809-ba47-8e015ad10449",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "1f361d01-ad19-564f-8f3a-09b84953a3b7"
@@ -37499,6 +37825,45 @@
    "parent": "6eb86026-a715-5a68-93c5-de0ef1dd8337"
   },
   {
+   "uuid": "a6d79834-8958-5db1-9845-3976acab00ad",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "6eb86026-a715-5a68-93c5-de0ef1dd8337"
+  },
+  {
    "uuid": "ea204d68-e593-57a6-b61e-f9d94aef6acd",
    "name": "Pole R",
    "components": {
@@ -38836,6 +39201,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "c7c7c215-606e-50b6-b207-26b99ba396c0"
+  },
+  {
+   "uuid": "7f7a35d2-8dbe-583a-9c7b-19746143fefb",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "c7c7c215-606e-50b6-b207-26b99ba396c0"
@@ -40184,6 +40588,45 @@
    "parent": "32dd83df-9acc-5915-82c0-c683f0c4e4e8"
   },
   {
+   "uuid": "fe102cab-79f7-52b1-9a93-8ae3140737bc",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "32dd83df-9acc-5915-82c0-c683f0c4e4e8"
+  },
+  {
    "uuid": "8ab2ae86-c1d7-5dc2-90ed-3c3ba756819f",
    "name": "Pole R",
    "components": {
@@ -41521,6 +41964,45 @@
       1.0,
       1.0
      ]
+    }
+   },
+   "parent": "70bafdce-96d0-5346-ab36-ff94d55bb0b6"
+  },
+  {
+   "uuid": "0a80654d-1037-5413-977f-88918fe92d1a",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
     }
    },
    "parent": "70bafdce-96d0-5346-ab36-ff94d55bb0b6"
@@ -42868,6 +43350,45 @@
    "parent": "14765a0e-387d-56f6-9a8b-27c8a9ad6536"
   },
   {
+   "uuid": "7a28de67-d008-514d-a38d-b4ac3d0a89bf",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      1.0,
+      0.86,
+      0.66,
+      1
+     ],
+     "intensity": 7.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "14765a0e-387d-56f6-9a8b-27c8a9ad6536"
+  },
+  {
    "uuid": "904d9d03-d586-5bd4-902c-62d5ed6a28ce",
    "name": "Pole R",
    "components": {
@@ -44011,6 +44532,76 @@
     }
    },
    "parent": "dd112de7-25fc-5a2c-9da6-bba6913dc1e5"
+  },
+  {
+   "uuid": "bf1c0ef5-7bd5-5a0e-a8b6-2070875180ab",
+   "name": "Rain Above",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "AudioSource": {
+     "clip": "audio/ambient/roof_rain.wav",
+     "bus": "ambient",
+     "volume": 0.18,
+     "pitch": 1.0,
+     "loop": true,
+     "play_on_start": true,
+     "stream": false,
+     "spatial": false,
+     "priority": 200,
+     "occlusion": false
+    }
+   }
+  },
+  {
+   "uuid": "e1ae8bc7-0fc6-5da0-b301-c0448f8dfe41",
+   "name": "Storm",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Script": {
+     "script": "scripts/world/storm.luau",
+     "enabled": true,
+     "properties": {
+      "min_gap": 45.0,
+      "max_gap": 120.0,
+      "first": 30.0,
+      "volume": 0.162
+     }
+    }
+   }
   },
   {
    "uuid": "af32af1e-dd39-5061-85b0-c076d2743651",
