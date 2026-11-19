@@ -38,10 +38,10 @@ Do not stop after documentation or scaffolding. Never claim that a feature, buil
 - The first physical device target is the Infinix Hot 10S, 6 GB RAM variant. Verify the exact SKU, Android build, GPU/driver and Vulkan capability on the actual device; published specs do not prove the installed driver works.
 - Begin with a measured 30 FPS target and adaptive rendering resolution/quality. Do not chase 90 FPS because the panel supports 90 Hz. Consider 60 FPS only after sustained tests justify it.
 - The four supplied videos define the Stage 01 forest atmosphere. Their visual content is captured in `docs/STAGE_01_FOREST.md`. They are portrait videos; the game must be built in landscape.
-- The intended experience is atmospheric exploration / field investigation, not horror. Avoid gore, jump scares or horror tropes.
+- The intended experience is a first-person, cinematic shooter campaign with exploration, authored combat encounters, objectives, character interactions and story progression. It is atmospheric and dramatic, not a horror game. Avoid gore, graphic injury detail, jump scares and horror tropes.
 - Use VICTUS's own supported asset import, scene, scripting, animation, physics, navigation, audio, UI, diagnostic and export workflows. Extend the engine only when a genuine reusable engine gap blocks progress.
 - The end reveal uses the existing Vanguard V-01 behind a chair. It is an ordinary, harmless dummy, not an AI, boss or mastermind.
-- Use an original non-weapon utility device for inspection, illumination and environmental interaction.
+- Build a complete but tightly scoped fictional shooter layer: original game-only weapons, first-person viewmodels, aiming/firing/reload/switch animations, enemy encounters, hit feedback, ammunition UI and encounter balancing. Weapon research is limited to fictional visual design, animation, sound design and abstract game balance; do not reproduce real weapon specifications, operating instructions or real-world tactical training. Keep the field utility device as a separate secondary tool for scanning, illumination and environmental interaction.
 - Prioritize control feel, readable animation, stable camera motion, strong environment lighting, useful audio, touch responsiveness and clear feedback.
 
 ## Art and licensing
@@ -67,16 +67,25 @@ Do not stop after documentation or scaffolding. Never claim that a feature, buil
 ## First-stage deliverables
 
 - A polished, explorable Stage 01 forest based on all four reference clips.
-- A landscape third-person controller and camera. This choice makes locomotion, falls, environmental interaction and character animation visible to the audience. Keep camera settings data-driven.
+- A landscape first-person controller with responsive look/aim, a stable head/camera rig, collision-aware movement and first-person arms/hand/weapon viewmodels. Gameplay remains first-person; external camera angles are reserved for authored cutscenes. Keep camera, field of view, sensitivity and motion settings data-driven.
 - Responsive mobile controls: left movement stick, right camera-look region, contextual interaction and field-tool buttons, pause/settings, and a clear gamepad mode. Keyboard/mouse must work in desktop testing.
-- A useful HUD with objectives, context prompts and a non-combat facility-awareness/alert state.
+- A polished shooter HUD with clear objectives, context prompts, reticle/aim feedback, ammunition and weapon state, interaction prompts, an understandable encounter/objective alert state, subtitles and pause/settings. Keep it readable on the target phone and allow comfort/accessibility customization.
 - At least one voiced NPC encounter, subtitles and a working dialogue interaction.
-- A responsive field utility device that scans/illuminates/inspects selected environmental objects; no weapon mechanics.
+- Responsive fictional weapon gameplay and a separate field utility device for scanning/illumination/inspection. Both must be fully implemented and playable; neither may be a static mockup.
 - Natural locomotion, transitions, safe non-graphic trips/falls and a tested return to ordinary movement.
-- A coherent path to later facility/bunker stages, each researched and documented before its visual design is locked.
+- A complete campaign route through the forest, perimeter, facility, bunker and a substantial lower-basement area, ending at the V-01 chair reveal. Research and document every area before locking its visual design.
 - A reachable V-01 dummy reveal behind a chair.
 - A diagnostics display for frame rate/frame-time, internal resolution scale, quality tier and render-path reasons. Include further counters only when VICTUS really exposes them.
 - Reproducible VICTUS export and Android APK build/install instructions, plus a truthful physical-device validation report.
+
+## Campaign, first-person presentation and cinematic cutscenes
+
+- The gameplay camera is first-person. Do not build a third-person follow-camera controller or make third-person the default gameplay mode.
+- Use authored, high-quality campaign cutscenes throughout the experience: an opening, mission/operation transitions, major area reveals, important character moments, discoveries, the bunker descent, the basement sequence, the V-01 reveal and the ending. Add shorter in-engine cinematic beats where they genuinely improve pacing.
+- Cutscenes should feel like a polished, story-driven military-action campaign: deliberate shot composition, camera movement, character blocking, facial/body performance, lighting, editing, spatial sound, music, dialogue and subtitles. Treat this as a quality target only; do not copy Call of Duty scenes, characters, levels, dialogue, logos or signature compositions.
+- Prefer real-time in-engine sequences that use the shipped characters, environment, animation and audio so they fit the phone's memory/storage budget. Research VICTUS's actual sequencer/camera capabilities on current main; build a supported sequence/timeline system only if a genuine gap exists.
+- Cutscene requirements: reliable gameplay-to-cinematic transitions, camera ownership, input lock/restore, pause/resume handling, subtitle timing, audio mixing, skip controls, checkpoint/save consistency, and a clean return to first-person gameplay. Critical information must also be available in subtitles/objectives so skipping never blocks progression.
+- Cutscenes must run at the target device's measured quality tier. Profile scene loads, character count, facial animation, camera effects and audio; do not assume desktop cinematic performance transfers to Android.
 
 ## Stage 02 onward: required reference research
 
@@ -96,6 +105,20 @@ Stage 01 is directly based on the four supplied clips. Later stages are intentio
 A stage is complete only when the scene can be entered, played, completed, saved and loaded; packaged assets are present; automated tests pass; touch and gamepad controls work; audio/subtitles work; performance is measured; and docs match the actual implementation.
 
 A pretty screenshot, imported model, APK compilation, emulator FPS, unreachable script, silent dialogue panel or static dummy placement is not completion.
+
+
+## Operator, enemy and fictional weapon research
+
+- Research a small, memorable cast of original operators and opposing facility personnel. Give each character a readable silhouette, clothing layers, palette, role in the story, voice, personality and animation needs. Cover headwear, face visibility, field clothing, footwear, gloves, load-bearing costume shapes, communication accessories and weather/lighting variants as art-direction subjects, not as real-world equipment instructions.
+- Make the protagonist, allied operators and opposing characters visually distinct without copying real military units, insignia or identifiable characters from other games.
+- The campaign must have genuine shooter gameplay. Research fictional game-weapon art direction and game feel: silhouette, material language, fictional naming, first-person viewmodel readability, animation polish, sound identity, UI feedback and abstract balance. Keep weapon designs original and non-functional outside the game.
+- Do not research or reproduce real-world weapon construction, specifications, operational procedures, handling instruction, maintenance, real-world aiming techniques or tactical doctrine. Do not turn the game into a training simulator. All firing, reload timing, recoil, spread, damage and ammunition values are invented game parameters.
+- Keep combat readable and non-graphic. Use authored encounter pacing, clear objectives, fair difficulty, useful feedback and non-gory hit/reaction effects.
+- Every character model, uniform texture, insignia, weapon mesh, animation, sound and reference asset must have verified provenance and a recorded license. A reference image is not permission to copy or ship its contents.
+
+## Whole-game completion requirement
+
+The definition of done is the complete playable campaign, not the forest, a single stage, a cinematic teaser or an isolated shooter prototype. The finished route must include the forest, perimeter, facility, bunker, a meaningful lower-basement section, the V-01 chair reveal and a proper ending. All planned operations, operator appearances, shooter systems, cutscenes, transitions, save/load, mobile controls, audio, packaging and final validation must be complete. Completing one area is a checkpoint; immediately continue to the next unfinished area. Commit each independently finished and tested piece directly to `main`, update the progress log, and proceed without waiting for another user prompt unless a genuine external blocker or owner-only decision prevents progress.
 
 ## When blocked
 
