@@ -24,7 +24,9 @@ function Squad.state()
     local cur = scene.current()
     if not st or st.scene ~= cur then
         st = { scene = cur, members = {}, order_list = {}, enemies = {}, tracers = {}, tracer_i = 1, mode = "follow",
-               clock = 0 }
+               clock = 0, crumbs = {} }
+        -- open-world scenes (tools/world/world_scene.py) carry an "Open World" marker and no navmesh
+        Game.open_world = scene.find("Open World") ~= nil
         for i = 0, 7 do
             local t = scene.find("NPC Tracer " .. i)
             if t then
@@ -80,10 +82,63 @@ function Squad.order(mode, points, opts)
     Game.emit("squad_order", mode)
 end
 
+-- Open-world following (scenes without a navmesh): the player's recent path is kept as
+-- breadcrumbs 1.2 m apart and each operator walks to the crumb its trail distance behind, so
+-- the squad files along the trail the player actually walked instead of cutting through trees.
+local CRUMB = 1.2
+local function crumbs_update(s)
+    local p = Game.player
+    if not p or not p.valid then return end
+    local pos = p.position
+    local c = s.crumbs
+    if #c == 0 or vector.magnitude(pos - c[#c]) > 25 then
+        s.crumbs = { pos }
+        return
+    end
+    if vector.magnitude(pos - c[#c]) >= CRUMB then
+        table.insert(c, pos)
+        if #c > 40 then table.remove(c, 1) end
+    end
+end
+
+-- Point `back` metres behind the player along the breadcrumb path (nil when the path is shorter).
+function Squad.trail_point(back)
+    local s = Squad.state()
+    local c = s.crumbs
+    local p = Game.player
+    if not p or #c == 0 then return nil end
+    local prev = p.position
+    local left = back
+    for i = #c, 1, -1 do
+        local seg = vector.magnitude(prev - c[i])
+        if seg >= left and seg > 0.001 then
+            return prev + (c[i] - prev) * (left / seg)
+        end
+        left -= seg
+        prev = c[i]
+    end
+    return nil
+end
+
 function Squad.slot_point(who)
     local p = Game.player
     local r = Squad.ROSTER[who]
     if not p or not r then return nil end
+    if Game.open_world then
+        -- single file in trail order, a small lateral stagger so heads do not line up
+        local back = 1.6 + r.slot.z * 1.15
+        local tp = Squad.trail_point(back)
+        if tp then
+            local ahead = Squad.trail_point(math.max(0.2, back - 1.5)) or p.position
+            local d = ahead - tp
+            local len = math.sqrt(d.x * d.x + d.z * d.z)
+            if len > 0.01 then
+                local side = vector.create(-d.z / len, 0, d.x / len)
+                tp = tp + side * (r.slot.x * 0.18)
+            end
+            return tp
+        end
+    end
     local ps = Game.player_state
     local yaw = ps and math.rad(ps.yaw) or 0
     -- player forward is -Z rotated by yaw; right is +X rotated by yaw
@@ -174,6 +229,7 @@ function Squad.update(dt)
     local s = Squad.state()
     if Game.paused then return end
     s.clock += dt
+    if Game.open_world then crumbs_update(s) end
     for _, t in s.tracers do
         if t.life > 0 then
             t.t += dt

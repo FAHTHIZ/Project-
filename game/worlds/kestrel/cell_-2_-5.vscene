@@ -1,0 +1,131 @@
+{
+  "format": "victus.scene",
+  "version": 1,
+  "name": "cell_-2_-5",
+  "entities": [
+    {
+      "uuid": "f9270ce1-ac5f-5bd9-9f80-410610c60bd6",
+      "name": "Rock 325",
+      "components": {
+        "Collider": {
+          "shape": "sphere",
+          "size": [1, 1, 1],
+          "radius": 0.55,
+          "height": 1,
+          "offset": [0, 0.25, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock"
+        },
+        "Transform": {
+          "position": [-72.71420288085938, 66.9634017944336, -303.71929931640625],
+          "rotation": [-0.0007430000114254653, 0.8676627278327942, 0.03610190004110336, -0.49584031105041504],
+          "scale": [2.1600558757781982, 2.1600558757781982, 2.1600558757781982]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "b179f912-fd1f-55bc-9a7b-3562ffac52e5",
+      "name": "Rock 325[0]",
+      "parent": "f9270ce1-ac5f-5bd9-9f80-410610c60bd6",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "c0586024-0338-4e3d-9e7b-bad9781c0109",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "1b896065-a27f-59c2-a3f5-a76f199ce7b6",
+      "name": "Rock 1854",
+      "components": {
+        "Collider": {
+          "shape": "sphere",
+          "size": [1, 1, 1],
+          "radius": 0.55,
+          "height": 1,
+          "offset": [0, 0.25, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock"
+        },
+        "Transform": {
+          "position": [-82.26210021972656, 72.06999969482422, -269.5790100097656],
+          "rotation": [-0.03461100161075592, 0.9977399706840515, 0.05659769847989082, 0.010663599707186222],
+          "scale": [4.455787181854248, 4.455787181854248, 4.455787181854248]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "274674aa-2a58-5287-afa6-45313aa9f4e8",
+      "name": "Rock 1854[0]",
+      "parent": "1b896065-a27f-59c2-a3f5-a76f199ce7b6",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "51b40244-5dc0-4b28-a8c8-7dbfafb61515",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    }
+  ]
+}

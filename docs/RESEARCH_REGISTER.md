@@ -220,3 +220,20 @@ Decisions (original implementation, `operator.luau` update_vehicle)
 - Head/eyes lead the motion: the operator looks at the door point before swivelling (listener/looker rule in AGENTS.md).
 - Cargo bay: real vehicles have a courtesy lamp switched by the tailgate; the Mule's lamp ramps with the hatch, which keeps the bay contents legible in shade without inventing ambient light (AGENTS.md: no darkness hiding work, but also no fake fill).
 - Scope: two zoom states only (0.30 and 0.16 × FOV), reduced look sensitivity scaled with zoom, bounded sway, viewmodel hidden while scoped, black housing around a round lens mask. Fictional optic; no real reticle subtensions are reproduced.
+
+## 10. Open-world terrain, trail grading and wayfinding (Kestrel Valley) — 2026-11-19
+
+Sources
+- USDA Forest Service, FSH 2309.18 Trail Planning and Design Parameters ([fs.usda.gov](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5403615.pdf)): hiker/pedestrian trail classes have target grades of about 5–25% and short-pitch maximums of 25–40%.
+- USDA FS Trail Construction and Maintenance Notebook, sustainable design ([fs.usda.gov](https://www.fs.usda.gov/t-d/pubs/htmlpubs/htm07232806/page04.htm)): the half rule (trail grade ≤ half the side-slope grade), 5–10% average grade, and steps or structures above ~20%.
+- USDA FS trail maintenance notebook (PDF) ([fs.usda.gov](https://www.fs.usda.gov/sites/default/files/fs_media/fs_document/trail-maintenance-notebook.pdf)): sustained grades under ~7%, short sections to ~15%, full-bench tread with 3–8% outslope.
+- Mixed broadleaf stand structure study, Forests 15(9) 1653 ([MDPI](https://www.mdpi.com/1999-4907/15/9/1653)): stand densities of 450–1383 trees/ha.
+- GDC 2018 Level Design Workshop roundtable ([Game Developer](https://www.gamedeveloper.com/design/gdc-2018-level-design-workshop-an-expert-roundtable-q-a)): weenies (distant attractors) and Lynch's Image of the City as a wayfinding vocabulary.
+- The Level Design Book, wayfinding ([leveldesignbook.com](https://book.leveldesignbook.com/process/blockout/wayfinding)): landmarks, sightlines, light and affordances to guide without UI.
+- Zach Simms, open-world design notes ([zachsimms.com](https://www.zachsimms.com/game-dev/design/open-world/)): the triangle rule from the CEDEC 2017 Breath of the Wild talk (terrain masses hide and reveal goals), global vs local landmarks.
+
+Decisions (original implementation, `tools/world/`)
+- The trail is graded in the generator with a symmetric Lipschitz envelope (mean of lower and upper envelopes, max grade 0.18) plus a 2 m earthworks clip, with switchbacks across the hillside fall line. An earlier forward/back clamp was biased and produced 20 m embankments; it was replaced.
+- Tree density is capped at ≈540/ha so the forest reads dense while staying inside real stand numbers and an instancing budget.
+- The ridge between the valley and the perimeter is the "triangle" that hides Op02 until the saddle reveal; the relay mast and the northern mountain are the global landmarks.
+- Darkness and fog are not used to hide the far field (AGENTS.md); merged canopy proxies fill the distance instead.

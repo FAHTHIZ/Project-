@@ -283,6 +283,123 @@ def handle(seed, sec=0.35, weight=0.5):
     return finish(mix(c, knock, buckle), 0.6, 1.0)
 
 
+# ---- world, mission and ambient beds -------------------------------------------------------------
+
+def motor_run(sec, seed, hz=46.0, clunk=True):
+    """Gate/lift motor: geared hum with a slow wobble, start and stop clunks."""
+    t = t_axis(sec)
+    wob = 1 + 0.015 * np.sin(2 * np.pi * 0.7 * t)
+    ph = 2 * np.pi * np.cumsum(hz * wob) / SR
+    hum = sum(np.sin(ph * k) / k for k in (1, 2, 3, 5)) * 0.35
+    grind = bp(noise(sec, seed), 300, 1800) * (0.25 + 0.1 * np.sin(2 * np.pi * 3.1 * t))
+    e = np.clip(t / 0.4, 0, 1) * np.clip((sec - t) / 0.5, 0, 1)
+    x = (hum + grind) * e
+    if clunk:
+        x = mix(x, at(impact(seed + 3, 120, 1400, 30, 55, 0.4) * 0.8, 0.0, sec),
+                at(impact(seed + 4, 120, 1400, 30, 50, 0.4) * 0.9, sec - 0.45, sec))
+    return finish(x, 0.8, 1.2)
+
+
+def beep_seq(freqs, gap=0.11, sec=0.13, g=0.55):
+    total = gap * len(freqs) + sec + 0.05
+    x = np.zeros(int(SR * total))
+    for i, f in enumerate(freqs):
+        tt = t_axis(sec)
+        b = (np.sin(2 * np.pi * f * tt) + 0.2 * np.sign(np.sin(2 * np.pi * f * tt))) * np.clip((sec - tt) / 0.02, 0, 1) * np.clip(tt / 0.004, 0, 1)
+        x += at(b * 0.5, i * gap, total)
+    return finish(x, g, 1.0)
+
+
+def keys(seed, sec=1.6, n=11):
+    rng = np.random.default_rng(seed)
+    ev = sorted(rng.uniform(0.02, sec - 0.1, n))
+    return mech(seed, sec, [(tm, rng.uniform(0.5, 1.0), 1500, 6500, 160) for tm in ev])
+
+
+def heavy_cell_out(seed):
+    m = mech(seed, 1.4, [(0.0, 1.0, 500, 3500, 50), (0.18, 0.8, 300, 2400, 40), (0.6, 0.9, 200, 1600, 30)])
+    return finish(mix(m, at(power_down(1.0, seed + 1) * 0.7, 0.35, 1.4)), 0.85)
+
+
+def birds(sec, seed, density=0.5):
+    """Sparse songbird phrases: short frequency-modulated chirps in groups."""
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * sec))
+    tm = rng.uniform(0.5, 2.0)
+    while tm < sec - 1.5:
+        f0 = rng.uniform(2600, 4800)
+        n = rng.integers(2, 6)
+        g = rng.uniform(0.08, 0.22)
+        for k in range(n):
+            d = rng.uniform(0.05, 0.13)
+            tt = t_axis(d)
+            f = f0 * (1 + rng.uniform(-0.25, 0.25) * tt / d) + 300 * np.sin(2 * np.pi * rng.uniform(20, 45) * tt)
+            ch = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * tt / d) ** 2
+            out += at(ch * g, tm + k * (d + rng.uniform(0.03, 0.09)), sec)
+        tm += rng.uniform(1.2, 4.5) / density
+    return out
+
+
+def wind_bed(sec, seed, lo=80, hi=900, gust=0.12):
+    x = loop_noise(sec, seed, lo, hi)
+    t = t_axis(sec)
+    # gusts: periods that divide the loop so it stays seamless
+    g = 0.75 + gust * np.sin(2 * np.pi * t * 2 / sec) + gust * 0.6 * np.sin(2 * np.pi * t * 5 / sec + 1.3)
+    leaves = loop_noise(sec, seed + 7, 2500, 7000) * 0.12 * (g - 0.55)
+    return x * g + leaves
+
+
+def loopify(x, xf=0.6):
+    """Crossfades the tail into the head so a bed with one-off events loops without a click."""
+    n = int(SR * xf)
+    head, tail = x[:n].copy(), x[-n:]
+    w = np.linspace(0, 1, n)
+    x = x[:-n].copy()
+    x[:n] = head * w + tail * (1 - w)
+    return x
+
+
+def forest_bed(sec=24.0, seed=900):
+    x = wind_bed(sec, seed) * 0.55 + birds(sec, seed + 1, 0.6)
+    return loopify(x / np.max(np.abs(x)) * 0.6)
+
+
+def creek_bed(sec=12.0, seed=920):
+    t = t_axis(sec)
+    base = loop_noise(sec, seed, 300, 2400) * 0.6
+    burble = loop_noise(sec, seed + 1, 900, 5000)
+    mod = 0.5 + 0.5 * np.sin(2 * np.pi * t * 37 / sec) * np.sin(2 * np.pi * t * 11 / sec)
+    x = base + burble * mod * 0.35
+    return x / np.max(np.abs(x)) * 0.55
+
+
+def hum_bed(sec=8.0, seed=940, mains=50.0, air=0.4):
+    t = t_axis(sec)
+    hum = sum(np.sin(2 * np.pi * mains * k * t + k) / k ** 1.3 for k in (1, 2, 3, 4, 6))
+    hvac = loop_noise(sec, seed, 60, 700) * air
+    x = hum * 0.12 + hvac
+    return x / np.max(np.abs(x)) * 0.45
+
+
+def bunker_bed(sec=12.0, seed=960):
+    t = t_axis(sec)
+    drone = np.sin(2 * np.pi * 41.25 * t) * 0.3 + np.sin(2 * np.pi * 61.25 * t) * 0.12
+    air = loop_noise(sec, seed, 40, 380) * 0.8
+    drip_rng = np.random.default_rng(seed)
+    drips = np.zeros(len(t))
+    for tm in drip_rng.uniform(0.5, sec - 0.5, 7):
+        drips += at(tick(drip_rng.uniform(900, 1700), 0.12, 0.6) * 0.2, tm, sec)
+    x = drone + air + drips
+    return loopify(x / np.max(np.abs(x)) * 0.5)
+
+
+def camp_bed(sec=16.0, seed=980):
+    gen = engine_idle(2.0, 25.0, seed)  # distant generator
+    gen = lp(np.tile(gen, int(sec / 2)), 700) * 0.3
+    x = wind_bed(sec, seed + 2, 80, 700, 0.08) * 0.5 + gen[:int(SR * sec)] + birds(sec, seed + 3, 0.3) * 0.7
+    return loopify(x / np.max(np.abs(x)) * 0.55)
+
+
 def build(out):
     w = os.path.join(out, 'audio')
     files = {
@@ -327,6 +444,25 @@ def build(out):
         'vehicle/tyre_roll.wav': tyre_roll(),
         'foley/item_pick.wav': handle(610, 0.35, 0.3),
         'foley/item_place.wav': handle(620, 0.4, 0.8),
+    })
+    files.update({
+        'foley/cell_out.wav': heavy_cell_out(700),
+        'foley/gate_motor.wav': motor_run(6.2, 710),
+        'foley/lift_motor.wav': motor_run(9.0, 715, hz=38.0),
+        'foley/card_accept.wav': beep_seq((1200, 1600, 2100)),
+        'foley/card_deny.wav': beep_seq((420, 360), gap=0.18, sec=0.16),
+        'foley/panel_keys.wav': keys(720),
+        'foley/pickup.wav': handle(725, 0.3, 0.25),
+        'foley/breaker.wav': mech(730, 0.6, [(0.0, 1.0, 300, 3000, 40), (0.05, 0.7, 1500, 7000, 120)]),
+        'foley/crank.wav': mech(735, 1.2, [(i * 0.15, 0.7, 500, 3500, 70) for i in range(8)]),
+        'foley/blast_door.wav': motor_run(7.0, 740, hz=28.0),
+        'foley/door_slide.wav': motor_run(1.6, 745, hz=70.0, clunk=False),
+        'ambient/forest.wav': forest_bed(),
+        'ambient/creek.wav': creek_bed(),
+        'ambient/camp.wav': camp_bed(),
+        'ambient/interior.wav': hum_bed(),
+        'ambient/bunker.wav': bunker_bed(),
+        'ambient/basement.wav': hum_bed(10.0, 950, 60.0, 0.9),
     })
     for i in range(4):
         files[f'foley/step_dirt_{i}.wav'] = footstep(200 + i, 'dirt')

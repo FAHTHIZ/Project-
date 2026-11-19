@@ -52,7 +52,7 @@ function Hud:start()
                   "Status Panel", "Health Bar", "Tool Text", "Subtitle", "Subtitle Speaker", "Subtitle Text", "Skip Hint",
                   "Skip Button", "Fade", "Title Card", "Title Sub", "Touch", "Stick Base", "Stick Knob", "Diagnostics", "Diagnostics Text",
                   "Objectives Log", "Letterbox Top", "Letterbox Bottom", "Damage", "Scope", "Scope Zoom", "Prompt Detail",
-                  "Kit Text" } do
+                  "Kit Text", "Waypoint", "Waypoint Tick" } do
         self.e[n] = find(r, n)
         if not self.e[n] then log.warn("hud: missing element " .. n) end
     end
@@ -173,6 +173,26 @@ function Hud:update(dt)
     local aw = Game.awareness
     self:vis("Awareness", aw ~= nil and aw ~= "" and not cin)
     if aw then self:text("Awareness", aw) end
+
+    -- Waypoint (Game.waypoint = { pos = vector, label = string }).
+    local wpt = Game.waypoint
+    local show_wp = wpt ~= nil and playing and not self.show_log and s.waypoints ~= false
+    self:vis("Waypoint", show_wp)
+    self:vis("Waypoint Tick", show_wp)
+    local wps = Game.player_state
+    if show_wp and wps and Game.player then
+        local d = wpt.pos - Game.player.position
+        local dist = math.sqrt(d.x * d.x + d.z * d.z)
+        local bearing = math.deg(math.atan2(-d.x, -d.z))
+        local rel = (bearing - wps.yaw + 540) % 360 - 180   -- + = to the left
+        local x = Game.clamp(-rel / 50 * 300, -470, 470)
+        local label = (wpt.label or "") .. string.format("  %d m", math.floor(dist + 0.5))
+        if rel > 70 then label = "< " .. label elseif rel < -70 then label = label .. " >" end
+        self:text("Waypoint", label)
+        local xi = math.floor(x + 0.5)
+        self:rect(self.e["Waypoint"], "wp:r", function(r) r.position = { xi, 60 } end)
+        self:rect(self.e["Waypoint Tick"], "wpt:r", function(r) r.position = { xi, 46 } end)
+    end
 
     -- Interaction prompt.
     local f = Game.focus

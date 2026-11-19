@@ -233,14 +233,14 @@ class Scene:
                 c["MeshRenderer"] = mesh_renderer(mesh=model, mesh_index=prim_base[nd["mesh"]], roughness=0.6)
                 if skinned:
                     c["SkinnedMesh"] = {"skeleton": root, "skin": nd["skin"]}
-            me = self.add(nm, c, parent_uuid, key=f"{self.name}/{name}/{path}/{nm}")
+            me = self.add(nm, c, parent_uuid, key=f"{self.name}/{parent or ''}/{name}/{path}/{nm}")
             self.last_nodes[nm] = me
             if len(prims) > 1:
                 for i in range(len(prims)):
                     cc = {"MeshRenderer": mesh_renderer(mesh=model, mesh_index=prim_base[nd["mesh"]] + i, roughness=0.6)}
                     if skinned:
                         cc["SkinnedMesh"] = {"skeleton": root, "skin": nd["skin"]}
-                    self.add(f"{nm}[{i}]", cc, me, key=f"{self.name}/{name}/{path}/{nm}[{i}]")
+                    self.add(f"{nm}[{i}]", cc, me, key=f"{self.name}/{parent or ''}/{name}/{path}/{nm}[{i}]")
             for ch in nd.get("children", []):
                 visit(ch, me, f"{path}/{nm}")
 

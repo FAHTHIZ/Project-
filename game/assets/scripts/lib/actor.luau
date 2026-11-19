@@ -56,6 +56,11 @@ function Actor.new(entity, seed)
     self.talking = false
     self.speed_now = 0
     self.frozen = false
+    -- without a NavAgent (open-world scenes) the actor steers itself straight at its goal
+    self.direct = not entity:has("NavAgent")
+    self.max_speed = 3.2
+    self.steer_v = vector.create(0, 0, 0)
+    self.block_t = 0
     return self
 end
 
@@ -84,20 +89,34 @@ end
 
 function Actor:go(point)
     self.goal = point
+    if self.direct then
+        self.steer_goal = point
+        return true
+    end
     return self.entity:set_destination(point)
 end
 function Actor:halt()
     self.goal = nil
+    if self.direct then
+        self.steer_goal = nil
+        return
+    end
     self.entity:stop()
 end
+function Actor:set_speed(v)
+    self.max_speed = v
+    if not self.direct then self.entity:set("NavAgent", { speed = v }) end
+end
 function Actor:arrived()
+    if self.direct then return self.steer_goal == nil end
     local n = self.entity:nav_state()
     return (not n) or (not n.has_destination) or n.reached
 end
 
 -- Teleport (checkpoints, cinematics).
 function Actor:place(pos, yaw)
-    self.entity:stop()
+    if self.direct then self.steer_goal = nil; self.steer_v = vector.create(0, 0, 0)
+    else self.entity:stop() end
     self.entity.position = pos
     if yaw then self.yaw = yaw end
     self.entity.rotation = vector.create(0, self.yaw, 0)
@@ -106,8 +125,43 @@ end
 
 local function wrap(a) return (a + 540) % 360 - 180 end
 
+-- Direct steering: accelerate toward the goal, slow on arrival, and sidestep trunks and rocks
+-- found by two knee-height whiskers (a blocked whisker turns the heading away from it).
+function Actor:steer(dt)
+    local e = self.entity
+    local want = vector.create(0, 0, 0)
+    local g = self.steer_goal
+    if g and not self.seated and not self.frozen then
+        local d = g - e.position
+        d = vector.create(d.x, 0, d.z)
+        local dist = vector.magnitude(d)
+        if dist < 0.45 then
+            self.steer_goal = nil
+        else
+            local dir = d / dist
+            local speed = math.min(self.max_speed, 0.6 + dist * 1.4)
+            local from = e.position + vector.create(0, 0.5, 0)
+            for _, ang in { 28, -28 } do
+                local r = math.rad(ang)
+                local wd = vector.create(dir.x * math.cos(r) - dir.z * math.sin(r), 0, dir.x * math.sin(r) + dir.z * math.cos(r))
+                local hit = physics.raycast(from, wd, 1.3, nil, e)
+                if hit and not hit.entity:has("CharacterController") then
+                    local k = 1 - hit.distance / 1.3
+                    -- turn away from the blocked side
+                    local away = vector.create(-wd.z, 0, wd.x) * (ang > 0 and -1 or 1)
+                    dir = vector.normalize(dir + away * (0.9 * k))
+                end
+            end
+            want = dir * speed
+        end
+    end
+    self.steer_v = self.steer_v + (want - self.steer_v) * (1 - math.exp(-8 * dt))
+    e:move_character(self.steer_v)
+end
+
 function Actor:update(dt)
     local e = self.entity
+    if self.direct then self:steer(dt) end
     local v = e.velocity
     local flat = vector.create(v.x, 0, v.z)
     local spd = vector.magnitude(flat)

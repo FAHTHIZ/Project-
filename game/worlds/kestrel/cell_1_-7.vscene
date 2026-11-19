@@ -1,0 +1,101 @@
+{
+  "format": "victus.scene",
+  "version": 1,
+  "name": "cell_1_-7",
+  "entities": [
+    {
+      "uuid": "f416f8c0-8431-515a-a481-662081b013ab",
+      "name": "Container 1",
+      "components": {
+        "Transform": {
+          "position": [64, 70.4800033569336, -392],
+          "rotation": [0, 0.6946583986282349, 0, 0.7193397879600525],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "4ed4fa7e-2fcf-52be-bbfb-ab95c900fab2",
+      "name": "Container 1[0]",
+      "parent": "f416f8c0-8431-515a-a481-662081b013ab",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8a8e4d7b-cb76-41f0-b578-a8ddb6f029e4",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "115d5b53-8dbf-58fe-8a07-c57122ffcb5b"
+    },
+    {
+      "uuid": "115d5b53-8dbf-58fe-8a07-c57122ffcb5b",
+      "name": "Container 1[1]",
+      "parent": "f416f8c0-8431-515a-a481-662081b013ab",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8a8e4d7b-cb76-41f0-b578-a8ddb6f029e4",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "d2a41d34-2de3-5e70-a273-8c8b6cbe399b"
+    },
+    {
+      "uuid": "d2a41d34-2de3-5e70-a273-8c8b6cbe399b",
+      "name": "Container 1 Collider 0",
+      "parent": "f416f8c0-8431-515a-a481-662081b013ab",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [6.1, 2.59, 2.44],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 1.2949999570846558, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    }
+  ]
+}

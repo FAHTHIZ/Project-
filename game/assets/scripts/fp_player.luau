@@ -109,6 +109,92 @@ Game.face_player = function(point)
     if Game.player_state then Game.player_state:face(point) end
 end
 
+-- Riding in a vehicle seat (scripts/vehicle.luau): the body rides the seat marker with gravity
+-- and vehicle collision off, the view turns with the vehicle and can look around within the
+-- cabin (about 110 degrees either side of straight ahead). dismount() steps out through a door.
+local VEHICLE_LAYER_BIT = 64
+local RIDE_EYE = 1.24
+local function wrap180(a) return (a + 540) % 360 - 180 end
+
+function P:ride(v, seat)
+    local cc = self.entity:get("CharacterController")
+    if cc and not self.cc_saved then
+        self.cc_saved = { gravity_scale = cc.gravity_scale, mask = cc.mask }
+        self.entity:set("CharacterController", { gravity_scale = 0,
+                                                 mask = bit32.band(cc.mask, bit32.bnot(VEHICLE_LAYER_BIT)) })
+    end
+    self.riding = { v = v, seat = seat, base = v.yaw }
+    self.yaw = v.yaw
+    self.pitch = -4
+    self.vel = vector.create(0, 0, 0)
+    self.crouched = false
+    self.entity.position = v:seat_root(seat)
+    Game.emit("player_boarded", v.name, seat)
+end
+
+-- Step out through `door` (fl/fr/rl/rr): slide to the door, stand up outside, then walk control
+-- returns. `face` is an optional world point to turn toward while stepping out.
+function P:dismount(door, face)
+    local r = self.riding
+    if not r then return end
+    r.exit = { door = door, t = 0, from = self.entity.position, face = face }
+    r.v:set_door(door, true)
+end
+
+function P:in_vehicle() return self.riding ~= nil end
+
+function P:update_ride(dt, playing)
+    local r = self.riding
+    local v = r.v
+    -- turn with the vehicle
+    local dv = wrap180(v.yaw - r.base)
+    r.base = v.yaw
+    self.yaw += dv
+    local x = r.exit
+    if not x then
+        local rel = wrap180(self.yaw - v.yaw)
+        if math.abs(rel) > 110 then self.yaw = v.yaw + math.clamp(rel, -110, 110) end
+        self.entity.position = v:seat_root(r.seat)
+        self.vel = vector.create(0, 0, 0)
+        return RIDE_EYE
+    end
+    x.t += dt
+    -- 0..0.6 s wait for the door; 0.6..1.6 slide to the sill; 1.6..2.6 rise and step out
+    local function sm(t) t = math.clamp(t, 0, 1); return t * t * (3 - 2 * t) end
+    local sill = v:sill_root(r.seat, x.door)
+    local out = v:door_point(x.door)
+    local eye = RIDE_EYE
+    if x.t < 0.6 then
+        self.entity.position = v:seat_root(r.seat)
+    elseif x.t < 1.6 then
+        self.entity.position = x.from + (sill - x.from) * sm((x.t - 0.6) / 1.0)
+        if x.face then
+            local d = out - self.entity.position
+            local want = math.deg(math.atan2(-d.x, -d.z))
+            self.yaw += wrap180(want - self.yaw) * math.min(1, dt * 3)
+        end
+    else
+        local k = sm((x.t - 1.6) / 1.0)
+        self.entity.position = sill + (out - sill) * k
+        eye = RIDE_EYE + (self.eye_height - RIDE_EYE) * k
+        if x.face then
+            local d = x.face - self.entity.position
+            local want = math.deg(math.atan2(-d.x, -d.z))
+            self.yaw += wrap180(want - self.yaw) * math.min(1, dt * 2.5)
+        end
+    end
+    if x.t >= 2.6 then
+        if self.cc_saved then
+            self.entity:set("CharacterController", self.cc_saved)
+            self.cc_saved = nil
+        end
+        self.riding = nil
+        Game.emit("player_dismounted", v.name, x.door)
+        return nil
+    end
+    return eye
+end
+
 function P:find_focus()
     local origin, dir = self:aim_ray()
     local hit = physics.raycast(origin, dir, self.interact_range, nil, self.entity)
@@ -150,6 +236,28 @@ function P:update(dt)
         local sens = (1 - self.zoom * (1 - s.aim_sensitivity)) * (self.zoom_sens or 1)
         self.yaw = self.yaw - look.x * sens
         self.pitch = Game.clamp(self.pitch - look.y * sens, -self.pitch_limit, self.pitch_limit)
+    end
+    local ride_eye = nil
+    if self.riding then ride_eye = self:update_ride(dt, playing) end
+    if ride_eye then
+        self.eye = Game.damp(self.eye, ride_eye, 10, dt)
+        self.head.position = vector.create(0, self.eye, 0)
+        self.head.rotation = vector.create(self.pitch, 0, 0)
+        self.cam.position = vector.create(0, 0, 0)
+        self.cam.rotation = vector.create(0, 0, 0)
+        self.entity.rotation = vector.create(0, self.yaw, 0)
+        self.focus = nil
+        Game.focus = nil
+        self.ground_speed = 0
+        if self.fov_now < 0 and not Game.cinematic then
+            local c = self.cam:get("Camera")
+            c.fov_y = s.fov
+            c.primary = true
+            self.cam:set("Camera", c)
+            self.fov = s.fov
+            self.fov_now = s.fov
+        end
+        return
     end
     -- Movement (camera-relative), with acceleration.
     local want = vector.create(0, 0, 0)

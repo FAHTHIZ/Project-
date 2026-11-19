@@ -52,7 +52,7 @@ def button(sc, name, parent, rect, action, label, size=22, panel=None, align="le
     return b
 
 
-def add_player(sc: Scene, pos, yaw, viewmodel_builder=None, with_weapons=True):
+def add_player(sc: Scene, pos, yaw, viewmodel_builder=None, with_weapons=True, far=600, extra=None):
     player = sc.add("Player", {
         "Transform": transform(pos, yaw=yaw),
         "CharacterController": {"radius": 0.32, "height": 1.78, "max_slope": 48, "step_height": 0.38,
@@ -62,11 +62,12 @@ def add_player(sc: Scene, pos, yaw, viewmodel_builder=None, with_weapons=True):
         "Tags": {"tags": "Player"},
         "AudioListener": {},
         "Script": script("scripts/fp_player.luau"),
+        **(extra or {}),
     })
     head = sc.add("Head", {"Transform": transform((0, 1.62, 0))}, player)
     cam = sc.add("Main Camera", {
         "Transform": transform(),
-        "Camera": {"projection": "perspective", "fov_y": 70, "ortho_height": 10, "near": 0.03, "far": 600,
+        "Camera": {"projection": "perspective", "fov_y": 70, "ortho_height": 10, "near": 0.03, "far": far,
                    "primary": True},
     }, head)
     vmc = {"Transform": transform()}
@@ -182,6 +183,12 @@ def add_hud(sc: Scene):
     # Squad / awareness indicator (top centre small).
     ui(sc, "Awareness", canvas, ui_rect((0.5, 1), (0, -24), (360, 30), (0.5, 1), visible=False),
        text=ui_text("", 17, (1, 0.8, 0.45, 1), "center", "middle", True))
+    # Waypoint bearing (top centre, below awareness): label and distance slide along a strip by the
+    # target's bearing relative to the view and pin to the strip ends when it is behind you.
+    ui(sc, "Waypoint", canvas, ui_rect((0.5, 1), (0, -60), (300, 30), (0.5, 1), visible=False),
+       text=ui_text("", 17, (0.88, 0.97, 1, 0.95), "center", "middle", True))
+    ui(sc, "Waypoint Tick", canvas, ui_rect((0.5, 1), (0, -46), (4, 10), (0.5, 1), visible=False),
+       panel=ui_panel((0.88, 0.97, 1, 0.9), 1, (0, 0, 0, 0.4), 1))
     # Interaction prompt (below centre).
     ui(sc, "Prompt", canvas, ui_rect((0.5, 0.5), (0, -88), (520, 40), (0.5, 0.5), visible=False),
        panel=ui_panel((0.03, 0.05, 0.06, 0.55), 6, (1, 1, 1, 0.15), 1),

@@ -78,8 +78,13 @@ def _root(sc: Scene, name, pos, yaw, script_path, props, team, tags, speed=3.2, 
     return root
 
 
+# Open-world scenes set this False: any NavAgent makes VICTUS build one navmesh tile over the whole
+# scene (terrain plus every streamed tree), so actors there steer themselves (scripts/lib/actor.luau).
+USE_NAV = True
+
+
 def _root_entity(sc: Scene, name, pos, yaw, script_path, props, team, tags, speed, radius):
-    return sc.add(name, {
+    comps = {
         "Transform": transform(pos, yaw=yaw),
         "CharacterController": {"radius": radius, "height": 1.76, "max_slope": 48, "step_height": 0.36,
                                 "gravity_scale": 1, "mass": 75, "push_force": 60, "air_control": 0.3,
@@ -89,7 +94,10 @@ def _root_entity(sc: Scene, name, pos, yaw, script_path, props, team, tags, spee
         "Perceptible": {"team": team, "height": 1.45, "enabled": True},
         "Tags": {"tags": tags},
         "Script": script(script_path, **props),
-    })
+    }
+    if not USE_NAV:
+        del comps["NavAgent"]
+    return sc.add(name, comps)
 
 
 def add_operator(sc: Scene, who, pos, yaw=0.0, armed=True, **props):

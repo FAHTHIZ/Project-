@@ -230,5 +230,6 @@ for _, n in { "vm_ads", "vm_reload", "vm_sidearm", "vm_scan" } do table.insert(P
 
 for k, v in require("scripts/tests/squad_plans") do Plans[k] = v end
 for k, v in require("scripts/tests/vehicle_plans") do Plans[k] = v end
+for k, v in require("scripts/tests/world_plans") do Plans[k] = v end
 
 return Plans
