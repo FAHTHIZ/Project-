@@ -251,3 +251,56 @@ sh tools/test/shot.sh scenes/tests/scope_look.vscene 220 docs/evidence/scope.png
 ### Status
 
 Implemented, simulated headless (autotests) and visually inspected on lavapipe (three evidence shots above). Drive is an authored spline, not physics driving. No foot IK. Not tested on a phone.
+
+## Story revision 2: storm night, five-operator squad, new firearms, epilogue — 2026-11-19
+
+Base: game `28eea22`, VICTUS `9cb14c4`. Machine: 2-core x86-64, 7 GB RAM, lavapipe (software
+Vulkan) under xvfb, no phone. Commits, in order: `a38892e` dialogue rewrite to Iron Veil canon,
+`3c133b4` Kestrel Valley canon beats Prologue-Op03, `585954c` contractor parley/retreat/surrender,
+`f30aeb7` story bible rev 2, `5ad387b` interiors Op04-07 director + Brick + Venn + Sorn stand-down,
+`dfad0bb`/`901cf60` all 303 voice lines re-rendered, `7a235c7` storm night, `f5a8f6b` epilogue and
+story drivers, `8d6a7b6` KV-5/BR-9/MR-6 + camp arms case, `5b96b9a` idle chatter + face throttle,
+`35172db` night menu/credits, `26c532e` README rewrite.
+
+### Commands and results
+
+```sh
+export PATH=/home/user/victus/build/rel/bin:$PATH
+python3 tools/props/build_weapons.py --out game/assets     # + kv5_*, br9_*, mr6_*, arms_case
+python3 tools/audio/build_sfx.py --out game/assets         # + kv5_fire, br9_fire, br9_pump, mr6_fire, thunder_0..2
+python3 tools/audio/build_voices.py --model /tmp/kok       # 303 lines
+python3 tools/world/worldgen.py scene && python3 tools/world/chapters.py
+nice python3 tools/levels/build_facility.py --scenes
+cd tools/scenes && python3 build_dev_range.py <plans> && python3 build_menu.py && cd ../..
+victus import game && victus check game   # 246 scenes, 2 controllers, 40 scripts: 0 problems
+SOPS_TEST_FRAMES=<N> python3 tools/test/run_autotests.py <plan>
+#   PASS: weapons, vm_ads, vm_reload, vm_sidearm, vm_scan, squad, squad_combat, squad_look,
+#         vehicle, trunk, sniper, armory 20/20, chatter 5/5,
+#         story_prologue (20000 frames), story_op02, story_op03, story_op04, story_op05,
+#         story_op06, story_op07, story_epilogue
+#   story_op01: every check passes (reaches enter_facility) but the runner reports FAIL when the
+#         intermittent face.luau watchdog below fires; one later run was clean.
+#   world_* and gallery_* plans fail on this machine; they fail identically on the baseline 28eea22
+#         (pre-existing, not caused by this work).
+victus export game --out /tmp/sops_export --name special_ops
+#   1039 files, 332 cooked assets, game.vpak 411,855,575 bytes
+VICTUS_NO_AUDIO=1 xvfb-run -s "-screen 0 1280x720x24" /tmp/sops_export/special_ops --frames 120 \
+    --screenshot /tmp/export_menu.png --quality low     # rc 0, menu rendered
+sh tools/test/shot.sh scenes/menu.vscene 240 docs/evidence/menu_night.png 960 432 medium
+```
+
+### Defects found and known issues
+
+- Menu and credits backdrop was still the daytime forest; now the night_storm environment.
+- Credits named Anchor and Patch with names that contradicted their voice casting and omitted
+  Tally; credits now list callsigns and roles only.
+- Known issue: `scripts/lib/face.luau` can exceed the engine's 250 ms wall-clock script budget
+  (`call_budget_seconds`, VICTUS `engine/script/include/victus/script/script.hpp`) on the first
+  head-mesh lookup, which appears to resolve the model synchronously. The engine then disables that
+  operator's script for the rest of the scene. Mitigated (distance cull first, 0.5 s retry
+  throttle) but still intermittent on this 2-core software-rendered machine. Not measured on a phone.
+
+### Status
+
+Implemented, simulated headless and visually inspected on lavapipe. Not tested on a phone; the
+five-operator squad, rain, volumetric fog and shadowed weapon light are unprofiled on the Hot 10S.

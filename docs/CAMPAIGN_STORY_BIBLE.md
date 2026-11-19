@@ -98,12 +98,15 @@ sheen in the rain — but firing stun pulses with invented values:
 
 | Weapon | Role | Who |
 |--------|------|-----|
-| PC-7 Lantern | pulse carbine | Rook, Anchor, Tally |
+| PC-7 Lantern | pulse carbine | Rook (start), Anchor, Tally |
 | SP-2 Wren | pulse sidearm | everyone |
-| LR-4 Heron | scoped long emitter | Echo, Rook (storage) |
-| KV-5 Hornet | compact high-rate PDW | Patch, Rook (storage) |
-| BR-9 Ram | close-range breaching spread gun | Brick, Rook (storage) |
-| MR-6 Kestrel | semi-auto marksman emitter, 4x optic | storage, Op02 onward |
+| KV-5 Hornet | compact high-rate PDW | Patch; Rook from the camp arms case |
+| BR-9 Ram | close-range pump spread gun | Brick; Rook from the camp arms case |
+| MR-6 Kestrel | semi-auto marksman emitter, 4x optic | Echo; Rook from the camp arms case |
+| LR-4 Heron | scoped long emitter | Rook, from the Mule's cargo bay |
+
+Every primary carries a weapon light. In fog it is a cone you can see; in the basement it is the
+only light there is.
 
 
 ## 2. Setting, factions and the actual conspiracy
