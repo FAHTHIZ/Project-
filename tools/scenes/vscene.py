@@ -177,8 +177,11 @@ class Scene:
 
     # A static or dynamic prop from a single-node glb (one child per primitive).
     def prop(self, name, rel, pos=(0, 0, 0), yaw=0.0, scale=1.0, rot=None, parent=None, col=None, tags=None,
-             shadows=True, extra=None, kind="static"):
+             shadows=True, extra=None, kind="static", material=None):
+        """Model prop: a root entity with one MeshRenderer child per primitive ("<name>[i]").
+        `material` (asset path of a .vmat) overrides every primitive's glb material."""
         model = meta_uuid(rel)
+        mat = meta_uuid(material) if material else None
         j = glb_info(rel)
         comps = {"Transform": transform(pos, rot, scale, yaw)}
         if col:
@@ -193,7 +196,7 @@ class Scene:
         for mi, m in enumerate(j["meshes"]):
             for pi, _ in enumerate(m["primitives"]):
                 self.add(f"{name}[{index}]", {"MeshRenderer": mesh_renderer(mesh=model, mesh_index=index, shadows=shadows,
-                                                                            roughness=0.85)}, root)
+                                                                            roughness=0.85, material=mat)}, root)
                 index += 1
         return root
 

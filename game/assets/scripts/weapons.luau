@@ -15,36 +15,14 @@
 local Game = require("scripts/lib/game")
 local Controls = require("scripts/lib/controls")
 local Combat = require("scripts/lib/combat")
+local Items = require("scripts/lib/items")
+local Inventory = require("scripts/lib/inventory")
 
 local V = vector.create
 
-local DEFS = {
-    carbine = {
-        id = "carbine", label = "PC-7 LANTERN", root = "Carbine",
-        mag = 30, reserve = 150, max_reserve = 240, interval = 0.095, auto = true,
-        stun = 22, head_mult = 1.8, range = 140,
-        spread_hip = 1.6, spread_ads = 0.18, spread_move = 1.6, bloom = 0.35, bloom_max = 2.4,
-        kick_pitch = 0.62, kick_yaw = 0.28, ads_kick = 0.55, kick_back = 0.028, kick_rot = 3.2,
-        reload = 1.75, reload_empty = 2.25, equip = 0.38, lower = 0.2,
-        hip = V(0.15, -0.165, -0.40), ads = V(0, -0.1135, -0.30), hip_rot = V(1.5, 3.5, 0), zoom_fov = 0.72,
-        muzzle = V(0, 0.045, -0.52), cell = V(0, 0, 0),
-        fire = "audio/weapons/pc7_fire.wav", cell_out = "audio/weapons/pc7_cell_out.wav",
-        cell_in = "audio/weapons/pc7_cell_in.wav", charge = "audio/weapons/pc7_charge.wav", noise = 38,
-    },
-    sidearm = {
-        id = "sidearm", label = "SP-2 WREN", root = "Sidearm",
-        mag = 12, reserve = 48, max_reserve = 96, interval = 0.16, auto = false,
-        stun = 30, head_mult = 1.8, range = 80,
-        spread_hip = 1.9, spread_ads = 0.3, spread_move = 1.4, bloom = 0.7, bloom_max = 2.6,
-        kick_pitch = 1.05, kick_yaw = 0.35, ads_kick = 0.6, kick_back = 0.02, kick_rot = 6.0,
-        reload = 1.3, reload_empty = 1.6, equip = 0.3, lower = 0.16,
-        hip = V(0.13, -0.14, -0.36), ads = V(0, -0.0615, -0.30), hip_rot = V(2, 5, 0), zoom_fov = 0.85,
-        muzzle = V(0, 0.012, -0.16), cell = V(0, 0, 0),
-        fire = "audio/weapons/sp2_fire.wav", cell_out = "audio/weapons/sp2_cell_out.wav",
-        cell_in = "audio/weapons/sp2_cell_in.wav", charge = "audio/weapons/sp2_charge.wav", noise = 26,
-    },
-}
-local ORDER = { "carbine", "sidearm" }
+-- Weapon definitions live in lib/items.luau (shared with inventory, storage, HUD and saves).
+local DEFS = {}
+for id, d in Items.defs do if d.kind == "weapon" then DEFS[id] = d end end
 
 local W = {}
 W.scan_cooldown = 6.0
@@ -95,7 +73,7 @@ function W:start()
     for id, d in DEFS do
         local root = self.pivot and find(self.pivot, d.root)
         if root then
-            local r = { def = d, root = root, ammo = d.mag, reserve = d.reserve,
+            local r = { def = d, root = root, st = Items.new_state(id),
                         cell = find(root, d.root .. " Cell"), slide = find(root, d.root .. " Slide"),
                         hand_l = find(root, d.root .. " Hand L"), muzzle = find(root, d.root .. " Muzzle"),
                         flash = find(root, d.root .. " Flash") }
@@ -120,12 +98,18 @@ function W:start()
     self.tracer_i = 1
     self.sparks = scene.find("Impact Sparks")
     self.dust = scene.find("Impact Dust")
-    -- Loadout: which weapons the player carries this operation (directors may change it).
-    local lo = Game.loadout or { carbine = true, sidearm = true }
-    Game.loadout = lo
+    -- Loadout: the player's inventory (lib/inventory.luau) decides what is carried.
+    if not Game.inventory then Inventory.reset() end
     self.current = nil
     self.pending = nil
-    for _, id in ORDER do if lo[id] and self.w[id] then self.pending = id; break end end
+    self:sync_inventory()
+    for _, slot in Items.weapon_slots do
+        local id = Inventory.in_slot(slot)
+        if id and self.w[id] then self.pending = id; break end
+    end
+    Game.on("inventory_changed", function() self:on_inventory() end)
+    self.scope_level = 1
+    self.kit_t = nil
     self.state = "idle"     -- idle | equip | lower | reload | holstered
     self.st = 0             -- time in state
     self.cooldown = 0
@@ -157,36 +141,70 @@ function W:visible(id) local r = self.w[id]; return r ~= nil and isvis(r.root) e
 
 function W:weapon() return self.current and self.w[self.current] end
 
+-- Points each weapon's runtime record at its inventory state (the same table, so ammo spent
+-- here is what storage and checkpoints see).
+function W:sync_inventory()
+    for id, r in self.w do
+        local st = Inventory.state(id)
+        if st then r.st = st end
+    end
+end
+
+-- Reacts to items entering or leaving the inventory: a dropped current weapon is put away and
+-- the next carried weapon raised; a newly taken weapon is raised when nothing is in hand.
+function W:on_inventory()
+    self:sync_inventory()
+    if self.current and not Inventory.has(self.current) then
+        if self.w[self.current] then setvis(self.w[self.current].root, false) end
+        self.current = nil
+        self.state = "idle"
+        self.zoom = 0
+    end
+    if not self.current then
+        local nxt = self.prefer and Inventory.has(self.prefer) and self.prefer or nil
+        for _, slot in Items.weapon_slots do
+            local id = Inventory.in_slot(slot)
+            if not nxt and id and self.w[id] then nxt = id end
+        end
+        self.prefer = nil
+        if nxt then self:begin_equip(nxt) end
+    end
+end
+
+-- Gives (or tops up) a weapon through the inventory.
 function W:give(id, ammo)
     local r = self.w[id]
     if not r then return false end
-    if not Game.loadout[id] then
-        Game.loadout[id] = true
-        if not self.current then self:begin_equip(id) end
+    if not Inventory.has(id) then
+        local ok, displaced, dstate = Inventory.take(id)
+        if not ok then return false end
+        self.last_displaced = displaced and { id = displaced, state = dstate } or nil
     end
-    if ammo then r.reserve = math.min(r.def.max_reserve, r.reserve + ammo) end
+    local st = Inventory.state(id)
+    if ammo and st then st.reserve = math.min(r.def.max_reserve, st.reserve + ammo) end
     return true
 end
 
 function W:refill()
-    for _, r in self.w do r.reserve = r.def.max_reserve; r.ammo = r.def.mag end
+    for id, r in self.w do
+        local st = Inventory.state(id)
+        if st then st.reserve = r.def.max_reserve; st.ammo = r.def.mag end
+    end
 end
 
 function W:save_state()
-    local s = { current = self.current, loadout = Game.loadout, ammo = {} }
-    for id, r in self.w do s.ammo[id] = { r.ammo, r.reserve } end
+    local inv = Inventory.serialize()
+    local s = { current = self.current, inventory = inv, ammo = {} }
+    for id, st in inv.state do if st.ammo then s.ammo[id] = { st.ammo, st.reserve } end end
     return s
 end
 
 function W:load_state(s)
     if type(s) ~= "table" then return end
-    if s.loadout then Game.loadout = s.loadout end
-    for id, a in (s.ammo or {}) do
-        local r = self.w[id]
-        if r then r.ammo, r.reserve = a[1], a[2] end
-    end
-    if s.current and self.w[s.current] and s.current ~= self.current then
-        if self.current then setvis(self.w[self.current].root, false) end
+    if s.inventory then Inventory.restore(s.inventory) end
+    self:sync_inventory()
+    if s.current and self.w[s.current] and Inventory.has(s.current) and s.current ~= self.current then
+        if self.current and self.w[self.current] then setvis(self.w[self.current].root, false) end
         self.current = nil
         self:begin_equip(s.current)
     end
@@ -211,7 +229,7 @@ function W:begin_equip(id)
 end
 
 function W:begin_switch(id)
-    if id == self.current or not self.w[id] or not Game.loadout[id] then return end
+    if id == self.current or not self.w[id] or not Inventory.has(id) then return end
     if self.state == "lower" then self.pending = id; return end
     self.pending = id
     self.state = "lower"
@@ -221,11 +239,11 @@ end
 function W:begin_reload()
     local r = self:weapon()
     if not r or self.state ~= "idle" then return false end
-    if r.ammo >= r.def.mag or r.reserve <= 0 then return false end
+    if r.st.ammo >= r.def.mag or r.st.reserve <= 0 then return false end
     self.state = "reload"
     self.st = 0
-    self.reload_len = r.ammo == 0 and r.def.reload_empty or r.def.reload
-    self.reload_empty = r.ammo == 0
+    self.reload_len = r.st.ammo == 0 and r.def.reload_empty or r.def.reload
+    self.reload_empty = r.st.ammo == 0
     self.reload_sfx = 0
     return true
 end
@@ -266,13 +284,13 @@ end
 function W:fire(ps)
     local r = self:weapon()
     local d = r.def
-    if r.ammo <= 0 then
+    if r.st.ammo <= 0 then
         play("audio/weapons/dry.wav", 0.8)
         self.cooldown = 0.25
-        if r.reserve > 0 then self:begin_reload() end
+        if r.st.reserve > 0 then self:begin_reload() end
         return
     end
-    r.ammo -= 1
+    r.st.ammo -= 1
     self.cooldown = d.interval
     self.shots += 1
     Combat.stats.shots += 1
@@ -327,7 +345,7 @@ function W:fire(ps)
     play(d.fire, 0.95, 0.95 + math.random() * 0.1)
     Combat.noise(Game.player.world_position, d.noise, Game.player)
     Game.emit("player_fired", d.id)
-    if r.ammo == 0 and r.reserve > 0 then self.auto_reload = 0.35 end
+    if r.st.ammo == 0 and r.st.reserve > 0 then self.auto_reload = 0.35 end
 end
 
 function W:tracer(r, endp)
@@ -425,15 +443,18 @@ function W:update(dt)
     local touch = Controls.state.touch_used
     if playing then
         if Controls.pressed("switch") then
-            local idx = 1
-            for i, id in ORDER do if id == self.current then idx = i end end
-            for k = 1, #ORDER do
-                local id = ORDER[(idx + k - 1) % #ORDER + 1]
-                if Game.loadout[id] and self.w[id] and id ~= self.current then self:begin_switch(id); break end
+            local order = {}
+            for _, slot in Items.weapon_slots do
+                local id = Inventory.in_slot(slot)
+                if id and self.w[id] then table.insert(order, id) end
             end
+            local idx = 0
+            for i, id in order do if id == self.current then idx = i end end
+            local nxt = order[idx % math.max(1, #order) + 1]
+            if nxt and nxt ~= self.current then self:begin_switch(nxt) end
         end
-        if Controls.pressed("weapon1") then self:begin_switch("carbine") end
-        if Controls.pressed("weapon2") then self:begin_switch("sidearm") end
+        if Controls.pressed("weapon1") and Inventory.in_slot("primary") then self:begin_switch(Inventory.in_slot("primary")) end
+        if Controls.pressed("weapon2") and Inventory.in_slot("secondary") then self:begin_switch(Inventory.in_slot("secondary")) end
         if Controls.pressed("reload") then self:begin_reload() end
         if Controls.pressed("tool") then self:scan() end
         if touch then
@@ -459,10 +480,10 @@ function W:update(dt)
         if self.reload_sfx == 1 and u > 0.58 then play(d.cell_in, 0.85); self.reload_sfx = 2 end
         if self.reload_sfx == 2 and u > 0.7 then play(d.charge, 0.6); self.reload_sfx = 3 end
         if u >= 1 then
-            local need = d.mag - r.ammo
-            local take = math.min(need, r.reserve)
-            r.ammo += take
-            r.reserve -= take
+            local need = d.mag - r.st.ammo
+            local take = math.min(need, r.st.reserve)
+            r.st.ammo += take
+            r.st.reserve -= take
             self.state = "idle"
             self:reset_parts(r)
             Game.emit("reloaded", d.id)
@@ -621,12 +642,12 @@ function W:update(dt)
     local st = ""
     if self.state == "reload" then st = "RELOADING"
     elseif self.state == "equip" or self.state == "lower" then st = ""
-    elseif r.ammo == 0 then st = r.reserve > 0 and "RELOAD" or "NO CELLS"
-    elseif r.ammo <= math.floor(d.mag * 0.25) then st = "LOW" end
+    elseif r.st.ammo == 0 then st = r.st.reserve > 0 and "RELOAD" or "NO CELLS"
+    elseif r.st.ammo <= math.floor(d.mag * 0.25) then st = "LOW" end
     local hud = Game.weapon_hud or {}
     hud.name = d.label
-    hud.ammo = r.ammo
-    hud.reserve = r.reserve
+    hud.ammo = r.st.ammo
+    hud.reserve = r.st.reserve
     hud.state = st
     hud.spread = self:spread_now(ps) / 1.6
     Game.weapon_hud = hud
