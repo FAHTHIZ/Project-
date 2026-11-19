@@ -4,7 +4,7 @@ This plan is an execution queue, not a reason to stop coding after a design docu
 
 ## Canonical campaign narrative
 
-The complete end-to-end campaign is specified in docs/CAMPAIGN_STORY_BIBLE.md. This is the authoritative narrative source for mission objectives, story logic, factions, characters, dialogue direction, the reason for the bunker descent, the VICTUS explanation and the ending. Read it before changing campaign scenes or writing mission dialogue.
+The complete end-to-end campaign is specified in docs/CAMPAIGN_STORY_BIBLE.md. This is the authoritative narrative source for mission objectives, story logic, factions, characters, dialogue direction, the reason for the bunker descent, the VICTUS explanation and the ending. Read it before changing campaign scenes or writing mission dialogue. Read `docs/SQUAD_BANTER_AND_AMBIENCE.md` as well before authoring dialogue, environmental audio or fear reactions; it is the canonical tonal implementation guide.
 
 The story design is complete; implementation is not. Do not invent a replacement plot, turn Greyline into a generic enemy army, change the non-lethal pulse-weapon direction, make VICTUS a superweapon or AI, or alter the inert V-01 dummy reveal. Operation geometry and encounter staging may adapt to verified VICTUS capabilities, but the cause-and-effect story in the story bible is canon.
 
@@ -17,6 +17,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Weapons and viewmodel (PC-7 Lantern carbine, SP-2 Wren sidearm, field scanner) | Done (implemented, simulated, visually inspected on lavapipe; not device-tested) | log P1 weapons, autotest weapons 26/26 |
 | Squad operators, companions, dialogue, enemies (Anchor, Patch, Echo, Tally; Greyline A/B; Ranger Hollis; 76 voiced lines) | Done on the dev range (implemented, simulated, visually inspected on lavapipe; not device-tested; squad size not yet profiled on the phone) | log P3 squad, autotests squad 17/17, squad_combat 5/5, enemy_fire 3/3 |
 | Mule vehicle (drive-in, park, staggered squad egress), cargo trunk storage, shared inventory, LR-4 scope, field kit | Done on the dev range (implemented, simulated, visually inspected on lavapipe; not device-tested) | log "Vehicle, cargo storage…", autotests vehicle 14/14, trunk 26/26, sniper 19/19, docs/evidence/ |
+| Squad dark-comedy dialogue, environmental scare-comedy and location-specific ambience guide | Design specified; dialogue/audio implementation pending | docs/SQUAD_BANTER_AND_AMBIENCE.md; docs/CAMPAIGN_STORY_BIBLE.md |
 | Campaign story bible — Operation Iron Veil, complete prologue-to-credits narrative | Design specified; mission implementation pending | docs/CAMPAIGN_STORY_BIBLE.md |
 | Open-world map (forest → hillside → perimeter → facility approach), Op01 forest | Next | |
 | Cinematics (12 beats) | Pending | |
@@ -65,6 +66,8 @@ Tasks:
 - Use placeholder geometry only during blockout; replace it with original/redistributable production assets before stage completion.
 - Establish the outdoor directional/environment lighting and fog baseline.
 - Add one camera-locked benchmark route and repeatable capture points.
+- Add the forest's distant answering wildlife howls, nearby foliage movement and one harmless false scare; keep every source plausible and non-hostile.
+- Add brief, distinct squad fear reactions with dialogue cooldowns; preserve player control and suppress chatter during critical objectives.
 - Profile vegetation, alpha overdraw, shadow casters and asset memory.
 - Compare visual captures at Low and Medium mobile quality.
 
@@ -81,6 +84,8 @@ Tasks:
 - Use instancing and distance grouping for repeated foliage.
 - Tune directional light, environment/IBL, selected cast shadows, sky, fog, exposure and restrained post-processing.
 - Add spatial forest ambience, footsteps and authored environmental sounds.
+- Implement the location-specific sound identities in docs/SQUAD_BANTER_AND_AMBIENCE.md: forest wildlife calls, perimeter sign/fence sounds, facility ventilation/PA, bunker door/pipe sounds, lower-basement cooling/archival machinery and the deliberate quiet before V-01.
+- Integrate distinct operator reactions and occasional strong non-sexual profanity where contextually justified; keep the conspiracy, Venn's recovery and Northline losses serious.
 - Profile on the physical phone and reduce the highest-cost features first if frame pacing or thermals fail.
 
 **Exit gate:** the environment is not just a screenshot. It is interactive, packaged, visually readable and performs within the measured phone baseline.
@@ -118,6 +123,7 @@ Tasks:
 - Add user-facing tutorials for mobile controls.
 - Add optional diagnostics overlay with real metrics only.
 - Add automated stage flow tests and capture checkpoints.
+- Add a tone pass for contextual squad banter and brief fear reactions; verify critical objective/dialogue states suppress optional jokes.
 - Build/export Android and desktop packages.
 - Test a full session on the Hot 10S and record sustained results.
 
@@ -146,6 +152,7 @@ Do not freeze a later area from generic assumptions. The required direction is f
 Tasks:
 - Run a repeatable end-to-end test through the entire campaign on desktop, emulator and physical phone.
 - Verify every operation, every required area including the basement, every weapon action, every operator interaction and all key cutscenes.
+- Verify each location's distinct ambient audio and scare-comedy beats, dialogue cooldown/variation, fear animations, subtitle synchronization and target-device audio mix.
 - Confirm all cinematic skip/replay/checkpoint/pause states return to first-person gameplay correctly.
 - Add crash/log capture and a clean diagnostics/export report.
 - Test suspend/resume, audio lifecycle, orientation/safe areas, controller disconnect/reconnect, storage pressure and save corruption recovery.
