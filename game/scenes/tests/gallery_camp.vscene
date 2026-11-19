@@ -1,0 +1,1475 @@
+{
+ "format": "victus.scene",
+ "version": 1,
+ "name": "gallery_camp",
+ "entities": [
+  {
+   "uuid": "09beafab-23e9-5c2b-9f74-e7b8a9005a68",
+   "name": "Environment",
+   "components": {
+    "Environment": {
+     "sky_zenith": [
+      0.32,
+      0.46,
+      0.62,
+      1
+     ],
+     "sky_horizon": [
+      0.66,
+      0.73,
+      0.76,
+      1
+     ],
+     "ground": [
+      0.16,
+      0.17,
+      0.12,
+      1
+     ],
+     "ambient_intensity": 0.55,
+     "draw_sky": true,
+     "clear_color": [
+      0.05,
+      0.05,
+      0.06,
+      1
+     ],
+     "tonemapper": "aces",
+     "exposure": 1,
+     "exposure_compensation": 0,
+     "auto_exposure": false,
+     "saturation": 1.0,
+     "contrast": 1.04,
+     "vignette": 0.22,
+     "bloom_intensity": 0.035,
+     "bloom_threshold": 1.0,
+     "ao_intensity": 1.0,
+     "ao_radius": 0.7,
+     "shadow_distance": 45,
+     "fog": "exponential",
+     "fog_color": [
+      0.6,
+      0.67,
+      0.68,
+      1
+     ],
+     "fog_start": 10,
+     "fog_end": 220,
+     "fog_density": 0.012,
+     "fog_max_opacity": 0.92,
+     "physical_sky": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "51386975-981e-59d6-aa60-e5f5738e68f2",
+   "name": "Sun",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      30.0,
+      0.0
+     ],
+     "rotation": [
+      -0.282571,
+      -0.3261904,
+      -0.1028474,
+      0.8962008
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "directional",
+     "color": [
+      1.0,
+      0.94,
+      0.84,
+      1
+     ],
+     "intensity": 3.2,
+     "range": 10,
+     "shadows": true
+    }
+   }
+  },
+  {
+   "uuid": "33263a67-14ed-5e4f-8caa-c2f7686966c2",
+   "name": "Ground",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -0.1,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      120.0,
+      0.2,
+      120.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      0.5,
+      0.52,
+      0.46,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "primitive": "cube",
+     "material": "5c0a7e11-7f1b-4c2e-9a3d-c4a7e5b0f003"
+    },
+    "Collider": {
+     "shape": "box",
+     "size": [
+      1,
+      1,
+      1
+     ],
+     "radius": 0.5,
+     "height": 1.0,
+     "offset": [
+      0,
+      0,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 0,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "static",
+     "mass": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "e8080476-299c-5c41-a3dd-bb9d613276e8",
+   "name": "ranger_cabin",
+   "components": {
+    "Transform": {
+     "position": [
+      -8.0,
+      0.0,
+      -4.0
+     ],
+     "rotation": [
+      0.0,
+      0.1736482,
+      0.0,
+      0.9848078
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "0fdd9bee-16ad-594a-ba8d-b3a6160f7735",
+   "name": "ranger_cabin[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "d0881f64-30d5-44fe-8ff6-af25836d5b4d",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e8080476-299c-5c41-a3dd-bb9d613276e8"
+  },
+  {
+   "uuid": "6a6342a2-354a-583b-aca1-fe127aba2530",
+   "name": "ranger_cabin[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "d0881f64-30d5-44fe-8ff6-af25836d5b4d",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e8080476-299c-5c41-a3dd-bb9d613276e8"
+  },
+  {
+   "uuid": "5c7ea048-3303-5646-8300-cfb20c44833f",
+   "name": "ranger_cabin[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "d0881f64-30d5-44fe-8ff6-af25836d5b4d",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e8080476-299c-5c41-a3dd-bb9d613276e8"
+  },
+  {
+   "uuid": "92618b15-eb49-5a20-8a2f-b07b909c1325",
+   "name": "ranger_cabin[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "d0881f64-30d5-44fe-8ff6-af25836d5b4d",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e8080476-299c-5c41-a3dd-bb9d613276e8"
+  },
+  {
+   "uuid": "5db6963d-6a82-5338-888e-f085ee85e8a9",
+   "name": "ranger_cabin[4]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "d0881f64-30d5-44fe-8ff6-af25836d5b4d",
+     "mesh_index": 4
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e8080476-299c-5c41-a3dd-bb9d613276e8"
+  },
+  {
+   "uuid": "09ce85b0-136b-5dba-917b-fa5a5ec42d96",
+   "name": "ranger_cabin[5]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "d0881f64-30d5-44fe-8ff6-af25836d5b4d",
+     "mesh_index": 5
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e8080476-299c-5c41-a3dd-bb9d613276e8"
+  },
+  {
+   "uuid": "1cb654d4-b1b3-5c6b-b93c-2a16f61e80be",
+   "name": "ranger_cabin[6]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "d0881f64-30d5-44fe-8ff6-af25836d5b4d",
+     "mesh_index": 6
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e8080476-299c-5c41-a3dd-bb9d613276e8"
+  },
+  {
+   "uuid": "7dcd9126-a915-5a9e-abec-3e7279e231f3",
+   "name": "relay_mast",
+   "components": {
+    "Transform": {
+     "position": [
+      6.0,
+      0.0,
+      -6.0
+     ],
+     "rotation": [
+      0.0,
+      -0.258819,
+      0.0,
+      0.9659258
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "620ca27e-0306-5a3f-b608-3a02f97a4ae2",
+   "name": "relay_mast[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "b33354b4-dd8d-4555-a99f-2a43e0594a7b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7dcd9126-a915-5a9e-abec-3e7279e231f3"
+  },
+  {
+   "uuid": "247854e5-188b-52ee-ba02-646c48ae7f6e",
+   "name": "relay_mast[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "b33354b4-dd8d-4555-a99f-2a43e0594a7b",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7dcd9126-a915-5a9e-abec-3e7279e231f3"
+  },
+  {
+   "uuid": "63b612f1-907c-5ecd-82f9-929699bd69d1",
+   "name": "relay_mast[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "b33354b4-dd8d-4555-a99f-2a43e0594a7b",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7dcd9126-a915-5a9e-abec-3e7279e231f3"
+  },
+  {
+   "uuid": "556ce54b-d838-5cd1-9baf-6a9c1ddd507b",
+   "name": "relay_mast[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "b33354b4-dd8d-4555-a99f-2a43e0594a7b",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7dcd9126-a915-5a9e-abec-3e7279e231f3"
+  },
+  {
+   "uuid": "004a1397-bbc6-5965-acb9-0e35c3e50efe",
+   "name": "relay_mast[4]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "b33354b4-dd8d-4555-a99f-2a43e0594a7b",
+     "mesh_index": 4
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7dcd9126-a915-5a9e-abec-3e7279e231f3"
+  },
+  {
+   "uuid": "85ee5056-1ce6-57ea-b60f-c40e3d594c52",
+   "name": "camp_tent",
+   "components": {
+    "Transform": {
+     "position": [
+      12.0,
+      0.0,
+      4.0
+     ],
+     "rotation": [
+      0.0,
+      -0.5735764,
+      0.0,
+      0.819152
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "25f53792-f1f0-501c-9f04-ef6d439d7039",
+   "name": "camp_tent[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "725c6929-1547-4a29-9d25-84b3c3a015d8",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "85ee5056-1ce6-57ea-b60f-c40e3d594c52"
+  },
+  {
+   "uuid": "9589293c-2070-5fa7-b052-c5acd7d46d21",
+   "name": "camp_tent[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "725c6929-1547-4a29-9d25-84b3c3a015d8",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "85ee5056-1ce6-57ea-b60f-c40e3d594c52"
+  },
+  {
+   "uuid": "4685544e-6daf-5583-a41b-d46a40f9f5ab",
+   "name": "camp_tent[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "725c6929-1547-4a29-9d25-84b3c3a015d8",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "85ee5056-1ce6-57ea-b60f-c40e3d594c52"
+  },
+  {
+   "uuid": "ff2b2a33-6905-5f5c-8297-072f4139e3ec",
+   "name": "camp_table",
+   "components": {
+    "Transform": {
+     "position": [
+      4.0,
+      0.0,
+      6.0
+     ],
+     "rotation": [
+      0.0,
+      0.0871557,
+      0.0,
+      0.9961947
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "ce5a19c3-07f7-548c-9be6-de916af12947",
+   "name": "camp_table[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "26367dcb-ab4a-4b38-8ca8-a3c4ec12d8fd",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ff2b2a33-6905-5f5c-8297-072f4139e3ec"
+  },
+  {
+   "uuid": "2e3cf94a-c8c4-50d8-b0e8-ef02dbcac7dd",
+   "name": "camp_table[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "26367dcb-ab4a-4b38-8ca8-a3c4ec12d8fd",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ff2b2a33-6905-5f5c-8297-072f4139e3ec"
+  },
+  {
+   "uuid": "7d75d21c-fd14-53ac-93eb-2c662efcce5e",
+   "name": "camp_table[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "26367dcb-ab4a-4b38-8ca8-a3c4ec12d8fd",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ff2b2a33-6905-5f5c-8297-072f4139e3ec"
+  },
+  {
+   "uuid": "31bd3aa4-43c9-5921-821c-a14b4cd37890",
+   "name": "camp_table[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "26367dcb-ab4a-4b38-8ca8-a3c4ec12d8fd",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ff2b2a33-6905-5f5c-8297-072f4139e3ec"
+  },
+  {
+   "uuid": "23dafd83-8e2e-56e6-b9db-82f9c4362fee",
+   "name": "supply_crates",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.0,
+      0.0,
+      6.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "146ffcbd-c935-5dc4-8d50-47e0998b41a2",
+   "name": "supply_crates[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "559b10a7-181e-450b-8699-8cfe11b8d8a4",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "23dafd83-8e2e-56e6-b9db-82f9c4362fee"
+  },
+  {
+   "uuid": "c607ba48-0e1e-54a0-ad2c-960a17b9e2ea",
+   "name": "supply_crates[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "559b10a7-181e-450b-8699-8cfe11b8d8a4",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "23dafd83-8e2e-56e6-b9db-82f9c4362fee"
+  },
+  {
+   "uuid": "dfff853b-816e-524a-95a9-34af49db263a",
+   "name": "generator",
+   "components": {
+    "Transform": {
+     "position": [
+      8.0,
+      0.0,
+      9.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "9471004e-3bdd-562e-a8e2-638288c821ca",
+   "name": "generator[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "f657be30-2936-4a60-b1da-5978d576e489",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dfff853b-816e-524a-95a9-34af49db263a"
+  },
+  {
+   "uuid": "586beb47-9430-5285-a67a-366825fb4dc6",
+   "name": "generator[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "f657be30-2936-4a60-b1da-5978d576e489",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dfff853b-816e-524a-95a9-34af49db263a"
+  },
+  {
+   "uuid": "f2f2304b-8d65-5d74-a4c0-49822c76be8c",
+   "name": "floodlight",
+   "components": {
+    "Transform": {
+     "position": [
+      1.0,
+      0.0,
+      3.0
+     ],
+     "rotation": [
+      0.0,
+      0.9848078,
+      0.0,
+      0.1736482
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "853da7a5-4679-51df-ae2d-f6ec52c04afd",
+   "name": "floodlight[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "0b7fcb10-d02a-4563-9cd5-c5c320651d2f",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f2f2304b-8d65-5d74-a4c0-49822c76be8c"
+  },
+  {
+   "uuid": "ee147450-be08-5110-9863-2ee21b123968",
+   "name": "floodlight[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "0b7fcb10-d02a-4563-9cd5-c5c320651d2f",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f2f2304b-8d65-5d74-a4c0-49822c76be8c"
+  },
+  {
+   "uuid": "6a535ff4-a8bd-5b0a-9d67-6e4fa1de3cbe",
+   "name": "Player",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      14.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "CharacterController": {
+     "radius": 0.32,
+     "height": 1.78,
+     "max_slope": 48,
+     "step_height": 0.38,
+     "gravity_scale": 1,
+     "mass": 75,
+     "push_force": 300,
+     "air_control": 0.3,
+     "layer": 0,
+     "mask": 65535
+    },
+    "Perceptible": {
+     "team": 1,
+     "height": 1.5,
+     "enabled": true
+    },
+    "Tags": {
+     "tags": "Player"
+    },
+    "AudioListener": {},
+    "Script": {
+     "script": "scripts/fp_player.luau",
+     "enabled": true,
+     "properties": {}
+    }
+   }
+  },
+  {
+   "uuid": "f5002fc8-66cc-5c69-a083-f6536c1bad14",
+   "name": "Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      1.62,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6a535ff4-a8bd-5b0a-9d67-6e4fa1de3cbe"
+  },
+  {
+   "uuid": "cf9bc52a-b32c-5a19-ad4a-3d97433e834e",
+   "name": "Main Camera",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Camera": {
+     "projection": "perspective",
+     "fov_y": 70,
+     "ortho_height": 10,
+     "near": 0.03,
+     "far": 600,
+     "primary": true
+    }
+   },
+   "parent": "f5002fc8-66cc-5c69-a083-f6536c1bad14"
+  },
+  {
+   "uuid": "a2799d3c-c51e-51ce-a982-47ed5930ad1e",
+   "name": "Viewmodel",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "cf9bc52a-b32c-5a19-ad4a-3d97433e834e"
+  }
+ ]
+}

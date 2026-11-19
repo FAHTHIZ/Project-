@@ -176,22 +176,33 @@ def tex_grass(n=256, seed=31):
 
 
 def tex_needles(n=512, seed=41):
+    """Conifer spray atlas: five drooping boughs. Each bough is a dense fan of needle tufts over
+    a darker inner mass (real spruce/fir sprays read as solid shapes with a needled fringe;
+    single-pixel needles alone dissolve into hair at distance, as the first version did)."""
     S = n * 2
-    img = Image.new('RGBA', (S, S), (40, 60, 40, 0)); d = ImageDraw.Draw(img)
+    img = Image.new('RGBA', (S, S), (34, 52, 34, 0)); d = ImageDraw.Draw(img)
     r = np.random.default_rng(seed)
-    # a drooping conifer bough seen from above: central twig with needles
     for b in range(5):
-        y = S * (0.2 + 0.15 * b); x0 = S * 0.06
-        pts = [(x0 + (S * 0.88) * t, y + np.sin(t * 3) * S * 0.03) for t in np.linspace(0, 1, 30)]
-        for (x, yy), t in zip(pts, np.linspace(0, 1, 30)):
+        y = S * (0.12 + 0.19 * b); x0 = S * 0.04
+        ts = np.linspace(0, 1, 44)
+        pts = [(x0 + (S * 0.92) * t, y + np.sin(t * 3) * S * 0.025) for t in ts]
+        # inner mass: overlapping ellipses that taper toward the tip
+        for (x, yy), t in zip(pts, ts):
+            w = S * 0.055 * (1.15 - 0.75 * t)
+            g = int(r.uniform(40, 58))
+            d.ellipse([x - w * 0.8, yy - w * 0.75, x + w * 0.8, yy + w * 0.75],
+                      fill=(int(g * 0.6), g, int(g * 0.55), 255))
+        # needle tufts (both sides, angled forward) and side twigs
+        for (x, yy), t in zip(pts, ts):
             for side in (-1, 1):
-                for k in range(3):
-                    l = S * 0.07 * (1.1 - 0.6 * t) * r.uniform(0.7, 1.2)
-                    a = side * r.uniform(0.6, 1.2)
-                    g = int(r.uniform(65, 105))
-                    d.line([(x, yy), (x + np.cos(a) * l * 0.4, yy + np.sin(a) * l)], fill=(int(g * 0.55), g, int(g * 0.5), 255), width=3)
-        d.line(pts, fill=(70, 55, 40, 255), width=5)
-    a = np.array(img.resize((n, n), Image.LANCZOS)); a[..., 3] = np.where(a[..., 3] > 100, 255, 0)
+                for k in range(6):
+                    l = S * 0.085 * (1.15 - 0.6 * t) * r.uniform(0.6, 1.2)
+                    a = side * r.uniform(0.5, 1.35)
+                    g = int(r.uniform(62, 112))
+                    d.line([(x, yy), (x + np.cos(a) * l * 0.45, yy + np.sin(a) * l)],
+                           fill=(int(g * 0.55), g, int(g * 0.5), 255), width=5)
+        d.line(pts, fill=(66, 52, 38, 255), width=6)
+    a = np.array(img.resize((n, n), Image.LANCZOS)); a[..., 3] = np.where(a[..., 3] > 96, 255, 0)
     return dilate_rgb(a)
 
 
@@ -346,6 +357,19 @@ class Model:
         self.j['materials'].append(m); return len(self.j['materials']) - 1
     def prim(self, P, N, C, I, UV, mat):
         w = self.w
+        m = self.j['materials'][mat]
+        if m.get('doubleSided') and m.get('alphaMode') == 'MASK':
+            # Cutout cards carry up-biased "foliage" normals so both sides light like the plant
+            # mass. glTF double-sided rendering flips the normal on back faces (VICTUS pbr.frag
+            # does), which turns those faces black; emit explicit back faces with the same
+            # normals instead and render single-sided.
+            # The back copy gets its own vertices: sharing them would make every card edge
+            # non-manifold and the importer's LOD simplifier would collapse the cards.
+            I = np.asarray(I).reshape(-1, 3)
+            nv = len(P)
+            P, N, C, UV = (np.vstack([a, a]) for a in (np.asarray(P), np.asarray(N), np.asarray(C), np.asarray(UV)))
+            I = np.vstack([I, I[:, ::-1] + nv]).ravel()
+            m.pop('doubleSided')
         self.j['meshes'][0]['primitives'].append({'attributes': {
             'POSITION': w.add(P.astype(np.float32), 'VEC3', 34962, True), 'NORMAL': w.add(N.astype(np.float32), 'VEC3', 34962),
             'TEXCOORD_0': w.add(UV.astype(np.float32), 'VEC2', 34962), 'COLOR_0': w.add(C.astype(np.float32), 'VEC4', 34962)},
@@ -420,7 +444,7 @@ def build_broadleaf_tree(name, seed, height, trunk_r, canopy, textures, lean=0.0
                 c = pts[k] + r.normal(0, canopy * 0.18, 3); c[1] += canopy * 0.1
                 cluster(leaves, c, 0.5, canopy_c, r, leaf_col, 3, canopy * r.uniform(0.38, 0.55))
     # fill the crown top
-    for _ in range(int(14 + canopy * 6)):
+    for _ in range(int(30 + canopy * 9)):  # crown fill: woodland crowns read as masses, not twigs
         u = r.normal(size=3); u /= np.linalg.norm(u); u[1] = abs(u[1]) * 0.8 + 0.1
         c = canopy_c + u * canopy * r.uniform(0.35, 0.95) * np.array([1, 0.7, 1])
         cluster(leaves, c, 0.5, canopy_c, r, leaf_col, 3, canopy * r.uniform(0.4, 0.6))

@@ -1,0 +1,776 @@
+{
+  "format": "victus.scene",
+  "version": 1,
+  "name": "cell_-1_-7",
+  "entities": [
+    {
+      "uuid": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "name": "Garage",
+      "components": {
+        "Tags": {
+          "tags": "Garage"
+        },
+        "Transform": {
+          "position": [-28, 70.44999694824219, -392],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "004393ad-f448-5a98-939d-656a77ece968",
+      "name": "Garage[0]",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "5f3f6f22-1c1c-4e40-9f4f-88160c897d0b",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "35d21e6b-f11d-5af1-8041-d5ee6bbb0e52"
+    },
+    {
+      "uuid": "35d21e6b-f11d-5af1-8041-d5ee6bbb0e52",
+      "name": "Garage[1]",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "5f3f6f22-1c1c-4e40-9f4f-88160c897d0b",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "96ea7fb3-25d7-51f8-8201-0220e9b2f4ee"
+    },
+    {
+      "uuid": "96ea7fb3-25d7-51f8-8201-0220e9b2f4ee",
+      "name": "Garage[2]",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "5f3f6f22-1c1c-4e40-9f4f-88160c897d0b",
+          "mesh_index": 2,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "4298e2bd-3a36-5149-b5db-3977745b6c07"
+    },
+    {
+      "uuid": "4298e2bd-3a36-5149-b5db-3977745b6c07",
+      "name": "Garage Collider 0",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.5, 4.85, 0.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [-6.25, 2.575000047683716, -5],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "d499041f-ac43-5985-8140-22ad0c381ffc"
+    },
+    {
+      "uuid": "d499041f-ac43-5985-8140-22ad0c381ffc",
+      "name": "Garage Collider 1",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4, 1.1, 0.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [-3.5, 4.449999809265137, -5],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "431ea789-4018-5fec-b519-020ce9293707"
+    },
+    {
+      "uuid": "431ea789-4018-5fec-b519-020ce9293707",
+      "name": "Garage Collider 2",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [3, 4.85, 0.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 2.575000047683716, -5],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "99094aac-f717-598e-9b4f-5a08c181d894"
+    },
+    {
+      "uuid": "99094aac-f717-598e-9b4f-5a08c181d894",
+      "name": "Garage Collider 3",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4, 1.1, 0.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [3.5, 4.449999809265137, -5],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "0948865f-85e3-55ff-ada9-67f85a9ec2f0"
+    },
+    {
+      "uuid": "0948865f-85e3-55ff-ada9-67f85a9ec2f0",
+      "name": "Garage Collider 4",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.5, 4.85, 0.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [6.25, 2.575000047683716, -5],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "5c1cf7b1-e472-53fc-8fac-c06d870d6629"
+    },
+    {
+      "uuid": "5c1cf7b1-e472-53fc-8fac-c06d870d6629",
+      "name": "Garage Collider 5",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [14, 4.85, 0.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 2.575000047683716, 5],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "3c241fdd-3bcf-5910-9699-fdfee9b3f0b8"
+    },
+    {
+      "uuid": "3c241fdd-3bcf-5910-9699-fdfee9b3f0b8",
+      "name": "Garage Collider 6",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.15, 4.85, 6.5],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [-7, 2.575000047683716, -1.75],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "44abaad4-84fc-5df7-bfb7-5c6d77b8703a"
+    },
+    {
+      "uuid": "44abaad4-84fc-5df7-bfb7-5c6d77b8703a",
+      "name": "Garage Collider 7",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.15, 2.7, 1],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [-7, 3.6500000953674316, 2],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "12a49bc0-921b-5add-8ef7-7419ba17747c"
+    },
+    {
+      "uuid": "12a49bc0-921b-5add-8ef7-7419ba17747c",
+      "name": "Garage Collider 8",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.15, 4.85, 2.5],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [-7, 2.575000047683716, 3.75],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "1f7de433-5486-5b08-a9fd-c07152786b36"
+    },
+    {
+      "uuid": "1f7de433-5486-5b08-a9fd-c07152786b36",
+      "name": "Garage Collider 9",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.15, 4.85, 10],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [7, 2.575000047683716, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "cea0a31d-5392-596b-8596-0084200c90ed"
+    },
+    {
+      "uuid": "cea0a31d-5392-596b-8596-0084200c90ed",
+      "name": "Garage Collider 10",
+      "parent": "7b0f00d8-e2a3-557c-9d8c-34493461f540",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4, 3.75, 0.08],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [-3.5, 2.0250000953674316, -5.079999923706055],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "311f85ee-fcb4-51d3-865d-3451f5c32f7e",
+      "name": "Container 3",
+      "components": {
+        "Transform": {
+          "position": [-6, 70.4800033569336, -414],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "5a158a2f-3cb5-59f3-98a6-4662bc23700c",
+      "name": "Container 3[0]",
+      "parent": "311f85ee-fcb4-51d3-865d-3451f5c32f7e",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8a8e4d7b-cb76-41f0-b578-a8ddb6f029e4",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "b571f10d-4c44-5b05-9a83-c861c87048e3"
+    },
+    {
+      "uuid": "b571f10d-4c44-5b05-9a83-c861c87048e3",
+      "name": "Container 3[1]",
+      "parent": "311f85ee-fcb4-51d3-865d-3451f5c32f7e",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8a8e4d7b-cb76-41f0-b578-a8ddb6f029e4",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "d268a78e-9894-550d-9946-7d47836c352b"
+    },
+    {
+      "uuid": "d268a78e-9894-550d-9946-7d47836c352b",
+      "name": "Container 3 Collider 0",
+      "parent": "311f85ee-fcb4-51d3-865d-3451f5c32f7e",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [6.1, 2.59, 2.44],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 1.2949999570846558, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "4014666c-ec0c-5e26-9ab7-ad861bf19455",
+      "name": "Yard Light 2",
+      "components": {
+        "Transform": {
+          "position": [-44, 70.44999694824219, -414],
+          "rotation": [0, 0.5, 0, 0.8660253882408142],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "36e2cc4f-1458-5bed-8375-75c6a4871fb8",
+      "name": "Yard Light 2[0]",
+      "parent": "4014666c-ec0c-5e26-9ab7-ad861bf19455",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "e7a7ec92-212c-4cfc-838a-cefb5ce475fe",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "fb239ae0-2596-5f49-b733-cca7f012b9b8"
+    },
+    {
+      "uuid": "fb239ae0-2596-5f49-b733-cca7f012b9b8",
+      "name": "Yard Light 2[1]",
+      "parent": "4014666c-ec0c-5e26-9ab7-ad861bf19455",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "e7a7ec92-212c-4cfc-838a-cefb5ce475fe",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "20f95e83-d19d-5e23-aa52-7ef63745407b"
+    },
+    {
+      "uuid": "20f95e83-d19d-5e23-aa52-7ef63745407b",
+      "name": "Yard Light 2 Collider 0",
+      "parent": "4014666c-ec0c-5e26-9ab7-ad861bf19455",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.3, 7.5, 0.3],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 3.75, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "4d2f270d-4e43-53cf-a3c6-eac4dc30e716",
+      "name": "Yard Barrier 2",
+      "components": {
+        "Transform": {
+          "position": [-14, 70.4800033569336, -404],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "2ddb8b35-ded6-5bc8-8238-59f9042804df",
+      "name": "Yard Barrier 2[0]",
+      "parent": "4d2f270d-4e43-53cf-a3c6-eac4dc30e716",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "731cada7-2798-460e-8534-8b2f60154900",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "18a093c1-2f94-5900-8fe8-1022d6fb0f75"
+    },
+    {
+      "uuid": "18a093c1-2f94-5900-8fe8-1022d6fb0f75",
+      "name": "Yard Barrier 2 Collider 0",
+      "parent": "4d2f270d-4e43-53cf-a3c6-eac4dc30e716",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [3, 0.8, 0.6],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 0.4000000059604645, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    }
+  ]
+}

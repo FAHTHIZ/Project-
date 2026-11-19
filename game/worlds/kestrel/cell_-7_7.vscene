@@ -1,0 +1,91 @@
+{
+  "format": "victus.scene",
+  "version": 1,
+  "name": "cell_-7_7",
+  "entities": [
+    {
+      "uuid": "e013debe-69ed-59b5-a142-32d00f1dbfc4",
+      "name": "Tree 18356",
+      "components": {
+        "Collider": {
+          "shape": "capsule",
+          "size": [1, 1, 1],
+          "radius": 0.3,
+          "height": 3.2,
+          "offset": [0, 1.6, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Tree"
+        },
+        "Transform": {
+          "position": [-384.4700012207031, 90.21019744873047, 490.8948059082031],
+          "rotation": [0, 0.999927818775177, 0, -0.012014499865472317],
+          "scale": [1.5504826307296753, 1.5504826307296753, 1.5504826307296753]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "ccd09d8c-34a6-55b2-a638-d00c1fafcd28",
+      "name": "Tree 18356[0]",
+      "parent": "e013debe-69ed-59b5-a142-32d00f1dbfc4",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "bbba54ae-aa9e-5a0e-8330-9833d1afb75c"
+    },
+    {
+      "uuid": "bbba54ae-aa9e-5a0e-8330-9833d1afb75c",
+      "name": "Tree 18356[1]",
+      "parent": "e013debe-69ed-59b5-a142-32d00f1dbfc4",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    }
+  ]
+}

@@ -35,7 +35,7 @@ function Op:start()
     self.stagger_t = 0
     self.idle_t = 0
     self.hits = 0
-    self.entity:set("NavAgent", { speed = self.r.speed })
+    self.actor:set_speed(self.r.speed)
     local a = self.actor
     Dialogue.register(self.key, {
         entity = self.entity, voice = a.voice, face = a.face,
@@ -272,7 +272,7 @@ function Op:update(dt)
                 -- catch up quicker when far behind
                 local want_speed = d_player > 9 and self.r.speed * 1.35 or self.r.speed
                 if want_speed ~= self.cur_speed then
-                    e:set("NavAgent", { speed = want_speed })
+                    self.actor:set_speed(want_speed)
                     self.cur_speed = want_speed
                 end
             end

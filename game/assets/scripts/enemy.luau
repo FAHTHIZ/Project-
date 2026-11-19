@@ -60,7 +60,7 @@ function E:start()
     self.wait = 1 + math.random() * 2
     self.home = self.entity.position
     self.home_yaw = Actor.yaw_of(self.entity)
-    self.entity:set("NavAgent", { speed = 1.6 })
+    self.actor:set_speed(1.6)
     if self.group ~= "" then table.insert(group_of(self.group), self) end
     Squad.register_enemy(self.entity, self)
     Combat.register(self.entity, function(info) return self:on_hit(info) end)
@@ -170,7 +170,7 @@ function E:update(dt)
         a:halt()
         self:say("contact")
         self:alert_group(tgt.position)
-        e:set("NavAgent", { speed = 3.0 })
+        self.actor:set_speed(3.0)
     end
     if self.state == "patrol" then
         a.aim_want = 0
@@ -198,14 +198,14 @@ function E:update(dt)
             a.focus = self.noise_pos
             if self.st > 0.8 and not a.goal and flat_dist(e.position, self.noise_pos) > 3 then
                 local p = nav.available() and nav.nearest(self.noise_pos, vector.create(3, 4, 3)) or self.noise_pos
-                e:set("NavAgent", { speed = 2.2 })
+                self.actor:set_speed(2.2)
                 a:go(p)
             end
             if self.st > 9 then
                 self:say("search")
                 self.state = "patrol"
                 a:halt()
-                e:set("NavAgent", { speed = 1.6 })
+                self.actor:set_speed(1.6)
             end
         end
     elseif self.state == "engage" then
