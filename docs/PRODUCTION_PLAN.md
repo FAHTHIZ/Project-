@@ -83,7 +83,7 @@ Tasks:
 - Produce real dialogue audio offline after voice/recording rights are checked.
 - Add subtitles and lip-sync cue data; reserve morph targets for close-up hero faces and profile CPU cost.
 
-**Exit gate:** one complete character interaction is playable in the exported package with audio, subtitles, animation and correct gameplay state transitions.
+**Exit gate:** one complete first-person shooter encounter is playable in the exported package, with a fictional weapon loop, enemy response, operator/NPC interaction, dialogue audio, subtitles, animation and one skippable cinematic that returns to first-person control correctly.
 
 ## P5 — Stage 01 complete with shooter and cinematic integration
 
