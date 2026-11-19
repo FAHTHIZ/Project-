@@ -13,6 +13,8 @@ Gameplay is first-person throughout ordinary play. The player sees the world thr
 
 The campaign is built around a recurring full squad: the first-person player plus three or four allied operators who travel together wherever mission staging allows. The player remains first-person during gameplay; external cinematic cameras reveal the team as a group. Teammates are active companions with authored reactions, navigation and dialogue, not radio-only voices or background extras. The campaign should have the production ambition and storytelling rhythm of a polished military-action game campaign, with original characters, story, level layouts, art direction, dialogue, music and cinematography. Call of Duty is a quality and pacing reference only. Do not reproduce its missions, characters, maps, scripts, logos, signature shots or distinctive assets.
 
+**Tone:** military dark comedy with atmospheric scare-comedy. The Northline crisis remains serious, but Halyard's operators are human: they tease one another, occasionally swear when startled, complain and react visibly to strange sounds. Use `docs/SQUAD_BANTER_AND_AMBIENCE.md` as the canonical dialogue and sound guide. The game is not horror: no supernatural threat, gore, monster combat or relentless jump scares. Sound-based false alarms should resolve into plausible wildlife, wind, loose fixtures or old machinery, and often produce a character moment.
+
 ## 2. Campaign route and operation structure
 
 **Canonical narrative:** docs/CAMPAIGN_STORY_BIBLE.md contains the complete Operation Iron Veil story from the opening briefing to credits. Its plot, character identities, mission purpose, bunker motivation and V-01 reveal are fixed. This document defines how that narrative is staged as playable operations and cinematics. The agent may adapt level geometry, pacing and encounter placement to the verified VICTUS toolchain, but must preserve the story's cause-and-effect sequence.
@@ -79,6 +81,8 @@ At minimum, plan and implement:
 12. Ending scene and credits/epilogue handoff.
 
 Add additional short cinematic moments when justified by story events: a mission completion, a new location, a major discovery, a character entrance or an important change in the environment. Do not pad the game with repetitive camera pans.
+
+Include a few short scare-comedy beats in the authored sequence: the forest's distant answering howls and nearby brush rustle; a perimeter sign tapping like footsteps; a facility fan producing a low growl; a bunker pressure door and pipes making the squad pause; and the lower-basement cooling system creating a false impression of breathing. Show brief squad reactions and let a character identify the source. These are atmosphere and dialogue moments, not combat encounters. The final V-01 reveal must be motionless and mundane.
 
 ### Quality bar
 
