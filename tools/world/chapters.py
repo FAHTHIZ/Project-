@@ -25,10 +25,19 @@ import night  # noqa: E402
 from vscene import Scene, transform, script  # noqa: E402
 
 GAME = WS.GAME
-ORDER = ['prologue', 'op01', 'op02', 'op03']
+ORDER = ['prologue', 'op01', 'op02', 'op03', 'epilogue']
 SCENES = {'prologue': 'scenes/prologue.vscene', 'op01': 'scenes/op01_forest.vscene',
-          'op02': 'scenes/op02_perimeter.vscene', 'op03': 'scenes/op03_approach.vscene'}
-MUSIC = {'prologue': 'forest', 'op01': 'forest', 'op02': 'perimeter', 'op03': 'perimeter'}
+          'op02': 'scenes/op02_perimeter.vscene', 'op03': 'scenes/op03_approach.vscene',
+          'epilogue': 'scenes/epilogue.vscene'}
+MUSIC = {'prologue': 'forest', 'op01': 'forest', 'op02': 'perimeter', 'op03': 'perimeter', 'epilogue': 'forest'}
+
+
+def mule_rear(dx=0.0, dz=0.0):
+    """World point behind the parked Mule's hatch (it waits at mule_park, nose 150 deg), offset
+    in world metres. The epilogue gathers everyone at the tailgate."""
+    m = P('mule_park')
+    r = math.radians(150.0)
+    return (m[0] + 2.9 * math.sin(r) + dx, m[2] + 2.9 * math.cos(r) + dz)
 
 # Greyline groups: chapter, then (name, x, z, yaw, variant, extra props). y comes from the ground
 # (tower guards stand on the tower decks).
@@ -83,7 +92,9 @@ def add_music(sc, chapter, H):
     src('Explore', f'audio/music/{area}_explore.ogg', 'music', 0.55)
     src('Tension', f'audio/music/{area}_tension.ogg', 'music', 0.0)
     src('Cue', '', 'music', 0.8, loop=False)
-    src('Bed', 'audio/ambient/forest.wav', 'ambient', 0.6, stream=False)
+    # dawn: the storm has passed and the birds are back (the night beds are rain)
+    src('Bed', 'audio/ambient/forest_day.wav' if chapter == 'epilogue' else 'audio/ambient/forest.wav', 'ambient', 0.6,
+        stream=False)
 
 
 def add_creek_audio(sc, H, masks):
@@ -129,19 +140,33 @@ def add_cast(sc, chapter, H):
         x, z = b[0] + 2.6, b[2] - 2.2
         actors.add_operator(sc, 'Brick', (x, WS.ground(H, x, z) + 0.05, z), char_yaw((x, 0, z), P('mule_park')),
                             order='hold')
+    elif chapter == 'epilogue':
+        # 05:52, the lay-by: everyone out of the facility and back at the Mule. Brick has Venn
+        # at the tailgate, Patch beside them; Hollis came down the trail to see them off.
+        look = P('trail_start')
+        for who, dx, dz in (('Anchor', -1.6, -1.9), ('Patch', 1.0, -2.5), ('Echo', -2.7, -0.7),
+                            ('Tally', 2.5, -1.6), ('Brick', 1.3, -0.4)):
+            x, z = mule_rear(dx, dz)
+            actors.add_operator(sc, who, (x, WS.ground(H, x, z) + 0.05, z), char_yaw((x, 0, z), look), order='hold')
+        x, z = mule_rear(0.1, -0.9)
+        actors.add_npc(sc, 'Venn', 'models/characters/sops_explorer.glb', (x, WS.ground(H, x, z) + 0.05, z),
+                       char_yaw((x, 0, z), look), who='venn')
+        x, z = mule_rear(-3.8, -4.2)
+        actors.add_npc(sc, 'Hollis', 'models/characters/sops_ranger.glb', (x, WS.ground(H, x, z) + 0.05, z),
+                       char_yaw((x, 0, z), look), who='hollis')
     else:
         base = {'op01': P('trail_start'), 'op02': P('poi_saddle'), 'op03': (P('gate')[0], 0, P('gate')[2] - 14)}[chapter]
         for i, who in enumerate(('Anchor', 'Patch', 'Echo', 'Tally', 'Brick')):
             x, z = base[0] + (i - 2.0) * 1.6, base[2] + 2.5 + (i % 2)
             actors.add_operator(sc, who, (x, WS.ground(H, x, z) + 0.05, z), 180.0)
     # Hollis waits on his porch, watching the trail
-    if start <= ORDER.index('op01'):
+    if start <= ORDER.index('op01') and chapter != 'epilogue':
         h = P('cabin_porch')
         actors.add_npc(sc, 'Hollis', 'models/characters/sops_ranger.glb', (h[0], h[1] + 0.05, h[2]), -90.0,
                        who='hollis')
     # contractors still ahead
     for group, (ch, members) in GROUPS.items():
-        if ORDER.index(ch) < start:
+        if ORDER.index(ch) < start or chapter == 'epilogue':
             continue
         for name, x, z, yaw, variant, extra in members:
             if isinstance(x, str):
@@ -164,6 +189,12 @@ def player_start(chapter, H):
     if chapter == 'op02':
         s = P('poi_saddle')
         return (s[0], s[1] + 0.05, s[2]), flat_yaw(s, P('fence_approach'))
+    if chapter == 'epilogue':
+        # walking out of the trees on the footpath, 20 m short of the lay-by
+        s, nxt = P('trail_start'), WS.POINTS['trail_marker']
+        d = math.hypot(nxt[0] - s[0], nxt[2] - s[2])
+        x, z = s[0] + (nxt[0] - s[0]) / d * 20.0, s[2] + (nxt[2] - s[2]) / d * 20.0
+        return (x, WS.ground(H, x, z) + 0.05, z), flat_yaw((x, 0, z), P('mule_park'))
     g = P('gate')
     x, z = g[0], g[2] - 10
     return (x, WS.ground(H, x, z) + 0.05, z), flat_yaw((x, 0, z), P('poi_compound'))
@@ -180,7 +211,8 @@ def build():
     actors.USE_NAV = False
     for chapter in ORDER:
         doc = copy.deepcopy(src)
-        title = {'prologue': 'Prologue', 'op01': 'Operation 01', 'op02': 'Operation 02', 'op03': 'Operation 03'}[chapter]
+        title = {'prologue': 'Prologue', 'op01': 'Operation 01', 'op02': 'Operation 02', 'op03': 'Operation 03',
+                 'epilogue': 'Epilogue'}[chapter]
         doc['name'] = f'{title} - Kestrel Valley'
         pos, yaw = player_start(chapter, H)
         for e in doc['entities']:
@@ -205,6 +237,13 @@ def build():
         doc['entities'].extend(ents)
         out = GAME / SCENES[chapter]
         out.write_text(json.dumps(doc, indent=1) + '\n')
+        # the same chapter with the story driver (tools/test/run_autotests.py story_<chapter>)
+        test = copy.deepcopy(doc)
+        test['entities'].append({'uuid': WS.uid(f'story_{chapter}/autotest') if hasattr(WS, 'uid') else
+                                 __import__('vscene').uid(f'story_{chapter}/autotest'), 'name': 'Autotest',
+                                 'components': {'Transform': transform(),
+                                                'Script': script('scripts/autotest.luau', plan=f'story_{chapter}')}})
+        (GAME / f'scenes/tests/story_{chapter}.vscene').write_text(json.dumps(test, indent=1) + '\n')
         print(chapter, out.relative_to(GAME), len(doc['entities']), 'entities')
 
 

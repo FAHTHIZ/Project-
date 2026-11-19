@@ -257,12 +257,18 @@ local function story_plan(chapter, seconds)
                 Game.player.position = wp.pos + V(0.6, 0.15, 0.6)
             end
             if not m.talking then
+                -- try every enabled interactable in reach (some refuse until others are used)
                 for _, r in Game.interactables do
+                    if m.talking then break end
                     if r.enabled and r.entity.valid and r.fn then
                         local d = r.entity.position - Game.player.position
-                        if not wp or vector.magnitude(d) < 4 then r.fn(); break end
+                        if not wp or vector.magnitude(d) < 4 then r.fn() end
                     end
                 end
+            end
+            -- the relay is scanned with the field scanner, not used
+            if m.stage_name == "relay" and m.flags and not m.flags.scanned then
+                Game.emit("scanned", scene.find("Mark Relay Cell"))
             end
             local Squad = require("scripts/lib/squad")
             for _, rr in Squad.state().enemies do
@@ -275,7 +281,14 @@ local function story_plan(chapter, seconds)
         t += 0.25
     end
     table.insert(steps, { at = seconds + 0.5, run = function(c)
-        c.check(chapter .. "_complete", c.data.completed == chapter,
+        -- the open world is continuous: prologue..op02 hand over to the next chapter in place
+        local reached = c.data.completed == chapter
+        local handover = ({ prologue = "trail", op01 = "fence", op02 = "yard" })[chapter]
+        if handover then
+            reached = false
+            for _, st in c.data.stages do if st == handover then reached = true end end
+        end
+        c.check(chapter .. "_complete", reached,
                 "completed=" .. tostring(c.data.completed) .. " stages=" .. table.concat(c.data.stages, ",")
                 .. " talking=" .. tostring(Game.mission and Game.mission.talking)
                 .. " wp=" .. tostring(Game.waypoint and Game.waypoint.pos))
@@ -286,5 +299,11 @@ Plans.story_op04 = story_plan("op04", 200)
 Plans.story_op05 = story_plan("op05", 260)
 Plans.story_op06 = story_plan("op06", 240)
 Plans.story_op07 = story_plan("op07", 220)
+-- open-world chapters (scenes/tests/story_<chapter>.vscene, tools/world/chapters.py)
+Plans.story_prologue = story_plan("prologue", 260)
+Plans.story_op01 = story_plan("op01", 320)
+Plans.story_op02 = story_plan("op02", 300)
+Plans.story_op03 = story_plan("op03", 240)
+Plans.story_epilogue = story_plan("epilogue", 160)
 
 return Plans
