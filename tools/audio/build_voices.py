@@ -102,7 +102,9 @@ def main():
                            check=True)
             os.unlink(f.name)
         man[lid] = {'hash': h, 'dur': round(len(x) / sr, 3), 'jaw': jaw, 'shape': shape}
-        print(f'{lid}: {man[lid]["dur"]:.2f}s {spk}')
+        print(f'{lid}: {man[lid]["dur"]:.2f}s {spk}', flush=True)
+        # save progress after every line so an interrupted render resumes where it stopped
+        json.dump(man, open(MANIFEST, 'w'), indent=0, sort_keys=True)
     # drop lines that no longer exist
     ids = {l[0] for l in LINES}
     for k in list(man):
