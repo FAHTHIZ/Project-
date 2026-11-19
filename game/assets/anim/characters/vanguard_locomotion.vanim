@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "parameters": [
+    { "name": "speed", "type": "float" },
+    { "name": "grounded", "type": "bool", "default": true },
+    { "name": "jump", "type": "trigger" },
+    { "name": "interact", "type": "trigger" }
+  ],
+  "default_state": "Locomotion",
+  "states": [
+    { "name": "Locomotion", "blend1d": { "parameter": "speed", "points": [
+        { "clip": "Idle", "at": 0 }, { "clip": "Walk", "at": 2.5 }, { "clip": "Run", "at": 5 } ] } },
+    { "name": "Jump", "clip": "Jump", "loop": false },
+    { "name": "Fall", "clip": "Fall" },
+    { "name": "Land", "clip": "Land", "loop": false },
+    { "name": "Interact", "clip": "Interact", "loop": false }
+  ],
+  "transitions": [
+    { "from": "Locomotion", "to": "Jump", "duration": 0.08, "conditions": [ { "parameter": "jump" } ] },
+    { "from": "Land", "to": "Jump", "duration": 0.08, "conditions": [ { "parameter": "jump" } ] },
+    { "from": "Interact", "to": "Jump", "duration": 0.08, "conditions": [ { "parameter": "jump" } ] },
+    { "from": "Locomotion", "to": "Fall", "duration": 0.25, "conditions": [ { "parameter": "grounded", "op": "false" } ] },
+    { "from": "Interact", "to": "Fall", "duration": 0.25, "conditions": [ { "parameter": "grounded", "op": "false" } ] },
+    { "from": "Jump", "to": "Land", "duration": 0.08, "exit_time": 0.35,
+      "conditions": [ { "parameter": "grounded", "op": "true" } ] },
+    { "from": "Jump", "to": "Fall", "duration": 0.3, "exit_time": 1.0,
+      "conditions": [ { "parameter": "grounded", "op": "false" } ] },
+    { "from": "Fall", "to": "Land", "duration": 0.06, "conditions": [ { "parameter": "grounded", "op": "true" } ] },
+    { "from": "Land", "to": "Locomotion", "duration": 0.2, "exit_time": 0.6 },
+    { "from": "Locomotion", "to": "Interact", "duration": 0.15, "conditions": [ { "parameter": "interact" } ] },
+    { "from": "Interact", "to": "Locomotion", "duration": 0.25, "exit_time": 0.92 }
+  ]
+}

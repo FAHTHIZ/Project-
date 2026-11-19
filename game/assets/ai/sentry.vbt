@@ -1,0 +1,7 @@
+{
+  "root": {"type": "selector", "reactive": true, "children": [
+    {"type": "sequence", "name": "Engage", "children": [
+      {"type": "check", "key": "target", "op": "set"},
+      {"type": "action", "action": "track"}]},
+    {"type": "action", "name": "Patrol", "action": "scan"}]}
+}
