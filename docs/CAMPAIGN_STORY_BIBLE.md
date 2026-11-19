@@ -81,7 +81,7 @@ The squad only fears "V-01" because the paperwork keeps mentioning it:
 - Op04 records office: a room inventory reads "V-01 — remains seated. Do not move from review chamber."
 - Op06 vault: an archive tag reads "V-01 camera reference. Never leaves the chair room."
 - Sorn, on the PA in Op06, orders "nobody goes near the review chamber" (he means the transmitter).
-- By Op07 Tally has a full theory. V-01 is the Vanguard demonstration dummy, slumped behind a chair,
+- By Op07 Tally has a full theory. V-01 is the Vanguard demonstration dummy, standing stiffly behind a chair,
   used as a camera-height reference for rehearsal recordings. It never moves.
 
 ### Sorn's ending is a choice, not a defeat

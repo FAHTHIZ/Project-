@@ -262,7 +262,9 @@ def k_test_chair(out):
 
 
 def k_dummy(out):
-    """V-01: a jointed seating-trial mannequin, slumped where someone left it behind the chair.
+    """Legacy seated mannequin kit (models/props/v01_dummy.glb). Not placed in any scene: the
+    review chamber uses the real Vanguard V-01 (models/characters/victus_vanguard_01.glb),
+    standing inert behind the chair. Kept only so older evidence renders stay reproducible.
     Deliberately friendly (rounded, matte yellow, painted smile marker, a luggage tag on one foot)."""
     k = Kit('v01_dummy')
     skin = k.part('Skin', tex_dummy(230), tile=0.4, rough=0.7)
