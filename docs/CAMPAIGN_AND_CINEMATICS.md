@@ -92,7 +92,33 @@ Each cinematic should be storyboarded and reviewed for:
 
 Avoid relying only on dialogue boxes over a static camera. Use camera choreography, character animation, environmental action, sound and editing to communicate.
 
-## 5. Implementation and VICTUS research
+## 5. Environment art and rendering quality
+
+The goal is a beautiful, coherent, cinematic game world—not a technically correct greybox. Each operation must have a visual target sheet and a reviewed in-engine result.
+
+### Global art direction
+- Use a consistent material language, palette and lighting philosophy across the campaign, while giving each location its own identity.
+- Compose spaces with clear foreground, middle-ground and background layers, strong silhouettes, believable scale and purposeful landmarks.
+- Use physically based materials with convincing roughness, normal detail, edge wear and restrained emissive accents. Avoid excessive gloss, flat colour blocks and visibly repeated textures.
+- Pay attention to contact shadows, grounded props, believable surface transitions, atmospheric perspective, exposure and colour grading.
+- Use environmental storytelling: signs of prior activity, purposeful prop placement, wear patterns and light/sound cues that guide attention without cluttering the scene.
+
+### Location-specific visual targets
+- **Forest:** dense layered canopy, varied tree silhouettes, fern/undergrowth foreground, readable dirt trail, damp earth, natural diffuse light, brighter canopy openings, depth haze and restrained mist. Preserve the mood of the supplied references in a wide landscape composition.
+- **Perimeter:** a clear visual transition from organic forest to controlled infrastructure; strong scale cues, layered boundary elements, weathering and readable approach routes.
+- **Facility:** distinctive exterior massing and interior architecture, practical lighting, believable workspaces, prop storytelling, material variation and strong reveal compositions.
+- **Bunker:** heavier structural forms, compressed spaces opening into larger chambers, purposeful practical lights, signage/wayfinding and a distinct sound/lighting identity.
+- **Lower basement:** a genuinely separate visual chapter with its own architectural language, vertical scale, material condition, lighting palette, hero props and memorable reveal—not a recoloured bunker corridor.
+- **Final chamber:** carefully controlled composition and lighting that support the V-01 chair reveal and comedic timing without turning the room into a horror set.
+
+### Renderer and mobile proof
+- Recheck current VICTUS renderer capabilities before relying on a feature. Use PBR, IBL, shadows, atmosphere, fog, reflections, decals, LOD, instancing and post-processing only where verified and visually useful.
+- Profile foliage, shadow-casting lights, transparent materials, particles, volumetric effects, reflections and post-processing on the target phone. Prefer a beautiful stable frame over expensive effects that cause stutter.
+- Produce matched screenshots/captures at each quality tier and compare actual visual differences. Record frame pacing, memory, thermal behaviour and quality settings from real tests.
+- Inspect every major space in motion, not only as a still screenshot. Look for texture shimmer, foliage popping, shadow acne, temporal ghosting, clipping, exposure pumping and visible LOD transitions.
+- Do not call a scene finished until the packaged build matches the approved reference captures at its supported quality tier.
+
+## 6. Implementation and VICTUS research
 
 Before implementation, inspect the current VICTUS main branch and its agent instructions. Research the actual scene sequencing, animation, camera, audio, subtitle/UI and save/checkpoint APIs. The historical engine audit is not proof that a current cinematic sequencer exists.
 
@@ -105,7 +131,7 @@ Preferred implementation order:
 
 Do not add a second camera/animation framework if VICTUS already provides a suitable system. Do not claim a sequencer feature exists until the live API and a working sample prove it.
 
-## 6. Cutscene behaviour and accessibility
+## 7. Cutscene behaviour and accessibility
 
 - Provide skip controls after a short initial input grace period. Skipping must never skip a required mission flag, item grant, checkpoint or story state transition.
 - Provide subtitle size/background controls and speaker labels.
@@ -116,7 +142,7 @@ Do not add a second camera/animation framework if VICTUS already provides a suit
 - Offer replay for key cinematics from a suitable menu or extras screen when practical.
 - Add a setting to reduce camera shake and intense camera motion.
 
-## 7. Verification gates
+## 8. Verification gates
 
 A cutscene is complete only when it:
 - Triggers from the correct campaign state and plays exactly once unless replayed.
