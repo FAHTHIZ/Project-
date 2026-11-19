@@ -38,8 +38,9 @@ Before implementing or changing any campaign mission, read these documents in th
 
 1. docs/PRODUCTION_PLAN.md — dependency-ordered execution roadmap and current milestone state.
 2. docs/CAMPAIGN_STORY_BIBLE.md — authoritative end-to-end campaign narrative, character arcs, operation purposes, bunker motivation, VICTUS explanation and ending.
-3. docs/CAMPAIGN_AND_CINEMATICS.md — playable operation staging and cinematic requirements.
-4. docs/PROJECT_BRIEF.md — product-level constraints and first-person experience.
+3. docs/SQUAD_BANTER_AND_AMBIENCE.md — canonical dark-comedy voice, sample dialogue, environmental scare sounds, reactions and audio acceptance criteria.
+4. docs/CAMPAIGN_AND_CINEMATICS.md — playable operation staging and cinematic requirements.
+5. docs/PROJECT_BRIEF.md — product-level constraints and first-person experience.
 
 The story bible is now the narrative source of truth. Do not replace its plot, invent a different reason for the bunker descent, turn VICTUS into a superweapon or AI, or change the inert Vanguard V-01 dummy behind the chair. Preserve the established Rook / Halyard cast and the existing non-lethal pulse-weapon direction. Adapt geometry and implementation to verified VICTUS capabilities, not the story's core cause-and-effect. Implement the prologue and Operation 01 first, then continue in roadmap order. Do not stop at documentation, a disconnected test scene or a visual-only environment.
 
@@ -49,7 +50,7 @@ The story bible is now the narrative source of truth. Do not replace its plot, i
 - The first physical device target is the Infinix Hot 10S, 6 GB RAM variant. Verify the exact SKU, Android build, GPU/driver and Vulkan capability on the actual device; published specs do not prove the installed driver works.
 - Begin with a measured 30 FPS target and adaptive rendering resolution/quality. Do not chase 90 FPS because the panel supports 90 Hz. Consider 60 FPS only after sustained tests justify it.
 - The four supplied videos define the Stage 01 forest atmosphere. Their visual content is captured in `docs/STAGE_01_FOREST.md`. They are portrait videos; the game must be built in landscape.
-- The intended experience is a first-person, cinematic shooter campaign with exploration, authored combat encounters, objectives, character interactions and story progression. It is atmospheric and dramatic, not a horror game. Avoid gore, graphic injury detail, jump scares and horror tropes.
+- The intended experience is a first-person, cinematic military campaign with exploration, authored non-lethal combat encounters, objectives, character interactions and story progression. The tone is military dark comedy with limited atmospheric scare-comedy, not a horror game. Avoid gore, graphic injury detail, supernatural threats, monster combat and relentless jump scares. Use plausible wildlife/old-infrastructure sounds, brief squad reactions and occasional character-led profanity as specified in docs/SQUAD_BANTER_AND_AMBIENCE.md.
 - Use VICTUS's own supported asset import, scene, scripting, animation, physics, navigation, audio, UI, diagnostic and export workflows. Extend the engine only when a genuine reusable engine gap blocks progress.
 - The end reveal uses the existing Vanguard V-01 behind a chair. It is an ordinary, harmless dummy, not an AI, boss or mastermind.
 - Build a complete but tightly scoped fictional shooter layer: original game-only weapons, first-person viewmodels, aiming/firing/reload/switch animations, enemy encounters, hit feedback, ammunition UI and encounter balancing. Weapon research is limited to fictional visual design, animation, sound design and abstract game balance; do not reproduce real weapon specifications, operating instructions or real-world tactical training. Keep the field utility device as a separate secondary tool for scanning, illumination and environmental interaction.
@@ -72,6 +73,16 @@ This is a squad-led campaign, not a lone protagonist with occasional NPC cameos.
 - The full squad is a core feature and acceptance requirement, not an optional later polish item. Do not call the campaign complete if only the player character is implemented.
 
 ## Dialogue, voice acting and complete soundscape
+
+### Squad banter and environmental scare-comedy
+
+- Read `docs/SQUAD_BANTER_AND_AMBIENCE.md` before writing campaign dialogue or location ambience.
+- Preserve distinct comedic voices: Anchor is dry and controlled; Patch practical and sharp; Echo understated and observant; Tally irreverent and easily startled; Hollis locally knowledgeable; Lamplight mostly professional.
+- Occasional strong profanity is allowed when a character is genuinely startled or frustrated. Keep jokes non-sexual and do not use slurs or graphic injury humour.
+- Use distant forest howls, answering wildlife calls, a brief growl beyond the trail, fence/sign taps, ventilation growls, pressure-door groans, pipe knocks and lower-basement cooling/fan sounds as plausible ambience.
+- Let the squad pause, glance, listen and briefly react. The source should be plausible or discoverable; do not turn false alarms into enemy encounters.
+- Respect dialogue priority, cooldowns and variation. Never let a joke obscure an objective, evidence discovery or critical line.
+- The V-01 dummy remains entirely inert. It must never move, speak, blink, trigger a scare or become a threat.
 
 - Every operation needs a dialogue and audio plan: who speaks, why they speak, where the voice is positioned, how the player receives the information and what subtitles/captions accompany it.
 - Use natural, expressive, clearly performed dialogue for the protagonist's squad, opposing characters and key NPCs. Lines should sound conversational and character-specific, not like flat system announcements.
