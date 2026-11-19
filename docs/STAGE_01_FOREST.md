@@ -152,8 +152,11 @@ Use composition and the existing renderer's tested atmosphere/lighting first. If
 
 ## 7. Animation and player movement in this stage
 
-- Use full-body third-person locomotion with visible foot contact and readable stride.
-- Keep ordinary walking as the dominant movement; sprinting is a short optional traversal action, not the only way to move.
+- Gameplay uses a first-person camera. Prioritize responsive head/camera motion and polished first-person arms/hands/weapon viewmodels; do not use a third-person follow camera for ordinary play. Full-body character animation is for authored cutscenes and other characters' views.
+- Keep ordinary walking as the dominant traversal movement; sprinting is a short optional traversal action, not the only way to move.
+- First-person hands/arms must remain stable, avoid clipping and stay out of the centre of the view during movement and combat.
+- Add first-person viewmodel transitions for ready/idle, aim, firing, reload and weapon switch using the original fictional game weapon designs.
+- Use full-body operator/NPC performances for authored cinematic moments; keep their costumes and animation consistent with the later facility/bunker scenes.
 - Blend starts/stops and turns smoothly.
 - Add subtle idle breathing and head/upper-body look-at responses where the rig supports them.
 - Use terrain-aware foot placement only if existing IK can be configured reliably; otherwise author a stable animation and avoid uneven ground that causes obvious floating.
@@ -179,11 +182,13 @@ The following beats should be demonstrated naturally:
 
 | Beat | Engine capability exercised | Player-visible result |
 |---|---|---|
-| Enter the forest | Player controller, camera, 3D PBR, environment lighting | Stable movement under a layered canopy |
+| Enter the forest | First-person player controller/camera, 3D PBR, environment lighting | Stable first-person movement under a layered canopy |
 | Pass close vegetation | Asset LOD, alpha-tested materials, instancing, culling | Plants remain detailed nearby without overwhelming the frame |
 | Walk into mist | Atmosphere/fog, directional light, shadows | Clear depth separation without hiding the path |
 | Inspect a point of interest | UI prompt, touch input, script/event, field-tool presentation | Simple readable interaction |
 | Hear a nearby character/event | Audio bus, spatial playback, subtitles | A voice or sound belongs to a world location |
+| Play the first shooter encounter | First-person viewmodel, fictional weapon actions, enemy AI, HUD, game audio/effects | A complete, readable, non-graphic shooter encounter with working aim/fire/reload/switch actions |
+| Experience a cinematic reveal | Camera sequencing, character blocking, dialogue, music/SFX and subtitles | A polished authored scene that returns cleanly to first-person gameplay |
 | Experience an authored stumble | Animation/physics integration, recovery state | Safe physical response and immediate return to control |
 | Approach perimeter | Scene transition or authored zone progression | The forest leads naturally into the next stage |
 
