@@ -17,18 +17,19 @@ Tasks:
 
 **Exit gate:** a clean desktop VICTUS project and a minimal Android scene have both been built/run, with the phone result explicitly known. If device access is temporarily unavailable, record that exact blocker and continue the independent desktop slice.
 
-## P1 — Playable controller and mobile input
+## P1 — First-person controller, viewmodel and mobile input
 
-**Goal:** establish the core feel and prove the landscape controls.
+**Goal:** establish the first-person shooter feel and prove the landscape controls.
 
 Tasks:
-- Third-person player controller and camera, grounded movement and collision.
+- First-person player controller and camera, grounded movement and collision.
 - Unified logical input layer for touch, controller and desktop keyboard/mouse.
-- Working left virtual stick and right camera-look region.
-- Contextual interaction and field-tool buttons.
+- Working left virtual stick and right first-person look/aim region.
+- Contextual interaction and field-tool buttons, plus fire, aim, reload and weapon-switch actions.
 - Pause/settings modal that blocks background gameplay input.
 - Touch pointer ownership, multitouch, cancellation, safe areas and app-resume reset.
 - Gamepad discovery and dynamic input hints; touch UI can fade/hide when a gamepad is active.
+- First-person arms/hand viewmodel prototype with stable camera alignment and tunable FOV/sensitivity.
 - Landscape layout at 1640 × 720 and 16:9 emulator sizes.
 
 **Exit gate:** simultaneous movement/look/interact works without pointer theft, stuck movement, UI click-through or camera jumps. Gamepad and desktop controls reach the same logical actions.
@@ -63,28 +64,34 @@ Tasks:
 
 **Exit gate:** the environment is not just a screenshot. It is interactive, packaged, visually readable and performs within the measured phone baseline.
 
-## P4 — Character and interaction vertical slice
+## P4 — Operators, fictional weapons, combat and cinematic vertical slice
 
-**Goal:** prove that game characters, props and dialogue work together.
+**Goal:** prove that first-person shooter gameplay, operators, props, dialogue and cinematics work together.
 
 Tasks:
 - Reuse V-01/V-02 through normal VICTUS project asset workflows.
-- Create the player/NPC model(s) that the story actually needs; keep the initial cast small.
+- Create the protagonist first-person arms/hand rig, one allied operator and one opposing character; keep the initial cast small.
+- Research and document original operator clothing, silhouettes, palette, voice and cinematic identity before final art.
+- Create a small original fictional primary/secondary weapon set, first-person viewmodels and invented gameplay values.
+- Implement aim, fire, reload, switch, reticle/HUD, sound, visual feedback and enemy response as one integrated gameplay loop.
+- Integrate one complete, balanced, non-graphic shooter encounter into the real mission flow.
 - Add locomotion, idle, turn, inspect, talk/listen and field-tool animations.
 - Implement a bounded stumble/fall/recovery demonstration and verify player-root/capsule continuity.
 - Use ragdoll only if its complete recovery path is stable; the audited VICTUS baseline has no automatic get-up/root follow.
-- Implement the non-weapon field utility tool and point-of-interest interactions.
+- Implement the secondary non-weapon field utility tool and point-of-interest interactions.
+- Implement one complete in-engine cinematic with camera choreography, character animation, dialogue, music/SFX, subtitles, skip and return-to-first-person handling.
 - Produce real dialogue audio offline after voice/recording rights are checked.
 - Add subtitles and lip-sync cue data; reserve morph targets for close-up hero faces and profile CPU cost.
 
 **Exit gate:** one complete character interaction is playable in the exported package with audio, subtitles, animation and correct gameplay state transitions.
 
-## P5 — Stage 01 complete
+## P5 — Stage 01 complete with shooter and cinematic integration
 
 **Goal:** deliver an independently playable first stage.
 
 Tasks:
-- Complete the route, objective chain, field interactions, NPC encounter, environmental awareness/alert states and Stage 02 transition.
+- Complete the route, objective chain, fictional combat encounter(s), field interactions, operator/NPC scenes, environmental awareness/alert states and Stage 02 transition.
+- Deliver the opening cinematic, a key forest reveal and a transition cinematic into the perimeter.
 - Add start/pause/settings, save/restore and clear stage completion.
 - Add user-facing tutorials for mobile controls.
 - Add optional diagnostics overlay with real metrics only.
@@ -94,32 +101,35 @@ Tasks:
 
 **Exit gate:** a new player can launch, understand controls, finish the stage, save/restore, and reach the conclusion on the target phone without a developer console.
 
-## P6 — Research and build Stage 02 onward
+## P6 — Research and build the complete campaign: perimeter, facility, bunker and basement
 
-For each later stage, research before asset creation:
-- Stage purpose and player activity.
+For every campaign area after the forest, including a substantial lower-basement chapter, research before asset creation:
+- Stage/operation purpose, player activity and campaign continuity.
 - Visual reference collection, cited URLs and reference notes.
 - Original architecture/prop/lighting design.
 - Reusable modules and asset budget.
 - Scene transitions and progression.
-- Audio and character requirements.
+- Operator/enemy character requirements, costume designs, first-person weapon/viewmodel needs and audio requirements.
+- Planned cutscenes and cinematic set pieces, with story triggers and return-to-gameplay states.
 - VICTUS feature fit and known blockers.
 - Mobile performance risks.
 - License and redistribution audit.
 
-Do not freeze a later stage from generic assumptions. The broad direction remains forest → perimeter → facility → bunker → V-01 dummy reveal; detailed art direction is owned by the researched stage briefs. Add one document per stage and link it here.
+Do not freeze a later area from generic assumptions. The required direction is forest → perimeter → facility → bunker → substantial basement → V-01 dummy reveal and ending. Each area must be a distinct playable space with its own objectives, combat/story beats, visual identity, audio and cinematic moments. Add a dedicated research/design brief for every operation/area and link it here. Completing one area is never the project completion gate; continue to the next unfinished area.
 
-## P7 — Product polish and showcase evidence
+## P7 — Full-campaign polish, cinematic completion and showcase evidence
 
 Tasks:
-- Run a repeatable end-to-end test on desktop, emulator and physical phone.
+- Run a repeatable end-to-end test through the entire campaign on desktop, emulator and physical phone.
+- Verify every operation, every required area including the basement, every weapon action, every operator interaction and all key cutscenes.
+- Confirm all cinematic skip/replay/checkpoint/pause states return to first-person gameplay correctly.
 - Add crash/log capture and a clean diagnostics/export report.
 - Test suspend/resume, audio lifecycle, orientation/safe areas, controller disconnect/reconnect, storage pressure and save corruption recovery.
 - Verify no missing/broken assets in packaged player.
 - Capture representative visual frames at fixed camera points and compare them between builds.
 - Create a public demo capture with device/build/settings disclosed.
 - Document known limitations rather than hiding them.
-- Ensure the VICTUS reveal works as the actual playable ending and not merely a screenshot.
+- Ensure the complete VICTUS reveal and ending work as the actual playable campaign conclusion and not merely a screenshot.
 
 ## Per-slice engineering checklist
 
@@ -149,4 +159,4 @@ Maintain `docs/BUILD_AND_TEST_LOG.md` with:
 
 ## First useful playable milestone
 
-The earliest worthwhile milestone is not a full forest. It is a small Android-exported landscape scene with the player moving, the camera responding to independent multitouch, an interactable object, a working pause modal and sound. This tests the highest-risk mobile assumptions before the asset-heavy route is built.
+The earliest worthwhile milestone is not a full forest. It is a small Android-exported first-person landscape scene with the first-person player moving/look-aiming with independent multitouch, a working fictional weapon viewmodel and action loop, an interactable object, a working pause modal and sound. This tests the highest-risk mobile assumptions before the asset-heavy route is built.
