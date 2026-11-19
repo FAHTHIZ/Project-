@@ -1,64 +1,142 @@
-# SPECIAL OPS — VICTUS Field Demonstration
+# SPECIAL OPS — Operation Iron Veil
 
-**A landscape, mobile-first first-person cinematic shooter campaign built to demonstrate what the VICTUS engine can actually do.**
+A landscape, mobile-first, first-person cinematic squad shooter built on the
+[VICTUS engine](https://github.com/FAHTHIZ/VICTUS). One storm night, a five-operator team, a
+decommissioned relay station in the Kestrel Valley, and a conspiracy that ends with a very still
+demonstration dummy standing behind a chair.
 
-This repository is the game project, not another engine. VICTUS is the engine. The first physical performance target is the owner's **Infinix Hot 10S, 6 GB RAM variant**. Desktop and emulator workflows are also required, but PC is not the design target.
+This repository is the game project only. VICTUS is the engine and is never copied in here.
+The first physical target is the Infinix Hot 10S (6 GB). Desktop is the development platform.
 
-> **Current state:** the repository contains the VICTUS game project, scenes, scripts, generated assets, test scenes and development evidence. The complete campaign and tone are specified in the story bible and production documents; full mission integration, physical-device validation and final packaging remain production work. Do not infer a finished campaign or Android release from the existence of development scenes or passing automated tests.
+![Prologue, Route 9 lay-by at 02:40](docs/evidence/night_prologue.png)
 
-## Start here — autonomous coding agent
+## The story
 
-Read these documents before implementation:
+Three nights ago, three posts on the Northline border corridor were hit. Every public statement
+says Lydria did it. At 07:00 Karsovia's security council votes on emergency border powers.
+Major Elias Venn, a military intelligence auditor, went missing near Kestrel Station after
+reporting that the Northline record is false and that he had found the originals.
 
-1. [AGENTS.md](AGENTS.md) — operating contract and completion rules.
-2. [Project brief](docs/PROJECT_BRIEF.md) — product, story, camera, gameplay loop and stage plan.
-3. [VICTUS engine audit](docs/VICTUS_ENGINE_AUDIT.md) — verified features and real gaps.
-4. [Stage 01: Forest](docs/STAGE_01_FOREST.md) — detailed analysis of the four supplied video references.
-5. [Hot 10S mobile target and controls](docs/MOBILE_TARGET_AND_CONTROLS.md) — device constraints, landscape UI, input and validation.
-6. [Characters, animation and dialogue](docs/CHARACTERS_ANIMATION_AUDIO.md) — existing V-01/V-02, human character needs, facial motion and voice pipeline.
-7. [Campaign and cinematics](docs/CAMPAIGN_AND_CINEMATICS.md) — playable operation route, first-person direction and cinematic cutscene requirements.
-8. [Campaign story bible](docs/CAMPAIGN_STORY_BIBLE.md) — complete Operation Iron Veil narrative from briefing to credits.
-9. [Squad banter and ambience](docs/SQUAD_BANTER_AND_AMBIENCE.md) — dark-comedy voice, sample lines, environmental scares and sound design.
-10. [Operators and fictional weapon design](docs/OPERATORS_AND_WEAPON_DESIGN.md) — operator costumes, character research and the fictional shooter art/gameplay scope.
-11. [Production plan](docs/PRODUCTION_PLAN.md) — dependency-ordered build, narrative integration and test work.
-12. [Research register](docs/RESEARCH_REGISTER.md) — source URLs, dates, licensing and unresolved questions.
-13. [Build and test log](docs/BUILD_AND_TEST_LOG.md) — the evidence record for builds, devices, tests and profiling.
+Halyard Team goes in under a storm front that grounds the station's drones and blinds its thermal
+masts. The window closes at dawn; at 06:00 a Greyline convoy moves the originals somewhere nobody
+can reach them. The full canon is in the [campaign story bible](docs/CAMPAIGN_STORY_BIBLE.md).
 
-## Non-negotiable direction
+| Time  | Chapter | Where |
+|-------|---------|-------|
+| 02:40 | Prologue — Orders Before Dawn | Lay-by off Route 9, the Mule, Ranger Hollis |
+| 03:05 | Op01 — Green Silence | Kestrel woods, fog in the hollows |
+| 03:40 | Op02 — Dead Ground | Perimeter fence, sweeping searchlights |
+| 04:05 | Op03 — Hard Entry | Flooded station yard |
+| 04:20 | Op04 — The Paper War | Station interior, records office, breakers |
+| 04:45 | Op05 — Below the Line | Bunker; Venn is found, Brick stays with him |
+| 05:10 | Op06 — The Source Vault | Lower basement archive |
+| 05:30 | Op07 — V-01 | The review chamber |
+| 05:52 | Epilogue — First Light | The storm breaks over the valley |
 
-- **Landscape first.** Android orientation, camera composition and interface are landscape.
-- **Mobile first, not mobile later.** The Hot 10S is the first physical target. No performance claim is valid until tested on that handset.
-- Stage 01 follows the supplied misty-forest references. Preserve their atmosphere, not their portrait video framing.
-- The experience is a first-person cinematic military campaign with squad-led dark comedy and limited scare-comedy: explore, fight authored non-lethal encounters, complete operations with a recurring full squad (player plus three or four allied operators), and move through the forest, perimeter, facility, bunker and a substantial basement. Teammates accompany the player, trade character-specific banter and react to unsettling wildlife and mechanical sounds. The story's stakes stay serious; this is not a horror game.
-- Gameplay remains first-person; frequent, purposeful in-engine cutscenes deliver squad moments, major location reveals, the bunker/basement discoveries and the V-01 ending. Cutscene cameras may use external angles, then return control to first-person.
-- Build original operator costumes and fictional game weapons with a real playable shooter loop. Weapon research is limited to fictional visual design, animation, sound and abstract game balance; do not add real-world weapon instructions or copied military insignia.
-- Use VICTUS through its normal project, scene, asset, scripting, animation, physics, audio, UI and export workflows. Do not make a parallel renderer or copy the engine into this repository.
-- The final reveal uses the existing **Vanguard V-01** as the VICTUS dummy: an ordinary dummy awkwardly positioned behind a chair. It is not an AI mastermind or boss. V-02 may appear as a secondary character.
-- Build original fictional primary/secondary game weapons and a separate non-weapon field utility device for scanning, illumination and object interaction.
-- Every third-party asset, voice, font, sound, tool and dataset needs a source and license record before it ships.
+## The squad
 
-## Repository map
+| Callsign | Role | Carries |
+|----------|------|---------|
+| Rook | the player, newest member | PC-7 Lantern, SP-2 Wren, field scanner (FK-1 kit once found) |
+| Anchor | team lead | PC-7 Lantern |
+| Patch | medic | KV-5 Hornet |
+| Echo | scout | MR-6 Kestrel |
+| Tally | communications | PC-7 Lantern |
+| Brick | breacher | BR-9 Ram |
 
+Lamplight is the headquarters handler on the radio, Hollis the local ranger who drives the flooded
+forestry track, Captain Dorian Sorn the Greyline field commander. All dialogue is voiced (offline
+Kokoro TTS) with subtitles and lip motion, plus idle squad chatter between story beats.
+
+## Weapons
+
+All weapons are fictional non-lethal pulse emitters with a realistic hardware look (rails, optics,
+polymer and machined metal, wet sheen). Rook starts with the Lantern and Wren; the rest are in the
+camp arms case and in station storage lockers.
+
+| Weapon | Type |
+|--------|------|
+| PC-7 Lantern | pulse carbine |
+| SP-2 Wren | pulse sidearm |
+| KV-5 Hornet | compact high-rate PDW |
+| BR-9 Ram | pump-action close-range spread gun (8 pellets) |
+| MR-6 Kestrel | semi-auto marksman emitter, 4x optic |
+| LR-4 Heron | scoped long emitter |
+
+Every primary has a weapon light (LIGHT button) that matters in fog and in the basement.
+
+## The night
+
+Built to show what VICTUS renders on a phone: overcast storm night with a weak moon, rain with
+splashes and ripples, wet ground and puddles, volumetric ground fog lit by lamps, sodium
+floodlights and sweeping searchlights, lightning that actually lights the scene with thunder delayed
+by distance, interiors that hear the storm through the structure, and a dawn epilogue.
+
+## Controls
+
+| Action | Keyboard / mouse | Gamepad | Touch |
+|--------|------------------|---------|-------|
+| Move / look | WASD / mouse | left / right stick | floating stick (left), drag (right) |
+| Fire / aim | LMB / RMB | RT / LT | FIRE / AIM |
+| Reload / switch | R / Q (1, 2 direct) | X / Y | RELOAD / SWITCH |
+| Use | E or F | B | USE |
+| Scanner / kit | T / G | D-pad up / left | TOOL / KIT |
+| Weapon light | L | D-pad right | LIGHT |
+| Jump / sprint / crouch | Space / Shift / C | A / L3 / R3 | JUMP / CROUCH |
+| Objectives / pause | Tab / Esc | Back / Start | OBJ / II |
+| Quick save / load | F5 / F9 | | |
+
+## Building and running
+
+Build VICTUS first (see its README), then put `victus` on `PATH`:
+
+```sh
+export PATH=/path/to/VICTUS/build/rel/bin:$PATH
+victus import game          # cook assets
+victus check game           # validate scenes and scripts
+victus run game             # play on desktop
+victus export game --out out/special_ops --name special_ops
 ```
-AGENTS.md
-README.md
-docs/
-  PROJECT_BRIEF.md
-  VICTUS_ENGINE_AUDIT.md
-  STAGE_01_FOREST.md
-  MOBILE_TARGET_AND_CONTROLS.md
-  CHARACTERS_ANIMATION_AUDIO.md
-  CAMPAIGN_AND_CINEMATICS.md
-  CAMPAIGN_STORY_BIBLE.md
-  SQUAD_BANTER_AND_AMBIENCE.md
-  OPERATORS_AND_WEAPON_DESIGN.md
-  PRODUCTION_PLAN.md
-  RESEARCH_REGISTER.md
-  BUILD_AND_TEST_LOG.md
+
+Android uses the engine's Gradle shell ([VICTUS docs/ANDROID.md](https://github.com/FAHTHIZ/VICTUS/blob/main/docs/ANDROID.md)):
+
+```sh
+gradle -p platforms/android assembleDebug -Pvictus.game=$PWD/out/special_ops \
+    -Pvictus.applicationId=io.github.fahthiz.specialops -Pvictus.appName="Special Ops"
 ```
 
-The agent should create a normal VICTUS game project, its scenes, scripts, metadata, assets, tests and packaging configuration after checking the live engine repository. Generated build output must stay out of Git.
+Most content is generated from source scripts in `tools/` (world, facility, chapters, weapons,
+SFX, music, voices); see [asset provenance](docs/ASSET_PROVENANCE.md). Automated play tests:
 
-## What "finished" means
+```sh
+SOPS_TEST_FRAMES=8000 python3 tools/test/run_autotests.py story_prologue weapons armory
+```
 
-A complete playable campaign—not a mock-up, isolated environment render, single-stage demo or pile of assets. It must boot on the target phone, run in landscape, support multitouch and gamepad, deliver a complete first-person shooter campaign from the forest through the perimeter, facility, bunker and lower basement to the V-01 chair reveal, include its authored cutscenes and real dialogue audio with subtitles, save progress, and pass repeatable gameplay and packaging tests. It must package through VICTUS and have repeatable automated tests. Final reports must separate tested facts from targets and unknowns.
+## Status
+
+Honest state, see the [build and test log](docs/BUILD_AND_TEST_LOG.md) for evidence:
+
+- The full campaign, prologue to credits, is implemented, and the story test plans pass as
+  automated play-throughs on desktop Linux (virtual display, software rendering).
+- The desktop export builds and boots to the menu.
+- Not yet validated on a phone. No performance number for the Hot 10S exists until it is measured
+  on the device.
+- Known issue: an intermittent script time-budget warning from the face animation helper during
+  Op01 on slow machines.
+
+## Documentation
+
+- [AGENTS.md](AGENTS.md) — rules for anyone (human or agent) working in this repository
+- [Project brief](docs/PROJECT_BRIEF.md)
+- [Campaign story bible](docs/CAMPAIGN_STORY_BIBLE.md)
+- [Campaign and cinematics](docs/CAMPAIGN_AND_CINEMATICS.md)
+- [Squad banter and ambience](docs/SQUAD_BANTER_AND_AMBIENCE.md)
+- [Operators and weapon design](docs/OPERATORS_AND_WEAPON_DESIGN.md)
+- [Characters, animation and audio](docs/CHARACTERS_ANIMATION_AUDIO.md)
+- [Stage 01: Forest](docs/STAGE_01_FOREST.md)
+- [Mobile target and controls](docs/MOBILE_TARGET_AND_CONTROLS.md)
+- [VICTUS engine audit](docs/VICTUS_ENGINE_AUDIT.md)
+- [Production plan](docs/PRODUCTION_PLAN.md)
+- [Research register](docs/RESEARCH_REGISTER.md)
+- [Asset provenance](docs/ASSET_PROVENANCE.md)
+- [Build and test log](docs/BUILD_AND_TEST_LOG.md)
