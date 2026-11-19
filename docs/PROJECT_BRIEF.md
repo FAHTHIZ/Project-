@@ -17,11 +17,15 @@ The game should be recognizable as a product even to someone who has never heard
 
 ## 2. Player experience
 
-The player enters a secluded forest and follows a faint route toward a remote underground facility. The first stage is quiet and visually rich. The player notices environmental details, inspects points of interest with a field utility device, encounters at least one speaking character, and gradually discovers signs of the facility.
+The campaign follows Halyard Team during **Operation Iron Veil**, a recovery and evidence mission in the fictional Karsovian Republic. After coordinated attacks along the Northline border corridor are blamed on neighbouring Lydria, military intelligence auditor Major Elias Venn disappears after reporting that the official incident record is false. Halyard is sent to Kestrel Station to find Venn and recover the original records before a dawn emergency session.
 
-The tone is grounded, curious and cinematic. The forest can feel mysterious, isolated and atmospheric, but this is not intended to be a horror game. Do not build the experience around jump scares, gore or disturbing imagery.
+The route is forest → perimeter → facility approach → facility interior → bunker → substantial lower basement → VICTUS chamber → epilogue. Each location advances the same objective. Greyline, a private security contractor guarding Kestrel, opposes the team because its orders are to keep the installation sealed. Records gradually reveal that a faction inside Karsovia's Strategic Continuity Directorate staged the Northline incidents to gain emergency authority and control of the corridor. The bunker and Source Vault are necessary because the original records and signed authorization are stored below; surface copies can be dismissed as altered.
 
-At the end of the bunker sequence, the player discovers the VICTUS dummy: an ordinary Vanguard V-01 robot awkwardly positioned behind a chair. It is a deliberately mundane, funny reveal. The dummy is not secretly intelligent, a mastermind, a final boss or a supercomputer. The joke works because the preceding presentation has made the facility feel important, only for the final discovery to be a harmless dummy.
+The tone is grounded, cinematic military action with a recurring squad, coherent objectives, tactical-feeling encounters and environmental storytelling. The forest can feel quiet and isolated, but this is not a horror game. Combat follows the existing fictional non-lethal pulse-weapon direction: Greyline personnel are stunned, surrender, retreat or are detained. The campaign is not a mass-elimination story.
+
+The VICTUS project is a clandestine records/rehearsal programme, not a superweapon, sentient artificial intelligence or final boss. At the end, the player discovers an ordinary, inert Vanguard V-01 demonstration dummy awkwardly sitting behind a chair. It is a deliberately mundane, funny reveal. The dummy does not move, speak, attack or secretly control anything. The actual payoff is the evidence that exposes the Northline deception and prevents an immediate escalation.
+
+The complete plot, character arcs, operation-by-operation sequence, reasons for each transition, dialogue direction and ending are defined in docs/CAMPAIGN_STORY_BIBLE.md. That document is the narrative source of truth.
 
 ## 3. First-person player presentation
 
