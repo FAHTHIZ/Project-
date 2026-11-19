@@ -44,6 +44,20 @@ Do not stop after documentation or scaffolding. Never claim that a feature, buil
 - Build a complete but tightly scoped fictional shooter layer: original game-only weapons, first-person viewmodels, aiming/firing/reload/switch animations, enemy encounters, hit feedback, ammunition UI and encounter balancing. Weapon research is limited to fictional visual design, animation, sound design and abstract game balance; do not reproduce real weapon specifications, operating instructions or real-world tactical training. Keep the field utility device as a separate secondary tool for scanning, illumination and environmental interaction.
 - Prioritize control feel, readable animation, stable camera motion, strong environment lighting, useful audio, touch responsiveness and clear feedback.
 
+## Dialogue, voice acting and complete soundscape
+
+- Every operation needs a dialogue and audio plan: who speaks, why they speak, where the voice is positioned, how the player receives the information and what subtitles/captions accompany it.
+- Use natural, expressive, clearly performed dialogue for the protagonist's squad, opposing characters and key NPCs. Lines should sound conversational and character-specific, not like flat system announcements.
+- Prefer licensed human performances or carefully reviewed offline-generated voice lines. Listen to every line and revise awkward pronunciation, pacing, breaths, emotion, noise and clipping. Never ship unreviewed bulk-generated speech.
+- Use distinct voices for the principal cast, with consistent delivery across the campaign. Keep voice identities and recording/model rights documented.
+- Add contextual radio communications, squad callouts, mission briefings, character conversations, environmental reactions and cinematic dialogue where they improve story clarity. Avoid constant chatter.
+- Build a layered soundscape: location ambience, wind/foliage, room tone, machinery, distant activity, footsteps and surface-specific foley, clothing/gear movement, interactions, weapon/gameplay effects, UI feedback, cinematic transitions and an original music score.
+- Give each location a recognisable audio identity. Use spatial placement and attenuation for world sounds, and mix dialogue so it remains intelligible over ambience, music and gameplay effects.
+- Use dedicated audio buses and sensible priorities/voice limits. Avoid clipping, overlapping duplicate lines, abrupt volume jumps and excessive simultaneous loops.
+- Every spoken line needs synchronized subtitles and a tested skip/pause/resume path. Lip-sync close-up speaking characters where the model and device budget support it.
+- The voice pipeline is finite authored content: generate/record, audition, edit, create final game-ready audio, create subtitle and lip-sync data, then test in the packaged build. Do not add runtime TTS merely to avoid authoring the lines.
+- Record provenance and redistribution rights for voices, music, ambience, foley and effects. Use original or explicitly licensed assets.
+
 ## Art and licensing
 
 - Prefer original procedural assets or assets with clearly verified redistribution rights. CC0 libraries can be useful starting points.
