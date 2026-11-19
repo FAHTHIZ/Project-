@@ -1,0 +1,198 @@
+-- SPECIAL OPS unified controls.
+-- Keyboard/mouse, gamepad (through victus.project actions) and multitouch (virtual stick, look
+-- region and on-screen buttons) all feed the same logical actions:
+--   move (vector), look (degrees this frame), fire, aim, reload, switch, interact, tool, jump,
+--   sprint, crouch, pause, objectives, diagnostics, quick_save, quick_load.
+-- Controls.poll() runs once per frame (lazily, on first use), so every script sees one state.
+local Game = require("scripts/lib/game")
+
+local Controls = {}
+
+-- Touch layout in canvas units (the HUD canvas is 720 tall; its width follows the aspect).
+-- y is measured from the top. `ax` 1 measures x from the right edge. Shared with hud.luau.
+Controls.buttons = {
+    { name = "fire",     ax = 1, x = 170, y = 470, r = 74, label = "FIRE" },
+    { name = "aim",      ax = 1, x = 330, y = 585, r = 52, label = "AIM" },
+    { name = "reload",   ax = 1, x = 92,  y = 318, r = 44, label = "RELOAD" },
+    { name = "switch",   ax = 1, x = 210, y = 300, r = 44, label = "SWITCH" },
+    { name = "jump",     ax = 1, x = 92,  y = 640, r = 44, label = "JUMP" },
+    { name = "crouch",   ax = 1, x = 92,  y = 520, r = 40, label = "CROUCH" },
+    { name = "interact", ax = 1, x = 440, y = 470, r = 48, label = "USE" },
+    { name = "tool",     ax = 1, x = 330, y = 390, r = 44, label = "TOOL" },
+    { name = "pause",    ax = 1, x = 60,  y = 56,  r = 34, label = "II" },
+    { name = "objectives", ax = 0, x = 60, y = 56, r = 34, label = "OBJ" },
+}
+Controls.stick_zone = 0.42      -- left share of the screen that spawns the floating stick
+Controls.stick_radius = 90      -- canvas units for full deflection
+
+local ACTIONS = { "fire", "aim", "reload", "switch", "interact", "tool", "jump", "sprint", "crouch", "pause",
+                  "objectives", "diagnostics", "quick_save", "quick_load", "skip",
+                  "weapon1", "weapon2" }
+
+local state = { frame = -1, move = vector.create(0, 0, 0), look = vector.create(0, 0, 0), down = {}, prev = {},
+                touch_used = false, gamepad_used = false, mouse_used = false }
+Controls.state = state
+
+-- Finger tracking: id -> { role = "stick"|"look"|"button", start, last, button }
+local fingers = {}
+Controls.fingers = fingers
+Controls.stick = nil -- { origin = vector(canvas), knob = vector(canvas) } while the stick finger is down
+
+-- Autotest / cinematic injection: fields set here are merged into the frame state.
+Controls.virtual = { move = nil, look = nil, down = {} }
+
+local function canvas_size()
+    local w, h = ui.screen_size()
+    if not w or h <= 0 then return 1280, 720 end
+    return 720 * w / h, 720
+end
+Controls.canvas_size = canvas_size
+
+function Controls.button_center(b, cw)
+    local x = b.ax == 1 and (cw - b.x) or b.x
+    return x, b.y
+end
+
+local function hit_button(cx, cy, cw)
+    for _, b in Controls.buttons do
+        local bx, by = Controls.button_center(b, cw)
+        local dx, dy = cx - bx, cy - by
+        if dx * dx + dy * dy <= (b.r * 1.15) ^ 2 then return b end
+    end
+    return nil
+end
+
+local function poll_touch(down)
+    local n = input.touch_count()
+    local cw, ch = canvas_size()
+    local seen = {}
+    local move = nil
+    local look = vector.create(0, 0, 0)
+    for i = 1, n do
+        local t, id = input.touch(i)
+        if t then
+            state.touch_used = true
+            local cx, cy = t.x * cw, t.y * ch
+            local p = vector.create(cx, cy, 0)
+            seen[id] = true
+            local f = fingers[id]
+            if not f then
+                local b = hit_button(cx, cy, cw)
+                if b then
+                    f = { role = "button", button = b.name, start = p, last = p }
+                elseif t.x < Controls.stick_zone and not Controls.stick then
+                    f = { role = "stick", start = p, last = p }
+                    Controls.stick = { origin = p, knob = p }
+                else
+                    f = { role = "look", start = p, last = p }
+                end
+                fingers[id] = f
+            end
+            if f.role == "stick" then
+                local d = p - f.start
+                local len = vector.magnitude(d)
+                local r = Controls.stick_radius
+                if len > r then
+                    -- Drag the origin along so reversing direction is immediate.
+                    f.start = f.start + d * ((len - r) / len)
+                    d = p - f.start
+                    len = r
+                end
+                Controls.stick.origin = f.start
+                Controls.stick.knob = p
+                move = vector.create(d.x / r, -d.y / r, 0)
+                if len >= r * 0.98 and -d.y > r * 0.75 then down.sprint = true end
+            elseif f.role == "look" or (f.role == "button" and f.button == "fire") then
+                local d = p - f.last
+                look = look + vector.create(d.x, d.y, 0)
+            end
+            if f.role == "button" then down[f.button] = true end
+            f.last = p
+        end
+    end
+    for id, f in fingers do
+        if not seen[id] then
+            if f.role == "stick" then Controls.stick = nil end
+            fingers[id] = nil
+        end
+    end
+    return move, look
+end
+
+function Controls.poll()
+    local fr = time.frame()
+    if state.frame == fr then return state end
+    -- A gap in polling (new scene, window just shown, paused controller) starts a short mouse
+    -- settle window: the first relative deltas after focus or pointer warps are not user input.
+    if state.frame == nil or fr - state.frame > 1 then state.mouse_settle = 8 end
+    state.frame = fr
+    local prev = state.down
+    state.prev = prev
+    local down = {}
+    -- Keyboard / mouse / gamepad through named project actions.
+    for _, a in ACTIONS do
+        if input.action(a) then down[a] = true end
+    end
+    local move = input.vector("move_x", "move_y")
+    if vector.magnitude(move) > 0.05 then
+        if input.gamepad_connected() then state.gamepad_used = true end
+    end
+    local s = Game.settings
+    local dt = time.delta()
+    local look = vector.create(0, 0, 0)
+    -- Mouse: degrees per pixel.
+    local md = input.mouse_delta()
+    if (state.mouse_settle or 0) > 0 then
+        state.mouse_settle -= 1
+        md = vector.create(0, 0, 0)
+    elseif math.abs(md.x) > 400 or math.abs(md.y) > 400 then
+        md = vector.create(0, 0, 0) -- a pointer warp, not a hand movement
+    end
+    if md.x ~= 0 or md.y ~= 0 then state.mouse_used = true end
+    look = look + vector.create(md.x, md.y, 0) * (0.11 * s.look_sensitivity)
+    -- Gamepad right stick: response curve, degrees per second.
+    local gx, gy = input.value("look_x"), -input.value("look_y")
+    local gm = math.sqrt(gx * gx + gy * gy)
+    if gm > 0 then
+        local curve = gm ^ 1.8 / gm
+        look = look + vector.create(gx * curve * 165, gy * curve * 120, 0) * (s.look_sensitivity * dt)
+        state.gamepad_used = true
+    end
+    -- Touch: degrees per canvas unit.
+    local tmove, tlook = poll_touch(down)
+    if tmove then move = tmove end
+    look = look + tlook * (0.16 * s.look_sensitivity)
+    -- Injected input (autotests and cinematic handoff tests).
+    local v = Controls.virtual
+    if v.move then move = v.move end
+    if v.look then look = look + v.look end
+    for k, on in v.down do if on then down[k] = true end end
+    if s.invert_y then look = vector.create(look.x, -look.y, 0) end
+    if vector.magnitude(move) > 1 then move = vector.normalize(move) end
+    state.move = move
+    state.look = look
+    state.down = down
+    return state
+end
+
+function Controls.down(a) return Controls.poll().down[a] == true end
+function Controls.pressed(a)
+    local s = Controls.poll()
+    return s.down[a] == true and s.prev[a] ~= true
+end
+function Controls.released(a)
+    local s = Controls.poll()
+    return s.down[a] ~= true and s.prev[a] == true
+end
+function Controls.move() return Controls.poll().move end
+function Controls.look() return Controls.poll().look end
+
+-- Whether to draw the touch overlay.
+function Controls.show_touch()
+    local mode = Game.settings.touch_controls
+    if mode == "on" then return true end
+    if mode == "off" then return false end
+    return state.touch_used
+end
+
+return Controls

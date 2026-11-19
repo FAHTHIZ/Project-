@@ -2,11 +2,13 @@
   "format": "victus.project",
   "version": 1,
   "name": "Special Ops",
-  "startup_scene": "scenes/main.vscene",
+  "startup_scene": "scenes/menu.vscene",
   "template": "3d",
   "engine_version": "0.2.0",
+  "save_version": 1,
+  "default_locale": "en",
   "window": {
-    "width": 1280,
+    "width": 1600,
     "height": 720,
     "vsync": true
   },
@@ -20,30 +22,28 @@
         "positive": [
           "D",
           "Right",
-          "Pad.LeftX+",
-          "Pad.DpadRight"
+          "Pad.LeftX+"
         ],
         "negative": [
           "A",
           "Left",
-          "Pad.LeftX-",
-          "Pad.DpadLeft"
-        ]
+          "Pad.LeftX-"
+        ],
+        "dead_zone": 0.18
       },
       {
         "name": "move_y",
         "positive": [
           "W",
           "Up",
-          "Pad.LeftY-",
-          "Pad.DpadUp"
+          "Pad.LeftY-"
         ],
         "negative": [
           "S",
           "Down",
-          "Pad.LeftY+",
-          "Pad.DpadDown"
-        ]
+          "Pad.LeftY+"
+        ],
+        "dead_zone": 0.18
       },
       {
         "name": "look_x",
@@ -52,7 +52,8 @@
         ],
         "negative": [
           "Pad.RightX-"
-        ]
+        ],
+        "dead_zone": 0.18
       },
       {
         "name": "look_y",
@@ -61,6 +62,62 @@
         ],
         "negative": [
           "Pad.RightY+"
+        ],
+        "dead_zone": 0.18
+      },
+      {
+        "name": "fire",
+        "bindings": [
+          "Mouse0",
+          "Pad.RightTrigger"
+        ]
+      },
+      {
+        "name": "aim",
+        "bindings": [
+          "Mouse1",
+          "Pad.LeftTrigger"
+        ]
+      },
+      {
+        "name": "reload",
+        "bindings": [
+          "R",
+          "Pad.West"
+        ]
+      },
+      {
+        "name": "switch",
+        "bindings": [
+          "Q",
+          "Pad.North"
+        ]
+      },
+      {
+        "name": "weapon1",
+        "bindings": [
+          "1"
+        ]
+      },
+      {
+        "name": "weapon2",
+        "bindings": [
+          "2"
+        ]
+      },
+      {
+        "name": "interact",
+        "bindings": [
+          "E",
+          "F",
+          "Pad.East"
+        ]
+      },
+      {
+        "name": "tool",
+        "bindings": [
+          "T",
+          "Pad.DpadUp"
         ]
       },
       {
@@ -71,20 +128,6 @@
         ]
       },
       {
-        "name": "fire",
-        "bindings": [
-          "Mouse0",
-          "Pad.RightTrigger"
-        ]
-      },
-      {
-        "name": "interact",
-        "bindings": [
-          "E",
-          "Pad.West"
-        ]
-      },
-      {
         "name": "sprint",
         "bindings": [
           "LeftShift",
@@ -92,34 +135,70 @@
         ]
       },
       {
+        "name": "crouch",
+        "bindings": [
+          "C",
+          "LeftCtrl",
+          "Pad.RightStick"
+        ]
+      },
+      {
         "name": "pause",
         "bindings": [
           "Escape",
+          "P",
           "Pad.Start"
         ]
       },
       {
-        "name": "help",
+        "name": "objectives",
         "bindings": [
-          "H",
+          "Tab",
           "Pad.Back"
+        ]
+      },
+      {
+        "name": "diagnostics",
+        "bindings": [
+          "F3",
+          "Pad.DpadDown"
+        ]
+      },
+      {
+        "name": "skip",
+        "bindings": [
+          "Space",
+          "Enter",
+          "Pad.South",
+          "Pad.East"
         ]
       },
       {
         "name": "quick_save",
         "bindings": [
-          "F5",
-          "Pad.LeftShoulder"
+          "F5"
         ]
       },
       {
         "name": "quick_load",
         "bindings": [
-          "F9",
-          "Pad.RightShoulder"
+          "F9"
+        ]
+      },
+      {
+        "name": "menu_up",
+        "bindings": [
+          "Up",
+          "Pad.DpadUp"
+        ]
+      },
+      {
+        "name": "menu_down",
+        "bindings": [
+          "Down",
+          "Pad.DpadDown"
         ]
       }
     ]
   }
 }
-
