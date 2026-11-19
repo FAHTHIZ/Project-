@@ -15,18 +15,21 @@ The campaign is built around a recurring full squad: the first-person player plu
 
 ## 2. Campaign route and operation structure
 
-The route below is the required broad journey. Treat operations as playable mission chapters that may contain multiple connected spaces. Research and document each location before final art production. The exact mission count and detailed layout may be refined after the agent inspects VICTUS and develops the story, but the full route and V-01 reveal must remain.
+**Canonical narrative:** docs/CAMPAIGN_STORY_BIBLE.md contains the complete Operation Iron Veil story from the opening briefing to credits. Its plot, character identities, mission purpose, bunker motivation and V-01 reveal are fixed. This document defines how that narrative is staged as playable operations and cinematics. The agent may adapt level geometry, pacing and encounter placement to the verified VICTUS toolchain, but must preserve the story's cause-and-effect sequence.
 
-| Chapter / operation | Main spaces | Dramatic purpose |
+The route below is the required playable journey. Each operation may contain several connected spaces, but it must deliver its assigned story turn and transition logically into the next chapter.
+
+| Chapter / operation | Main spaces | Required story purpose |
 |---|---|---|
-| Prologue — Briefing / deployment | Short briefing space and transition into the field | Establish the complete recurring squad, player role, team chemistry and tone |
-| Operation 01 — Forest approach | Dense forest, narrow trails, clearings and route landmarks | Introduce first-person movement, aiming, basic encounters, environmental clues and the first cinematic reveal |
-| Operation 02 — Perimeter | Outer boundary, access structures and transition spaces | Raise the stakes and introduce the facility's presence |
-| Operation 03 — Facility approach | Exterior service areas, yards, entry halls and connecting corridors | Shift from natural environments to authored industrial architecture |
-| Operation 04 — Facility interior | Operations rooms, laboratories or workspaces, service corridors and character encounter spaces | Deliver story information, combat encounters, exploration and operator/squad moments |
-| Operation 05 — Bunker | Main bunker spaces, command/utility areas and connecting corridors | Deepen the mystery and build toward the lower levels |
-| Operation 06 — Lower basement | A substantial lower level with its own layout, lighting identity, props and gameplay beats | Make the basement a distinct playable area, not a short hallway attached to the bunker |
-| Operation 07 — VICTUS chamber / ending | Final approach, chair area and the V-01 dummy reveal | Deliver the deliberately mundane, funny reveal and a proper ending |
+| Prologue — Orders Before Dawn | Briefing room, staging area and HT-4 Mule | Establish the Northline crisis, missing auditor Elias Venn, dawn deadline, Rook and the Halyard roster; stage the vehicle arrival and equipment choice |
+| Operation 01 — Green Silence | Forest trails, clearing, ranger route and first Greyline contact | Hollis guides Halyard toward Kestrel; clues prove recent activity; first non-lethal encounter establishes that Greyline is guarding the supposedly closed site |
+| Operation 02 — Dead Ground | Outer perimeter, checkpoint and service access | Prove Kestrel is active, expose the hidden Greyline security contract and find evidence that Venn was taken inside |
+| Operation 03 — Hard Entry | Facility exterior, service yard and entrance | Introduce Greyline commander Captain Dorian Sorn; Halyard must enter the facility to continue the authorized recovery |
+| Operation 04 — The Paper War | Operations rooms, records offices and internal corridors | Reveal contradictions in the public Northline account; Venn's message identifies the original Source Vault below |
+| Operation 05 — Below the Line | Main bunker, command/utility spaces and holding wing | Recover Venn; he explains the false account, Kade's motive and why the original records are necessary |
+| Operation 06 — The Source Vault | Substantial lower basement and archive complex | Recover the original incident records, audit trail, Kade's authorization and Greyline contract; Sorn attempts to stop the archive leaving |
+| Operation 07 — V-01 | VICTUS review chamber and chair area | Reveal VICTUS as a records/rehearsal programme, deliver the inert Vanguard V-01 dummy behind the chair, resolve the Sorn confrontation and transmit the proof |
+| Epilogue — First Light | Forest extraction point and credits | Reunite the squad, confirm the emergency vote is suspended pending investigation, show the political consequences and close on the team |
 
 Do not compress the perimeter, facility, bunker and basement into one generic corridor. Give each a distinct visual identity, playable route, story purpose, lighting palette, soundscape, encounter rhythm and at least one memorable landmark.
 
