@@ -986,14 +986,14 @@
    }
   },
   {
-   "uuid": "3cf36425-107a-55b9-8cab-3bcd545ce6ff",
-   "name": "Target Post 0",
+   "uuid": "afc79e84-8aea-53f7-a8b0-3ae058e8bcad",
+   "name": "Target 0",
    "components": {
     "Transform": {
      "position": [
-      -8.0,
-      1.0,
-      -24.0
+      0.0,
+      0.0,
+      -6.0
      ],
      "rotation": [
       0.0,
@@ -1002,36 +1002,23 @@
       1.0
      ],
      "scale": [
-      0.3,
-      2.0,
-      0.3
+      1.0,
+      1.0,
+      1.0
      ]
-    },
-    "MeshRenderer": {
-     "base_color": [
-      0.8,
-      0.45,
-      0.2,
-      1
-     ],
-     "metallic": 0.0,
-     "roughness": 0.85,
-     "cast_shadows": true,
-     "visible": true,
-     "primitive": "cube"
     },
     "Collider": {
      "shape": "box",
      "size": [
-      1,
-      1,
-      1
+      0.46,
+      0.98,
+      0.08
      ],
      "radius": 0.5,
      "height": 1.0,
      "offset": [
       0,
-      0,
+      1.38,
       0
      ],
      "friction": 0.6,
@@ -1043,7 +1030,7 @@
      "mesh_index": 0
     },
     "RigidBody": {
-     "type": "static",
+     "type": "kinematic",
      "mass": 1.0,
      "linear_damping": 0.05,
      "angular_damping": 0.05,
@@ -1061,18 +1048,29 @@
       0,
       0
      ]
+    },
+    "Tags": {
+     "tags": "Target Scannable"
+    },
+    "Script": {
+     "script": "scripts/range_target.luau",
+     "enabled": true,
+     "properties": {
+      "reset_time": 3.0,
+      "group": ""
+     }
     }
    }
   },
   {
-   "uuid": "2dbd0d51-7d9f-5a85-b0d9-8a3e26ff9c4f",
-   "name": "Target Post 1",
+   "uuid": "66048c85-d1a0-5c37-a05b-542777bb19cc",
+   "name": "Target 0 Model",
    "components": {
     "Transform": {
      "position": [
-      -4.0,
-      1.0,
-      -24.0
+      0.0,
+      0.0,
+      0.0
      ],
      "rotation": [
       0.0,
@@ -1081,36 +1079,126 @@
       1.0
      ],
      "scale": [
-      0.3,
-      2.0,
-      0.3
+      1.0,
+      1.0,
+      1.0
      ]
-    },
+    }
+   },
+   "parent": "afc79e84-8aea-53f7-a8b0-3ae058e8bcad"
+  },
+  {
+   "uuid": "001fcd8b-d59e-5356-b971-721d0e3dc51b",
+   "name": "Target 0 Model[0]",
+   "components": {
     "MeshRenderer": {
      "base_color": [
-      0.8,
-      0.45,
-      0.2,
+      1,
+      1,
+      1,
       1
      ],
      "metallic": 0.0,
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "primitive": "cube"
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "66048c85-d1a0-5c37-a05b-542777bb19cc"
+  },
+  {
+   "uuid": "de616dd7-c1d0-5554-b47a-f97aec6781b5",
+   "name": "Target 0 Model[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "66048c85-d1a0-5c37-a05b-542777bb19cc"
+  },
+  {
+   "uuid": "0c692a0f-41e2-5827-9caa-67ae52faa481",
+   "name": "Target 1",
+   "components": {
+    "Transform": {
+     "position": [
+      -5.0,
+      0.0,
+      -12.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
     },
     "Collider": {
      "shape": "box",
      "size": [
-      1,
-      1,
-      1
+      0.46,
+      0.98,
+      0.08
      ],
      "radius": 0.5,
      "height": 1.0,
      "offset": [
       0,
-      0,
+      1.38,
       0
      ],
      "friction": 0.6,
@@ -1122,7 +1210,7 @@
      "mesh_index": 0
     },
     "RigidBody": {
-     "type": "static",
+     "type": "kinematic",
      "mass": 1.0,
      "linear_damping": 0.05,
      "angular_damping": 0.05,
@@ -1140,18 +1228,29 @@
       0,
       0
      ]
+    },
+    "Tags": {
+     "tags": "Target Scannable"
+    },
+    "Script": {
+     "script": "scripts/range_target.luau",
+     "enabled": true,
+     "properties": {
+      "reset_time": 3.0,
+      "group": ""
+     }
     }
    }
   },
   {
-   "uuid": "9a1cfc1e-0f8e-5a40-bfbc-21f89bca3eea",
-   "name": "Target Post 2",
+   "uuid": "fc037d5f-4643-5d3a-ace3-e7e8c6420ab2",
+   "name": "Target 1 Model",
    "components": {
     "Transform": {
      "position": [
       0.0,
-      1.0,
-      -24.0
+      0.0,
+      0.0
      ],
      "rotation": [
       0.0,
@@ -1160,36 +1259,126 @@
       1.0
      ],
      "scale": [
-      0.3,
-      2.0,
-      0.3
+      1.0,
+      1.0,
+      1.0
      ]
-    },
+    }
+   },
+   "parent": "0c692a0f-41e2-5827-9caa-67ae52faa481"
+  },
+  {
+   "uuid": "894a5edb-bcb8-5e35-8e35-eb45b1f1b8bf",
+   "name": "Target 1 Model[0]",
+   "components": {
     "MeshRenderer": {
      "base_color": [
-      0.8,
-      0.45,
-      0.2,
+      1,
+      1,
+      1,
       1
      ],
      "metallic": 0.0,
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "primitive": "cube"
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "fc037d5f-4643-5d3a-ace3-e7e8c6420ab2"
+  },
+  {
+   "uuid": "8a9f79d7-75db-5a51-ab78-a1558f7e166b",
+   "name": "Target 1 Model[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "fc037d5f-4643-5d3a-ace3-e7e8c6420ab2"
+  },
+  {
+   "uuid": "aa3e66d6-2eac-56f9-a435-b5187db6d211",
+   "name": "Target 2",
+   "components": {
+    "Transform": {
+     "position": [
+      5.0,
+      0.0,
+      -12.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
     },
     "Collider": {
      "shape": "box",
      "size": [
-      1,
-      1,
-      1
+      0.46,
+      0.98,
+      0.08
      ],
      "radius": 0.5,
      "height": 1.0,
      "offset": [
       0,
-      0,
+      1.38,
       0
      ],
      "friction": 0.6,
@@ -1201,7 +1390,7 @@
      "mesh_index": 0
     },
     "RigidBody": {
-     "type": "static",
+     "type": "kinematic",
      "mass": 1.0,
      "linear_damping": 0.05,
      "angular_damping": 0.05,
@@ -1219,18 +1408,29 @@
       0,
       0
      ]
+    },
+    "Tags": {
+     "tags": "Target Scannable"
+    },
+    "Script": {
+     "script": "scripts/range_target.luau",
+     "enabled": true,
+     "properties": {
+      "reset_time": 3.0,
+      "group": ""
+     }
     }
    }
   },
   {
-   "uuid": "711a61de-1c96-5f4d-9550-fe06c4a33055",
-   "name": "Target Post 3",
+   "uuid": "4a1372bf-3869-59c8-bfb7-774f98f1fedb",
+   "name": "Target 2 Model",
    "components": {
     "Transform": {
      "position": [
-      4.0,
-      1.0,
-      -24.0
+      0.0,
+      0.0,
+      0.0
      ],
      "rotation": [
       0.0,
@@ -1239,36 +1439,126 @@
       1.0
      ],
      "scale": [
-      0.3,
-      2.0,
-      0.3
+      1.0,
+      1.0,
+      1.0
      ]
-    },
+    }
+   },
+   "parent": "aa3e66d6-2eac-56f9-a435-b5187db6d211"
+  },
+  {
+   "uuid": "9c0edaf6-9f83-551b-8ecd-b30010322b36",
+   "name": "Target 2 Model[0]",
+   "components": {
     "MeshRenderer": {
      "base_color": [
-      0.8,
-      0.45,
-      0.2,
+      1,
+      1,
+      1,
       1
      ],
      "metallic": 0.0,
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "primitive": "cube"
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4a1372bf-3869-59c8-bfb7-774f98f1fedb"
+  },
+  {
+   "uuid": "c4c19e59-4756-51a9-992e-57a01bd67a4d",
+   "name": "Target 2 Model[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4a1372bf-3869-59c8-bfb7-774f98f1fedb"
+  },
+  {
+   "uuid": "58986e49-afbc-52d9-ac0c-fe1ea2185c9e",
+   "name": "Target 3",
+   "components": {
+    "Transform": {
+     "position": [
+      -9.0,
+      0.0,
+      -22.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
     },
     "Collider": {
      "shape": "box",
      "size": [
-      1,
-      1,
-      1
+      0.46,
+      0.98,
+      0.08
      ],
      "radius": 0.5,
      "height": 1.0,
      "offset": [
       0,
-      0,
+      1.38,
       0
      ],
      "friction": 0.6,
@@ -1280,7 +1570,7 @@
      "mesh_index": 0
     },
     "RigidBody": {
-     "type": "static",
+     "type": "kinematic",
      "mass": 1.0,
      "linear_damping": 0.05,
      "angular_damping": 0.05,
@@ -1298,18 +1588,29 @@
       0,
       0
      ]
+    },
+    "Tags": {
+     "tags": "Target Scannable"
+    },
+    "Script": {
+     "script": "scripts/range_target.luau",
+     "enabled": true,
+     "properties": {
+      "reset_time": 3.0,
+      "group": ""
+     }
     }
    }
   },
   {
-   "uuid": "06303384-af6e-5a3a-b14d-cd6d86c0423b",
-   "name": "Target Post 4",
+   "uuid": "a1803c66-3ee1-50f4-977d-c01ddca058fb",
+   "name": "Target 3 Model",
    "components": {
     "Transform": {
      "position": [
-      8.0,
-      1.0,
-      -24.0
+      0.0,
+      0.0,
+      0.0
      ],
      "rotation": [
       0.0,
@@ -1318,36 +1619,126 @@
       1.0
      ],
      "scale": [
-      0.3,
-      2.0,
-      0.3
+      1.0,
+      1.0,
+      1.0
      ]
-    },
+    }
+   },
+   "parent": "58986e49-afbc-52d9-ac0c-fe1ea2185c9e"
+  },
+  {
+   "uuid": "0b9bf8dd-aca6-53e9-863b-ad1289c7cb56",
+   "name": "Target 3 Model[0]",
+   "components": {
     "MeshRenderer": {
      "base_color": [
-      0.8,
-      0.45,
-      0.2,
+      1,
+      1,
+      1,
       1
      ],
      "metallic": 0.0,
      "roughness": 0.85,
      "cast_shadows": true,
      "visible": true,
-     "primitive": "cube"
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1803c66-3ee1-50f4-977d-c01ddca058fb"
+  },
+  {
+   "uuid": "f12e9a8c-537b-5895-be1a-1a195df2b80c",
+   "name": "Target 3 Model[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1803c66-3ee1-50f4-977d-c01ddca058fb"
+  },
+  {
+   "uuid": "66d6ca6d-4750-5aac-b5cd-50a00594563d",
+   "name": "Target 4",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      -26.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
     },
     "Collider": {
      "shape": "box",
      "size": [
-      1,
-      1,
-      1
+      0.46,
+      0.98,
+      0.08
      ],
      "radius": 0.5,
      "height": 1.0,
      "offset": [
       0,
-      0,
+      1.38,
       0
      ],
      "friction": 0.6,
@@ -1359,7 +1750,7 @@
      "mesh_index": 0
     },
     "RigidBody": {
-     "type": "static",
+     "type": "kinematic",
      "mass": 1.0,
      "linear_damping": 0.05,
      "angular_damping": 0.05,
@@ -1377,8 +1768,302 @@
       0,
       0
      ]
+    },
+    "Tags": {
+     "tags": "Target Scannable"
+    },
+    "Script": {
+     "script": "scripts/range_target.luau",
+     "enabled": true,
+     "properties": {
+      "reset_time": 3.0,
+      "group": ""
+     }
     }
    }
+  },
+  {
+   "uuid": "c6040ace-51b2-5ece-b313-315e94678853",
+   "name": "Target 4 Model",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "66d6ca6d-4750-5aac-b5cd-50a00594563d"
+  },
+  {
+   "uuid": "ac28c90f-959c-552e-9c4f-8b1f569b2c95",
+   "name": "Target 4 Model[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c6040ace-51b2-5ece-b313-315e94678853"
+  },
+  {
+   "uuid": "d59fea09-f965-54fe-ade4-b89281781f21",
+   "name": "Target 4 Model[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c6040ace-51b2-5ece-b313-315e94678853"
+  },
+  {
+   "uuid": "4e528905-90ed-5342-9230-10841455cf3a",
+   "name": "Target 5",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      0.0,
+      -22.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Collider": {
+     "shape": "box",
+     "size": [
+      0.46,
+      0.98,
+      0.08
+     ],
+     "radius": 0.5,
+     "height": 1.0,
+     "offset": [
+      0,
+      1.38,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 0,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "kinematic",
+     "mass": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
+    },
+    "Tags": {
+     "tags": "Target Scannable"
+    },
+    "Script": {
+     "script": "scripts/range_target.luau",
+     "enabled": true,
+     "properties": {
+      "reset_time": 3.0,
+      "group": ""
+     }
+    }
+   }
+  },
+  {
+   "uuid": "e0834a4d-f0b9-5571-a4d2-a1ec8982d76c",
+   "name": "Target 5 Model",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4e528905-90ed-5342-9230-10841455cf3a"
+  },
+  {
+   "uuid": "adfcdc47-1b6c-5824-9a2a-a12aae9eb822",
+   "name": "Target 5 Model[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e0834a4d-f0b9-5571-a4d2-a1ec8982d76c"
+  },
+  {
+   "uuid": "df4a3c77-a8a8-5c32-b673-6f2c01ad71be",
+   "name": "Target 5 Model[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "63951251-3fa9-4c82-a0c9-4e6dcde27ecb",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e0834a4d-f0b9-5571-a4d2-a1ec8982d76c"
   },
   {
    "uuid": "27971281-92df-55d6-8ba2-572d4e23e116",
@@ -1509,9 +2194,1995 @@
       1.0,
       1.0
      ]
+    },
+    "Script": {
+     "script": "scripts/weapons.luau",
+     "enabled": true,
+     "properties": {}
     }
    },
    "parent": "fdcb7dee-938a-53c1-9553-fb9f9cf11782"
+  },
+  {
+   "uuid": "ba358f98-ee8b-5c19-9527-ea995851d2a8",
+   "name": "VM Pivot",
+   "components": {
+    "Transform": {
+     "position": [
+      0.135,
+      -0.148,
+      -0.3
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5e3c10c8-07db-5da2-b1ba-150d8ce5dee7"
+  },
+  {
+   "uuid": "0faa6149-7df4-5405-b39f-0bcc680dcd49",
+   "name": "Carbine",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ba358f98-ee8b-5c19-9527-ea995851d2a8"
+  },
+  {
+   "uuid": "bb84e446-9e29-52a7-b0b5-0dda341a14b1",
+   "name": "Carbine Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0faa6149-7df4-5405-b39f-0bcc680dcd49"
+  },
+  {
+   "uuid": "c2efd185-cff4-5016-bcb9-56ffd4a6154c",
+   "name": "Carbine Body[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bb84e446-9e29-52a7-b0b5-0dda341a14b1"
+  },
+  {
+   "uuid": "a85fc974-5287-5270-8f07-40cde95691e5",
+   "name": "Carbine Body[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bb84e446-9e29-52a7-b0b5-0dda341a14b1"
+  },
+  {
+   "uuid": "799a1745-0af8-5097-ae18-b826cded5205",
+   "name": "Carbine Body[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bb84e446-9e29-52a7-b0b5-0dda341a14b1"
+  },
+  {
+   "uuid": "8ab9a604-d78f-5b64-b1c2-f0fb3bd0de20",
+   "name": "Carbine Cell",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0faa6149-7df4-5405-b39f-0bcc680dcd49"
+  },
+  {
+   "uuid": "3611542e-da43-52df-a6d1-3898a065fb12",
+   "name": "Carbine Cell[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8ab9a604-d78f-5b64-b1c2-f0fb3bd0de20"
+  },
+  {
+   "uuid": "db198685-0364-50a9-88bc-8fed2d1387c0",
+   "name": "Carbine Cell[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8ab9a604-d78f-5b64-b1c2-f0fb3bd0de20"
+  },
+  {
+   "uuid": "ce054092-6131-5d79-8640-abeacaf753b5",
+   "name": "Carbine Hand R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0faa6149-7df4-5405-b39f-0bcc680dcd49"
+  },
+  {
+   "uuid": "8290f905-c013-53e7-a925-3e536f01ba00",
+   "name": "Carbine Hand R[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ce054092-6131-5d79-8640-abeacaf753b5"
+  },
+  {
+   "uuid": "29f7a58d-06f5-50a3-81c1-1f2497d4be47",
+   "name": "Carbine Hand R[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ce054092-6131-5d79-8640-abeacaf753b5"
+  },
+  {
+   "uuid": "8c32c621-75cd-5aea-b8d7-e83d4223cd7a",
+   "name": "Carbine Hand L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      -0.21
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0faa6149-7df4-5405-b39f-0bcc680dcd49"
+  },
+  {
+   "uuid": "a584f3aa-4a9a-5527-911d-2ea10406cac0",
+   "name": "Carbine Hand L[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8c32c621-75cd-5aea-b8d7-e83d4223cd7a"
+  },
+  {
+   "uuid": "e0664647-9be4-5656-84e9-8ee8189f0432",
+   "name": "Carbine Hand L[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8c32c621-75cd-5aea-b8d7-e83d4223cd7a"
+  },
+  {
+   "uuid": "6bba5721-d9a6-55ce-bdc0-7300f9ffc232",
+   "name": "Carbine Muzzle",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.045,
+      -0.515
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      0.45,
+      0.9,
+      1.0,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 5.0,
+     "shadows": false
+    }
+   },
+   "parent": "0faa6149-7df4-5405-b39f-0bcc680dcd49"
+  },
+  {
+   "uuid": "017449b8-ca4f-57b1-93f0-fe405e668ce8",
+   "name": "Carbine Flash",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.01
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      4.0,
+      4.0,
+      0.09
+     ]
+    }
+   },
+   "parent": "6bba5721-d9a6-55ce-bdc0-7300f9ffc232"
+  },
+  {
+   "uuid": "0a0e035d-5e6e-59b4-b78a-a2427b7102cf",
+   "name": "Carbine Flash[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "017449b8-ca4f-57b1-93f0-fe405e668ce8"
+  },
+  {
+   "uuid": "11a8cac2-1386-5dee-8779-6f028a17e031",
+   "name": "Sidearm",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ba358f98-ee8b-5c19-9527-ea995851d2a8"
+  },
+  {
+   "uuid": "22986cbf-4f9a-51c8-bae2-47b0c79f8fd6",
+   "name": "Sidearm Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11a8cac2-1386-5dee-8779-6f028a17e031"
+  },
+  {
+   "uuid": "1e40d5c1-9cc9-5c55-b169-c85736946411",
+   "name": "Sidearm Body[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "a5bc73ff-c53c-47a5-9c56-18ea3834726f",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "22986cbf-4f9a-51c8-bae2-47b0c79f8fd6"
+  },
+  {
+   "uuid": "5225fde4-0876-58be-bd1f-e8da8512cfa5",
+   "name": "Sidearm Body[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "a5bc73ff-c53c-47a5-9c56-18ea3834726f",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "22986cbf-4f9a-51c8-bae2-47b0c79f8fd6"
+  },
+  {
+   "uuid": "312e1204-d35b-59db-b711-d1488865e10c",
+   "name": "Sidearm Slide",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11a8cac2-1386-5dee-8779-6f028a17e031"
+  },
+  {
+   "uuid": "e2add88c-c788-55cb-949b-a2da0c69e6be",
+   "name": "Sidearm Slide[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bd2984d9-e661-48ef-b3c7-48bb7812e8fa",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "312e1204-d35b-59db-b711-d1488865e10c"
+  },
+  {
+   "uuid": "d8748e32-ad20-5e24-8016-7410c00b8389",
+   "name": "Sidearm Slide[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bd2984d9-e661-48ef-b3c7-48bb7812e8fa",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "312e1204-d35b-59db-b711-d1488865e10c"
+  },
+  {
+   "uuid": "bb00a01e-8fd7-5fdb-9a92-c08135d15f6d",
+   "name": "Sidearm Cell",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11a8cac2-1386-5dee-8779-6f028a17e031"
+  },
+  {
+   "uuid": "2856d145-d603-5588-bd2f-d02c48133342",
+   "name": "Sidearm Cell[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "251951df-1626-47dc-9b12-fb0a1b8a278d",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bb00a01e-8fd7-5fdb-9a92-c08135d15f6d"
+  },
+  {
+   "uuid": "9b74ca12-2ac6-56ba-8245-e44d4952d693",
+   "name": "Sidearm Hand R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11a8cac2-1386-5dee-8779-6f028a17e031"
+  },
+  {
+   "uuid": "bbf17b83-a5eb-5f11-a13b-519f27aec10b",
+   "name": "Sidearm Hand R[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9b74ca12-2ac6-56ba-8245-e44d4952d693"
+  },
+  {
+   "uuid": "709454a3-ac63-505d-ae95-d70c5c27b16f",
+   "name": "Sidearm Hand R[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "d06d2093-7de7-475f-a04a-7089d554a56a",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9b74ca12-2ac6-56ba-8245-e44d4952d693"
+  },
+  {
+   "uuid": "53b82c1f-e863-5b3d-b471-b2b0e053e9a7",
+   "name": "Sidearm Hand L",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.014,
+      -0.006,
+      0.012
+     ],
+     "rotation": [
+      0.0,
+      -0.1045285,
+      0.0,
+      0.9945219
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "11a8cac2-1386-5dee-8779-6f028a17e031"
+  },
+  {
+   "uuid": "4ce9b2c5-3e1c-58b0-b0d2-3c233174c91b",
+   "name": "Sidearm Hand L[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "53b82c1f-e863-5b3d-b471-b2b0e053e9a7"
+  },
+  {
+   "uuid": "6cbfd3c2-b37c-5dd4-a705-da07fd52ee7a",
+   "name": "Sidearm Hand L[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "53b82c1f-e863-5b3d-b471-b2b0e053e9a7"
+  },
+  {
+   "uuid": "19de10b3-c487-5446-92a6-f1d155aa90f4",
+   "name": "Sidearm Muzzle",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.012,
+      -0.152
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      0.45,
+      0.9,
+      1.0,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 5.0,
+     "shadows": false
+    }
+   },
+   "parent": "11a8cac2-1386-5dee-8779-6f028a17e031"
+  },
+  {
+   "uuid": "dbc4de95-4d78-5b56-a0c8-2966073ba209",
+   "name": "Sidearm Flash",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.01
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      4.0,
+      4.0,
+      0.09
+     ]
+    }
+   },
+   "parent": "19de10b3-c487-5446-92a6-f1d155aa90f4"
+  },
+  {
+   "uuid": "9a433ebf-1b54-5b1f-bd64-0dd8d51cfa27",
+   "name": "Sidearm Flash[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dbc4de95-4d78-5b56-a0c8-2966073ba209"
+  },
+  {
+   "uuid": "ce6846c0-01ba-5980-b0c3-848c7c942e69",
+   "name": "Device",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.3,
+      0.03,
+      0.0
+     ],
+     "rotation": [
+      -0.0151344,
+      0.9810603,
+      -0.0858317,
+      -0.1729874
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ba358f98-ee8b-5c19-9527-ea995851d2a8"
+  },
+  {
+   "uuid": "1a6cf65a-1aab-5c1a-9f21-fade6e546256",
+   "name": "Device Model",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ce6846c0-01ba-5980-b0c3-848c7c942e69"
+  },
+  {
+   "uuid": "ad64fd85-98bd-5d3e-882f-bd230e8b709e",
+   "name": "Device Model[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "6ccfba79-7bbd-435c-ad3e-d9863f9324b0",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "1a6cf65a-1aab-5c1a-9f21-fade6e546256"
+  },
+  {
+   "uuid": "8ae94666-4dc0-5002-bf76-aa456dc96267",
+   "name": "Device Model[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "6ccfba79-7bbd-435c-ad3e-d9863f9324b0",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "1a6cf65a-1aab-5c1a-9f21-fade6e546256"
+  },
+  {
+   "uuid": "6cadebeb-a951-500e-b3f0-ca61d460d406",
+   "name": "Device Model[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "6ccfba79-7bbd-435c-ad3e-d9863f9324b0",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "1a6cf65a-1aab-5c1a-9f21-fade6e546256"
+  },
+  {
+   "uuid": "fb455d4f-43a0-52b6-ab82-a3c365cdbb9f",
+   "name": "Device Hand L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ce6846c0-01ba-5980-b0c3-848c7c942e69"
+  },
+  {
+   "uuid": "29c13d62-c9f1-5478-b24d-ea29e7a52996",
+   "name": "Device Hand L[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "fb455d4f-43a0-52b6-ab82-a3c365cdbb9f"
+  },
+  {
+   "uuid": "15ab40b1-6db1-51fb-b5bf-388cb3051362",
+   "name": "Device Hand L[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "b5a0077e-a465-43eb-bae6-7917bf9bc1c1",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "fb455d4f-43a0-52b6-ab82-a3c365cdbb9f"
+  },
+  {
+   "uuid": "4569bf3b-c175-50f0-8f13-112bf408b72b",
+   "name": "Tracer 0",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "c7af5d71-d754-53f5-b7fb-2ecd28e192d4",
+   "name": "Tracer 0[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4569bf3b-c175-50f0-8f13-112bf408b72b"
+  },
+  {
+   "uuid": "81dc8e2e-9e86-520e-bdb0-aa177e3b78cc",
+   "name": "Tracer 1",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "76c903a9-517e-5f17-ad50-e7b6c48f2b57",
+   "name": "Tracer 1[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "81dc8e2e-9e86-520e-bdb0-aa177e3b78cc"
+  },
+  {
+   "uuid": "42fb65ec-6c92-5ecf-8c05-0fbc2e935e2b",
+   "name": "Tracer 2",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "897e1a63-cf76-5168-b4ae-8e1d641cd081",
+   "name": "Tracer 2[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "42fb65ec-6c92-5ecf-8c05-0fbc2e935e2b"
+  },
+  {
+   "uuid": "d0c501a8-5690-5c2c-80b5-51f00d5984eb",
+   "name": "Tracer 3",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "4928e1d8-b504-5d24-a10b-e55b6472b8bb",
+   "name": "Tracer 3[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d0c501a8-5690-5c2c-80b5-51f00d5984eb"
+  },
+  {
+   "uuid": "982574e6-2476-5724-be4c-76f15a14957d",
+   "name": "Tracer 4",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "78e2d0a6-601f-5f82-b28a-219b28be3cb7",
+   "name": "Tracer 4[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "982574e6-2476-5724-be4c-76f15a14957d"
+  },
+  {
+   "uuid": "ef320041-4a7b-5def-b766-29078cb06cde",
+   "name": "Tracer 5",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7d487fb5-c765-5078-8c09-013dc36bccb9",
+   "name": "Tracer 5[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4f5ba29-cab9-4fb9-a41c-049f838a2a5b",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ef320041-4a7b-5def-b766-29078cb06cde"
+  },
+  {
+   "uuid": "80ddb424-7d5c-56f1-b552-dd87dba55a99",
+   "name": "Impact Sparks",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ParticleEmitter": {
+     "emitting": false,
+     "loop": false,
+     "world_space": true,
+     "duration": 0,
+     "rate": 0,
+     "burst": 0,
+     "max_particles": 96,
+     "lifetime_min": 0.12,
+     "lifetime_max": 0.32,
+     "shape": "cone",
+     "radius": 0.02,
+     "angle": 60,
+     "speed_min": 1.5,
+     "speed_max": 5.0,
+     "gravity": [
+      0,
+      -7,
+      0
+     ],
+     "drag": 1.5,
+     "size_start": 0.03,
+     "size_end": 0.0,
+     "size_variation": 0.5,
+     "color_start": [
+      0.55,
+      0.92,
+      1.0,
+      1
+     ],
+     "color_end": [
+      0.3,
+      0.7,
+      1.0,
+      0
+     ],
+     "intensity": 5.0,
+     "blend": "additive",
+     "softness": 0.02,
+     "velocity_stretch": 0.025
+    }
+   }
+  },
+  {
+   "uuid": "ff087b38-523a-5cbc-a17e-46812884a1d9",
+   "name": "Impact Dust",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -50.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ParticleEmitter": {
+     "emitting": false,
+     "loop": false,
+     "world_space": true,
+     "duration": 0,
+     "rate": 0,
+     "burst": 0,
+     "max_particles": 40,
+     "lifetime_min": 0.5,
+     "lifetime_max": 1.0,
+     "shape": "cone",
+     "radius": 0.04,
+     "angle": 35,
+     "speed_min": 0.3,
+     "speed_max": 1.0,
+     "gravity": [
+      0,
+      -0.4,
+      0
+     ],
+     "drag": 2.5,
+     "size_start": 0.08,
+     "size_end": 0.32,
+     "size_variation": 0.4,
+     "color_start": [
+      0.5,
+      0.47,
+      0.4,
+      0.5
+     ],
+     "color_end": [
+      0.5,
+      0.47,
+      0.4,
+      0
+     ],
+     "intensity": 1.0,
+     "blend": "alpha",
+     "softness": 0.2
+    }
+   }
   },
   {
    "uuid": "8130ea8b-007c-5d27-8ac8-eea526ddd234",

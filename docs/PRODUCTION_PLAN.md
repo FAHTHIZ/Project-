@@ -8,7 +8,8 @@ This plan is an execution queue, not a reason to stop coding after a design docu
 |---|---|---|
 | P0 baseline: VICTUS built, project generated, character/forest asset generators | Done | log P0 |
 | P1 scene tooling, first-person controller, unified input, HUD, pause/settings, menu, credits, autotests | Done (desktop/headless; no phone) | log P1, autotests movement/hud/pause_ui |
-| Weapons and viewmodel (pulse carbine, sidearm) | Next | |
+| Weapons and viewmodel (PC-7 Lantern carbine, SP-2 Wren sidearm, field scanner) | Done (implemented, simulated, visually inspected on lavapipe; not device-tested) | log P1 weapons, autotest weapons 26/26 |
+| Squad operators, companions, dialogue, enemies | Next | |
 | Op01 forest scene | Pending | |
 | Squad, Greyline enemies, ranger; companion and enemy AI | Pending | |
 | Dialogue, voices, subtitles, facial performance | Pending | |

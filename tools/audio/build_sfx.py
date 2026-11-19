@@ -1,0 +1,220 @@
+# SPDX-License-Identifier: Apache-2.0
+"""Synthesise the SPECIAL OPS sound effects from code (numpy + scipy), deterministic and original.
+
+    python3 tools/audio/build_sfx.py --out game/assets
+
+Writes 16-bit mono WAV files under <out>/audio/{weapons,foley,ui}. No recordings or third-party
+samples are used (see docs/ASSET_PROVENANCE.md). The weapons are fictional "pulse" emitters, so
+their sounds are designed as electrical zaps with a mechanical body rather than gunshots.
+"""
+from __future__ import annotations
+import argparse, os, wave
+import numpy as np
+from scipy import signal
+
+SR = 44100
+
+
+def t_axis(sec):
+    return np.arange(int(SR * sec)) / SR
+
+
+def noise(sec, seed):
+    return np.random.default_rng(seed).standard_normal(int(SR * sec))
+
+
+def lp(x, hz, order=2):
+    b, a = signal.butter(order, min(hz / (SR / 2), 0.99), 'low'); return signal.lfilter(b, a, x)
+
+
+def hp(x, hz, order=2):
+    b, a = signal.butter(order, hz / (SR / 2), 'high'); return signal.lfilter(b, a, x)
+
+
+def bp(x, lo, hi, order=2):
+    b, a = signal.butter(order, [lo / (SR / 2), min(hi / (SR / 2), 0.99)], 'band'); return signal.lfilter(b, a, x)
+
+
+def env(t, attack, decay):
+    a = np.clip(t / max(attack, 1e-4), 0, 1)
+    return a * np.exp(-np.maximum(t - attack, 0) * decay)
+
+
+def sweep(t, f0, f1, k):
+    """Sine whose frequency glides exponentially from f0 to f1 with rate k."""
+    f = f1 + (f0 - f1) * np.exp(-t * k)
+    return np.sin(2 * np.pi * np.cumsum(f) / SR)
+
+
+def pad(x, sec):
+    n = int(SR * sec); return np.r_[x, np.zeros(max(0, n - len(x)))][:max(n, len(x))]
+
+
+def mix(*parts):
+    n = max(len(p) for p in parts); out = np.zeros(n)
+    for p in parts: out[:len(p)] += p
+    return out
+
+
+def at(x, sec, total):
+    out = np.zeros(int(SR * total)); i = int(SR * sec); n = min(len(x), len(out) - i)
+    out[i:i + n] += x[:n]; return out
+
+
+def finish(x, peak=0.89, drive=1.4, fade=0.01):
+    x = np.tanh(x * drive) / np.tanh(drive)
+    nf = int(SR * fade); x[-nf:] *= np.linspace(1, 0, nf)
+    x = x - np.mean(x)
+    return x / (np.max(np.abs(x)) + 1e-9) * peak
+
+
+def write(path, x):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    d = (np.clip(x, -1, 1) * 32767).astype('<i2')
+    with wave.open(path, 'wb') as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes(d.tobytes())
+
+
+# ---- weapons --------------------------------------------------------------------------------
+
+def pulse_shot(seed, f0, f1, body_hz, length, bright, tail):
+    t = t_axis(length)
+    click = hp(noise(0.006, seed), 2500) * env(t_axis(0.006), 0.0002, 600)
+    zap = sweep(t, f0, f1, 28) * env(t, 0.0015, 22)
+    zap += 0.35 * sweep(t, f0 * 2.01, f1 * 2.0, 34) * env(t, 0.001, 38)
+    fm = np.sin(2 * np.pi * 63 * t) * 0.5 + 0.5
+    zap *= 0.75 + 0.25 * fm
+    thump = np.sin(2 * np.pi * body_hz * t * (1 - 0.25 * t)) * env(t, 0.002, 30)
+    air = lp(hp(noise(length, seed + 1), 300), bright) * env(t, 0.001, tail)
+    crackle = bp(noise(length, seed + 2), 3000, 9000) * env(t, 0.0005, 70) * 0.6
+    return finish(mix(click * 0.9, zap * 0.55, thump * 0.8, air * 0.7, crackle))
+
+
+def dry_click(seed):
+    t = t_axis(0.12)
+    a = bp(noise(0.12, seed), 1800, 7000) * env(t, 0.0003, 160)
+    b = at(bp(noise(0.05, seed + 1), 900, 4000) * env(t_axis(0.05), 0.0003, 220) * 0.6, 0.035, 0.12)
+    beep = np.sin(2 * np.pi * 520 * t) * env(t, 0.004, 40) * 0.25
+    return finish(mix(a, b, beep), 0.6)
+
+
+def mech(seed, sec, events, tone=None):
+    """Foley-like mechanical sequence from (time, gain, lo, hi, decay) clicks."""
+    out = np.zeros(int(SR * sec))
+    for i, (tm, g, lo, hi, dec) in enumerate(events):
+        n = bp(noise(0.08, seed + i), lo, hi) * env(t_axis(0.08), 0.0004, dec) * g
+        out += at(n, tm, sec)
+    if tone:
+        f0, f1, t0, t1, g = tone
+        t = t_axis(t1 - t0)
+        w = sweep(t, f0, f1, -2.5 / (t1 - t0)) if f1 > f0 else sweep(t, f0, f1, 6)
+        e = np.sin(np.pi * np.clip(t / (t1 - t0), 0, 1)) ** 1.5
+        out += at(w * e * g, t0, sec)
+    return finish(out, 0.75, 1.1)
+
+
+def rising_whine(sec, f0, f1, seed):
+    t = t_axis(sec)
+    f = f0 * (f1 / f0) ** (t / sec)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    x = np.sin(ph) * 0.6 + np.sin(ph * 2) * 0.2 + 0.08 * bp(noise(sec, seed), 2000, 6000)
+    e = np.clip(t / 0.03, 0, 1) * np.clip((sec - t) / 0.05, 0, 1)
+    ding = at(np.sin(2 * np.pi * f1 * 1.5 * t_axis(0.25)) * env(t_axis(0.25), 0.002, 14) * 0.5, sec - 0.04, sec + 0.2)
+    return finish(mix(x * e * 0.7, ding), 0.7, 1.0)
+
+
+def power_down(sec, seed):
+    t = t_axis(sec)
+    w = sweep(t, 900, 70, 5) * np.exp(-t * 3) * 0.7
+    buzz = signal.sawtooth(2 * np.pi * (120 - 80 * t / sec) * t) * np.exp(-t * 4) * 0.25
+    sp = bp(noise(sec, seed), 2000, 8000) * env(t, 0.001, 18) * 0.5
+    return finish(mix(w, lp(buzz, 2500), sp), 0.8)
+
+
+def impact(seed, lo, hi, dec, thump_hz, sec=0.25):
+    t = t_axis(sec)
+    n = bp(noise(sec, seed), lo, hi) * env(t, 0.0003, dec)
+    th = np.sin(2 * np.pi * thump_hz * t) * env(t, 0.001, 45) * 0.6
+    fizz = bp(noise(sec, seed + 5), 4000, 12000) * env(t, 0.001, 30) * 0.25
+    return finish(mix(n, th, fizz), 0.8)
+
+
+def tick(freq, sec=0.07, g=0.8):
+    t = t_axis(sec)
+    return finish(np.sin(2 * np.pi * freq * t) * env(t, 0.0006, 70) + 0.3 * np.sin(2 * np.pi * freq * 2.7 * t) * env(t, 0.0003, 120), g, 1.0)
+
+
+def scan_ping():
+    t = t_axis(1.1)
+    x = np.zeros(len(t))
+    for i, f in enumerate((1320, 1760, 2640)):
+        x += at(np.sin(2 * np.pi * f * t_axis(0.6)) * env(t_axis(0.6), 0.003, 7) * (0.6 - 0.15 * i), i * 0.07, 1.1)
+    sw = sweep(t, 400, 2200, -1.8) * env(t, 0.05, 4) * 0.15
+    return finish(mix(x, sw), 0.7, 1.0)
+
+
+def cloth(seed, sec=0.25, g=0.5):
+    t = t_axis(sec)
+    e = np.sin(np.pi * np.clip(t / sec, 0, 1)) ** 2
+    return finish(lp(hp(noise(sec, seed), 400), 3500) * e, g, 1.0)
+
+
+# ---- foley ----------------------------------------------------------------------------------
+
+def footstep(seed, surface):
+    sec = 0.22
+    t = t_axis(sec)
+    r = np.random.default_rng(seed)
+    if surface == 'dirt':
+        x = lp(noise(sec, seed), 1400 + r.uniform(-200, 200)) * env(t, 0.004, 30)
+        x += bp(noise(sec, seed + 9), 2000, 6000) * env(t, 0.02, 25) * 0.25  # leaf crunch
+        x += np.sin(2 * np.pi * 70 * t) * env(t, 0.003, 50) * 0.5
+    elif surface == 'concrete':
+        x = bp(noise(sec, seed), 300, 5000) * env(t, 0.001, 55)
+        x += at(bp(noise(0.08, seed + 3), 1500, 7000) * env(t_axis(0.08), 0.001, 70) * 0.4, 0.03, sec)
+        x += np.sin(2 * np.pi * 95 * t) * env(t, 0.002, 60) * 0.4
+    else:  # metal grating
+        x = bp(noise(sec, seed), 500, 6000) * env(t, 0.001, 40)
+        for k, f in enumerate((410, 655, 1230)):
+            x += np.sin(2 * np.pi * f * r.uniform(0.97, 1.03) * t) * env(t, 0.001, 20 + 8 * k) * 0.18
+    return finish(x, 0.55 + r.uniform(-0.05, 0.05), 1.2)
+
+
+def build(out):
+    w = os.path.join(out, 'audio')
+    files = {
+        'weapons/pc7_fire.wav': pulse_shot(10, 2400, 220, 85, 0.5, 6000, 9),
+        'weapons/sp2_fire.wav': pulse_shot(20, 3200, 380, 120, 0.35, 7500, 13),
+        'weapons/dry.wav': dry_click(30),
+        'weapons/pc7_cell_out.wav': mech(40, 0.45, [(0.0, 1.0, 900, 5000, 90), (0.05, 0.6, 400, 2500, 60), (0.22, 0.4, 600, 3000, 120)]),
+        'weapons/pc7_cell_in.wav': mech(50, 0.4, [(0.0, 0.5, 600, 3000, 120), (0.12, 1.0, 800, 6000, 140), (0.15, 0.7, 300, 1500, 70)]),
+        'weapons/pc7_charge.wav': rising_whine(0.42, 420, 1650, 55),
+        'weapons/sp2_cell_out.wav': mech(60, 0.3, [(0.0, 0.9, 1200, 6000, 120), (0.08, 0.4, 500, 3000, 90)]),
+        'weapons/sp2_cell_in.wav': mech(70, 0.3, [(0.0, 1.0, 1000, 7000, 150), (0.04, 0.5, 400, 2000, 80)]),
+        'weapons/sp2_charge.wav': rising_whine(0.3, 600, 2100, 75),
+        'weapons/equip.wav': mech(80, 0.45, [(0.0, 0.4, 300, 2000, 30), (0.2, 0.9, 900, 5000, 110), (0.26, 0.5, 1500, 6000, 150)]),
+        'weapons/aim.wav': cloth(90, 0.18, 0.35),
+        'weapons/impact_soft.wav': impact(100, 150, 2000, 40, 60),
+        'weapons/impact_hard.wav': impact(110, 900, 8000, 55, 140),
+        'weapons/target_down.wav': power_down(0.7, 120),
+        'weapons/target_up.wav': mech(130, 0.5, [(0.0, 0.6, 300, 2500, 25), (0.32, 1.0, 600, 4000, 60)], tone=(300, 700, 0.0, 0.3, 0.2)),
+        'ui/hit_tick.wav': tick(2600, 0.06, 0.6),
+        'ui/ok.wav': tick(1400, 0.12, 0.5),
+        'ui/objective.wav': finish(mix(at(tick(880, 0.4), 0.0, 0.6), at(tick(1320, 0.4), 0.09, 0.6)), 0.55, 1.0),
+        'foley/scan.wav': scan_ping(),
+        'foley/cloth_a.wav': cloth(140, 0.3, 0.4),
+        'foley/land.wav': finish(mix(lp(noise(0.3, 150), 900) * env(t_axis(0.3), 0.003, 18),
+                                     np.sin(2 * np.pi * 60 * t_axis(0.3)) * env(t_axis(0.3), 0.004, 25)), 0.7),
+    }
+    for i in range(4):
+        files[f'foley/step_dirt_{i}.wav'] = footstep(200 + i, 'dirt')
+        files[f'foley/step_concrete_{i}.wav'] = footstep(300 + i, 'concrete')
+        files[f'foley/step_metal_{i}.wav'] = footstep(400 + i, 'metal')
+    for rel, x in sorted(files.items()):
+        write(os.path.join(w, rel), x)
+        print(f"{rel:28s} {len(x) / SR:5.2f}s")
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser(); ap.add_argument('--out', required=True)
+    build(ap.parse_args().out)
