@@ -28,11 +28,11 @@ Read the current [VICTUS character guide](https://github.com/FAHTHIZ/VICTUS/blob
 
 The story and reference direction call for readable expressions and voiced character interactions. The Vanguard models are robots and do not supply human faces. If human characters are required, create or acquire a small original, redistributable cast:
 - A first-person protagonist rig with polished arms/hands/viewmodel, plus a compatible full-body character model for authored cutscenes where the story needs to show the player.
-- A small allied operator cast with distinct visual silhouettes and speaking roles.
+- A recurring full allied squad: player plus three or four named operators, each with a distinct face, silhouette, costume, voice, personality and speaking role. The squad must appear together in playable missions and cinematics.
 - A small opposing/facility character set for authored shooter encounters.
 - Additional speaking NPCs only where the researched campaign needs them.
 
-Avoid a large crowd on the first phone target. More characters mean more draw calls, animation evaluation, skinning, audio voices and memory.
+Avoid unnecessary crowds, but do not reduce the core squad to a lone player or radio-only voices. Profile the full recurring squad on the target phone and optimize meshes, animation LOD, facial detail and voice concurrency without removing the squad.
 
 Character art requirements:
 - Clear silhouette at gameplay camera distance.
@@ -46,7 +46,33 @@ Character art requirements:
 
 Model provenance and license must be documented before the asset enters the final package. Do not grab a model from an arbitrary asset dump or infer permission from a preview page.
 
-## 3. First-person viewmodel and operator presentation
+## 3. Full squad performance and companion presence
+
+The campaign follows a recurring team, not a lone character. The baseline is the first-person player plus three or four allied operators. The exact final roster is selected after profiling, but every member must be a complete authored character—not a placeholder.
+
+Each operator needs:
+- A name/callsign, face, personality, history, narrative role and relationship with the other squad members.
+- Distinct clothing, silhouette, colour accents, materials, voice and movement style.
+- A clear role in each operation and meaningful participation in the story.
+- A consistent full-body model, facial rig, animation set, voice identity and cinematic performance.
+
+### In-mission squad behaviour
+- Teammates accompany the player through mission spaces where the story allows; they navigate, maintain sensible spacing, regroup, wait, react and participate in authored encounters.
+- Implement robust companion navigation and recovery for doors, stairs, narrow corridors, obstacles, elevators and scene transitions.
+- Teammates must not crowd the first-person camera, block critical paths or endlessly bunch together.
+- Use authored companion behaviour and simple state machines/behaviour trees rather than pretending that decorative followers are functional squad AI.
+- Squad members communicate with one another and the player through contextual nearby conversations and radio. Include reactions to discoveries, environment, mission changes and one another's dialogue.
+- Dialogue scheduling must avoid repeated lines, simultaneous chatter, interruptions of important scenes and speech that masks essential audio cues.
+- Nearby speakers use spatial audio. Radio speech uses a distinct but restrained treatment. Subtitles identify the speaker.
+
+### Squad acceptance
+- The complete recurring squad can be seen together in playable missions and major cinematics.
+- Each member has distinct visual and vocal identity and participates in multiple authored story beats.
+- Teammates can follow, regroup, wait and recover from navigation failures.
+- Members visibly react to each other and the world; they are not silent mannequins.
+- Squad continuity is preserved across checkpoints, cutscenes and mission transitions.
+
+## 4. First-person viewmodel and operator presentation
 
 The gameplay camera is first-person. The protagonist's arms/hands and fictional game-weapon viewmodels are therefore hero assets that are visible for much of the campaign.
 
@@ -60,7 +86,7 @@ Requirements:
 - Character/operator models must use the same approved costume, material, voice and animation identity in gameplay and cutscenes.
 - Full-body character performances, facial animation and external camera angles are used in authored cinematics; gameplay returns to first-person.
 
-## 5. Ragdoll and physical-reaction quality bar
+## 6. Ragdoll and physical-reaction quality bar
 
 Ragdoll physics should demonstrate believable weight, joint limits and contact with the environment, but it must remain controlled, safe and reliable. Do not turn every ordinary hit or stumble into a full ragdoll.
 
@@ -91,7 +117,7 @@ Ragdoll physics should demonstrate believable weight, joint limits and contact w
 - Performance is measured with the maximum planned simultaneous ragdolls on the target phone.
 - Record the physics setup, recovery cases, test scenes and actual results. Do not claim a realistic ragdoll system from a single successful clip.
 
-## 4. Animation coverage
+## 5. Animation coverage
 
 Create a small, polished animation library rather than dozens of low-quality one-off clips.
 
@@ -142,6 +168,9 @@ Character movement must feel authored and weighty, not like stock clips snapped 
 ### Cinematic performance
 - Author purposeful blocking, eye-lines, pauses, reactions, hand gestures and body turns for dialogue scenes.
 - Use facial expression, eyelids, gaze and mouth motion in sync with the recorded/generated voice; do not rely on mouth flapping alone.
+- Build expressive eye performance: gaze targets, eye direction, blinks, eyelid shapes, brows and attention shifts. Characters should look toward the person speaking or the object/event they are reacting to.
+- Build synchronized mouth shapes/visemes, jaw motion and subtle cheek/facial expression for dialogue. Speaking and listening characters both need performance; listeners should react rather than freeze.
+- Support multi-person conversations with turn-taking, eye-line changes, nods, brief gestures and natural pauses. Profile facial animation for the complete squad on the target phone.
 - Keep character feet grounded and hands connected to props. Check contact points frame by frame in hero shots.
 - Use the same approved character model, costume, materials and animation identity in gameplay and cutscenes.
 - Avoid exaggerated, robotic or repetitive gestures unless intentionally part of that character's personality.
@@ -152,7 +181,7 @@ Character movement must feel authored and weighty, not like stock clips snapped 
 - Verify motion under the actual mobile frame-rate target and on the physical phone where available.
 - Record the tested animation clips, state transitions, device and observed issues in the build/test log.
 
-## 6. Facial animation
+## 8. Facial animation
 
 VICTUS's audited glTF path supports morph-target weights and their animation. The current morph deformation is CPU-side; when morph weights change, the engine updates a vertex copy for the affected entity. This is a real cost and should shape the design.
 
@@ -176,7 +205,7 @@ Facial acceptance:
 - Face animation does not produce unacceptable CPU spikes.
 - Face animation on one hero is tested before adding more simultaneously animated faces.
 
-## 7. Dialogue and audio architecture
+## 9. Dialogue and audio architecture
 
 VICTUS already supplies normal audio playback through miniaudio:
 - WAV, Ogg Vorbis, MP3 and FLAC.
@@ -199,7 +228,7 @@ Recommended pipeline:
 
 For the first stage, prioritize a small number of clear, well-performed lines rather than long unedited monologues. Provide subtitles and a way to skip/replay dialogue. Do not make comprehension depend on hearing a quiet background line.
 
-## 8. Offline speech synthesis candidates — research, not automatic approval
+## 10. Offline speech synthesis candidates — research, not automatic approval
 
 The owner prefers free/open tooling and does not want a recurring subscription dependency. These are candidate authoring tools; the agent must verify the exact version, license, voice model, dataset lineage and redistribution obligations before use.
 
@@ -231,7 +260,7 @@ Research references:
 
 A human-recorded line can be an excellent option for a small cast. Obtain clear permission for the recording, performance, editing, use in the game and distribution. Keep the agreement/provenance with the source audio. Do not clone or imitate a real person's voice without permission.
 
-## 9. Lip-sync cue generation
+## 11. Lip-sync cue generation
 
 Rhubarb Lip Sync is a possible offline cue-generation tool. It is MIT-licensed. It analyzes a finished voice recording and outputs timed mouth cues; it is not a voice generator and does not animate a character by itself.
 
@@ -249,7 +278,7 @@ Review:
 
 The exact output format, supported language/recognition mode and current compatibility must be tested against the dialogue material. Do not assume its cue labels map one-to-one to the character's face shapes.
 
-## 10. Animation and dialogue runtime state
+## 12. Animation and dialogue runtime state
 
 Implement a small game-owned dialogue state machine:
 - Idle / available.
@@ -273,7 +302,7 @@ Requirements:
 
 Do not introduce runtime TTS just to avoid recording assets. The story uses a finite set of lines and pre-rendered audio is simpler, faster to load predictably and easier to test on the phone.
 
-## 11. Voice performance and asset budgeting
+## 13. Voice performance and asset budgeting
 
 - Prefer short lines and stream longer dialogue where supported.
 - Use compressed game-ready audio; preserve original masters outside the runtime package.
@@ -284,7 +313,7 @@ Do not introduce runtime TTS just to avoid recording assets. The story uses a fi
 - Store speaker metadata, subtitle text, cue files and audio paths together.
 - Measure package-size impact and audio memory behaviour.
 
-## 12. Character acceptance checklist
+## 14. Character acceptance checklist
 
 - First-person camera, arms/hands and viewmodels remain aligned; full-body cutscene rig matches the same character identity.
 - Walk/run transitions show no obvious snapping or foot sliding.
@@ -293,6 +322,10 @@ Do not introduce runtime TTS just to avoid recording assets. The story uses a fi
 - Safe fall/recovery returns cleanly to control.
 - Ragdoll is not enabled on the player unless the complete root/capsule recovery flow has passed.
 - V-01 uses the existing shared Vanguard controller and clips.
+- Every allied squad member has a distinct face, costume, voice, personality and animation identity.
+- The full recurring squad is physically present in authored playable sections and major cinematics.
+- Squad members communicate with one another through contextual spatial dialogue and radio, with synchronized subtitles and visible speaking performance.
+- Companion navigation, regrouping, waiting and recovery work reliably.
 - Operators and opposing characters remain visually/animationally consistent across first-person encounters, dialogue and cinematics.
 - V-01 dummy is visible, static/idle as intended, behind the chair, and reachable at the end of the route.
 - Human character morphs and dialogue are tested at phone resolution.
