@@ -51,8 +51,10 @@ function Hud:start()
                   "Objective Text", "Toast", "Awareness", "Prompt", "Weapon Panel", "Weapon Name", "Ammo", "Weapon State",
                   "Status Panel", "Health Bar", "Tool Text", "Subtitle", "Subtitle Speaker", "Subtitle Text", "Skip Hint",
                   "Skip Button", "Fade", "Title Card", "Title Sub", "Touch", "Stick Base", "Stick Knob", "Diagnostics", "Diagnostics Text",
-                  "Objectives Log", "Letterbox Top", "Letterbox Bottom", "Damage" } do
+                  "Objectives Log", "Letterbox Top", "Letterbox Bottom", "Damage", "Scope", "Scope Zoom", "Prompt Detail",
+                  "Kit Text" } do
         self.e[n] = find(r, n)
+        if not self.e[n] then log.warn("hud: missing element " .. n) end
     end
     self.touch_buttons = {}
     for _, b in Controls.buttons do
@@ -141,6 +143,11 @@ function Hud:update(dt)
     self.hit_t = math.max(0, self.hit_t - dt)
     self:vis("Hit Marker", self.hit_t > 0 and playing)
 
+    -- Scope overlay (LR-4).
+    local sc = Game.scope
+    self:vis("Scope", sc ~= nil and playing)
+    if sc then self:text("Scope Zoom", string.format("ZOOM %d / %d", sc.level, sc.levels)) end
+
     -- Objective and log.
     local o = Game.objective
     self:vis("Objective", (not cin) and o.text ~= "")
@@ -174,6 +181,8 @@ function Hud:update(dt)
         local key = Controls.state.touch_used and "USE" or (Controls.state.gamepad_used and "[X]" or "[E]")
         self:text("Prompt", key .. "  " .. (f.prompt or "Interact"))
     end
+    self:vis("Prompt Detail", f ~= nil and playing and f.detail ~= nil)
+    if f and f.detail then self:text("Prompt Detail", f.detail) end
 
     -- Weapon panel.
     self:vis("Weapon Panel", ws ~= nil and not cin)
@@ -190,6 +199,7 @@ function Hud:update(dt)
         local frac = Game.clamp(ps.health / ps.max_health, 0, 1)
         self:rect(self.e["Health Bar"], "hp:r", function(r) r.size = { math.floor(272 * frac + 0.5), 10 } end)
         self:text("Tool Text", Game.tool_hud or "")
+        self:text("Kit Text", Game.kit_hud or "")
     end
     self.hurt_t = math.max(0, self.hurt_t - dt * 0.8)
     local low = ps and ps.health < 35 and 0.25 or 0
@@ -247,7 +257,12 @@ function Hud:update(dt)
         local cw = select(1, Controls.canvas_size())
         for _, b in Controls.buttons do
             local e = self.touch_buttons[b.name]
-            if e then
+            local en = Controls.button_enabled(b)
+            if e and self.cache["tbv:" .. b.name] ~= en then
+                self.cache["tbv:" .. b.name] = en
+                e:set_visible(en)
+            end
+            if e and en then
                 local bx, by = Controls.button_center(b, cw)
                 self:rect(e, "tb:" .. b.name, function(r)
                     r.anchor_min = { 0, 0 }; r.anchor_max = { 0, 0 }

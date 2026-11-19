@@ -14,6 +14,8 @@ Op.role = "lead"
 Op.order = "follow"     -- initial order: follow | hold
 Op.engage = true        -- fires at visible enemies
 Op.surface = "dirt"     -- footstep set
+Op.ride = ""            -- vehicle name to start seated in (with `seat`)
+Op.seat = ""
 
 function Op:start()
     self.r = Squad.ROSTER[self.who] or Squad.ROSTER.Anchor
@@ -67,6 +69,122 @@ function Op:place(pos, yaw)
     self.hold_point = pos
 end
 
+-- Vehicle occupancy -----------------------------------------------------------------------------
+-- Seated occupants ride the seat marker (no gravity, no collision with the vehicle layer). The
+-- exit is staged: open the door, swing out toward it, stand up onto the ground outside, turn
+-- and push the door shut, then walk to the regroup point.
+local VEHICLE_LAYER_BIT = 64
+
+local function smooth(t) t = math.clamp(t, 0, 1); return t * t * (3 - 2 * t) end
+local function lerp_yaw(a, b, t) return a + (((b - a) + 540) % 360 - 180) * t end
+
+function Op:set_ride(on)
+    local cc = self.entity:get("CharacterController")
+    if not cc then return end
+    if on then
+        self.cc_saved = self.cc_saved or { gravity_scale = cc.gravity_scale, mask = cc.mask }
+        self.entity:set("CharacterController", { gravity_scale = 0,
+                                                 mask = bit32.band(cc.mask, bit32.bnot(VEHICLE_LAYER_BIT)) })
+    elseif self.cc_saved then
+        self.entity:set("CharacterController", self.cc_saved)
+        self.cc_saved = nil
+    end
+end
+
+function Op:board(v, seat)
+    self.vehicle = v
+    self.seat = seat
+    self.mode = "vehicle"
+    self.vphase = "seated"
+    self.vt = 0
+    self.goal = nil
+    self:set_ride(true)
+    local a = self.actor
+    a.seated = true
+    a.seated_pose = nil
+    a.hold_yaw = true
+    a:param("seated", true)
+    a:place(v:seat_root(seat), v:seat_yaw())
+end
+
+-- opts: regroup (world point), face (world point), close (default true), delay (s)
+function Op:exit_vehicle(door, opts)
+    if self.mode ~= "vehicle" then return end
+    opts = opts or {}
+    self.exit = { door = door, regroup = opts.regroup, face = opts.face, close = opts.close ~= false,
+                  delay = opts.delay or 0 }
+    self.vphase = "wait"
+    self.vt = 0
+end
+
+function Op:in_vehicle() return self.mode == "vehicle" end
+function Op:exit_done() return self.mode ~= "vehicle" and self.exit == nil end
+
+function Op:update_vehicle(dt)
+    local v, a, x = self.vehicle, self.actor, self.exit
+    self.vt += dt
+    local ph = self.vphase
+    if ph == "seated" or ph == "wait" then
+        a:place(v:seat_root(self.seat), v:seat_yaw())
+        if ph == "wait" and self.vt >= x.delay then
+            v:set_door(x.door, true)
+            self.vphase = "door"; self.vt = 0
+        end
+    elseif ph == "door" then
+        a:place(v:seat_root(self.seat), v:seat_yaw())
+        a:look_at(v:door_point(x.door) + vector.create(0, 1.0, 0), 0.5)
+        if v:door_open(x.door) or self.vt > 1.0 then self.vphase = "swivel"; self.vt = 0 end
+    elseif ph == "swivel" then
+        local k = smooth(self.vt / 0.75)
+        local p0, p1 = v:seat_root(self.seat), v:sill_root(self.seat, x.door)
+        a:place(p0 + (p1 - p0) * k, lerp_yaw(v:seat_yaw(), v:door_out_yaw(x.door), k))
+        if self.vt >= 0.75 then
+            self.vphase = "stand"; self.vt = 0
+            a.seated_pose = false
+            a:param("seated", false)
+            self.stand_from = p1
+        end
+    elseif ph == "stand" then
+        -- SitStand: lean (0..0.35 s) then rise; the body travels out over the sill while rising
+        local k = smooth((self.vt - 0.15) / 0.95)
+        local p1 = v:door_point(x.door)
+        local p = self.stand_from + (p1 - self.stand_from) * k
+        a:place(p, v:door_out_yaw(x.door))
+        if self.vt >= 1.15 then
+            a.seated = false
+            self:set_ride(false)
+            self.vphase = x.close and "turn" or "leave"; self.vt = 0
+        end
+    elseif ph == "turn" then
+        -- turn back toward the door and push it shut
+        local dp = v.doors[x.door].pivot.world_position
+        local d = dp - self.entity.position
+        local want = math.deg(math.atan2(d.x, d.z))
+        a.yaw = lerp_yaw(a.yaw, want, math.min(1, dt * 6))
+        self.entity.rotation = vector.create(0, a.yaw, 0)
+        if self.vt > 0.45 and not x.pushed then
+            x.pushed = true
+            a:trigger("interact")
+        end
+        if self.vt > 0.8 and not x.shut then x.shut = true; v:set_door(x.door, false) end
+        if self.vt > 1.25 then self.vphase = "leave"; self.vt = 0 end
+    elseif ph == "leave" then
+        a.hold_yaw = false
+        self.vehicle = nil
+        self.exit = nil
+        if x.regroup then
+            self:set_order("move", x.regroup, { face_all = x.face })
+        else
+            self:set_order("hold", nil, { face_all = x.face })
+        end
+        Game.emit("vehicle_exited", self.who, x.door)
+        return
+    end
+    a.focus = nil
+    a.aim_want = 0
+    a:update(dt)
+end
+
 function Op:on_hit(info)
     if info.team == "squad" or (Game.player and info.source and info.source.id == Game.player.id) then
         -- friendly fire: a flinch and a look, nothing else
@@ -110,6 +228,11 @@ function Op:update(dt)
     local a = self.actor
     local e = self.entity
     if self.stagger_t > 0 then self.stagger_t -= dt end
+    if self.ride ~= "" and not self.boarded then
+        local v = Game.vehicles and Game.vehicles[self.ride]
+        if v and v.seats and v.entity.valid and v.started_frame then self.boarded = true; self:board(v, self.seat) end
+    end
+    if self.mode == "vehicle" then return self:update_vehicle(dt) end
     -- combat awareness
     local target, per = nil, nil
     if self.engage and not Game.cinematic then target, per = self:visible_enemy() end

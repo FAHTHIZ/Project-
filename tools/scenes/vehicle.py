@@ -116,6 +116,8 @@ def add_vehicle(sc: Scene, name, pos, yaw, cargo=None, pool_extra=("carbine", "s
     sc.add(f"{name} Tyres", {"Transform": transform((0, 0.3, 0)), "AudioSource": {
         "clip": "audio/vehicle/tyre_roll.wav", "bus": "sfx", "volume": 0.0, "loop": True, "play_on_start": True,
         "spatial": True, "min_distance": 3.0, "max_distance": 45.0}}, root)
+    # Cargo-bay courtesy lamp under the headliner, switched by the hatch (vehicle.luau).
+    sc.light(f"{name} Cargo Lamp", (0, 1.78, 1.7), color=(1.0, 0.9, 0.74), intensity=0.0, rng=3.2, parent=ch)
     # Cargo storage: anchors on the bay floor (vehicle frame), filled by lib/storage.luau.
     cy = L["cargo_floor_y"] + 0.03
     cz0, cz1 = L["cargo_z"]

@@ -109,6 +109,20 @@ function Game.emit(name, a, b, c)
     for _, fn in l do fn(a, b, c) end
 end
 
+-- Interactables: Game.register_interactable(entity, prompt, callback); the player's focus ray (or a
+-- narrow cone fallback) picks the nearest enabled one. `detail` (optional) is a second HUD line.
+Game.interactables = Game.interactables or {}
+function Game.register_interactable(entity, prompt, fn)
+    Game.interactables[entity.id] = { entity = entity, prompt = prompt, fn = fn, enabled = true }
+end
+function Game.set_interactable(entity, enabled, prompt)
+    local r = Game.interactables[entity.id]
+    if r then
+        r.enabled = enabled
+        if prompt then r.prompt = prompt end
+    end
+end
+
 function Game.clamp(x, a, b) if x < a then return a elseif x > b then return b else return x end end
 function Game.lerp(a, b, t) return a + (b - a) * t end
 function Game.damp(a, b, k, dt) return a + (b - a) * (1 - math.exp(-k * dt)) end

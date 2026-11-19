@@ -26,20 +26,8 @@ P.max_health = 100
 P.regen_delay = 4.0
 P.regen_rate = 18
 
-local interactables = {} -- entity id -> { entity, prompt, fn, enabled }
-Game.interactables = interactables
-
--- Called by interactable scripts: Game.register_interactable(entity, prompt, callback).
-function Game.register_interactable(entity, prompt, fn)
-    interactables[entity.id] = { entity = entity, prompt = prompt, fn = fn, enabled = true }
-end
-function Game.set_interactable(entity, enabled, prompt)
-    local r = interactables[entity.id]
-    if r then
-        r.enabled = enabled
-        if prompt then r.prompt = prompt end
-    end
-end
+-- Interactables live in lib/game.luau so any script can register them before the player starts.
+local interactables = Game.interactables
 
 function P:start()
     Game.load_settings()
@@ -159,7 +147,7 @@ function P:update(dt)
     -- Look.
     if playing then
         local look = Controls.look()
-        local sens = 1 - self.zoom * (1 - s.aim_sensitivity)
+        local sens = (1 - self.zoom * (1 - s.aim_sensitivity)) * (self.zoom_sens or 1)
         self.yaw = self.yaw - look.x * sens
         self.pitch = Game.clamp(self.pitch - look.y * sens, -self.pitch_limit, self.pitch_limit)
     end

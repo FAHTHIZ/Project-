@@ -19,13 +19,14 @@ Controls.buttons = {
     { name = "crouch",   ax = 1, x = 92,  y = 520, r = 40, label = "CROUCH" },
     { name = "interact", ax = 1, x = 440, y = 470, r = 48, label = "USE" },
     { name = "tool",     ax = 1, x = 330, y = 390, r = 44, label = "TOOL" },
+    { name = "utility",  ax = 1, x = 450, y = 610, r = 40, label = "KIT", needs = "utility" },
     { name = "pause",    ax = 1, x = 60,  y = 56,  r = 34, label = "II" },
     { name = "objectives", ax = 0, x = 60, y = 56, r = 34, label = "OBJ" },
 }
 Controls.stick_zone = 0.42      -- left share of the screen that spawns the floating stick
 Controls.stick_radius = 90      -- canvas units for full deflection
 
-local ACTIONS = { "fire", "aim", "reload", "switch", "interact", "tool", "jump", "sprint", "crouch", "pause",
+local ACTIONS = { "fire", "aim", "reload", "switch", "interact", "tool", "utility", "jump", "sprint", "crouch", "pause",
                   "objectives", "diagnostics", "quick_save", "quick_load", "skip",
                   "weapon1", "weapon2" }
 
@@ -53,8 +54,16 @@ function Controls.button_center(b, cw)
     return x, b.y
 end
 
+-- Buttons tied to an inventory slot (KIT) only exist while that slot holds something.
+function Controls.button_enabled(b)
+    if not b.needs then return true end
+    local inv = Game.inventory
+    return inv ~= nil and inv.slots[b.needs] ~= nil
+end
+
 local function hit_button(cx, cy, cw)
     for _, b in Controls.buttons do
+        if not Controls.button_enabled(b) then continue end
         local bx, by = Controls.button_center(b, cw)
         local dx, dy = cx - bx, cy - by
         if dx * dx + dy * dy <= (b.r * 1.15) ^ 2 then return b end
