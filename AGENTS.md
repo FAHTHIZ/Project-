@@ -68,7 +68,7 @@ Do not stop after documentation or scaffolding. Never claim that a feature, buil
 
 - A polished, explorable Stage 01 forest based on all four reference clips.
 - A landscape first-person controller with responsive look/aim, a stable head/camera rig, collision-aware movement and first-person arms/hand/weapon viewmodels. Gameplay remains first-person; external camera angles are reserved for authored cutscenes. Keep camera, field of view, sensitivity and motion settings data-driven.
-- Responsive mobile controls: left movement stick, right camera-look region, contextual interaction and field-tool buttons, pause/settings, and a clear gamepad mode. Keyboard/mouse must work in desktop testing.
+- Responsive mobile controls: left movement stick, right first-person look/aim region, contextual interaction and field-tool buttons, pause/settings, and a clear gamepad mode. Keyboard/mouse must work in desktop testing.
 - A polished shooter HUD with clear objectives, context prompts, reticle/aim feedback, ammunition and weapon state, interaction prompts, an understandable encounter/objective alert state, subtitles and pause/settings. Keep it readable on the target phone and allow comfort/accessibility customization.
 - At least one voiced NPC encounter, subtitles and a working dialogue interaction.
 - Responsive fictional weapon gameplay and a separate field utility device for scanning/illumination/inspection. Both must be fully implemented and playable; neither may be a static mockup.
