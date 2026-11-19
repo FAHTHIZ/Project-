@@ -184,15 +184,19 @@ Before any external asset/tool enters the game:
 
 "Free download", "open source" and "no subscription" are not license categories. Source code, model weights, training data, voice recordings and generated output may have different legal treatment. Do not bundle an authoring model/runtime into the game unless the distribution impact is intentional and reviewed.
 
-## 8. Unresolved research tasks for later stages
+## 8. New campaign, operator and cinematic research tasks
 
 The agent must research and cite:
-- Original perimeter/facility/bunker architecture references.
-- Environment modular kit and prop set suitable for a mobile scene.
-- Original character models and any required animations.
-- Exact audio ambience/footstep source licenses.
+- Original perimeter, facility, bunker and substantial lower-basement architecture references.
+- Operation-by-operation campaign route, objectives, mission transitions and story continuity.
+- First-person camera, arms/hands, viewmodel and responsive mobile shooter-control references.
+- Original operator and opposing-character costume design, clothing materials, silhouettes, animation and voice references.
+- Fictional game-weapon art direction, first-person animation presentation, sound design and abstract game-balance research. Do not collect or reproduce real-world weapon specifications, operating instructions, handling tutorials or tactical doctrine.
+- VICTUS's live cinematic/sequence/timeline, camera animation, character animation, audio cue, subtitle and checkpoint capabilities.
+- Cutscene storyboard references and original cinematography plans for each major campaign reveal.
+- Exact ambience, weapon/game-effect and dialogue audio source licenses.
 - Voice choice and model/recording rights.
-- Any additional VICTUS features required for later stage progression.
+- Any additional VICTUS features required for campaign progression and cutscene integration.
 - Android profiling tooling compatible with the phone's actual OS and GPU driver.
 
-Later stage design is deliberately open. Each stage should have its own brief with image references, observations, design decisions, asset list, licenses, engine fit and mobile performance plan.
+Every campaign area and major cinematic should have its own research notes with image references, observations, original design decisions, asset list, licenses, engine fit and mobile performance plan. All source material informs original work; it is not permission to copy another game's missions, characters, weapons, maps, dialogue or compositions.
