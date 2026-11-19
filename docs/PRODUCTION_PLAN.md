@@ -2,6 +2,12 @@
 
 This plan is an execution queue, not a reason to stop coding after a design document. The autonomous agent should complete verified slices in order, commit them to `main` and continue.
 
+## Canonical campaign narrative
+
+The complete end-to-end campaign is specified in docs/CAMPAIGN_STORY_BIBLE.md. This is the authoritative narrative source for mission objectives, story logic, factions, characters, dialogue direction, the reason for the bunker descent, the VICTUS explanation and the ending. Read it before changing campaign scenes or writing mission dialogue.
+
+The story design is complete; implementation is not. Do not invent a replacement plot, turn Greyline into a generic enemy army, change the non-lethal pulse-weapon direction, make VICTUS a superweapon or AI, or alter the inert V-01 dummy reveal. Operation geometry and encounter staging may adapt to verified VICTUS capabilities, but the cause-and-effect story in the story bible is canon.
+
 ## Progress status (kept current; details and evidence in BUILD_AND_TEST_LOG.md)
 
 | Piece | State | Evidence |
@@ -11,6 +17,7 @@ This plan is an execution queue, not a reason to stop coding after a design docu
 | Weapons and viewmodel (PC-7 Lantern carbine, SP-2 Wren sidearm, field scanner) | Done (implemented, simulated, visually inspected on lavapipe; not device-tested) | log P1 weapons, autotest weapons 26/26 |
 | Squad operators, companions, dialogue, enemies (Anchor, Patch, Echo, Tally; Greyline A/B; Ranger Hollis; 76 voiced lines) | Done on the dev range (implemented, simulated, visually inspected on lavapipe; not device-tested; squad size not yet profiled on the phone) | log P3 squad, autotests squad 17/17, squad_combat 5/5, enemy_fire 3/3 |
 | Mule vehicle (drive-in, park, staggered squad egress), cargo trunk storage, shared inventory, LR-4 scope, field kit | Done on the dev range (implemented, simulated, visually inspected on lavapipe; not device-tested) | log "Vehicle, cargo storage…", autotests vehicle 14/14, trunk 26/26, sniper 19/19, docs/evidence/ |
+| Campaign story bible — Operation Iron Veil, complete prologue-to-credits narrative | Design specified; mission implementation pending | docs/CAMPAIGN_STORY_BIBLE.md |
 | Open-world map (forest → hillside → perimeter → facility approach), Op01 forest | Next | |
 | Cinematics (12 beats) | Pending | |
 | Prologue, Op02-Op07, V-01 reveal, ending | Pending | |
@@ -104,6 +111,7 @@ Tasks:
 **Goal:** deliver an independently playable first stage.
 
 Tasks:
+- Implement the prologue and Operation 01 story flow from docs/CAMPAIGN_STORY_BIBLE.md: briefing, Mule arrival/loadout, Hollis forest guide, first Greyline contact, active-site discovery and perimeter transition.
 - Complete the route, objective chain, fictional combat encounter(s), field interactions, operator/NPC scenes, environmental awareness/alert states and Stage 02 transition.
 - Deliver the opening cinematic, a key forest reveal and a transition cinematic into the perimeter.
 - Add start/pause/settings, save/restore and clear stage completion.
@@ -116,6 +124,8 @@ Tasks:
 **Exit gate:** a new player can launch, understand controls, finish the stage, save/restore, and reach the conclusion on the target phone without a developer console.
 
 ## P6 — Research and build the complete campaign: perimeter, facility, bunker and basement
+
+The narrative order and dramatic purpose for every operation are fixed in docs/CAMPAIGN_STORY_BIBLE.md. Implement the story in that order; do not build disconnected locations or invent new reasons for the player to descend. The Source Vault is the reason for the bunker and lower-basement chapters, and the V-01 dummy is the deliberately mundane final reveal.
 
 For every campaign area after the forest, including a substantial lower-basement chapter, research before asset creation:
 - Stage/operation purpose, player activity and campaign continuity.
