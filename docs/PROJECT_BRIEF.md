@@ -4,7 +4,7 @@
 **Game orientation:** Landscape  
 **Primary device:** Infinix Hot 10S, 6 GB RAM variant  
 **Engine:** VICTUS, live main branch  
-**Genre:** Third-person exploration / field investigation / environmental interaction  
+**Genre:** First-person cinematic shooter campaign with exploration and environmental interaction  
 **Working title:** SPECIAL OPS (title can be reconsidered after a playable build)
 
 ## 1. Product purpose
@@ -23,64 +23,60 @@ The tone is grounded, curious and cinematic. The forest can feel mysterious, iso
 
 At the end of the bunker sequence, the player discovers the VICTUS dummy: an ordinary Vanguard V-01 robot awkwardly positioned behind a chair. It is a deliberately mundane, funny reveal. The dummy is not secretly intelligent, a mastermind, a final boss or a supercomputer. The joke works because the preceding presentation has made the facility feel important, only for the final discovery to be a harmless dummy.
 
-## 3. Camera and player embodiment
+## 3. First-person player presentation
 
-Use a **third-person camera** as the default. This is a deliberate showcase decision: it lets the player see the character's full locomotion, foot contact, physical reactions, falls, interaction animations and silhouette while moving through the forest.
+Use a **first-person gameplay camera** as the default and throughout ordinary play. This is a shooter campaign, so aiming, movement, weapon presentation, interactions and environmental discovery are experienced through the player's eyes. Do not implement a third-person follow-camera as the gameplay controller.
 
 Requirements:
-- Responsive follow camera with smoothing that does not feel delayed.
-- Obstruction handling that avoids clipping through trees, walls and door frames.
-- Sensible collision and camera distance in narrow interiors.
-- Optional close follow distance only if it remains readable and stable.
-- Camera-relative movement with a clear and predictable relationship between the left stick and camera-look region.
-- Keep camera presentation separate from player movement and physics.
-- Camera must reframe for conversations and the final reveal without losing player orientation.
-- Test the unusually wide landscape aspect ratio of the phone; do not assume a standard 16:9 viewport.
-
-A first-person presentation is not the default. Do not switch the game to first-person merely because it is common in tactical games; that would hide much of the character animation that this demo is intended to showcase.
+- Responsive first-person movement and look, with tunable field of view, sensitivity, acceleration and camera-motion options.
+- Stable camera/head rig that respects collision and avoids clipping through walls, floors, door frames and props.
+- First-person arms, hands and weapon/tool viewmodels with polished proportions, alignment, animation and lighting.
+- Distinct, reliable viewmodel states for idle, aim, firing, reload, weapon switch, utility-tool use, interaction and cinematic handoff.
+- Clear reticle/aim feedback with user options for size, opacity, sensitivity and camera shake.
+- Maintain consistent camera and player state across pause/resume, checkpoint restore, scene loading and cutscene transitions.
+- Full-body player/character models remain useful for authored cinematics, shadows, reflections and other characters' views; they do not change the first-person gameplay direction.
+- Cutscenes may use external cinematic cameras to show the squad, character performances and location reveals. Return to first-person before gameplay resumes.
+- Test the wide landscape phone aspect ratio and common 16:9 windows; do not assume every screen is identical.
 
 ## 4. Core gameplay loop
 
-1. Move along the forest route.
-2. Notice a visual, audio or environmental clue.
-3. Approach and inspect it.
-4. Use the field utility device to illuminate or scan a designated point of interest.
-5. Read a short contextual response, hear a character or environment reaction, or trigger a simple world-state change.
-6. Continue toward the next landmark.
-7. Reach the perimeter and later facility/bunker stages.
-8. Meet and speak with characters.
-9. Reach the V-01 dummy behind the chair and complete the stage.
+1. Receive an operation objective and enter the current area.
+2. Explore in first person, follow landmarks and notice visual/audio clues.
+3. Encounter allied characters, opposing personnel and authored story events.
+4. Use the fictional primary/secondary game weapons when combat encounters occur; use readable aim, fire, reload and switch actions with responsive feedback.
+5. Manage encounter objectives and progress through the mission rather than simply clearing disconnected enemy waves.
+6. Use the separate field utility device to inspect, illuminate or scan selected environmental objects.
+7. Trigger conversations, short cinematic beats and major story cutscenes at meaningful discoveries and transitions.
+8. Reach mission checkpoints and progress through the forest, perimeter, facility, bunker and lower basement.
+9. Complete the final approach, discover the V-01 dummy behind the chair and see the ending.
 
-Interaction design must be clear on touch and gamepad. A highlighted object should not require pixel-perfect tapping. Context prompts should explain what action is available.
+The game must include actual shooter gameplay, not just weapon props or a HUD mock-up. Combat is fictional game activity with invented weapon attributes, non-graphic feedback and fair, authored encounters. Touch and gamepad users must be able to move, look/aim and use combat actions without pointer conflicts.
 
 ## 5. The field utility device
 
-Create an original **non-weapon field utility device** as the player's main active tool. It can combine:
+Create an original **secondary non-weapon field utility device** for exploration and environmental storytelling. It can combine:
 - A focused light for inspecting dark corners and surfaces.
 - A scan mode that reveals or labels authored points of interest.
 - A simple interaction pulse/confirmation effect for environment objects.
-- Clear on-screen feedback and a short, polished equip/use/holster-style presentation only in the sense of presenting and stowing an ordinary utility gadget.
+- Clear on-screen feedback and a polished equip/use/stow presentation.
 
-This tool must not become a parallel combat system. Its purpose is exploration, inspection and environmental storytelling. Keep its mesh, effects, animation and UI mobile-friendly.
+The utility device complements the shooter loop; it does not replace the player's fictional game weapons. Keep its mesh, effects, animation and UI mobile-friendly.
 
-## 6. Alert and objective feedback
+## 6. Combat, alert and objective feedback
 
-The game needs an alert system, but it should support exploration rather than combat. Use an authored **facility-awareness / objective-alert state** such as:
-- Calm: no active event.
-- Noticed: a clue, sensor or character has reacted.
-- Investigating: the current objective or a nearby character is responding.
-- Resolved: the player completed the interaction.
-
-Do not build real-world tactical guidance or combat behaviour. The player should understand why the state changed and what safe, ordinary interaction is available next.
+Combat and mission feedback should be immediately understandable without imitating a real-world training interface.
 
 HUD should include:
-- Current objective (one short sentence).
+- Current operation objective and short mission updates.
 - Contextual interaction prompt.
-- Utility-tool status.
-- Compact alert/awareness state.
+- A restrained reticle and aim state.
+- Fictional weapon/ammunition state and weapon-switch feedback.
+- Encounter/mission awareness state with clear authored changes.
 - Optional subtitle and speaker name.
-- Pause/settings.
-- Optional performance overlay for demonstration builds, disabled by default.
+- Utility-tool status.
+- Pause/settings and optional performance overlay for demonstration builds.
+
+Keep all weapon statistics and combat behaviour as invented game parameters. Avoid real-world tactical guidance, operational weapon detail or graphic hit presentation. The UI must remain readable on the target phone and support input/accessibility settings.
 
 ## 7. Existing characters and intended use
 
@@ -93,19 +89,30 @@ Both variants share the same documented 21-joint skeleton, material family, sock
 
 For a human protagonist or speaking NPC, create or source original/redistributable models and verify their actual rig, materials, facial geometry, animation clips, and licensing. Do not pretend V-01/V-02 have human faces: their heads use a visor with two eye indicators.
 
-## 8. Stage structure
+## 8. Campaign and operation structure
 
-Only Stage 01's visual direction is fixed by the supplied videos. Later stages are a research task for the coding agent; see the agent contract and production plan.
+The full campaign must travel through every area below. The perimeter, facility, bunker and basement are not optional mentions or a single corridor. Each needs its own researched visual identity, playable space, objectives, cinematic beats and transition.
 
-| Stage | Purpose | Current direction |
+| Chapter / operation | Main spaces | Purpose |
 |---|---|---|
-| 01 — Forest approach | Establish atmosphere, movement and environment interaction | Directly grounded in the four supplied forest videos |
-| 02 — Perimeter | Transition from natural environment to a human-built boundary | Research references and propose an original layout before asset production |
-| 03 — Facility exterior / service areas | Demonstrate modular architecture, materials, practical lights, doors and interactions | Research and document independently |
-| 04 — Bunker interior | Demonstrate interior lighting, spatial audio, dialogue, props and character behaviour | Research and document independently |
-| 05 — Dummy reveal | Pay off the setup with the V-01 dummy behind a chair | Use existing V-01 asset; keep the gag simple and readable |
+| Prologue | Briefing/deployment space | Establish the mission, player and operator cast |
+| Operation 01 — Forest | Forest approach, trails, clearings and landmarks | Introduce movement, first-person shooter controls, environmental clues and first encounters |
+| Operation 02 — Perimeter | Outer boundary and access structures | Transition from forest to the facility |
+| Operation 03 — Facility approach | Exterior service areas, yards and entry spaces | Build scale and tension before entering |
+| Operation 04 — Facility interior | Operations rooms, labs/workspaces and service corridors | Character interactions, discoveries and combat encounters |
+| Operation 05 — Bunker | Main bunker rooms and connecting spaces | Develop the story and lead to lower levels |
+| Operation 06 — Basement | A substantial lower level with its own layout, props, atmosphere and gameplay | A distinct playable chapter, not a brief hallway |
+| Operation 07 — VICTUS chamber | Final approach and chair area | V-01 dummy reveal and ending |
 
-The agent may propose a better sequence after researching later-stage references, but must preserve the forest-to-facility-to-bunker direction and the V-01 reveal unless the owner explicitly changes it.
+Add original operations/objectives within these spaces as the story requires. Every operation must have a written mission brief, route, objective chain, character appearances, combat beats, checkpoint plan, audio plan and cinematic plan.
+
+## 9. Cinematic cutscenes
+
+Frequent, purposeful, high-quality campaign cutscenes are a core part of the game. Plan an opening/deployment sequence, major location reveals, operator introductions and character moments, transitions between campaign areas, the bunker descent, a dedicated basement reveal, the V-01 chair reveal and an ending. Use shorter in-engine cinematic beats for major discoveries and mission milestones.
+
+Aim for the polished cinematic rhythm of a story-driven military-action campaign, while keeping all scenes, characters, compositions, dialogue, mission designs and assets original. Do not copy Call of Duty content. Prefer real-time VICTUS sequences after verifying the engine's actual timeline/camera/animation support. Build a small documented game-owned timeline only if VICTUS has a genuine gap.
+
+Each cutscene needs deliberate composition, camera motion, actor blocking, expressive animation, lighting, audio/music, voice performance, subtitles, reliable skip/pause/resume, checkpoint-safe state changes and a clean return to first-person gameplay. Cutscenes must be tested on the target device and cannot break mission progression when skipped.
 
 ## 9. Visual quality principles
 
@@ -133,9 +140,9 @@ The agent may propose a better sequence after researching later-stage references
 ## 11. Explicit assumptions and open choices
 
 The following are sensible implementation defaults, not hidden claims of owner approval:
-- Third-person is the default camera because it best showcases character motion.
+- First-person is the gameplay camera; external camera angles are reserved for authored cutscenes.
 - Start at 30 FPS with adaptive resolution/quality and attempt a higher rate only after profiling.
-- Build a compact, carefully authored forest route rather than a vast open world.
+- Build a complete, compact campaign through the forest, perimeter, facility, bunker and substantial basement rather than an unnecessarily vast open world.
 - Pre-render the finite dialogue audio during development rather than running a large TTS model in the game.
 - Use V-01 for the chair reveal; V-02 is optional elsewhere.
 
