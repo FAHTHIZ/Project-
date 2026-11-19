@@ -94,16 +94,22 @@ end
 
 -- look: world point the eyes should rest on (nil = straight ahead); yaw: the body's yaw (deg).
 function Face:update(dt, look, yaw, cam_pos)
+    -- distance cull first: faces beyond 22 m are not animated, and an unresolved head mesh is
+    -- not searched for until the actor is close (the search touches morph-target data, which can
+    -- be expensive while a character's mesh is still being prepared)
+    if cam_pos and self.head_bone then
+        local d = vector.magnitude(self.head_bone.world_position - cam_pos)
+        if d > 22 then return end
+    end
     if not self.active then
         if self.find_tries <= 0 then return end
+        self.find_wait = (self.find_wait or 0) - dt
+        if self.find_wait > 0 then return end
+        self.find_wait = 0.5
         self.find_tries -= 1
         self.mesh = find_head(self.body)
         self.active = self.mesh ~= nil
         if not self.active then return end
-    end
-    if cam_pos and self.head_bone then
-        local d = vector.magnitude(self.head_bone.world_position - cam_pos)
-        if d > 22 then return end
     end
     local w = self.w
     for _, n in TARGETS do w[n] = 0 end
