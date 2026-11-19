@@ -308,39 +308,53 @@ function W:fire(ps)
     self.shots += 1
     Combat.stats.shots += 1
     local origin, dir = ps:aim_ray()
-    -- Random cone spread (degrees).
+    -- Random cone spread (degrees). Spread emitters (d.pellets) cast several sub-pulses inside an
+    -- extra pellet cone; hit feedback fires once per trigger pull, using the best zone hit.
     local spread = math.rad(self:spread_now(ps))
-    local a = math.random() * math.pi * 2
-    local rr = math.sqrt(math.random()) * math.tan(spread)
     local right = ps.cam.right
     local up = ps.cam.up
-    local sdir = vector.normalize(dir + right * (math.cos(a) * rr) + up * (math.sin(a) * rr))
-    local hit = physics.raycast(origin, sdir, d.range, nil, Game.player)
-    local endp = origin + sdir * d.range
-    if hit then
-        endp = hit.point
-        local zone = "body"
-        local h = Combat.handler_of(hit.entity)
-        if h and h.entity.valid then
-            -- Head zone: hits above 1.5 m on an upright humanoid or marked head colliders.
-            local lp = hit.point.y - h.entity.world_position.y
-            if hit.entity.name:find("Head") or lp > 1.52 then zone = "head" end
-            local amount = d.stun * (zone == "head" and d.head_mult or 1)
-            local ok = h.fn({ amount = amount, point = hit.point, normal = hit.normal, dir = sdir,
-                              source = Game.player, zone = zone, weapon = d.id })
-            if ok then
-                self.hits += 1
-                Combat.stats.hits += 1
-                Game.emit("hit_confirm", zone)
-                audio.play("audio/ui/hit_tick.wav", { volume = zone == "head" and 0.75 or 0.5, bus = "ui",
-                                                     pitch = zone == "head" and 1.25 or 1, max_instances = 3 })
-            end
-            self:impact(hit, true)
-        else
-            self:impact(hit, false)
+    local a = math.random() * math.pi * 2
+    local rr = math.sqrt(math.random()) * math.tan(spread)
+    local cdir = vector.normalize(dir + right * (math.cos(a) * rr) + up * (math.sin(a) * rr))
+    local pellets = d.pellets or 1
+    local pcone = math.tan(math.rad(d.pellet_spread or 0))
+    local confirmed = nil
+    for i = 1, pellets do
+        local sdir = cdir
+        if pellets > 1 then
+            -- even ring pattern with jitter so fans read as a fan, not a random blob
+            local pa = (i / pellets) * math.pi * 2 + (math.random() - 0.5) * 0.9
+            local pr = (i == 1) and 0 or pcone * (0.45 + math.random() * 0.55)
+            sdir = vector.normalize(cdir + right * (math.cos(pa) * pr) + up * (math.sin(pa) * pr))
         end
+        local hit = physics.raycast(origin, sdir, d.range, nil, Game.player)
+        local endp = origin + sdir * d.range
+        if hit then
+            endp = hit.point
+            local zone = "body"
+            local h = Combat.handler_of(hit.entity)
+            if h and h.entity.valid then
+                -- Head zone: hits above 1.5 m on an upright humanoid or marked head colliders.
+                local lp = hit.point.y - h.entity.world_position.y
+                if hit.entity.name:find("Head") or lp > 1.52 then zone = "head" end
+                local amount = d.stun * (zone == "head" and d.head_mult or 1)
+                local ok = h.fn({ amount = amount, point = hit.point, normal = hit.normal, dir = sdir,
+                                  source = Game.player, zone = zone, weapon = d.id })
+                if ok and confirmed ~= "head" then confirmed = zone end
+                self:impact(hit, true, i > 2)
+            else
+                self:impact(hit, false, i > 2)
+            end
+        end
+        if i <= 3 then self:tracer(r, endp) end
     end
-    self:tracer(r, endp)
+    if confirmed then
+        self.hits += 1
+        Combat.stats.hits += 1
+        Game.emit("hit_confirm", confirmed)
+        audio.play("audio/ui/hit_tick.wav", { volume = confirmed == "head" and 0.75 or 0.5, bus = "ui",
+                                             pitch = confirmed == "head" and 1.25 or 1, max_instances = 3 })
+    end
     -- Feedback: camera recoil, viewmodel kick, flash, sound, noise for AI.
     local ads = Game.lerp(1, d.ads_kick, self.zoom)
     local kp = d.kick_pitch * ads * (0.85 + math.random() * 0.3)
@@ -353,7 +367,7 @@ function W:fire(ps)
     self.flash_t = 0.05
     if r.flash then setvis(r.flash, true); r.flash.rotation = V(0, 0, math.random() * 360) end
     self:set_flash_light(r, 9)
-    if r.slide then self.slide_t = 0.09 end
+    if r.slide then self.slide_t = (d.slide_delay or 0) + (d.slide_time or 0.09); self.slide_sfx = d.pump_sfx end
     ps:add_shake(0.06 * ads)
     play(d.fire, 0.95, 0.95 + math.random() * 0.1)
     Combat.noise(Game.player.world_position, d.noise, Game.player)
@@ -379,7 +393,7 @@ function W:tracer(r, endp)
     setvis(t.e, true)
 end
 
-function W:impact(hit, on_target)
+function W:impact(hit, on_target, quiet)
     local n = hit.normal
     local p = hit.point + n * 0.02
     -- Emitters emit along their local +Y: point +Y along the surface normal.
@@ -396,6 +410,7 @@ function W:impact(hit, on_target)
         self.dust.rotation = rot
         self.dust:emit_particles(5)
     end
+    if quiet then return end
     play(on_target and "audio/weapons/impact_hard.wav" or "audio/weapons/impact_soft.wav", 0.7,
          0.9 + math.random() * 0.2, hit.point)
 end
@@ -727,11 +742,15 @@ function W:update(dt)
             r.slide.position = r.slide_home + V(0, 0, 0.022 * bump(u, 0.74, 0.86))
         end
     end
-    -- Sidearm slide kick on each shot.
+    -- Slide kick (sidearm) or pump stroke (breacher) after each shot.
     if self.slide_t and r.slide then
         self.slide_t -= dt
-        local kk = math.max(0, self.slide_t) / 0.09
-        r.slide.position = r.slide_home + V(0, 0, 0.018 * math.sin(kk * math.pi))
+        local d = r.def
+        local delay, dur = d.slide_delay or 0, d.slide_time or 0.09
+        local u = delay + dur - math.max(0, self.slide_t)
+        local kk = Game.clamp((u - delay) / dur, 0, 1)
+        if u >= delay and self.slide_sfx then play(self.slide_sfx, 0.85); self.slide_sfx = nil end
+        r.slide.position = r.slide_home + V(0, 0, (d.slide_travel or 0.018) * math.sin(kk * math.pi))
         if self.slide_t <= 0 then self.slide_t = nil end
     end
     -- Scanner: raise in the left of the frame, weapon nudges right.

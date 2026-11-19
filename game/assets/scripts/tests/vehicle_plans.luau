@@ -304,4 +304,85 @@ P.scope_look = {
     { at = 30 },
 }
 
+-- Arms case (scenes/tests/armory.vscene): the always-open case swaps the carried primary for the
+-- KV-5, BR-9 and MR-6; the BR-9 fires a pellet fan with a pump stroke; the MR-6 scope has one step.
+local function case() return Game.storages and Game.storages["armory_case"] end
+local function aim_target(name)
+    local t = scene.find(name)
+    local cp = ps().cam.world_position
+    local d = t.world_position + V(0, 1.2, 0) - cp
+    ps().yaw = math.deg(math.atan2(-d.x, -d.z))
+    ps().pitch = math.deg(math.asin(d.y / vector.magnitude(d)))
+end
+P.armory = {
+    { at = 0.5, run = function(c)
+        Inventory.reset()
+        c.check("case_found", case() ~= nil, "armory_case")
+        local l = case():list()
+        c.check("case_contents", #l == 3 and has(l, "pdw") and has(l, "breacher") and has(l, "dmr"), table.concat(l, ","))
+        c.check("case_open", case().open == true, "no hatch gating")
+        c.check("viewmodels", Game.weapons.w.pdw ~= nil and Game.weapons.w.breacher ~= nil and Game.weapons.w.dmr ~= nil,
+                "PDW, Breacher and DMR roots found")
+        c.check("pump_part", Game.weapons.w.breacher.slide ~= nil, "Breacher Slide")
+        local ok = case():take(case():find("breacher"))
+        c.check("took_breacher", ok and Inventory.in_slot("primary") == "breacher", tostring(Inventory.in_slot("primary")))
+        local l2 = case():list()
+        c.check("carbine_in_case", has(l2, "carbine") and not has(l2, "breacher"), table.concat(l2, ","))
+    end },
+    { at = 2.4, run = function(c)
+        c.check("breacher_equipped", Game.weapons.current == "breacher" and Game.weapons.state == "idle",
+                tostring(Game.weapons.current) .. " " .. Game.weapons.state)
+        aim_target("Target 0")
+        c.data.hits0 = Game.weapons.hits
+        c.data.shots0 = Game.weapons.shots
+    end },
+    { at = 2.45, press = "fire" }, { at = 2.5, release = "fire" },
+    { at = 2.62, run = function(c)
+        local r = Game.weapons.w.breacher
+        c.check("one_shell_per_pull", r.st.ammo == 5 and Game.weapons.shots == c.data.shots0 + 1,
+                string.format("ammo %d", r.st.ammo))
+        c.check("fan_hits_once", Game.weapons.hits == c.data.hits0 + 1, string.format("%d confirms", Game.weapons.hits - c.data.hits0))
+    end },
+    { at = 2.85, run = function(c)
+        local r = Game.weapons.w.breacher
+        local dz = (r.slide.position - r.slide_home).z
+        c.check("pump_strokes", dz > 0.03, string.format("pump +%.3f m", dz))
+    end },
+    { at = 3.2, run = function(c)
+        local r = Game.weapons.w.breacher
+        c.check("pump_returns", vector.magnitude(r.slide.position - r.slide_home) < 0.01, "pump home")
+        local ok = case():take(case():find("dmr"))
+        c.check("took_dmr", ok and Inventory.in_slot("primary") == "dmr", tostring(Inventory.in_slot("primary")))
+        c.check("breacher_back_in_case", has(case():list(), "breacher"), table.concat(case():list(), ","))
+    end },
+    { at = 5.0, run = function(c)
+        c.check("dmr_equipped", Game.weapons.current == "dmr" and Game.weapons.state == "idle",
+                tostring(Game.weapons.current) .. " " .. Game.weapons.state)
+        aim_target("Target 4")
+        c.data.shots1 = Game.weapons.shots
+    end },
+    { at = 5.05, press = "aim" },
+    { at = 5.8, run = function(c)
+        c.check("dmr_scoped", Game.scope ~= nil and Game.scope.levels == 1, Game.scope and tostring(Game.scope.levels) or "nil")
+    end },
+    { at = 5.8, press = "fire" }, { at = 5.85, release = "fire" },
+    { at = 6.15, press = "fire" }, { at = 6.2, release = "fire" },
+    { at = 6.5, release = "aim", run = function(c)
+        c.check("dmr_semi_follow_up", Game.weapons.shots == c.data.shots1 + 2, string.format("%d shots", Game.weapons.shots - c.data.shots1))
+        local ok = case():take(case():find("pdw"))
+        c.check("took_pdw", ok and Inventory.in_slot("primary") == "pdw", tostring(Inventory.in_slot("primary")))
+    end },
+    { at = 8.0, run = function(c)
+        c.check("pdw_equipped", Game.weapons.current == "pdw" and Game.weapons.state == "idle",
+                tostring(Game.weapons.current) .. " " .. Game.weapons.state)
+        aim_target("Target 0")
+        c.data.shots2 = Game.weapons.shots
+    end },
+    { at = 8.05, press = "fire" },
+    { at = 8.55, release = "fire", run = function(c)
+        local n = Game.weapons.shots - c.data.shots2
+        c.check("pdw_auto_rate", n >= 6 and n <= 9, string.format("%d shots in 0.5 s", n))
+    end },
+}
+
 return P

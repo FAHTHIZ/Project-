@@ -104,12 +104,19 @@ def add_viewmodel(sc: Scene, vm):
         ("Sidearm", [("Body", "sp2_body"), ("Slide", "sp2_slide"), ("Cell", "sp2_cell")],
          ((-0.014, -0.006, 0.012), (0, -12, 0)), (0, 0.012, -0.152)),
         ("Marksman", [("Body", "lr4_body"), ("Cell", "lr4_cell")], ((0, 0.0, -0.27), (0, 0, 0)), (0, 0.045, -0.745)),
+        ("PDW", [("Body", "kv5_body"), ("Cell", "kv5_cell")], ((0, -0.012, -0.17), (0, 0, 0)), (0, 0.05, -0.39)),
+        # the Ram's support hand rides the pump (parented to "Breacher Slide" below)
+        ("Breacher", [("Body", "br9_body"), ("Slide", "br9_pump"), ("Cell", "br9_cell")],
+         ((0, -0.028, -0.28), (0, 0, 0)), (0, 0.058, -0.565)),
+        ("DMR", [("Body", "mr6_body"), ("Cell", "mr6_cell")], ((0, 0.0, -0.31), (0, 0, 0)), (0, 0.045, -0.67)),
     ]:
         r = sc.add(root, {"Transform": transform()}, pivot)
+        made = {}
         for nm, glb in parts:
-            _vm_prop(sc, f"{root} {nm}", W + glb + ".glb", r)
+            made[nm] = _vm_prop(sc, f"{root} {nm}", W + glb + ".glb", r)
         _vm_prop(sc, f"{root} Hand R", W + "hand_r.glb", r)
-        _vm_prop(sc, f"{root} Hand L", W + "hand_l.glb", r, hand_l[0], rot=quat_euler(*hand_l[1]))
+        hand_parent = made["Slide"] if root == "Breacher" else r
+        _vm_prop(sc, f"{root} Hand L", W + "hand_l.glb", hand_parent, hand_l[0], rot=quat_euler(*hand_l[1]))
         m = sc.add(f"{root} Muzzle", {"Transform": transform(muzzle),
                                       "Light": {"type": "point", "color": [0.45, 0.9, 1.0, 1], "intensity": 0.0,
                                                 "range": 5.0, "shadows": False}}, r)

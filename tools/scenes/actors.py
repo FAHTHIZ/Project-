@@ -29,16 +29,27 @@ READY = ((-0.07, 1.14, 0.27), (-40, 207, 0))   # muzzle low and slightly inward
 GRIP_R = (0.0, -0.035, 0.05)                    # wrist target, weapon space (behind the pistol grip)
 GRIP_L = (0.012, -0.05, -0.12)                  # support wrist under the shroud
 
+# Who carries what (story bible rev 2, section 1A): parts, muzzle and support-wrist target.
+# Everyone else (Anchor, Tally, contractors) carries the PC-7.
+CARRY = {
+    "pc7": (["pc7_body", "pc7_cell"], (0, 0.045, -0.52), GRIP_L),
+    "kv5": (["kv5_body", "kv5_cell"], (0, 0.05, -0.39), (0.01, -0.07, -0.1)),     # Patch: vertical grip
+    "br9": (["br9_body", "br9_pump", "br9_cell"], (0, 0.058, -0.565), (0.012, -0.06, -0.2)),  # Brick: pump
+    "mr6": (["mr6_body", "mr6_cell"], (0, 0.045, -0.67), (0.012, -0.05, -0.2)),   # Echo: handguard
+}
+CARRY_BY = {"Patch": "kv5", "Brick": "br9", "Echo": "mr6"}
+
 
 def _carry(sc: Scene, body, nodes, who, scale=1.0, torch=(0.9, 0.94, 1.0, 8.0)):
     chest = nodes["Chest"]
+    parts, mz, grip_l = CARRY[CARRY_BY.get(who, "pc7")]
     carry = sc.add("Carry", {"Transform": transform(READY[0], quat_euler(*READY[1]), (scale,) * 3)}, body,
                    key=f"{sc.name}/{who}/carry")
-    sc.prop("Carry Body", W + "pc7_body.glb", parent=carry, shadows=True)
-    sc.prop("Carry Cell", W + "pc7_cell.glb", parent=carry, shadows=False)
+    for k, glb in enumerate(parts):
+        sc.prop("Carry Body" if k == 0 else f"Carry Part {k}", W + glb + ".glb", parent=carry, shadows=k == 0)
     gr = sc.add("Grip R", {"Transform": transform(GRIP_R)}, carry, key=f"{sc.name}/{who}/gripr")
-    gl = sc.add("Grip L", {"Transform": transform(GRIP_L)}, carry, key=f"{sc.name}/{who}/gripl")
-    muzzle = sc.add("Carry Muzzle", {"Transform": transform((0, 0.045, -0.52))}, carry, key=f"{sc.name}/{who}/muzzle")
+    gl = sc.add("Grip L", {"Transform": transform(grip_l)}, carry, key=f"{sc.name}/{who}/gripl")
+    muzzle = sc.add("Carry Muzzle", {"Transform": transform(mz)}, carry, key=f"{sc.name}/{who}/muzzle")
     if torch:
         # rail light: a soft cone ahead of the muzzle (no shadows; the player's own light has them)
         sc.add("Carry Light", {"Transform": transform((0.03, 0.0, -0.42), quat_euler(4, 0, 0)),

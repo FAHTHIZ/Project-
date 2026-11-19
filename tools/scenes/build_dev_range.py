@@ -80,6 +80,8 @@ def build(plan=None):
         add_squad_setup(sc, plan)
     if plan in VEHICLE_PLANS:
         add_vehicle_setup(sc, plan)
+    if plan == "armory":
+        vehicle.add_arms_case(sc, "Armory Case", (1.4, 0, 4.8), 0.0)
     ppos = {"trunk": (0, 0, 20.6), "trunk_look": (0, 0, 20.4), "vehicle": (-4, 0, 12), "vehicle_look": (-12.6, 0, 31.4)}.get(plan, (0, 0, 6))
     rig.add_player(sc, ppos, 0, with_weapons=True)
     rig.add_hud(sc)
