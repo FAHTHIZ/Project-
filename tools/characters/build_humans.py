@@ -32,14 +32,43 @@ def srgb(h):
     return [((x + 0.055) / 1.055) ** 2.4 if x > 0.04045 else x / 12.92 for x in c]
 
 
-EXPLORER = dict(
-    name="Explorer", skin=srgb('#c99a7c'), hair=srgb('#2b211b'), jacket=srgb('#4f5a3a'), jacket2=srgb('#3c4630'),
-    pants=srgb('#34373b'), boots=srgb('#4a3526'), gloves=srgb('#6b5a45'), gear=srgb('#2a2d30'), accent=srgb('#c48a2c'),
-    build=1.0, hat=False, backpack=True, vest=False)
-RANGER = dict(
-    name="Ranger", skin=srgb('#a8775a'), hair=srgb('#8d8a86'), jacket=srgb('#a99a74'), jacket2=srgb('#2f4a35'),
-    pants=srgb('#5a4733'), boots=srgb('#2e2520'), gloves=srgb('#a8775a'), gear=srgb('#2f4a35'), accent=srgb('#c9b25a'),
-    build=1.06, hat=True, backpack=False, vest=True)
+BASE = dict(build=1.0, hat=False, backpack=False, vest=False, headgear=None, hair_style='short', beard=False,
+            pack=None, armband=None, mask=False, iris='#3a2c22', morphs=True, shoulders=1.0, brow_tilt=6)
+
+def C(**kw):
+    d = dict(BASE); d.update(kw)
+    for k in ('skin', 'hair', 'jacket', 'jacket2', 'pants', 'boots', 'gloves', 'gear', 'accent'):
+        d[k] = srgb(d[k])
+    return d
+
+
+EXPLORER = C(name="Explorer", skin='#c99a7c', hair='#2b211b', jacket='#4f5a3a', jacket2='#3c4630', pants='#34373b',
+             boots='#4a3526', gloves='#6b5a45', gear='#2a2d30', accent='#c48a2c', backpack=True)
+RANGER = C(name="Ranger", skin='#a8775a', hair='#8d8a86', jacket='#a99a74', jacket2='#2f4a35', pants='#5a4733',
+           boots='#2e2520', gloves='#a8775a', gear='#2f4a35', accent='#c9b25a', build=1.06, hat=True, vest=True,
+           headgear='hat', iris='#3d5560')
+# The squad. Shared Mosswood unit palette (olive/stone) with a personal accent colour each.
+ANCHOR = C(name="Anchor", skin='#8a5a3f', hair='#1d1814', jacket='#55603f', jacket2='#3b4430', pants='#3f4236',
+           boots='#3a2b20', gloves='#2c2a26', gear='#2a2d2a', accent='#d0a040', build=1.08, vest='plate',
+           headgear='cap', hair_style='buzz', beard=True, pack='backpack', iris='#2a2018', brow_tilt=2)
+PATCH = C(name="Patch", skin='#e0b493', hair='#7a3b22', jacket='#5d6a55', jacket2='#45503f', pants='#3b3f3c',
+          boots='#40322a', gloves='#d8d8d0', gear='#33383a', accent='#3fb7a4', build=0.93, shoulders=0.92,
+          vest='plate', hair_style='bun', pack='medic', armband='#3fb7a4', iris='#4a6a3a', brow_tilt=8)
+ECHO = C(name="Echo", skin='#c48e6a', hair='#0f0f12', jacket='#4a5446', jacket2='#30382f', pants='#2f332f',
+         boots='#262420', gloves='#262624', gear='#24282a', accent='#8fb3d8', build=0.95, shoulders=0.95,
+         vest=False, headgear='hood', hair_style='short', pack=None, iris='#2c2420', brow_tilt=10)
+TALLY = C(name="Tally", skin='#f0c8a8', hair='#c8a060', jacket='#606a48', jacket2='#454d36', pants='#44473b',
+          boots='#3e3026', gloves='#3a3530', gear='#2e3230', accent='#e07a3a', build=1.12, vest='plate',
+          headgear='headset', hair_style='short', beard=False, pack='radio', iris='#4a6880', brow_tilt=4)
+# Greyline contractors: grey/charcoal with safety-orange visor; faces covered, no facial morphs.
+GREYLINE_A = C(name="Greyline", skin='#b08a70', hair='#202020', jacket='#5c6064', jacket2='#3a3d41', pants='#2f3236',
+               boots='#1e1f21', gloves='#1e1f21', gear='#26282b', accent='#ff7a1a', vest='plate', headgear='helmet',
+               mask=True, morphs=False, hair_style='buzz')
+GREYLINE_B = C(name="GreylineB", skin='#7a5440', hair='#202020', jacket='#4c5054', jacket2='#2e3134', pants='#3a3d41',
+               boots='#1e1f21', gloves='#1e1f21', gear='#26282b', accent='#ff7a1a', build=1.1, vest='plate',
+               headgear='helmet', mask=True, morphs=False, pack='backpack', hair_style='buzz')
+CAST = [(EXPLORER, 'sops_explorer'), (RANGER, 'sops_ranger'), (ANCHOR, 'sops_anchor'), (PATCH, 'sops_patch'),
+        (ECHO, 'sops_echo'), (TALLY, 'sops_tally'), (GREYLINE_A, 'sops_greyline_a'), (GREYLINE_B, 'sops_greyline_b')]
 
 
 def body_mesh(cfg, G):
@@ -53,11 +82,16 @@ def body_mesh(cfg, G):
     m.add(mk.rounded_box((0, 1.005, 0.122 * b), (0.03, 0.022, 0.008), 0.3), cfg['accent'], J['Hips'])  # buckle
     # torso
     m.add(mk.rounded_box((0, 1.11, 0.0), (0.168 * b, 0.105, 0.118 * b), 0.5), jk, J['Spine'])
-    m.add(mk.rounded_box((0, 1.30, 0.0), (0.188 * b, 0.155, 0.125 * b), 0.5), jk, J['Chest'])
+    m.add(mk.rounded_box((0, 1.30, 0.0), (0.188 * b * cfg['shoulders'], 0.155, 0.125 * b), 0.5), jk, J['Chest'])
     # jacket hem flare and zipper line
     m.add(mk.loft((0, 1.02, 0), (0, 1.06, 0), [(0, 0.176 * b, 0.126 * b), (1, 0.17 * b, 0.12 * b)], 20), cfg['jacket2'], J['Spine'])
     m.add(mk.rounded_box((0, 1.24, 0.122 * b), (0.006, 0.19, 0.006), 0.3), cfg['jacket2'], J['Chest'])
-    if cfg['vest']:
+    if cfg['vest'] == 'plate':
+        m.add(mk.rounded_box((0, 1.26, 0.012), (0.2 * b, 0.15, 0.138 * b), 0.42), cfg['gear'], J['Chest'])
+        for k, sx in enumerate((-0.1, -0.035, 0.035, 0.1)):  # front pouches
+            m.add(mk.rounded_box((sx * b, 1.16, 0.15 * b), (0.03, 0.04, 0.02), 0.35), cfg['jacket2'], J['Chest'])
+        m.add(mk.rounded_box((0.11 * b, 1.34, 0.146 * b), (0.028, 0.018, 0.005), 0.3), cfg['accent'], J['Chest'])  # unit patch
+    elif cfg['vest']:
         m.add(mk.rounded_box((0, 1.27, 0.0), (0.198 * b, 0.14, 0.133 * b), 0.55), cfg['jacket2'], J['Chest'])
         m.add(mk.rounded_box((0.09, 1.34, 0.136 * b), (0.03, 0.025, 0.006), 0.3), cfg['accent'], J['Chest'])  # badge
     else:
@@ -65,6 +99,22 @@ def body_mesh(cfg, G):
             m.add(mk.rounded_box((sx * 0.085, 1.31, 0.124 * b), (0.05, 0.045, 0.008), 0.3), cfg['jacket2'], J['Chest'])
     # collar
     m.add(mk.loft((0, 1.42, -0.005), (0, 1.48, -0.005), [(0, 0.085, 0.075), (1, 0.07, 0.065)], 16), cfg['jacket2'], J['Chest'])
+    if cfg['pack'] == 'medic':
+        m.add(mk.rounded_box((0, 1.24, -0.175 * b), (0.12, 0.13, 0.06), 0.5), cfg['jacket2'], J['Chest'])
+        m.add(mk.rounded_box((0, 1.27, -0.237 * b), (0.035, 0.012, 0.004), 0.2), cfg['accent'], J['Chest'])
+        m.add(mk.rounded_box((0, 1.27, -0.237 * b), (0.012, 0.035, 0.004), 0.2), cfg['accent'], J['Chest'])
+        m.add(mk.rounded_box((-0.17 * b, 0.93, 0.02), (0.035, 0.06, 0.07), 0.45), cfg['jacket2'], J['Hips'])  # hip satchel
+    elif cfg['pack'] == 'radio':
+        m.add(mk.rounded_box((0, 1.24, -0.2 * b), (0.14, 0.18, 0.08), 0.35), cfg['gear'], J['Chest'])
+        m.add(mk.rounded_box((0.06, 1.33, -0.285 * b), (0.03, 0.03, 0.006), 0.3), cfg['accent'], J['Chest'])
+        m.add(mk.capsule((-0.09, 1.38, -0.22 * b), (-0.11, 1.78, -0.25 * b), 0.006, 0.004, segs=6, rings=2), cfg['gear'], J['Chest'])
+    elif cfg['pack'] == 'backpack':
+        m.add(mk.rounded_box((0, 1.25, -0.19 * b), (0.135, 0.17, 0.07), 0.55), cfg['gear'], J['Chest'])
+        m.add(mk.rounded_box((0, 1.16, -0.255 * b), (0.11, 0.06, 0.02), 0.4), cfg['jacket2'], J['Chest'])
+    if cfg['armband']:
+        ua, la = pos['UpperArm.L'], pos['LowerArm.L']
+        m.add(mk.loft(ua + (la - ua) * 0.45, ua + (la - ua) * 0.6, [(0, 0.058 * b, 0.058 * b), (1, 0.056 * b, 0.056 * b)], 14),
+              srgb(cfg['armband']), J['UpperArm.L'])
     if cfg['backpack']:
         m.add(mk.rounded_box((0, 1.25, -0.19 * b), (0.135, 0.17, 0.07), 0.55), cfg['gear'], J['Chest'])
         m.add(mk.rounded_box((0, 1.16, -0.255 * b), (0.11, 0.06, 0.02), 0.4), cfg['jacket2'], J['Chest'])
@@ -95,8 +145,12 @@ def body_mesh(cfg, G):
     return m
 
 
+MORPHS = ['Blink', 'JawOpen', 'Smile', 'Frown', 'BrowUp', 'BrowDown', 'MouthO', 'LookL', 'LookR', 'LookUp', 'LookDown']
+
+
 def head_mesh(cfg):
-    """Head with face features. Returns (Mesh, blink_delta, jaw_delta)."""
+    """Head with face features, hair and headgear. Returns (arrays, {morph: delta}) with the
+    morph dict empty for characters whose faces are covered (cfg['morphs'] False)."""
     m = mk.Mesh(); hj = J['Head']
     skin, hair = cfg['skin'], cfg['hair']
     hc = np.array([0, 1.615, 0.012])
@@ -105,43 +159,104 @@ def head_mesh(cfg):
         start = m.n; m.add(part, col, hj); parts.append((kind, start, m.n))
     add(mk.ellipsoid(hc, (0.094, 0.116, 0.106), 22, 16), skin, 'skull')
     add(mk.ellipsoid(hc + [0, -0.072, 0.03], (0.066, 0.046, 0.068), 16, 10), skin, 'jaw')  # jaw/chin volume
-    # hair
-    add(mk.ellipsoid(hc + [0, 0.036, -0.022], (0.1, 0.1, 0.104), 22, 14), hair, 'hair')
-    add(mk.ellipsoid(hc + [0, -0.01, -0.03], (0.097, 0.09, 0.085), 18, 12), hair, 'hair')
+    hs = cfg['hair_style']
+    if hs == 'buzz':
+        add(mk.ellipsoid(hc + [0, 0.022, -0.012], (0.097, 0.1, 0.1), 22, 14), hair, 'hair')
+    else:
+        add(mk.ellipsoid(hc + [0, 0.036, -0.022], (0.1, 0.1, 0.104), 22, 14), hair, 'hair')
+        add(mk.ellipsoid(hc + [0, -0.01, -0.03], (0.097, 0.09, 0.085), 18, 12), hair, 'hair')
+    if hs == 'bun':
+        add(mk.ellipsoid(hc + [0, 0.05, -0.115], (0.042, 0.04, 0.038), 14, 10), hair, 'hair')
+    if cfg['beard']:
+        add(mk.ellipsoid(hc + [0, -0.078, 0.038], (0.07, 0.05, 0.07), 18, 10), hair, 'beard')
+        add(mk.ellipsoid(hc + [0, -0.034, 0.1], (0.03, 0.007, 0.012), 12, 6), hair, 'moustache')
     for sx in (-1, 1):
         add(mk.ellipsoid(hc + [sx * 0.093, -0.01, -0.005], (0.014, 0.026, 0.018), 10, 8), skin, 'ear')
     add(mk.ellipsoid(hc + [0, -0.012, 0.112], (0.015, 0.027, 0.018), 10, 8), skin, 'nose')
     eye_y = hc[1] + 0.012
-    white = [0.85, 0.83, 0.8]; iris = srgb('#3a2c22') if cfg['name'] == 'Explorer' else srgb('#3d5560')
+    white = [0.85, 0.83, 0.8]; iris = srgb(cfg['iris'])
     for sx in (-1, 1):
         ec = np.array([sx * 0.036, eye_y, 0.1])
         add(mk.ellipsoid(ec, (0.017, 0.012, 0.012), 12, 8), white, 'eye')
         add(mk.ellipsoid(ec + [0, 0, 0.0095], (0.0082, 0.0082, 0.004), 10, 6), iris, 'iris')
-        add(mk.rounded_box(ec + [0, 0.026, 0.006], (0.021, 0.0045, 0.006), 0.4, rot=mk.rot_z(-sx * 6)), hair, 'brow')
+        add(mk.rounded_box(ec + [0, 0.026, 0.006], (0.021, 0.0045, 0.006), 0.4, rot=mk.rot_z(-sx * cfg['brow_tilt'])), hair, 'brow')
         add(mk.ellipsoid(ec + [0, 0.0135, 0.0005], (0.0198, 0.0062, 0.0146), 12, 8), skin, 'lid')
     add(mk.ellipsoid(hc + [0, -0.052, 0.1], (0.024, 0.0045, 0.011), 12, 6), srgb('#5a2a28'), 'mouth')
     add(mk.ellipsoid(hc + [0, -0.045, 0.104], (0.025, 0.0042, 0.008), 12, 6), srgb('#9a6058'), 'lip')
-    if cfg['hat']:
+    add(mk.ellipsoid(hc + [0, -0.059, 0.102], (0.022, 0.0042, 0.008), 12, 6), srgb('#8a5450'), 'lowlip')
+    hg = cfg['headgear']
+    if hg == 'hat':
         hp = hc + [0, 0.07, -0.005]
         add(mk.loft(hp + [0, -0.01, 0], hp + [0, 0.005, 0], [(0, 0.19, 0.2), (1, 0.18, 0.19)], 28), cfg['jacket2'], 'hat')
         add(mk.loft(hp, hp + [0, 0.09, 0], [(0, 0.104, 0.112), (0.8, 0.098, 0.104), (1, 0.06, 0.07)], 24), cfg['jacket2'], 'hat')
         add(mk.loft(hp + [0, 0.012, 0], hp + [0, 0.03, 0], [(0, 0.106, 0.114), (1, 0.105, 0.113)], 24), cfg['accent'], 'hat')
-    P, N, C, T, I, UV = m.arrays()
-    blink = np.zeros_like(P); jaw = np.zeros_like(P)
+    elif hg == 'cap':
+        add(mk.ellipsoid(hc + [0, 0.05, -0.008], (0.104, 0.075, 0.112), 22, 10), cfg['jacket2'], 'hat')
+        add(mk.rounded_box(hc + [0, 0.046, 0.115], (0.075, 0.006, 0.05), 0.4, rot=mk.rot_x(-8)), cfg['jacket2'], 'hat')
+        add(mk.rounded_box(hc + [0.0, 0.085, 0.095], (0.018, 0.012, 0.004), 0.3, rot=mk.rot_x(-30)), cfg['accent'], 'hat')
+    elif hg == 'hood':
+        add(mk.ellipsoid(hc + [0, 0.016, -0.05], (0.116, 0.134, 0.12), 22, 14), cfg['jacket2'], 'hood')
+        add(mk.loft(hc + [0, -0.17, -0.02], hc + [0, -0.1, -0.01], [(0, 0.1, 0.1), (1, 0.095, 0.095)], 18), cfg['jacket2'], 'hood')
+    elif hg == 'headset':
+        add(mk.loft(hc + [-0.1, 0.0, 0], hc + [0.1, 0.0, 0], [(t, 0.006, 0.012) for t in (0, 1)], 8), cfg['gear'], 'hat')
+        band = [hc + [0.098 * np.cos(a), 0.11 * np.sin(a), -0.005] for a in np.linspace(0.15, np.pi - 0.15, 9)]
+        for p0, p1 in zip(band[:-1], band[1:]):
+            add(mk.capsule(p0, p1, 0.007, 0.007, segs=6, rings=1), cfg['gear'], 'hat')
+        for sx in (-1, 1):
+            add(mk.loft(hc + [sx * 0.092, -0.01, -0.005], hc + [sx * 0.112, -0.01, -0.005], [(0, 0.028, 0.032), (1, 0.024, 0.028)], 14,
+                        hint=(0, 1, 0)), cfg['gear'], 'hat')
+        add(mk.capsule(hc + [-0.1, -0.02, 0.02], hc + [-0.035, -0.06, 0.1], 0.004, 0.004, segs=6, rings=1), cfg['gear'], 'hat')
+        add(mk.ellipsoid(hc + [-0.03, -0.062, 0.104], (0.009, 0.007, 0.007), 8, 6), cfg['accent'], 'hat')
+    elif hg == 'helmet':
+        add(mk.ellipsoid(hc + [0, 0.03, -0.006], (0.118, 0.11, 0.126), 22, 12), cfg['jacket2'], 'hat')
+        add(mk.loft(hc + [0, -0.012, 0], hc + [0, 0.012, 0], [(0, 0.12, 0.128), (1, 0.121, 0.129)], 26), cfg['gear'], 'hat')
+        add(mk.ellipsoid(hc + [0, 0.008, 0.088], (0.09, 0.032, 0.04), 20, 8), cfg['accent'], 'visor')
+    if cfg['mask']:
+        add(mk.ellipsoid(hc + [0, -0.05, 0.05], (0.096, 0.078, 0.086), 20, 10), cfg['gear'], 'mask')
+    P, N, Cc, T, I, UV = m.arrays()
+    if not cfg['morphs']:
+        return (P, N, Cc, T, I, UV), {}
+    D = {k: np.zeros_like(P) for k in MORPHS}
+    mouth_c = hc + [0, -0.052, 0.1]
     for kind, s, e in parts:
+        Q = P[s:e]; c = Q.mean(0)
         if kind == 'lid':
-            # move the lid down and slightly forward to cover the eye
-            c = P[s:e].mean(0)
-            blink[s:e, 1] = (P[s:e, 1] - c[1]) * 1.25 - 0.0125; blink[s:e, 2] = 0.0015
-        if kind in ('mouth',):
-            c = P[s:e].mean(0); jaw[s:e, 1] = (P[s:e, 1] - c[1]) * 2.2 - 0.004
-        if kind in ('jaw',):
-            w = np.clip((hc[1] - 0.04 - P[s:e, 1]) / 0.06, 0, 1) * np.clip(P[s:e, 2] / 0.06, 0, 1)
-            jaw[s:e, 1] = -0.012 * w
+            D['Blink'][s:e, 1] = (Q[:, 1] - c[1]) * 1.25 - 0.0125; D['Blink'][s:e, 2] = 0.0015
+            D['LookUp'][s:e, 1] = 0.0025; D['LookDown'][s:e, 1] = -0.004
+            D['BrowUp'][s:e, 1] = 0.002; D['BrowDown'][s:e, 1] = -0.0025
+            D['Smile'][s:e, 1] = -0.0015
+        if kind in ('mouth', 'lip', 'lowlip'):
+            d = np.clip((Q[:, 0] - mouth_c[0]) / 0.025, -1.2, 1.2)
+            up = {'mouth': 0, 'lip': 1, 'lowlip': -1}[kind]
+            D['JawOpen'][s:e, 1] = ((Q[:, 1] - c[1]) * 2.2 - 0.004) if kind == 'mouth' else (-0.0105 if up < 0 else 0.0015)
+            D['Smile'][s:e, 1] = 0.0055 * d * d - 0.0008 * (up < 0)
+            D['Smile'][s:e, 0] = 0.0035 * d
+            D['Frown'][s:e, 1] = -0.0045 * d * d + 0.0008 * (up > 0)
+            D['MouthO'][s:e, 0] = -0.4 * (Q[:, 0] - mouth_c[0])
+            D['MouthO'][s:e, 1] = ((Q[:, 1] - c[1]) * 1.6 - 0.002) if kind == 'mouth' else (0.002 * up - 0.004 * (up < 0))
+            D['MouthO'][s:e, 2] = 0.004
+        if kind in ('jaw', 'beard'):
+            w = np.clip((hc[1] - 0.04 - Q[:, 1]) / 0.06, 0, 1) * np.clip(Q[:, 2] / 0.06, 0, 1)
+            D['JawOpen'][s:e, 1] = -0.012 * w; D['MouthO'][s:e, 1] = -0.006 * w
         if kind == 'skull':
-            w = np.clip((hc[1] - 0.06 - P[s:e, 1]) / 0.05, 0, 1) * np.clip((P[s:e, 2] - 0.02) / 0.07, 0, 1)
-            jaw[s:e, 1] = -0.011 * w
-    return (P, N, C, T, I, UV), blink.astype(np.float32), jaw.astype(np.float32)
+            w = np.clip((hc[1] - 0.06 - Q[:, 1]) / 0.05, 0, 1) * np.clip((Q[:, 2] - 0.02) / 0.07, 0, 1)
+            D['JawOpen'][s:e, 1] = -0.011 * w; D['MouthO'][s:e, 1] = -0.005 * w
+            ch = np.exp(-(((np.abs(Q[:, 0]) - 0.055) / 0.02) ** 2 + ((Q[:, 1] - (hc[1] - 0.03)) / 0.02) ** 2)) * (Q[:, 2] > 0.05)
+            D['Smile'][s:e, 1] = 0.003 * ch  # cheeks lift
+        if kind == 'brow':
+            inner = np.clip(1 - (np.abs(Q[:, 0]) - 0.02) / 0.03, 0, 1)
+            D['BrowUp'][s:e, 1] = 0.006 + 0.002 * inner
+            D['BrowDown'][s:e, 1] = -0.0025 - 0.003 * inner
+            D['BrowDown'][s:e, 0] = -np.sign(Q[:, 0]) * 0.002 * inner
+            D['Frown'][s:e, 1] = -0.0015 - 0.002 * inner
+        if kind == 'moustache':
+            D['Smile'][s:e, 1] = 0.002; D['MouthO'][s:e, 0] = -0.3 * (Q[:, 0] - mouth_c[0])
+        if kind == 'iris':
+            D['LookL'][s:e, 0] = 0.0065; D['LookR'][s:e, 0] = -0.0065
+            D['LookL'][s:e, 2] = D['LookR'][s:e, 2] = -0.0018
+            D['LookUp'][s:e, 1] = 0.0042; D['LookDown'][s:e, 1] = -0.0042
+            D['LookUp'][s:e, 2] = D['LookDown'][s:e, 2] = -0.001
+    return (P, N, Cc, T, I, UV), {k: v.astype(np.float32) for k, v in D.items()}
 
 
 # ------------------------------------------------------------------------------------------------
@@ -266,6 +381,26 @@ def authored_clips():
         (1.4, merge(crouch, {'Head': [(Y, 12)], 'Hand.R': [(X, 15)]}), (0, -0.3, 0.05)),
         (2.0, relaxed, (0, 0, 0)),
     ]))
+    kneel = merge(relaxed, {'Spine': [(X, 8)], 'Chest': [(X, 4)], 'UpperLeg.L': [(X, 86)], 'LowerLeg.L': [(X, -86)],
+                            'UpperLeg.R': [(X, 8)], 'LowerLeg.R': [(X, -96)], 'Foot.R': [(X, 45)], 'Head': [(X, -6)]})
+    clips.append(("Kneel", [(0.0, kneel, (0, -0.42, 0.02)), (1.0, merge(kneel, {'Chest': [(X, 2)]}), (0, -0.425, 0.02)),
+                            (2.0, kneel, (0, -0.42, 0.02))]))
+    hands_up = merge({'Spine': [(X, 2)], 'UpperLeg.L': [(X, 8)], 'LowerLeg.L': [(X, -96)], 'Foot.L': [(X, 45)],
+                      'UpperLeg.R': [(X, 8)], 'LowerLeg.R': [(X, -96)], 'Foot.R': [(X, 45)],
+                      'UpperArm.L': [(Z, -38)], 'UpperArm.R': [(Z, 38)], 'LowerArm.L': [(Z, -95)], 'LowerArm.R': [(Z, 95)],
+                      'Head': [(X, 14)]})
+    clips.append(("Surrender", [(0.0, relaxed, (0, 0, 0)), (0.35, merge(relaxed, {'Spine': [(X, 20)], 'UpperLeg.L': [(X, 40)],
+                  'LowerLeg.L': [(X, -60)], 'UpperLeg.R': [(X, 30)], 'LowerLeg.R': [(X, -70)]}), (0, -0.2, 0.05)),
+                  (0.8, hands_up, (0, -0.44, -0.02)), (1.8, merge(hands_up, {'Head': [(X, 8), (Y, 10)]}), (0, -0.445, -0.02)),
+                  (2.8, hands_up, (0, -0.44, -0.02))]))
+    halt = merge(relaxed, {'UpperArm.L': [(Z, -40)], 'LowerArm.L': [(Z, -100)], 'Head': [(Y, 6)]})
+    clips.append(("Halt", [(0.0, relaxed, (0, 0, 0)), (0.25, halt, (0, 0, 0)), (1.2, halt, (0, 0, 0)), (1.5, relaxed, (0, 0, 0))]))
+    point = merge(relaxed, {'UpperArm.L': [(Z, 28), (X, 85)], 'LowerArm.L': [(X, -8)], 'Chest': [(Y, -6)]})
+    clips.append(("Point", [(0.0, relaxed, (0, 0, 0)), (0.3, point, (0, 0, 0)), (1.3, point, (0, 0, 0)), (1.6, relaxed, (0, 0, 0))]))
+    beckon = merge(relaxed, {'UpperArm.L': [(Z, 10), (X, 55)], 'LowerArm.L': [(X, -60)]})
+    clips.append(("Beckon", [(0.0, relaxed, (0, 0, 0)), (0.25, beckon, (0, 0, 0)),
+                             (0.5, merge(beckon, {'LowerArm.L': [(X, -50)]}), (0, 0, 0)), (0.75, beckon, (0, 0, 0)),
+                             (1.0, merge(beckon, {'LowerArm.L': [(X, -50)]}), (0, 0, 0)), (1.3, relaxed, (0, 0, 0))]))
     return clips
 
 
@@ -298,7 +433,7 @@ def build(cfg, rig_path, out_path):
         {'name': cfg['name'] + '_Skin', 'pbrMetallicRoughness': {'baseColorFactor': [1, 1, 1, 1], 'metallicFactor': 0.0, 'roughnessFactor': 0.55}},
     ]
     body = body_mesh(cfg, gpos)
-    (hP, hN, hC, hT, hI, hUV), blink, jaw = head_mesh(cfg)
+    (hP, hN, hC, hT, hI, hUV), morphs = head_mesh(cfg)
 
     def prim(P, N, C, T, I, mat, targets=None):
         jn = np.zeros((len(P), 4), np.uint8); jn[:, 0] = T.astype(np.uint8)
@@ -312,9 +447,11 @@ def build(cfg, rig_path, out_path):
     bP, bN, bC, bT, bI, _ = body.arrays()
     out['meshes'] = [
         {'name': cfg['name'] + '_Body', 'primitives': [prim(bP, bN, bC, bT, bI, 0)]},
-        {'name': cfg['name'] + '_Head', 'primitives': [prim(hP, hN, hC, hT, hI, 1, [blink, jaw])],
-         'weights': [0.0, 0.0], 'extras': {'targetNames': ['Blink', 'JawOpen']}},
+        {'name': cfg['name'] + '_Head', 'primitives': [prim(hP, hN, hC, hT, hI, 1, [morphs[k] for k in MORPHS] if morphs else None)]},
     ]
+    if morphs:
+        out_head = out['meshes'][1]
+        out_head['weights'] = [0.0] * len(MORPHS); out_head['extras'] = {'targetNames': list(MORPHS)}
     ibm_acc = w.add(ibm.reshape(-1, 16), 'MAT4')
     out['skins'][0]['inverseBindMatrices'] = ibm_acc
     out['skins'][0]['name'] = cfg['name'] + '_Rig'
@@ -356,9 +493,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--rig', required=True)
     ap.add_argument('--out', required=True)
+    ap.add_argument('--only', default='')
     a = ap.parse_args()
-    build(EXPLORER, a.rig, os.path.join(a.out, 'sops_explorer.glb'))
-    build(RANGER, a.rig, os.path.join(a.out, 'sops_ranger.glb'))
+    only = set(a.only.split(',')) if a.only else None
+    for cfg, fn in CAST:
+        if only and fn not in only: continue
+        build(cfg, a.rig, os.path.join(a.out, fn + '.glb'))
 
 
 if __name__ == '__main__':

@@ -209,6 +209,7 @@ class Scene:
         if components:
             comps.update(components)
         root = self.add(name, comps, parent)
+        self.last_nodes = {}
         prim_base = []
         n = 0
         for m in j["meshes"]:
@@ -230,6 +231,7 @@ class Scene:
                 if skinned:
                     c["SkinnedMesh"] = {"skeleton": root, "skin": nd["skin"]}
             me = self.add(nm, c, parent_uuid, key=f"{self.name}/{name}/{path}/{nm}")
+            self.last_nodes[nm] = me
             if len(prims) > 1:
                 for i in range(len(prims)):
                     cc = {"MeshRenderer": mesh_renderer(mesh=model, mesh_index=prim_base[nd["mesh"]] + i, roughness=0.6)}
@@ -242,6 +244,12 @@ class Scene:
         for r in j["scenes"][j.get("scene", 0)]["nodes"]:
             visit(r, root, "")
         return root
+
+    def entity(self, u):
+        return next(e for e in self.entities if e["uuid"] == u)
+
+    def add_component(self, u, cname, data):
+        self.entity(u)["components"][cname] = data
 
     def box(self, name, pos, size, color, parent=None, yaw=0.0, rot=None, roughness=0.85, metallic=0.0,
             collide=True, material=None, shadows=True, primitive="cube"):

@@ -163,6 +163,12 @@ The agent should use original assets or check other libraries one asset at a tim
 **Supports:** Identifies some voice models whose documented training chains use recordings permitting commercial use.  
 **Caveat:** Re-check the exact file/version and its lineage, not merely the voice name.
 
+### Decision (2026-11-19): Kokoro-82M for the cast, Piper voices rejected
+
+- **Chosen:** Kokoro-82M v1.0 (Apache-2.0 model card, https://huggingface.co/hexgrad/Kokoro-82M) run offline through kokoro-onnx 0.4.7 (MIT, https://github.com/thewh1teagle/kokoro-onnx), int8 model + voices-v1.0.bin from https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.0. 76 lines render in about 2 minutes on the 2-core build machine; output is OGG Vorbis (1.8 MB total). Only the rendered audio ships.
+- **Rejected:** Piper `libritts_r` / `vctk` medium voices: their model cards state they were fine-tuned from the `lessac` checkpoint, whose Blizzard 2013 dataset licence (https://www.cstr.ed.ac.uk/projects/blizzard/2013/lessac_blizzard2013/license.html) is research/non-commercial with no redistribution. piper-tts 1.8 itself is GPL-3.0 (authoring-only would be acceptable, the voice lineage is not).
+- **Lip sync:** instead of Rhubarb (needs a separate binary per platform), `build_voices.py` derives a 30 Hz jaw envelope from the rendered waveform (RMS, smoothed) and a coarse rounded/spread mouth shape per frame from the phoneme string Kokoro produces. Rhubarb remains an option if visemes need more detail.
+
 ### Rhubarb Lip Sync
 
 **Source:** Rhubarb Lip Sync repository  
