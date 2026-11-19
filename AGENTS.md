@@ -44,6 +44,22 @@ Do not stop after documentation or scaffolding. Never claim that a feature, buil
 - Build a complete but tightly scoped fictional shooter layer: original game-only weapons, first-person viewmodels, aiming/firing/reload/switch animations, enemy encounters, hit feedback, ammunition UI and encounter balancing. Weapon research is limited to fictional visual design, animation, sound design and abstract game balance; do not reproduce real weapon specifications, operating instructions or real-world tactical training. Keep the field utility device as a separate secondary tool for scanning, illumination and environmental interaction.
 - Prioritize control feel, readable animation, stable camera motion, strong environment lighting, useful audio, touch responsiveness and clear feedback.
 
+## Full squad is mandatory
+
+This is a squad-led campaign, not a lone protagonist with occasional NPC cameos. The player is part of a recurring, fully authored team. Use a compact full squad of the player plus **three or four allied operators** as the baseline cast (final count must be chosen after checking scene and device budgets). The same core members recur across operations, travel together when the mission allows, and remain recognisable in gameplay, dialogue and cinematics.
+
+- Give every squad member a name/callsign, face, distinct silhouette, costume, voice, personality, story role, relationship dynamics and animation identity.
+- Keep teammates physically present in playable missions wherever the authored mission permits. They must not exist only as radio voices or cutscene extras.
+- Implement companion AI for following, spacing, navigation, regrouping, waiting, reacting to mission events, taking authored cover/hold positions, interacting with set pieces and recovering from pathing issues. Keep behaviour readable and avoid teammates blocking the player's view or movement.
+- Squad members should naturally communicate with one another as well as with the player: short contextual conversations, radio exchanges, call-and-response, observations, jokes, disagreements and reactions to discoveries. Use authored triggers and a dialogue scheduler so chatter is relevant, non-repetitive and never obscures critical information.
+- Support both spatial nearby dialogue (voices positioned at the speaking teammate) and radio-filtered comms. When a teammate speaks, the correct character should visibly speak when in view; off-screen/radio speakers should be identified in subtitles/HUD.
+- Teammates should acknowledge one another through eye contact, head turns, gestures, posture changes and brief contextual reactions. Avoid characters standing in a line delivering isolated dialogue turns.
+- Cutscenes must show the whole team together regularly: briefing/deployment, moving between spaces, discoveries, arguments/reactions, regrouping, major reveals and mission transitions. Compose shots so viewers understand where each member is and who is speaking.
+- In first-person gameplay the player remains first-person, but teammates must be visible in the world and can enter the player's view naturally. Do not switch to third-person gameplay merely to show the squad.
+- Provide mission-level continuity: squad members can be temporarily separated only for a clear story reason, with authored reunions and state continuity. Do not silently remove members between areas.
+- Create a squad roster and per-operation presence/participation matrix. Track each member's dialogue, animations, facial performance, costume state, mission beats and continuity.
+- The full squad is a core feature and acceptance requirement, not an optional later polish item. Do not call the campaign complete if only the player character is implemented.
+
 ## Dialogue, voice acting and complete soundscape
 
 - Every operation needs a dialogue and audio plan: who speaks, why they speak, where the voice is positioned, how the player receives the information and what subtitles/captions accompany it.
