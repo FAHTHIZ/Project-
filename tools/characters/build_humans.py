@@ -60,6 +60,10 @@ ECHO = C(name="Echo", skin='#c48e6a', hair='#0f0f12', jacket='#4a5446', jacket2=
 TALLY = C(name="Tally", skin='#f0c8a8', hair='#c8a060', jacket='#606a48', jacket2='#454d36', pants='#44473b',
           boots='#3e3026', gloves='#3a3530', gear='#2e3230', accent='#e07a3a', build=1.12, vest='plate',
           headgear='headset', hair_style='short', beard=False, pack='radio', iris='#4a6880', brow_tilt=4)
+# Brick (story bible rev 2): the breacher. Heaviest build, helmet, short beard, rust accent.
+BRICK = C(name="Brick", skin='#5e3c2a', hair='#141110', jacket='#525c3e', jacket2='#394130', pants='#3c3f34',
+          boots='#2e241c', gloves='#24221f', gear='#282b28', accent='#b4502e', build=1.2, shoulders=1.1,
+          vest='plate', headgear='helmet', hair_style='buzz', beard=True, pack='backpack', iris='#231a14', brow_tilt=1)
 # Greyline contractors: grey/charcoal with safety-orange visor; faces covered, no facial morphs.
 GREYLINE_A = C(name="Greyline", skin='#b08a70', hair='#202020', jacket='#5c6064', jacket2='#3a3d41', pants='#2f3236',
                boots='#1e1f21', gloves='#1e1f21', gear='#26282b', accent='#ff7a1a', vest='plate', headgear='helmet',
@@ -68,7 +72,7 @@ GREYLINE_B = C(name="GreylineB", skin='#7a5440', hair='#202020', jacket='#4c5054
                boots='#1e1f21', gloves='#1e1f21', gear='#26282b', accent='#ff7a1a', build=1.1, vest='plate',
                headgear='helmet', mask=True, morphs=False, pack='backpack', hair_style='buzz')
 CAST = [(EXPLORER, 'sops_explorer'), (RANGER, 'sops_ranger'), (ANCHOR, 'sops_anchor'), (PATCH, 'sops_patch'),
-        (ECHO, 'sops_echo'), (TALLY, 'sops_tally'), (GREYLINE_A, 'sops_greyline_a'), (GREYLINE_B, 'sops_greyline_b')]
+        (ECHO, 'sops_echo'), (TALLY, 'sops_tally'), (BRICK, 'sops_brick'), (GREYLINE_A, 'sops_greyline_a'), (GREYLINE_B, 'sops_greyline_b')]
 
 
 def body_mesh(cfg, G):

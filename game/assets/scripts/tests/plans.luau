@@ -232,4 +232,59 @@ for k, v in require("scripts/tests/squad_plans") do Plans[k] = v end
 for k, v in require("scripts/tests/vehicle_plans") do Plans[k] = v end
 for k, v in require("scripts/tests/world_plans") do Plans[k] = v end
 
+
+-- Story run-through for the interior chapters (scenes/tests/story_op04..07.vscene): every quarter
+-- second the driver walks Rook to the current waypoint, uses any enabled interactable the mission
+-- registered, and stuns contractors that are hostile (not dormant, not under parley). It checks the
+-- chapter reaches Campaign.complete and logs the stage path. Dialogue plays at real length.
+local function story_plan(chapter, seconds)
+    local steps = {}
+    table.insert(steps, { at = 0.2, run = function(c)
+        local Campaign = require("scripts/lib/campaign")
+        c.data.stages = {}
+        c.data.real_complete = Campaign.complete
+        Campaign.complete = function(id) c.data.completed = id end
+        Game.on("mission_stage", function(name) table.insert(c.data.stages, name) end)
+    end })
+    local t = 1.0
+    while t < seconds do
+        table.insert(steps, { at = t, run = function(c)
+            if c.data.completed then return end
+            local m = Game.mission
+            if not m or not m.stage_name then return end
+            local wp = Game.waypoint
+            if wp and wp.pos and Game.player then
+                Game.player.position = wp.pos + V(0.6, 0.15, 0.6)
+            end
+            if not m.talking then
+                for _, r in Game.interactables do
+                    if r.enabled and r.entity.valid and r.fn then
+                        local d = r.entity.position - Game.player.position
+                        if not wp or vector.magnitude(d) < 4 then r.fn(); break end
+                    end
+                end
+            end
+            local Squad = require("scripts/lib/squad")
+            for _, rr in Squad.state().enemies do
+                local e = rr.ctl
+                if e and rr.entity.valid and not e.down and not e.dormant and not e.parley and not e.gone then
+                    e:go_down(nil)
+                end
+            end
+        end })
+        t += 0.25
+    end
+    table.insert(steps, { at = seconds + 0.5, run = function(c)
+        c.check(chapter .. "_complete", c.data.completed == chapter,
+                "completed=" .. tostring(c.data.completed) .. " stages=" .. table.concat(c.data.stages, ",")
+                .. " talking=" .. tostring(Game.mission and Game.mission.talking)
+                .. " wp=" .. tostring(Game.waypoint and Game.waypoint.pos))
+    end })
+    return steps
+end
+Plans.story_op04 = story_plan("op04", 200)
+Plans.story_op05 = story_plan("op05", 260)
+Plans.story_op06 = story_plan("op06", 240)
+Plans.story_op07 = story_plan("op07", 220)
+
 return Plans
