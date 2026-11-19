@@ -70,7 +70,7 @@ function E:start()
         Dialogue.register(self.voice, {
             entity = self.entity, voice = a.voice, face = nil,
             look_at = function(p) a:look_at(p, 0.6) end,
-            can_speak = function() return not self.down end,
+            can_speak = function() return (not self.down) or self.surrendered end,
         })
     end
 end
@@ -141,6 +141,15 @@ function E:go_down(info)
     for _, o in self.group ~= "" and group_of(self.group) or {} do
         if o ~= self and not o.down and o.voice ~= "" then o:say("down"); break end
     end
+end
+
+-- Gives up without being stunned (mission beats: the Op01 patrol, Sorn). Same kneeling, hands-up
+-- pose as a stun, but the contractor can still talk.
+function E:surrender()
+    if self.down then return end
+    self.surrendered = true
+    self:go_down(nil)
+    Game.emit("enemy_surrender", self.entity)
 end
 
 function E:target()
