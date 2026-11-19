@@ -7,6 +7,11 @@
 --   voice    "greyline1" / "greyline2" / "" - dialogue speaker key for this contractor's barks
 --   alert    start alerted (ambush groups)
 --   group    name shared by contractors that alert each other
+--   stun     stun pool (Sorn has a deeper one)
+--   dormant  start out of the level; the mission calls e:wake(pos, yaw) when they arrive
+--
+-- Mission hooks: e.parley = true holds fire (and the squad holds theirs) while someone talks; a
+-- hit breaks it. e:surrender() kneels without a stun. e:retreat(points) walks off under parley.
 local Game = require("scripts/lib/game")
 local Combat = require("scripts/lib/combat")
 local Actor = require("scripts/lib/actor")
@@ -21,6 +26,7 @@ E.group = ""
 E.stun = 60
 E.surface = "dirt"
 E.accuracy = 1.0
+E.dormant = false
 
 local groups = {}
 local groups_scene = nil
@@ -65,6 +71,12 @@ function E:start()
     Squad.register_enemy(self.entity, self)
     Combat.register(self.entity, function(info) return self:on_hit(info) end)
     Combat.on_noise(function(pos, radius, source) self:on_noise(pos, radius, source) end)
+    self.parley = false
+    if self.dormant then
+        self.wake_home = self.entity.position
+        self.entity.position = vector.create(self.home.x, -400, self.home.z)
+        self.entity:set("Perceptible", { enabled = false })
+    end
     if self.voice ~= "" then
         local a = self.actor
         Dialogue.register(self.voice, {
@@ -105,8 +117,12 @@ function E:on_noise(pos, radius, source)
 end
 
 function E:on_hit(info)
-    if self.down then return false end
+    if self.down or self.dormant then return false end
     if info.team == "enemy" then return false end
+    if self.parley and not self.retreating then
+        self.parley = false
+        Game.emit("parley_broken", self.entity)
+    end
     self.pool -= info.amount
     self.actor:look_at(info.source and info.source.valid and info.source.world_position + vector.create(0, 1.5, 0)
         or self.entity.position, 1.0)
@@ -152,6 +168,26 @@ function E:surrender()
     Game.emit("enemy_surrender", self.entity)
 end
 
+function E:wake(pos, yaw)
+    self.dormant = false
+    local p = pos or self.wake_home
+    self.actor:place(p, yaw)
+    self.home = p
+    self.entity:set("Perceptible", { enabled = true })
+end
+
+function E:retreat(points)
+    self.parley = true
+    self.retreating = true
+    self.state = "patrol"
+    self.points = {}
+    self.actor.aim_want = 0
+    self.actor:set_speed(3.4)
+    self.retreat_pts = points
+    self.retreat_i = 1
+    self.actor:go(points[1])
+end
+
 function E:target()
     local p = self.entity:perception()
     if not p then return nil, nil end
@@ -164,14 +200,36 @@ function E:update(dt)
     local a = self.actor
     local e = self.entity
     self.st += dt
+    if self.dormant then return end
     if self.down then
+        a.focus = nil
+        a:update(dt)
+        return
+    end
+    if self.retreating then
+        local g = self.retreat_pts[self.retreat_i]
+        if g and (a:arrived() or flat_dist(e.position, g) < 1.0) then
+            self.retreat_i += 1
+            g = self.retreat_pts[self.retreat_i]
+            if g then a:go(g) end
+        end
+        if not g then
+            self.retreating = false
+            Game.emit("enemy_retreated", self.entity)
+        end
         a.focus = nil
         a:update(dt)
         return
     end
     if self.flinch and self.flinch > 0 then self.flinch -= dt end
     local tgt, per = nil, nil
-    if not Game.cinematic then tgt, per = self:target() end
+    if not Game.cinematic and not self.parley then tgt, per = self:target() end
+    if self.parley then
+        a.aim_want = 0.5
+        a.focus = Game.player and Game.player.position or a.focus
+        a:update(dt)
+        return
+    end
     if tgt and self.state ~= "engage" then
         self.state = "engage"
         self.st = 0

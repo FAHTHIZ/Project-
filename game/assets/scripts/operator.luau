@@ -206,11 +206,11 @@ function Op:visible_enemy()
     local p = self.entity:perception()
     if not p or not p.target or not p.target.valid then return nil, p end
     local rec = Squad.state().enemies[p.target.id]
-    if rec and rec.ctl and rec.ctl.down then
+    if rec and rec.ctl and (rec.ctl.down or rec.ctl.parley or rec.ctl.dormant) then
         -- pick another seen enemy that is still up
         for _, t in p.seen do
             local r2 = Squad.state().enemies[t.id]
-            if r2 and r2.ctl and not r2.ctl.down then return t, p end
+            if r2 and r2.ctl and not (r2.ctl.down or r2.ctl.parley or r2.ctl.dormant) then return t, p end
         end
         return nil, p
     end

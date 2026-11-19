@@ -65,7 +65,7 @@ function Squad.unregister_enemy(e) Squad.state().enemies[e.id] = nil end
 function Squad.active_enemies()
     local out = {}
     for _, r in Squad.state().enemies do
-        if r.entity.valid and r.ctl and not r.ctl.down then table.insert(out, r.ctl) end
+        if r.entity.valid and r.ctl and not r.ctl.down and not r.ctl.dormant then table.insert(out, r.ctl) end
     end
     return out
 end
