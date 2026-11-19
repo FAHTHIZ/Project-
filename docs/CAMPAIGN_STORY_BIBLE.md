@@ -5,7 +5,7 @@
 **Game:** SPECIAL OPS / VICTUS field demonstration  
 **Genre:** Original, first-person military tactical thriller  
 **Structure:** Prologue, seven operations, epilogue and credits  
-**Tone:** Grounded military action, squad drama, investigation and restrained humour  
+**Tone:** Cinematic military action, squad-led dark comedy, investigation and environmental scare-comedy  
 **Spoiler note:** This document contains the complete story, including the V-01 reveal and ending.
 
 This is the authoritative story source for the campaign. Mission briefs, dialogue, cinematics, level objectives and environmental storytelling must implement this narrative. The production roadmap links to this document. Call of Duty is a pacing and production-quality reference only; all characters, events, locations, dialogue, missions and visual compositions must remain original.
@@ -106,27 +106,27 @@ Rook's arc is about earning the trust of a close unit and learning to make sound
 
 ### Anchor — team lead
 
-Anchor is disciplined, measured and accountable for the team. He initially gives Rook clear instructions and keeps the squad focused on the recovery objective. As the mission becomes more complicated, he stops treating the briefing as the whole truth and trusts Rook to help make decisions. His arc is from controlled caution to earned mutual trust.
+Anchor is disciplined, measured and accountable for the team, with exhausted deadpan humour. He initially gives Rook clear instructions and keeps the squad focused on the recovery objective. He tries to maintain professionalism when Tally gets spooked, but occasionally admits that a sound or a place is unsettling. As the mission becomes more complicated, he stops treating the briefing as the whole truth and trusts Rook to help make decisions. His arc is from controlled caution to earned mutual trust.
 
 ### Patch — medic
 
-Patch is observant, empathetic and practical. Her dry humour provides warmth without turning every serious scene into a joke. She reminds the team that Greyline contractors are people, not faceless targets, and treats anyone who can safely be helped. Her arc is about keeping the human cost visible while the mission becomes politically larger.
+Patch is observant, empathetic and practical, with sharp dry humour and honest reactions when startled. She can jump at a sudden noise, then immediately insist she was checking the team's spacing. Her jokes often puncture Tally's bravado. She reminds the team that Greyline contractors are people, not faceless targets, and treats anyone who can safely be helped. Her arc is about keeping the human cost visible while the mission becomes politically larger.
 
 ### Echo — scout
 
-Echo is quiet, analytical and attentive to details. Echo is the first member of the squad to notice that the site's records and the official timeline do not agree. Her observations move the story forward; she should not become a magical source of answers. Her arc is from detached observer to someone who openly trusts the squad with what she has found.
+Echo is quiet, analytical and attentive to details, with an understated delivery that makes her unintentionally funny. She is rarely the first to react to a noise; she is usually the first to identify its mundane source. Echo is the first member of the squad to notice that the site's records and the official timeline do not agree. Her observations move the story forward; she should not become a magical source of answers. Her arc is from detached observer to someone who openly trusts the squad with what she has found.
 
 ### Tally — communications
 
-Tally is sociable, confident and occasionally funny. Tally keeps the team connected to Lamplight, notices contradictory messages and helps preserve the evidence channel when the normal command picture becomes unreliable. The humour should be character-based and restrained, especially around the V-01 reveal.
+Tally is sociable, confident, irreverent and the squad's main chatterbox. Tally keeps the team connected to Lamplight, notices contradictory messages and helps preserve the evidence channel when the normal command picture becomes unreliable. Tally is quick with a joke and occasional strong profanity, but becomes the easiest member to startle when a howl, growl or unexplained metallic noise breaks the silence. Tally then insists they were never scared. The humour should be character-based, varied and never allowed to bury the mission.
 
 ### Lamplight — headquarters radio handler
 
-Lamplight delivers the briefing, checks mission status and maintains the team's link to Joint Operations Command. Lamplight is not the mastermind. When conflicting instructions arrive, Lamplight reports what can and cannot be verified rather than pretending to know everything. Lamplight helps route the recovered evidence to an independent review authority at the end.
+Lamplight delivers the briefing, checks mission status and maintains the team's link to Joint Operations Command. Lamplight is not the mastermind. When conflicting instructions arrive, Lamplight reports what can and cannot be verified rather than pretending to know everything. Lamplight is usually professional, but can occasionally answer Tally's radio complaints with one perfectly timed deadpan remark. Lamplight helps route the recovered evidence to an independent review authority at the end.
 
 ### Ranger Hollis — local guide
 
-Hollis is a civilian park ranger familiar with the woodland around Kestrel. Hollis guides Halyard along the old service route in Operation 01 and explains that the supposedly closed installation has had recent vehicle activity. Hollis is not a secret commando or a combat sidekick. After guiding the team to the forest boundary, Hollis withdraws to a safe position and later helps identify the agreed extraction point.
+Hollis is a civilian park ranger familiar with the woodland around Kestrel. Hollis guides Halyard along the old service route in Operation 01 and explains that the supposedly closed installation has had recent vehicle activity. Hollis knows the local wildlife calls and is quietly amused when trained operators mistake distant ridge-hound howls for something much worse. Hollis is not a secret commando or a combat sidekick. After guiding the team to the forest boundary, Hollis withdraws to a safe position and later helps identify the agreed extraction point.
 
 ### Major Elias Venn — missing intelligence auditor
 
@@ -150,7 +150,7 @@ Kade is the director of the Strategic Continuity Directorate and the architect o
 
 Lamplight briefs Halyard. Major Elias Venn has disappeared after sending a distress message from Kestrel Station. The official record says the site is decommissioned, but Venn's message and recent transport activity suggest otherwise. The National Security Council will consider emergency measures at dawn. Halyard must find Venn and recover the original records before that meeting.
 
-The camera introduces Rook, Anchor, Patch, Echo and Tally as a working team. The scene moves to the HT-4 Mule. The squad checks the cargo area and discusses the available equipment. This is the first opportunity for natural squad banter and for the player to understand the equipment interaction.
+The camera introduces Rook, Anchor, Patch, Echo and Tally as a working team. The scene moves to the HT-4 Mule. The squad checks the cargo area and discusses the available equipment. This is the first opportunity for natural squad banter and for the player to understand the equipment interaction. Tally complains that the trunk has been packed by someone who clearly hates backs; Patch tells Tally to stop narrating the inventory; Echo points out that Tally packed it. Anchor lets the exchange run for a moment, then asks everyone to focus.
 
 Anchor gives Rook the mission's central rule: recover the person and the proof; do not turn a tense border situation into a larger one. The Mule departs.
 
@@ -163,6 +163,8 @@ Anchor gives Rook the mission's central rule: recover the person and the proof; 
 The Mule can no longer continue along the old forestry route, so Halyard dismounts. Ranger Hollis meets the team and guides them through the woodland. Hollis explains that the station was supposed to be closed, but maintenance vehicles have been seen moving through the area at unusual hours.
 
 The forest begins quietly. The squad talks naturally while moving. The player can inspect a small number of environmental clues with the field utility device: recent vehicle traces, a fresh service marker and discarded station packaging. These clues establish recent activity without turning the forest into a corridor of exposition.
+
+Then a long, distant howl travels across the valley. A second answers from another direction. The squad pauses. A nearer low growl rolls through the brush, followed by leaves shaking and a branch snapping. Tally blurts, “What the fuck was that?” Anchor raises a hand to hold position. Echo listens, then notices the sound moving away from the trail. Hollis explains that ridge-hound-like wildlife calls across the valley at dusk; it is not approaching the team. Tally insists the explanation does not make the noise less rude. The squad resumes, a little more alert and a little less willing to admit it was startled. Keep the wildlife off-screen or distant: it is ambience, not an attack encounter.
 
 Near the end of the route, Greyline personnel challenge the team. The first encounter is short and readable. Halyard identifies itself and attempts to avoid escalation; Greyline refuses to let the team pass. The player and companions defend themselves with the existing fictional non-lethal weapons. Some contractors are stunned and others withdraw or surrender.
 
@@ -180,6 +182,8 @@ Halyard reaches the perimeter checkpoint. It is not a deserted ruin: power, secu
 
 Echo notices that the date on one maintenance record conflicts with the site's public decommissioning date. The detail is small but concrete: the installation has been operating under a hidden contract.
 
+A loose warning sign taps against a fence post in the gusts. The irregular rhythm sounds briefly like footsteps. Tally turns toward it; Patch does too, then pretends she was checking the fence line. Echo identifies the sign. Anchor tells the squad that the next person to challenge an inanimate object can explain it to Lamplight in the mission report.
+
 The team also finds evidence that Venn reached the perimeter and was transported farther inside. A damaged field recorder contains a partial message from him: the surface records cannot be trusted. Before the team can recover more, the checkpoint enters a lockdown state and Greyline moves to stop them.
 
 The encounter is about gaining access to the service yard, not clearing a limitless wave of enemies. The squad secures the route and reaches the facility approach.
@@ -192,7 +196,7 @@ The encounter is about gaining access to the service yard, not clearing a limitl
 
 Halyard reaches the main facility. The exterior is a working industrial-security site, not a generic ruined base. Greyline personnel occupy the service yard and controlled entrances.
 
-Captain Dorian Sorn first appears over the station's public-address system. He identifies Halyard and orders the team to surrender its equipment and leave. Anchor replies that the team is executing an authorized recovery and investigation order. Sorn says the installation is under a separate security mandate and refuses access.
+Captain Dorian Sorn first appears over the station's public-address system. He identifies Halyard and orders the team to surrender its equipment and leave. Anchor replies that the team is executing an authorized recovery and investigation order. Sorn says the installation is under a separate security mandate and refuses access. The PA speaker clips into a low metallic rasp as it shuts off. Tally mutters, “Even the intercom sounds hostile.” Echo replies that the speaker needs maintenance, not a negotiation.
 
 The disagreement is no longer a misunderstanding that can be resolved with a routine checkpoint conversation. Sorn has orders to keep the site sealed. Halyard must defend its route into the administrative building. Use a contained encounter with clear start and end states, readable cover and opportunities for contractors to surrender.
 
@@ -214,6 +218,8 @@ The team finds a recording left by Venn:
 
 The recording gives the team a precise objective. They must find Venn and reach the original source archive.
 
+A ventilation fan starts somewhere above the records office. Its uneven housing produces a low, throaty growl that seems to move along the ceiling. Tally stops mid-sentence. Echo checks the room's service diagram and identifies the fan. Patch says she would still prefer a building that doesn't sound like it's clearing its throat. The sound is unsettling for a moment, then becomes a small running joke when the fan starts again.
+
 Sorn speaks again, now less interested in negotiation. He says the facility contains restricted national-security material and that Halyard's presence is an unauthorized breach. At the same time, Lamplight reports a conflicting recall instruction. Lamplight cannot confirm that the new order came through the same authority that approved the mission. Tally warns that the team must not treat every incoming message as trustworthy.
 
 A facility lift or service access route leads down to the bunker.
@@ -225,6 +231,8 @@ A facility lift or service access route leads down to the bunker.
 **Primary purpose:** Rescue Venn and explain the conspiracy without removing the need to reach the Source Vault.
 
 The bunker is a distinct environment: heavier construction, older systems, command rooms and controlled utility spaces. It should feel like a functioning military installation beneath the surface, not another copy of the facility corridors.
+
+The heavy pressure doors groan as their seals release. Pipes knock somewhere behind the walls, and a distant metal impact echoes through the bunker. The team briefly stops to listen. Tally whispers, “If this is the basement, I don't want to meet the basement's basement.” Anchor tells Tally to keep moving. Patch admits the door noise startled her too, then immediately tells everyone not to make a thing of it.
 
 Halyard follows Venn's movement record to a restricted holding area. Greyline personnel attempt to prevent access. The team gets through the encounter and finds Venn alive.
 
@@ -243,6 +251,8 @@ The dawn emergency session is approaching. The team has no reason to continue ex
 **Primary purpose:** Recover the original evidence and expose the order behind the operation.
 
 The lower basement is a major playable chapter with its own spatial identity. It is older and more industrial than the bunker above, with a large archive hall, service galleries, records storage and a central review area. It must feel like a separate location with scale and landmarks, not a long basement corridor.
+
+Cooling fans produce a layered hum that resembles slow breathing in the largest archive hall. A hanging inventory tag taps against a metal rack at long intervals. The sound appears to follow the squad until Echo spots the tag moving in the airflow. Tally says, “I nearly started a fight with office stationery.” A distant archive speaker plays a clipped fragment—“...please remain...” —before cutting out. Patch looks at Tally and says, “Don't.” Tally replies, “I wasn't going to say anything.” They absolutely were.
 
 The team reaches the Source Vault. Its contents make the conspiracy provable:
 - original Northline incident source records;
@@ -265,18 +275,23 @@ Halyard now has the primary proof but needs the final authorization record held 
 **Location:** VICTUS chamber, final review room and chair area  
 **Primary purpose:** Deliver the evidence, the human confrontation and the deliberately mundane V-01 reveal.
 
-The approach to the final chamber is staged as the campaign's largest reveal. The team has heard repeated references to VICTUS and V-01. The architecture, lighting and sound suggest that something extraordinary is being kept there. The squad expects a central machine, prototype or major weapon system.
+The approach to the final chamber is staged as the campaign's largest reveal. The team has heard repeated references to VICTUS and V-01. The architecture, lighting and sound suggest that something extraordinary is being kept there. The squad expects a central machine, prototype or major weapon system. On the final corridor, the machinery hum gradually fades. A heavy door releases with a low groan, then the sound drops almost completely away. The squad enters more cautiously than they want to admit.
 
 The door opens onto a plain, carefully maintained review room. There are workstations, an old chair and a harmless Vanguard V-01 demonstration dummy sitting awkwardly behind the chair. It is visibly inert. Its label identifies it as a visual stand-in used for room and camera-reference work.
 
 Let the silence last for a beat.
 
-Patch: “That’s V-01?”  
+Patch: “That's V-01?”  
 Tally: “I was expecting something considerably less… plastic.”  
-Echo: “It’s a display dummy.”  
-Anchor: “The dummy isn't the mission. Find the final record.”
+Echo: “It's a display dummy.”  
+Anchor: “The dummy isn't the mission. Find the final record.”  
+Tally: “We came all this way for a mannequin?”  
+Patch: “A very expensive mannequin, apparently.”  
+Echo: “It's been sitting there longer than your last three jokes.”  
+Tally: “And it's still the best-looking person in this room.”  
+Anchor: “Put that in the report and I'll make you rewrite the whole thing.”
 
-The joke is brief and human. Do not add a scare, movement, voice, artificial intelligence, boss fight or supernatural implication. The dummy is not the secret behind the attacks. It is simply the most anticlimactic object in a very heavily protected room.
+The humour is the payoff to the squad's accumulated reactions to howls, growls and mechanical noises. The room itself is ordinary. Do not add a scare, movement, voice, artificial intelligence, boss fight or supernatural implication to the dummy. It remains completely inert: no blink, head turn, animation, sound cue or interaction. The dummy is not the secret behind the attacks. It is simply the most anticlimactic object in a very heavily protected room.
 
 The team accesses the final review record. Kade's own signed instructions and recorded statement connect him to the Northline deception. The record confirms his motive: emergency powers, control of the corridor and a long-term security contract. It also confirms that he planned to blame Greyline's field personnel if the scheme was exposed.
 
@@ -292,7 +307,7 @@ The squad emerges from Kestrel as dawn begins. Hollis is waiting at the agreed s
 
 Lamplight reports that the independent oversight authority has accepted the evidence. The National Security Council's emergency vote is suspended pending an investigation. Karsovia and Lydria have agreed to pause further escalation while the Northline record is examined. Kade's position is under investigation; Greyline's contract is frozen. Do not pretend that one mission instantly fixes every political problem. The team has prevented the immediate false account from becoming the basis for a wider conflict.
 
-Anchor acknowledges Rook's contribution. Patch checks that everyone is ready to leave. Echo quietly confirms that the recovered record is complete. Tally tries to add the V-01 dummy to the official mission report; Anchor tells Tally to leave it out. The squad shares one last restrained laugh.
+Anchor acknowledges Rook's contribution. Patch checks that everyone is ready to leave. Echo quietly confirms that the recovered record is complete. Tally tries to add the V-01 dummy to the official mission report; Anchor tells Tally to leave it out. Tally says the report needs “one accurate photograph of Gary, the only member of VICTUS who stayed in his chair.” Anchor tells Tally to delete the nickname. Echo quietly says the nickname is already in the evidence metadata because Tally typed it into a field label. The squad shares one last laugh before the Mule departs.
 
 The final image is the team departing together as the sun comes up over the forest. The campaign ends with the immediate operation resolved, the conspiracy exposed and the squad intact. Credits follow.
 
@@ -338,17 +353,21 @@ Cinematics may be broken into shorter in-engine moments. Do not make every beat 
 
 ## 8. Dialogue and performance rules
 
-- The squad must sound like people who know one another. They can disagree, tease and answer each other directly.
-- Keep military dialogue concise, specific and understandable. Avoid constant shouting, endless acronyms and generic action-movie one-liners.
-- Anchor keeps the team focused; Patch notices people and consequences; Echo notices evidence; Tally manages communications and supplies restrained humour.
-- Rook's spoken lines should be brief and should not force a personality the player has not chosen.
-- Hollis speaks as a local ranger, not a tactical instructor.
-- Venn is precise and tired, not a speech-making exposition machine.
-- Sorn is firm and convinced of his authority until the evidence undermines it.
-- Kade is calm and self-justifying. Let his own records expose him rather than giving him a theatrical villain monologue.
+The campaign uses squad-led dark comedy and occasional environmental scare-comedy. The full voice, profanity, sample dialogue and sound direction are specified in `docs/SQUAD_BANTER_AND_AMBIENCE.md`; read it before authoring lines or ambience.
+
+- The squad must sound like people who know one another. They can disagree, tease, swear when startled, complain about uncomfortable places and answer each other directly.
+- Give each operator a distinct comic rhythm: Anchor is dry and controlled; Patch is practical and sharply observant; Echo is understated and calmly identifies mundane causes; Tally is irreverent and easily startled but pretends otherwise.
+- Use occasional strong profanity when it fits a genuine reaction (“What the fuck was that?” / “Oh, for fuck's sake”), not as constant filler. Keep humour non-sexual; do not use slurs or graphic injury jokes.
+- Do not force Rook to deliver constant quips. Keep player-character lines brief and situational.
+- The humour should puncture tension without trivialising the Northline attacks, Venn's detention or the consequences of Kade's conspiracy.
+- Hollis can explain woodland sounds with local familiarity. Lamplight remains professional with occasional dry radio responses.
+- Venn is precise and tired, not a speech-making exposition machine. Sorn remains controlled and severe. Kade remains calm and self-justifying.
+- A character who makes a joke should receive a visible listener reaction where practical: a look, eye-roll, small grin, exhale, head shake or gesture.
+- Fear must be visible in the squad's behaviour: a hand signal to pause, a quick turn toward a sound, a tighter formation, a shared glance or a brief hesitation. Do not make trained operators scream or behave incompetently.
 - Every important factual reveal must be supported by an object, record, scene or witness in addition to dialogue.
-- Subtitles, speaker identity, lip-sync, facial performance, gaze and spatial audio must agree.
-- Humour belongs primarily in squad chemistry and the V-01 reveal. Do not undercut the Northline losses or turn the whole campaign into a comedy.
+- Subtitles, speaker identity, lip-sync, facial performance, gaze and spatial audio must agree. Do not let jokes overlap mission-critical information.
+- Do not use the same reaction line repeatedly. Contextual dialogue needs cooldowns, state checks and variation.
+- The V-01 dummy is the final mundane punchline, not a horror prop. It must remain completely inert.
 
 ## 9. Environmental storytelling and optional discoveries
 
@@ -362,7 +381,22 @@ Use a small number of optional discoveries to reward attention without hiding es
 
 Essential story information must never depend on finding every optional item. The main path provides the necessary facts in a clear sequence. The field utility device can identify authored points of interest, but it must not turn the story into a generic wall of highlighted objects.
 
-## 10. Canon and implementation constraints
+Environmental sound is also storytelling. The forest has distant animal howls, answering calls and a brief low growl from wildlife beyond the trail; the perimeter has a tapping sign and fence resonance; the facility has a growling ventilation fan and faulty PA speaker; the bunker has pressure-door groans and pipe knocks; the lower basement has cooling fans, echoing tags and clipped maintenance announcements. These are plausible environmental sources, not supernatural clues or combat encounters. The detailed staged sequences, sound behaviour, sample dialogue and implementation checks live in `docs/SQUAD_BANTER_AND_AMBIENCE.md`.
+
+A scare should have a source that can be inferred, seen or explained. Let the squad stop, listen and react before a teammate identifies the cause. The player must retain control except for a purposeful authored cinematic. Do not use random loud jumpscares, animal attacks or noises that conceal a required objective.
+
+## 10. Tone, comedy and environmental scare canon
+
+The game's target tone is **military dark comedy with atmospheric scare-comedy**, not straight parody and not horror. The campaign should keep its serious geopolitical stakes while allowing the squad to sound like tired, imperfect people under pressure.
+
+- Use `docs/SQUAD_BANTER_AND_AMBIENCE.md` as the detailed tone and implementation reference.
+- Environmental howls, growls, rattles, metallic groans, ventilation noise and radio artefacts should create suspense and occasional false alarms. Their sources are wildlife, wind, old infrastructure or machinery.
+- The squad can be genuinely startled. Give each operator distinct body-language reactions and let the joke follow the pause.
+- Include occasional strong profanity and irreverent non-sexual humour. Do not write explicit sexual jokes, slurs, graphic injury jokes or jokes aimed at real-world protected groups.
+- Do not make every line a joke. The story, evidence trail and political consequences remain sincere.
+- The final V-01 reveal must pay off the accumulated tension by being completely ordinary and motionless. The dummy is never alive, haunted, intelligent or threatening.
+
+## 11. Canon and implementation constraints
 
 These rules prevent later implementation from drifting away from the agreed story:
 
@@ -382,12 +416,12 @@ These rules prevent later implementation from drifting away from the agreed stor
 - Do not add gore or graphic injury presentation. Keep combat fictional, non-lethal and readable.
 - Do not create new systems solely to tell the story when existing VICTUS and game systems can express it. Prefer authored dialogue, state changes, existing inventory/equipment interactions, records, doors, scene transitions and current cinematic primitives.
 
-## 11. Agent handoff and definition of narrative done
+## 12. Agent handoff and definition of narrative done
 
 The next agent should read this story bible before editing mission scenes, dialogue, cinematics or environment storytelling. Then:
 
 1. Inspect the current main branch, current campaign scenes, scripts, asset generators and VICTUS APIs. Do not assume any planned operation is already implemented.
-2. Map each existing scene and asset to the operation where it belongs. Record gaps rather than creating duplicate campaign systems.
+2. Read docs/SQUAD_BANTER_AND_AMBIENCE.md and map each existing scene, asset, dialogue line and audio source to the operation where it belongs. Record gaps rather than creating duplicate campaign systems.
 3. Create a mission-state outline for the prologue and all seven operations, including objective completion, dialogue triggers, checkpoint state and transitions.
 4. Implement the prologue and Operation 01 as the first complete narrative slice, reusing existing squad, vehicle, trunk, weapon, utility and dialogue systems.
 5. Add story records and evidence props only where they advance the cause-and-effect chain above.
