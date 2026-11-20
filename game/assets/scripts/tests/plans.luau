@@ -106,13 +106,23 @@ Plans.hud = {
         local q = Game.toast_queue
         c.check("hud_toast_waits_for_title", q[1] ~= nil and q[1].t == c.toast_t,
             string.format("toast timer %.2f -> %.2f while the title card is up", c.toast_t or -1, q[1] and q[1].t or -1))
+        local ret, comp = scene.find("Reticle"), scene.find("Compass")
+        c.check("hud_card_clears_centre", ret ~= nil and comp ~= nil and not ret:visible() and not comp:visible(),
+            "reticle and compass hidden under the chapter card")
         Game.present.title = nil
+        -- a long two-line radio line gets a taller plate than a one-word bark
+        Game.show_subtitle("Lamplight", "Halyard, Lamplight. Three nights ago, three posts on the Northline corridor were hit. Every public statement says Lydria did it.", 30)
     end },
     { at = 3.0, run = function(c)
         local q = Game.toast_queue
         c.check("hud_toast_resumes", q[1] ~= c.toast_head or q[1].t < c.toast_t, "toast timer runs again after the title card")
         c.check("hud_stale_objective_toast", q[1] == nil or q[1].text ~= "New objective: Reach the ranger station past the old fence line",
             "the superseded objective toast was cut short")
+        local ret = scene.find("Reticle")
+        c.check("hud_reticle_back", ret ~= nil and ret:visible(), "reticle returns after the card")
+        local sub = scene.find("Subtitle")
+        local h = sub and sub:get("UiRect").size[2] or 0
+        c.check("hud_subtitle_plate_fits", h >= 2 * 30 + 40, string.format("plate height %d for a two-line line", h))
     end },
 }
 
