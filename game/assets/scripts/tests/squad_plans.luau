@@ -96,6 +96,22 @@ P.squad = {
         c.check("priority_order", order_ok, log[c.data.log0 + 1] and log[c.data.log0 + 1].id or "none")
         -- repeating the same line inside its cooldown is refused
         c.check("cooldown", Dialogue.say("chat_01a", { priority = 1 }) == false, "")
+        -- fall-out recovery: drop Tally under the floor; she is put back where the squad walked
+        local t = Squad.member("Tally")
+        t:place(Game.player.world_position + V(0, -30, 0))
+        c.data.fall_n = t.recovered or 0
+    end },
+    { at = 37.0, run = function(c)
+        local t = Squad.member("Tally")
+        local dy = t.entity.world_position.y - Game.player.world_position.y
+        c.check("fall_recovered", (t.recovered or 0) == c.data.fall_n + 1 and math.abs(dy) < 1.0,
+            string.format("recoveries %d, %.2f m from the player's height", (t.recovered or 0) - c.data.fall_n, dy))
+    end },
+    { at = 40.0, run = function(c)
+        local t = Squad.member("Tally")
+        local dy = t.entity.world_position.y - Game.player.world_position.y
+        local d = flat(t.entity.position, Game.player.position)
+        c.check("fall_recovery_stays", math.abs(dy) < 1.0 and d < 10, string.format("dy %.2f m, %.1f m from the player", dy, d))
     end },
 }
 
