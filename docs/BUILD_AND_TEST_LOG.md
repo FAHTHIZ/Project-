@@ -738,3 +738,15 @@ Follows `7816b18` (PC-7 reflex sight). Code and models in `d71a94c`.
 - Op06 is not baked: the lower archive is a 60 x 44 m hall with sparse work lights and, with the flat ambient replaced, it rendered near-black even with bounce raised 2.2x. It keeps the ambient look until the room gets a lighting pass.
 - Baked with a VICTUS working tree that also takes the bounce colour from the mean of each model material's albedo texture (ADR-0143, committed to the engine separately); the `.vlightmap` files load with any VICTUS that reads lightmaps.
 - `victus import game`, `victus check game`: 261 scenes, 0 problems. `SOPS_TEST_FRAMES=12100 story_op04`, `15700 story_op05`, `13300 story_op07`: all PASS, 0 script errors.
+
+## 2026-11-20 Body-cam weapon handling: stress reloads, fumbles, cell check, re-grip
+
+Reference: Bodycam's calm and stressed reload sets, where stress from incoming fire hurries the hands and can fumble the magazine, and no two reloads place the hands the same ([Steam roadmap](https://store.steampowered.com/news/app/2406770/view/518614419301729535), [devlog summary](https://bodycamgame.wiki/updates/devlog-1-animations/)). Our weapons stay procedural; this slice adds the same behaviours to the existing choreography.
+
+- `weapons.luau`: a stress value (0..1) rises on `player_hurt` (+0.35), `near_miss` (+0.22), `player_shot_at` (+0.15) and slightly with the player's own fire (capped at 0.3), holds for 2.5 s of quiet, then falls 0.1/s; `Game.stress` exposes it.
+- Every reload draws its own roll, dip, yaw, support-hand offset and timing (+/-3 %); stress makes it up to 12 % quicker with a tremor in the dip. Above 0.55 stress a reload can fumble: the cell's nose catches the well, the hand pulls it back and re-seats it (0.5 s longer, a knock sound at pitch 1.3).
+- Partial-cell (tactical) reloads stow the old cell down and back towards the vest; empty reloads let it fall and tumble.
+- Cell check: RELOAD with a full cell, or holding RELOAD for 0.28 s (the started reload turns into a check before the hand reaches the cell, blended over 0.22 s), tilts the weapon in, thumbs the cell 2 cm out and reports it in words ("Cell about half"). HUD state CHECKING.
+- A burst of 8 or more shots ends with the support hand re-taking its grip; after reloads, checks and re-grips the resting hold settles to a slightly different offset, so the weapon never returns to the exact same spot. Hip stress tremor fades in ADS.
+- New plan `reload_feel` (`scenes/tests/reload_feel.vscene` from `build_dev_range.py reload_feel`): 19/19 PASS (tactical stow, stress from a near miss, certain fumble holds at the well and recovers to a full cell, full-cell check, hold-to-check keeps ammo, re-grip).
+- Regression: weapons, armory, sniper, movement, hud, reactions, squad_combat, enemy_fire: all PASS. Render `docs/media/reload_tactical.png` (vm_reload pose).
