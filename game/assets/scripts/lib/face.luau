@@ -13,6 +13,10 @@ local EMOTIONS = {
     focus = { BrowDown = 0.55, Frown = 0.1 },
     surprise = { BrowUp = 1.0, JawOpen = 0.12 },
     deadpan = { BrowDown = 0.18, Smile = 0.12 },
+    -- under fire: brows knit and down, lips pressed (a little Frown), a slight squint
+    strain = { BrowDown = 0.7, Frown = 0.3, Blink = 0.12 },
+    fear = { BrowUp = 0.75, Frown = 0.4, JawOpen = 0.08 },
+    anger = { BrowDown = 0.9, Frown = 0.55 },
 }
 Face.EMOTIONS = EMOTIONS
 local TARGETS = { "Blink", "JawOpen", "Smile", "Frown", "BrowUp", "BrowDown", "MouthO", "LookL", "LookR", "LookUp", "LookDown" }
@@ -67,6 +71,13 @@ function Face.new(body, seed)
     self.sx, self.sy = 0, 0
     self.line = nil
     self.line_t = 0
+    -- body state the owner feeds in every frame (Face:set_state): exertion 0..1 (hard running,
+    -- breathing through the mouth), stress 0..1 (in a fight: knit brows, faster blinking),
+    -- aim 0..1 (sighting: the eyes narrow)
+    self.exert, self.stress, self.aiming = 0, 0, 0
+    self.breath_t = (seed or 1) % 7
+    self.flinch_t = 0
+    self.flinches = 0
     self.active = self.mesh ~= nil
     self.find_tries = 30 -- the head mesh may resolve a few frames after start
     return self
@@ -77,6 +88,25 @@ function Face:set_emotion(name, seconds)
         self.emotion = name
         self.emotion_hold = seconds or 4
     end
+end
+
+function Face:set_state(exert, stress, aiming)
+    self.exert, self.stress, self.aiming = exert or 0, stress or 0, aiming or 0
+end
+
+-- Startle reflex (a shot close by, a hit): a hard blink, brows up and the jaw sets for ~0.45 s.
+-- Repeated startles habituate: within 1.5 s of the last one nothing new shows, and a run of them
+-- (a long firefight) fades toward a third of the first reaction.
+function Face:flinch(strength)
+    local now = time.now()
+    local since = now - (self.flinch_at or -99)
+    if since < 1.5 then return end
+    self.habit = math.max(0, (self.habit or 0) * math.exp(-since / 12)) + 1
+    self.flinch_at = now
+    self.flinch_t = 0.45
+    self.flinch_k = math.clamp(strength or 1, 0.2, 1) * math.max(0.35, 1 / self.habit)
+    self.blink = 0.14
+    self.flinches += 1
 end
 
 -- line: an entry of scripts/lib/voice_data (or nil to stop). t: seconds into the line.
@@ -119,8 +149,28 @@ function Face:update(dt, look, yaw, cam_pos)
         if self.emotion_hold <= 0 then self.emotion = "neutral" end
     end
     for k, v in EMOTIONS[self.emotion] do w[k] = v end
-    -- blink
-    self.blink_t -= dt
+    -- a fight shows on the face whatever the scripted mood was: blend toward strain
+    local st = self.stress
+    if st > 0.01 and self.emotion ~= "strain" and self.emotion ~= "fear" then
+        for k, v in EMOTIONS.strain do w[k] = math.max(w[k] * (1 - st * 0.5), v * st) end
+    end
+    -- sighting narrows the eyes a touch
+    if self.aiming > 0.5 then w.Blink = math.max(w.Blink, 0.18 * self.aiming) end
+    -- hard breathing after running: the mouth opens on each breath
+    if self.exert > 0.05 then
+        self.breath_t += dt * (1.1 + self.exert * 1.2)
+        local b = 0.5 + 0.5 * math.sin(self.breath_t * math.pi * 2)
+        w.JawOpen = math.max(w.JawOpen, self.exert * (0.08 + 0.14 * b))
+    end
+    if self.flinch_t > 0 then
+        self.flinch_t -= dt
+        local f = math.sin(math.clamp(self.flinch_t / 0.45, 0, 1) * math.pi) * (self.flinch_k or 1)
+        w.BrowUp = math.max(w.BrowUp, 0.8 * f)
+        w.Frown = math.max(w.Frown, 0.45 * f)
+        w.BrowDown *= 1 - f
+    end
+    -- blink (stress roughly doubles the rate)
+    self.blink_t -= dt * (1 + st)
     if self.blink_t <= 0 then
         self.blink = 0.14
         self.blink_t = 2.0 + self.rng:NextNumber() * 3.5
@@ -168,6 +218,8 @@ function Face:update(dt, look, yaw, cam_pos)
         local want = math.deg(math.atan2(d.x, d.z))
         local rel = ((want - (yaw or 0)) + 540) % 360 - 180
         -- the head IK turns up to 65 degrees; the eyes take what is left plus a lead
+        if self.last_rel and math.abs(rel - self.last_rel) > 40 and self.blink <= 0 then self.blink = 0.14 end
+        self.last_rel = rel
         local rest = rel - math.clamp(rel, -65, 65) * 0.8
         ex += math.clamp(rest / 25, -1, 1)
         local flat = math.sqrt(d.x * d.x + d.z * d.z)

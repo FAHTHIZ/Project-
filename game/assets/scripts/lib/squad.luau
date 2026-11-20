@@ -216,6 +216,23 @@ function Squad.shoot(shooter, aim, opts)
                      bus = "sfx", max_instances = 6 })
     end
     Combat.noise(from, 24, shooter.entity)
+    -- near misses on people close to the camera: a startle on the face (blink, brows) and stress
+    if cam then
+        local seg = endp - from
+        local seg_len = vector.magnitude(seg)
+        local function snap(ctl)
+            local a = ctl and ctl.actor
+            if not a or ctl == shooter or not ctl.entity or not ctl.entity.valid or ctl.down then return end
+            local chest = ctl.entity.position + vector.create(0, 1.45, 0)
+            if vector.magnitude(chest - cam.world_position) > 22 then return end
+            local along = math.clamp(vector.dot(chest - from, sdir), 0, seg_len)
+            if along < 1 then return end
+            local miss = vector.magnitude(chest - (from + sdir * along))
+            if miss < 1.3 then a:startle(miss < 0.6 and 1 or 0.6) end
+        end
+        for _, r in s.enemies do snap(r.ctl) end
+        Squad.each(function(_, m) snap(m) end)
+    end
     -- near misses on the player make the threat readable
     if opts.team == "enemy" and Game.player and not struck and cam then
         local cp = cam.world_position

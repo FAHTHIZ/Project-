@@ -195,10 +195,12 @@ function Op:on_hit(info)
         if info.source and Game.player and info.source.id == Game.player.id then Game.emit("friendly_hit", self.r.key) end
         self.actor:look_at(Game.camera and Game.camera.world_position or self.entity.position, 1.2)
         if self.actor.face then self.actor.face:set_emotion("surprise", 0.8) end
+        self.actor:startle(0.8)
         return false
     end
     self.hits += 1
     self.hit_t = time.now()
+    self.actor:startle(1)
     Game.emit("operator_hit", self.r.key)
     if self.stagger_t <= 0 then
         self.actor:trigger("stumble")

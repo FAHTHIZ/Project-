@@ -383,6 +383,10 @@ for i = 0, 226 do
     table.insert(P.squad_cover, { at = 1.15 + i * 0.25, run = function(c)
         Squad.each(function(_, m)
             local a = m.actor
+            if a and a.face and a.face.active then
+                c.data.brow_max = math.max(c.data.brow_max or 0, a.face.cur.BrowDown or 0)
+                c.data.flinches = math.max(c.data.flinches or 0, a.face.flinches)
+            end
             if a and a:reloading() and a.reload_w > 0.8 and a.carry and a.carry.valid then
                 c.data.reload_seen = (c.data.reload_seen or 0) + 1
                 if a.carry.rotation.z < -20 then c.data.reload_canted = true end
@@ -416,12 +420,26 @@ table.insert(P.squad_cover, { at = 59.9, run = function(c)
         string.format("%d reloads (%d tactical), %d samples, canted %s, hand off %s, shots %s", reloads, c.data.topoffs or 0, c.data.reload_seen or 0,
                       tostring(c.data.reload_canted), tostring(c.data.reload_hand_off), table.concat(shots, " ")))
 end })
+table.insert(P.squad_cover, { at = 59.95, run = function(c)
+    c.check("faces_show_the_fight", (c.data.brow_max or 0) > 0.45 and (c.data.flinches or 0) >= 1,
+        string.format("max brow-down %.2f, most flinches %d", c.data.brow_max or 0, c.data.flinches or 0))
+end })
 table.insert(P.squad_cover, { at = 60.0, run = function(c)
     local down = Combat.stats.downs - c.data.downs0
     c.check("still_wins", down == 2, string.format("downs %d (by 45 s: %d)", down, c.data.down45))
 end })
 
 -- Screenshot setup: the squad holds facing the player, frozen mid cell change (support hand off the gun).
+-- Screenshot setup: faces under fire (strain blended in, one fresh startle).
+P.squad_face_look = {
+    { at = 0.02, run = function()
+        Squad.order("hold"); Game.face_player(V(0, 1.6, 9.5))
+        Squad.each(function(_, m) m.actor.under_fire = 99; m.actor.stress = 1 end)
+    end },
+    { at = 0.5, run = function() Squad.each(function(k, m) if k == "Patch" then m.actor:startle(1) end end) end },
+    { at = 25 },
+}
+
 P.squad_reload_look = {
     { at = 0.02, run = function()
         Squad.order("hold"); Game.face_player(V(0, 1.6, 9.5))

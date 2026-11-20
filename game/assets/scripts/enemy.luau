@@ -222,6 +222,7 @@ function E:on_hit(info)
     end
     self.pool -= info.amount
     self.hit_t = time.now()
+    self.actor:startle(1)
     self.actor:look_at(info.source and info.source.valid and info.source.world_position + vector.create(0, 1.5, 0)
         or self.entity.position, 1.0)
     if self.state ~= "engage" then

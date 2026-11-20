@@ -606,3 +606,25 @@ This follows the doctrine notes in docs/world/SCALE_AND_PACING.md: 3-5 s rushes,
   - squad_combat, squad, enemy_fire, reactions, chatter, hud_look, stealth PASS;
   - op01_line and op01_line_loud PASS;
   - story_op01 PASS (19 800 frames).
+
+## 2026-11-20 Faces react to the fight
+
+- `lib/face.luau`:
+  - new emotions: `strain` (brows knit and down, lips pressed, slight squint), `fear` and `anger`;
+  - `Face:set_state(exert, stress, aim)`:
+    - stress blends strain over the scripted mood and doubles the blink rate;
+    - sighting narrows the eyes;
+    - exertion opens the mouth on each breath;
+  - `Face:flinch(k)` is a startle: a hard blink, brows up and a set jaw for 0.45 s. It habituates: nothing new shows within 1.5 s of the last startle, and a run of them fades toward 35%;
+  - a blink on gaze shifts larger than 40°.
+- `lib/actor.luau`:
+  - exertion builds while running (over 3.2 m/s) and fades over about 10 s;
+  - stress follows `under_fire` and aiming;
+  - `Actor:startle(k)`.
+- Hooks:
+  - `Squad.shoot` startles anyone within 22 m of the camera whose chest a shot passes within 1.3 m of (full strength under 0.6 m);
+  - operator and contractor hits startle them, and friendly fire startles at 0.8.
+- Tests:
+  - `squad_cover` `faces_show_the_fight` PASS: the maximum brow-down seen was 0.67, and startles were counted. Before habituation was added, one operator had 26 startles in 60 s, which is why the cap went in.
+  - New screenshot plan `squad_face_look`, rendered at 1600x900 medium. At this range the faces read as normal and nothing is broken, but the detail is too small to judge expression quality, so that has not been verified visually.
+- Results: squad_cover PASS (brow-down 0.66, at most 12 startles in 60 s after habituation), squad, squad_combat, chatter, reactions, hud_look, enemy_fire, enemy_tactics, stealth, op01_line_loud PASS; story_op01 PASS (19 800 frames).

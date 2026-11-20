@@ -113,6 +113,12 @@ function Actor:update_reload(dt)
     end
 end
 
+-- A shot hit or snapped past: startle (blink, brows) and stay stressed for a few seconds.
+function Actor:startle(strength)
+    self.under_fire = 4
+    if self.face then self.face:flinch(strength) end
+end
+
 -- Left-arm gestures release the support hand from the weapon for their duration.
 function Actor:gesture(name, seconds)
     self:trigger(name)
@@ -318,6 +324,11 @@ function Actor:update(dt)
     end
     if self.face then
         local cam = Game.camera
+        -- exertion builds while running hard and fades over ~10 s; stress follows a fight
+        self.exert = math.clamp((self.exert or 0) + ((spd > 3.2) and dt / 6 or -dt / 10), 0, 1)
+        self.stress = Game.damp(self.stress or 0, (self.under_fire or 0) > 0 and 1 or (self.aim > 0.5 and 0.6 or 0), 2, dt)
+        if self.under_fire and self.under_fire > 0 then self.under_fire -= dt end
+        self.face:set_state(self.exert, self.stress, self.aim)
         self.face:update(dt, look, self.yaw, cam and cam.world_position)
     end
     -- footsteps
