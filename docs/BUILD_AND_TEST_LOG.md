@@ -783,3 +783,10 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - First look (prologue, Medium 960x432): grain added in linear light buried the night in noise; the engine now adds it in square-root space at a fifth of the strength. Second look reads as a chest camera at night without hiding detail. Capture: `docs/media/bodycam_lens.png` (right: 2x crop).
 - `victus check game`: 262 scenes, 0 problems. Autotests pause_ui 5/5 (new checks: lens on by default, off at 0 %, half at 50 %), movement 13/13.
 - Not measured: phone cost (two extra texture reads with fringing on, a few ALU for grain) — no device.
+
+## 2026-11-20 — Weapon-light spill on the viewmodel
+
+- Problem: at night the rifle and gloves were a black cut-out against the torch-lit ground (prologue capture).
+- `fp_player.luau` spawns "Weapon Spill" under the camera at start when the scene has a weapon light: an unshadowed point light (0.9, range 1.1 m) 0.62 m ahead and below the eye, toggled with the torch. Physically it stands in for torch light bounced back off the ground ahead.
+- Seen in the prologue (Medium 960x432, left before, right after): top rail, sight housing and edges now catch light; the gun's side stays dark as it would. `docs/media/weapon_spill.png`.
+- Autotests weapons 26/26, stealth 5/5 (toggles the torch twice), 0 script errors.

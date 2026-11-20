@@ -43,6 +43,16 @@ function P:start()
     if self.torch and self.torch.valid then
         local l = self.torch:get("Light")
         self.torch_power = l and l.intensity or 0
+        -- Spill: a weapon light at night throws some of its light back off whatever is ahead
+        -- onto the gun and gloves. Without it the viewmodel is a black cut-out against the lit
+        -- ground. A small unshadowed point just ahead of the muzzle, on with the torch.
+        if self.torch_power > 0 then
+            self.spill = self.cam:find_child("Weapon Spill") or scene.spawn("Weapon Spill", self.cam)
+            self.spill.position = vector.create(0.06, -0.05, -0.62)
+            self.spill_power = 0.9
+            self.spill:set("Light", { type = "point", color = { 0.86, 0.9, 1.0, 1 }, intensity = self.spill_power,
+                                      range = 1.1, shadows = false })
+        end
     end
     Game.camera = self.cam
     self.yaw = self.entity.rotation.y
@@ -302,6 +312,10 @@ function P:update(dt)
             self.torch_on = not self.torch_on
             local l = self.torch:get("Light")
             if l then l.intensity = self.torch_on and self.torch_power or 0; self.torch:set("Light", l) end
+            if self.spill and self.spill.valid then
+                local sl = self.spill:get("Light")
+                if sl then sl.intensity = self.torch_on and self.spill_power or 0; self.spill:set("Light", sl) end
+            end
             audio.play("audio/foley/torch_click.wav", { bus = "sfx", volume = 0.5 })
         end
         sprint = Controls.down("sprint") and m.y > 0.3 and self.zoom < 0.3
