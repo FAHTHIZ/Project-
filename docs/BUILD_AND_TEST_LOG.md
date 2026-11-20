@@ -375,3 +375,37 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - `game/victus.project`: `mobile_quality` is now `auto` (VICTUS ADR-0127). A Mali-G52 MC2 (Infinix Hot 10S) still classifies as Low, the same tier as before. Medium and High phones now get their own tier instead of Low. Packed R11G11B10F HDR (ADR-0126) is automatic on phones.
 - Engine rebuilt at VICTUS edb3409. Ran: `victus check game` (246 scenes, 0 problems), plus armory and squad close-up captures (inspected: the PC-7 rail, optic and accents now render).
 - Not measured: anything on the device.
+
+## 2026-11-20 HUD v2 and reactive squad voice
+
+- HUD v2 (`tools/scenes/rig.py` `add_hud`, `game/assets/scripts/hud.luau`, new textures from `tools/ui/build_ui_textures.py`):
+  - A heading compass sits top centre: a clipped strip with ticks every 15 degrees, cardinal and intercardinal labels, a centre notch, a heading readout, and the waypoint diamond with its distance.
+  - A squad roster lists each operator with a status dot and state (ON YOU / HOLDING / MOVING / MOUNTED / ENGAGED / HIT, plus distance past 25 m).
+  - Vitals show health with a trailing damage bar, segment marks and colour by level, plus a stance and torch line.
+  - The weapon block has a large magazine count (amber at a quarter, red when empty), the reserve, up to 40 magazine pips and a reload progress bar. `weapons.luau` now writes `Game.weapon_hud.mag` and `.reload`.
+  - Damage feedback is eight directional wedges and a red edge vignette with a heartbeat pulse at low health.
+  - The textured hit marker is white for a body hit and red for a head hit, and turns into a larger amber mark on a takedown. A short takedown feed shows "CONTRACTOR STUNNED · HEAD" and surrenders.
+  - The reticle turns red over an awake contractor and blue over a teammate (raycast every 0.08 s).
+  - The interaction prompt is a key chip plus a label.
+  - The calm HUD fades the vitals, weapon and squad blocks to 40 % after 8 s with nothing happening.
+- `tools/scenes/patch_hud.py` re-emits the HUD and pause canvases in every scene from `rig.add_hud()`. That beats regenerating the worlds, and the uuid5 keys are the same. It patched 49 scenes; `--check` now reports 0 stale. A patched `tests/hud.vscene` matches a full `build_dev_range.py hud` regeneration entity-for-entity, apart from six `Carbine Body[i]` uuids where the committed dev-range scenes already differ from the current generator (pre-existing).
+- Reactive squad voice (`game/assets/scripts/lib/reactions.luau`, run by `ensemble.luau`). Its 128 new voiced lines (`react_*`, `grey_*`) are rendered with Kokoro, with emotion-paced tempo for these new barks only; story lines keep their takes. Operators react to:
+  - being aimed at and to friendly fire, both voiced by the operator involved;
+  - staring and bumping;
+  - close thunder outdoors;
+  - player hurt, low health, kit use, multi-takedowns and headshots;
+  - wasted fire at nothing;
+  - the torch on, or sprinting, near unaware contractors;
+  - standing idle, jump spam, reloading under fire and running dry;
+  - low cells while it's quiet, and the occasional rain remark;
+  - flank callouts (behind / left / right) when the player is shot at from outside the view;
+  - surrenders, and operators getting hit.
+  Each reaction has its own cooldown, and every speaker must be present and within earshot (`Dialogue.bark` `near`/`radius`/`exclude`, up to 16 variants).
+- Greyline contractors: voices are spatial now (not radio). Each contractor claims the shared voice key before speaking, so a line plays from that contractor's own head, and barks from more than 40 m away are skipped. New barks cover investigating (alert), being hit, giving up a search (calm), losing the target, suppressing fire and changing cells. Contractors now carry an 18-30 round magazine and take a real 2.4-3.2 s pause to reload (`enemy_reloading` event). `Game.awareness` / `Game.awareness_level` are set from contractor states (SEARCHING / COMPROMISED).
+- New events: `thunder`, `friendly_hit`, `operator_hit`, `player_jumped`, `dry_fire`, `reload_started`, `squad_reaction`, `enemy_reloading`.
+- Fixed during testing: `near_miss` passes a muzzle position (vector), not an entity. The first reactions build indexed it as an entity and broke enemy fire in squad_combat/enemy_fire; the handler now accepts both.
+- Ran (engine VICTUS 1e0d86a, Release): `python3 tools/audio/build_voices.py --model /tmp/kok` (425 lines), `victus import game` (0 failed), `victus check game` (247 scenes, 41 scripts: 0 problems), `python3 tools/scenes/patch_hud.py` (49 patched) and `--check` (0 stale).
+- Autotests PASS: reactions 10/10 (new), hud_look 1/1 (new), squad, squad_combat 5/5, enemy_fire 3/3, chatter 5/5, hud, weapons, pause_ui, sniper, vm_reload, trunk, vehicle.
+- story_op01 still FAIL: the known face.luau 250 ms watchdog fired on both runs, so the plan did not reach its checks in 1800 frames. This is the pre-existing issue above, not yet fixed.
+- Captured `shot.sh scenes/tests/hud_look.vscene 40 docs/evidence/hud_v2.png 1280 576` and inspected it on lavapipe. The compass heading matches the view (347°, N 13° right), the waypoint diamond and distance show, the squad roster, health trail, mag pips, hit marker, damage wedge, feed and awareness all render, and a squad hurt bark replaced the scripted subtitle.
+- Not measured: on-device cost of the extra ~130 HUD entities per scene, or the reticle raycast.

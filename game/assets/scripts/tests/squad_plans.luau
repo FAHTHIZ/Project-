@@ -200,4 +200,99 @@ table.insert(P.chatter, { at = 26.5, run = function(c)
 end })
 table.sort(P.chatter, function(a, b) return a.at < b.at end)
 
+-- Squad reactions (lib/reactions.luau): muzzle on a teammate, friendly fire, staring up close,
+-- jumping about and firing at nothing each get the right person talking, once.
+local function look_at_point(pt)
+    local s = ps()
+    local o = s:aim_ray()
+    local d = pt - o
+    s.yaw = math.deg(math.atan2(-d.x, -d.z))
+    s.pitch = math.deg(math.atan2(d.y, math.sqrt(d.x * d.x + d.z * d.z)))
+end
+P.reactions = {
+    { at = 0.5, run = function(c)
+        c.data.said, c.data.lines = {}, {}
+        Game.on("squad_reaction", function(kind, who) table.insert(c.data.said, kind .. ":" .. tostring(who)) end)
+        Game.on("dialogue_line", function(id, spk) table.insert(c.data.lines, id .. ":" .. spk) end)
+        c.check("squad_registered", Squad.count() == 5, "members " .. Squad.count())
+        c.check("awareness_quiet", Game.awareness == nil and (Game.awareness_level or 0) == 0, tostring(Game.awareness))
+        Game.player.position = V(0, 0.05, -2)
+    end },
+}
+local function has(list, s) for _, v in list do if v == s then return true end end return false end
+-- hold the muzzle on Anchor's chest for ~2.5 s (hip aim counts slower than down sights)
+for k = 0, 50 do
+    table.insert(P.reactions, { at = 1.0 + k * 0.05, run = function()
+        local m = Squad.member("Anchor")
+        look_at_point(m.entity.world_position + V(0, 1.25, 0))
+    end })
+end
+table.insert(P.reactions, { at = 4.0, run = function(c)
+    c.check("aimed_anchor", has(c.data.said, "aimed:anchor"), table.concat(c.data.said, ","))
+    local ok = false
+    for _, l in c.data.lines do if l:find("^react_aimed_") and l:find(":anchor$") then ok = true end end
+    c.check("aimed_line_played", ok, table.concat(c.data.lines, ","))
+    -- friendly fire on Patch through the real combat handler
+    local m = Squad.member("Patch")
+    local h = Combat.handler_of(m.entity)
+    c.check("patch_has_handler", h ~= nil, "")
+    if h then h.fn({ amount = 2, point = m.entity.world_position, source = Game.player, zone = "body" }) end
+    ps().pitch = -30
+end })
+table.insert(P.reactions, { at = 7.0, run = function(c)
+    c.check("ff_patch", has(c.data.said, "ff:patch"), table.concat(c.data.said, ","))
+    -- stand close to Echo and look at her face
+    local e = Squad.member("Echo").entity
+    Game.player.position = e.world_position + V(0, 0, -2.2)
+end })
+for k = 0, 80 do
+    table.insert(P.reactions, { at = 7.2 + k * 0.05, run = function()
+        local e = Squad.member("Echo").entity
+        look_at_point(e.world_position + V(0, 1.62, 0))
+    end })
+end
+table.insert(P.reactions, { at = 12.0, run = function(c)
+    c.check("stare_echo", has(c.data.said, "stare:echo"), table.concat(c.data.said, ","))
+    ps().pitch = -30
+    for _ = 1, 4 do Game.emit("player_jumped") end
+end })
+table.insert(P.reactions, { at = 15.0, run = function(c)
+    c.check("jump_remark", has(c.data.said, "jump:nil"), table.concat(c.data.said, ","))
+    for _ = 1, 10 do Game.emit("player_fired", "carbine") end
+end })
+table.insert(P.reactions, { at = 18.0, run = function(c)
+    c.check("waste_remark", has(c.data.said, "waste:nil"), table.concat(c.data.said, ","))
+    local n = 0
+    for _, v in c.data.said do if v == "aimed:anchor" then n += 1 end end
+    c.check("no_repeat_spam", n == 1, tostring(n))
+end })
+table.insert(P.reactions, { at = 19 })
+
+-- Screenshot setup for HUD v2: objective, waypoint on the compass, squad roster, a searching
+-- contractor (awareness), a hit from the right (wedge + vignette + health trail), a takedown feed
+-- line and a subtitle.
+P.hud_look = {
+    { at = 0.05, run = function()
+        Game.set_objective("Reach the ranger station past the old fence line", "OPERATION 01  ·  GREENLINE")
+        Game.waypoint = { pos = V(18, 0, -40), label = "RANGER STATION" }
+        Game.face_player(V(-6, 1.4, -20))
+        local e = scene.find("Greyline 1")
+        Game.hurt_player(38, e)
+        Game.emit("hit_confirm", "head")
+        Game.emit("enemy_down", e, Game.player)
+        Game.show_subtitle("Anchor", "Contact east. Rook, get low and stay on me.", 60)
+    end },
+    { at = 0.3, run = function(c)
+        c.check("hud_look_ready", Game.awareness ~= nil, tostring(Game.awareness))
+    end },
+}
+-- keep the hit feedback fresh for the capture without changing health further
+for k = 1, 110 do
+    table.insert(P.hud_look, { at = 0.05 + k * 0.25, run = function()
+        Game.emit("player_hurt", 4, scene.find("Greyline 1"))
+        if k % 2 == 0 then Game.emit("hit_confirm", "head") end
+    end })
+end
+table.insert(P.hud_look, { at = 29 })
+
 return P

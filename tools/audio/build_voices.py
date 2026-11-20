@@ -30,6 +30,9 @@ OUT = os.path.join(ROOT, 'game', 'assets', 'audio', 'voice')
 LUAU = os.path.join(ROOT, 'game', 'assets', 'scripts', 'lib', 'voice_data.luau')
 MANIFEST = os.path.join(ROOT, 'tools', 'dialogue', 'voice_manifest.json')
 FPS = 30
+# Delivery pacing per emotion tag: Kokoro has no emotion control, so tempo carries it (a startled
+# line comes out quicker, a deadpan one a touch slower). Small factors keep each voice recognisable.
+EMOTION_PACE = {'surprise': 1.08, 'focus': 1.03, 'smile': 1.02, 'neutral': 1.0, 'concern': 0.98, 'deadpan': 0.96}
 
 
 def radio(x, sr, seed):
@@ -73,6 +76,8 @@ def main():
     kok = None
     for lid, spk, text, *rest in LINES:
         voice, speed, is_radio, _ = VOICES[spk]
+        if lid.startswith(('react_', 'grey_')):   # reactive barks (story lines keep their reviewed takes)
+            speed = round(speed * EMOTION_PACE.get(rest[0] if rest else 'neutral', 1.0), 3)
         h = hashlib.sha1(f'{voice}|{speed}|{is_radio}|{text}|v2'.encode()).hexdigest()[:16]
         ogg = os.path.join(OUT, lid + '.ogg')
         if not a.force and man.get(lid, {}).get('hash') == h and os.path.exists(ogg):

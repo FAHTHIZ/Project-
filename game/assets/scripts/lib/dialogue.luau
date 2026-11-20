@@ -101,20 +101,26 @@ function Dialogue.bark(kind, opts)
     if s.last_kind[kind] and s.clock - s.last_kind[kind] < kc then return false end
     if s.cur and s.cur.priority >= 2 then return false end
     local best, best_t = nil, math.huge
-    for i = 1, 9 do
+    for i = 1, 16 do
         local id = (opts.prefix or "bark_") .. kind .. "_" .. i
         local l = V[id]
         if not l then break end
         local a = s.actors[l.s]
         local present = l.r or (a and a.entity and a.entity.valid and (not a.can_speak or a.can_speak()))
-        if present and (not opts.speaker or opts.speaker == l.s) then
+        -- opts.near / opts.radius: only speakers standing within earshot of a point (no radio
+        -- shortcut; a reaction to something the speaker saw needs the speaker to be there)
+        if present and opts.near then
+            present = a and a.entity and a.entity.valid and
+                vector.magnitude(a.entity.world_position - opts.near) <= (opts.radius or 25)
+        end
+        if present and (not opts.speaker or opts.speaker == l.s) and (not opts.exclude or opts.exclude ~= l.s) then
             local t = s.last_said[id] or -1000
             if t < best_t then best, best_t = id, t end
         end
     end
     if not best then return false end
     s.last_kind[kind] = s.clock
-    return Dialogue.say(best, { priority = 0, ttl = opts.ttl or 1.5, cooldown = 0, to = opts.to })
+    return Dialogue.say(best, { priority = opts.priority or 0, ttl = opts.ttl or 1.5, cooldown = 0, to = opts.to })
 end
 
 function Dialogue.busy()

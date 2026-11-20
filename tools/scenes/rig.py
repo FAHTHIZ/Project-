@@ -150,7 +150,24 @@ def add_weapon_fx(sc: Scene):
         "color_end": [0.5, 0.47, 0.4, 0], "intensity": 1.0, "blend": "alpha", "softness": 0.2}})
 
 
+# HUD v2 layout constants (canvas units, 1280x720 reference).
+COMPASS_W = 560          # visible compass strip width
+COMPASS_PPD = 4.0        # pixels per degree of heading (560 px shows 140 degrees)
+MAG_PIPS = 40            # largest magazine shown as pips (PDW); larger magazines show the number only
+SQUAD_ROWS = 5
+DMG_DIRS = 8
+
+
+def _img(rel, tint=(1, 1, 1, 1), aspect=False):
+    return {"texture": meta_uuid(rel), "tint": list(tint), "preserve_aspect": aspect, "corner_radius": 0}
+
+
 def add_hud(sc: Scene):
+    """HUD v2: diegetic-leaning, low clutter. A heading compass with the waypoint on it (top
+    centre), objective and squad roster (top left), vitals and stance (bottom left), weapon block
+    with magazine pips and reload progress (bottom right), directional damage wedges and an edge
+    vignette, textured hit / takedown marker and a short takedown feed. Idle blocks fade back
+    when nothing is happening (scripts/hud.luau)."""
     canvas = sc.add("HUD", {
         "UiCanvas": {"visible": True, "scale_mode": "scale_with_screen", "reference_size": [1280, 720], "match": 1,
                      "sort_order": 0, "keyboard_navigation": False, "blocks_input": False},
@@ -172,62 +189,123 @@ def add_hud(sc: Scene):
        panel=ui_panel((0.004, 0.004, 0.004, 1), 0, (0, 0, 0, 0), 0))
     ui(sc, "Scope Zoom", scope, ui_rect((0.5, 0), (0, 40), (300, 28), (0.5, 0)),
        text=ui_text("", 16, (0.85, 0.95, 1, 0.8), "center", "middle", True))
-    # Damage vignette and fade.
+    # Damage: edge vignette (red, pulses at low health) and eight directional wedges round the centre.
     ui(sc, "Damage", canvas, ui_rect((0, 0), (0, 0), (0, 0), (0.5, 0.5), anchor_max=(1, 1), visible=False),
-       panel=ui_panel((0.55, 0.08, 0.04, 0.0), 0, (0.8, 0.1, 0.05, 0.0), 26))
+       image=_img("textures/ui/vignette.png", (0.62, 0.04, 0.02, 0.0)))
+    dd = ui(sc, "Damage Dirs", canvas, ui_rect((0.5, 0.5), (0, 0), (430, 430)))
+    for k in range(DMG_DIRS):
+        ui(sc, f"Dmg Dir {k}", dd, ui_rect((0.5, 0.5), (0, 0), (430, 430), visible=False),
+           image=_img(f"textures/ui/dmg_dir_{k}.png", (1, 0.22, 0.12, 0.0)))
     # Reticle: four ticks and a dot around the centre.
     ret = ui(sc, "Reticle", canvas, ui_rect((0.5, 0.5), (0, 0), (2, 2)))
-    for n, p, s in [("R Up", (0, 14), (2, 9)), ("R Down", (0, -14), (2, 9)), ("R Left", (-14, 0), (9, 2)),
-                    ("R Right", (14, 0), (9, 2)), ("R Dot", (0, 0), (3, 3))]:
-        ui(sc, n, ret, ui_rect((0.5, 0.5), p, s), panel=ui_panel((1, 1, 1, 0.9), 1, (0, 0, 0, 0.5), 1))
-    ui(sc, "Hit Marker", canvas, ui_rect((0.5, 0.5), (0, 0), (30, 30), visible=False),
-       panel=ui_panel((1, 1, 1, 0), 15, (1, 1, 1, 0.95), 2.5))
-    # Objective (top left).
+    for n, p, sz in [("R Up", (0, 14), (2, 9)), ("R Down", (0, -14), (2, 9)), ("R Left", (-14, 0), (9, 2)),
+                     ("R Right", (14, 0), (9, 2)), ("R Dot", (0, 0), (3, 3))]:
+        ui(sc, n, ret, ui_rect((0.5, 0.5), p, sz), panel=ui_panel((1, 1, 1, 0.9), 1, (0, 0, 0, 0.5), 1))
+    ui(sc, "Hit Marker", canvas, ui_rect((0.5, 0.5), (0, 0), (34, 34), visible=False),
+       image=_img("textures/ui/hit_marker.png", (1, 1, 1, 0.95)))
+    # Heading compass (top centre): a strip of ticks and labels that slides with the view inside a
+    # clipped window, a centre notch, the heading in degrees, and the waypoint diamond + distance.
+    comp_rect = ui_rect((0.5, 1), (0, -14), (COMPASS_W, 30), (0.5, 1))
+    comp_rect["clip_children"] = True
+    comp = ui(sc, "Compass", canvas, comp_rect, panel=ui_panel((0.02, 0.03, 0.04, 0.22), 4, (1, 1, 1, 0.06), 1))
+    strip = ui(sc, "Compass Strip", comp, ui_rect((0.5, 0.5), (0, 0), (2, 2)))
+    names = {0: "N", 45: "NE", 90: "E", 135: "SE", 180: "S", 225: "SW", 270: "W", 315: "NW"}
+    for b in range(-75, 360 + 76, 15):
+        bb = b % 360
+        x = b * COMPASS_PPD
+        if bb in names:
+            card = bb % 90 == 0
+            ui(sc, f"CL {b}", strip, ui_rect((0.5, 0.5), (x, -2), (40, 20)),
+               text=ui_text(names[bb], 16 if card else 13, (1, 0.86, 0.55, 1) if bb == 0 else
+                            ((1, 1, 1, 0.95) if card else (0.85, 0.92, 1, 0.75)), "center", "middle", card))
+        else:
+            ui(sc, f"CT {b}", strip, ui_rect((0.5, 0.5), (x, 7), (2, 7)),
+               panel=ui_panel((1, 1, 1, 0.55), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Compass Notch", canvas, ui_rect((0.5, 1), (0, -10), (2, 10), (0.5, 1)),
+       panel=ui_panel((1, 0.82, 0.45, 0.95), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Compass Heading", canvas, ui_rect((0.5, 1), (0, -44), (80, 18), (0.5, 1)),
+       text=ui_text("", 13, (0.85, 0.92, 1, 0.8), "center", "middle", True))
+    # Waypoint diamond on the compass and its label (distance) under it.
+    ui(sc, "Waypoint Tick", canvas, ui_rect((0.5, 1), (0, -31), (14, 14), (0.5, 0.5), visible=False),
+       image=_img("textures/ui/wp_diamond.png", (1, 0.84, 0.5, 0.95)))
+    ui(sc, "Waypoint", canvas, ui_rect((0.5, 1), (0, -62), (300, 20), (0.5, 1), visible=False),
+       text=ui_text("", 14, (1, 0.9, 0.7, 0.95), "center", "middle", True))
+    # Awareness: what the contractors know (SEARCHING / COMPROMISED).
+    ui(sc, "Awareness", canvas, ui_rect((0.5, 1), (0, -86), (360, 24), (0.5, 1), visible=False),
+       text=ui_text("", 15, (1, 0.8, 0.45, 1), "center", "middle", True))
+    # Objective (top left) on a soft plate with an accent bar.
     obj = ui(sc, "Objective", canvas, ui_rect((0, 1), (110, -22), (520, 74), (0, 1)),
-             panel=ui_panel((0.03, 0.05, 0.06, 0.45), 6, (0.75, 0.9, 1, 0.12), 1))
+             image=_img("textures/ui/plate_l.png", (1, 1, 1, 0.9)))
+    ui(sc, "Objective Accent", obj, ui_rect((0, 1), (0, -12), (3, 50), (0, 1)),
+       panel=ui_panel((1, 0.78, 0.4, 0.9), 0, (0, 0, 0, 0), 0))
     ui(sc, "Objective Op", obj, ui_rect((0, 1), (14, -8), (490, 24), (0, 1)),
-       text=ui_text("", 15, (0.62, 0.84, 0.93, 1), "left", "middle", True))
+       text=ui_text("", 14, (0.62, 0.84, 0.93, 1), "left", "middle", True))
     ui(sc, "Objective Text", obj, ui_rect((0, 1), (14, -32), (490, 34), (0, 1)),
        text=ui_text("", 21, (1, 1, 1, 1), "left", "middle", False, True))
+    # Squad roster (under the objective): dot, callsign, what they are doing.
+    sq = ui(sc, "Squad", canvas, ui_rect((0, 1), (110, -102), (300, SQUAD_ROWS * 20), (0, 1), visible=False))
+    for i in range(1, SQUAD_ROWS + 1):
+        y = -(i - 1) * 20 - 10
+        ui(sc, f"Squad {i} Dot", sq, ui_rect((0, 1), (16, y), (6, 6), (0.5, 0.5)),
+           panel=ui_panel((0.55, 0.9, 0.75, 0.95), 3, (0, 0, 0, 0), 0))
+        ui(sc, f"Squad {i} Name", sq, ui_rect((0, 1), (28, y), (90, 18), (0, 0.5)),
+           text=ui_text("", 14, (1, 1, 1, 0.92), "left", "middle", True))
+        ui(sc, f"Squad {i} State", sq, ui_rect((0, 1), (112, y), (180, 18), (0, 0.5)),
+           text=ui_text("", 13, (0.75, 0.85, 0.92, 0.8), "left", "middle", False))
     # Mission update toast (top centre).
     ui(sc, "Toast", canvas, ui_rect((0.5, 1), (0, -182), (780, 46), (0.5, 1), visible=False),
        panel=ui_panel((0.03, 0.05, 0.06, 0.6), 6, (0.75, 0.9, 1, 0.2), 1),
        text=ui_text("", 22, (1, 1, 1, 1), "center", "middle", True))
-    # Squad / awareness indicator (top centre small).
-    ui(sc, "Awareness", canvas, ui_rect((0.5, 1), (0, -24), (360, 30), (0.5, 1), visible=False),
-       text=ui_text("", 17, (1, 0.8, 0.45, 1), "center", "middle", True))
-    # Waypoint bearing (top centre, below awareness): label and distance slide along a strip by the
-    # target's bearing relative to the view and pin to the strip ends when it is behind you.
-    ui(sc, "Waypoint", canvas, ui_rect((0.5, 1), (0, -60), (300, 30), (0.5, 1), visible=False),
-       text=ui_text("", 17, (0.88, 0.97, 1, 0.95), "center", "middle", True))
-    ui(sc, "Waypoint Tick", canvas, ui_rect((0.5, 1), (0, -46), (4, 10), (0.5, 1), visible=False),
-       panel=ui_panel((0.88, 0.97, 1, 0.9), 1, (0, 0, 0, 0.4), 1))
-    # Interaction prompt (below centre).
-    ui(sc, "Prompt", canvas, ui_rect((0.5, 0.5), (0, -88), (520, 40), (0.5, 0.5), visible=False),
-       panel=ui_panel((0.03, 0.05, 0.06, 0.55), 6, (1, 1, 1, 0.15), 1),
-       text=ui_text("", 21, (1, 1, 1, 1), "center", "middle", True))
+    # Takedown feed (right, under the diagnostics corner).
+    ui(sc, "Feed", canvas, ui_rect((1, 1), (-28, -110), (420, 80), (1, 1), visible=False),
+       text=ui_text("", 15, (1, 0.9, 0.72, 0.95), "right", "top", True, True))
+    # Interaction prompt (below centre): key chip and label.
+    pr = ui(sc, "Prompt", canvas, ui_rect((0.5, 0.5), (0, -92), (440, 40), (0.5, 0.5), visible=False),
+            panel=ui_panel((0.03, 0.05, 0.06, 0.5), 6, (1, 1, 1, 0.12), 1))
+    ui(sc, "Prompt Key", pr, ui_rect((0.5, 0.5), (-150, 0), (54, 30), (0.5, 0.5)),
+       panel=ui_panel((0.92, 0.95, 1, 0.92), 5, (0, 0, 0, 0.3), 1),
+       text=ui_text("E", 16, (0.04, 0.05, 0.06, 1), "center", "middle", True))
+    ui(sc, "Prompt Label", pr, ui_rect((0.5, 0.5), (-114, 0), (340, 34), (0, 0.5)),
+       text=ui_text("", 20, (1, 1, 1, 1), "left", "middle", True))
     ui(sc, "Prompt Detail", canvas, ui_rect((0.5, 0.5), (0, -128), (640, 34), (0.5, 0.5), visible=False),
        panel=ui_panel((0.03, 0.05, 0.06, 0.45), 6, (1, 1, 1, 0.0), 0),
        text=ui_text("", 16, (0.85, 0.93, 1, 1), "center", "middle", False))
-    # Weapon / ammo (bottom right, above touch buttons when touch is off).
-    wp = ui(sc, "Weapon Panel", canvas, ui_rect((1, 0), (-28, 24), (300, 88), (1, 0)),
-            panel=ui_panel((0.03, 0.05, 0.06, 0.45), 6, (1, 1, 1, 0.12), 1))
-    ui(sc, "Weapon Name", wp, ui_rect((0, 1), (14, -8), (272, 24), (0, 1)),
-       text=ui_text("", 16, (0.75, 0.9, 1, 1), "left", "middle", True))
-    ui(sc, "Ammo", wp, ui_rect((0, 0), (14, 8), (180, 48), (0, 0)),
-       text=ui_text("", 36, (1, 1, 1, 1), "left", "middle", True))
-    ui(sc, "Weapon State", wp, ui_rect((1, 0), (-14, 12), (120, 30), (1, 0)),
-       text=ui_text("", 16, (1, 0.85, 0.5, 1), "right", "middle", True))
-    # Health and tool (bottom left).
-    hp = ui(sc, "Status Panel", canvas, ui_rect((0, 0), (28, 24), (300, 70), (0, 0)),
-            panel=ui_panel((0.03, 0.05, 0.06, 0.45), 6, (1, 1, 1, 0.12), 1))
-    ui(sc, "Health Back", hp, ui_rect((0, 1), (14, -14), (272, 10), (0, 1)), panel=ui_panel((1, 1, 1, 0.15), 3))
-    ui(sc, "Health Bar", hp, ui_rect((0, 1), (14, -14), (272, 10), (0, 1)),
-       panel=ui_panel((0.55, 0.9, 0.75, 0.95), 3, (0, 0, 0, 0), 0))
-    ui(sc, "Kit Text", hp, ui_rect((1, 0), (-14, 8), (120, 34), (1, 0)),
-       text=ui_text("", 16, (0.65, 1, 0.8, 1), "right", "middle", True))
-    ui(sc, "Tool Text", hp, ui_rect((0, 0), (14, 8), (170, 34), (0, 0)),
-       text=ui_text("", 17, (0.8, 0.95, 1, 1), "left", "middle", False))
+    # Weapon block (bottom right): name, big magazine count, reserve, pips, reload progress, state.
+    wp = ui(sc, "Weapon Panel", canvas, ui_rect((1, 0), (-24, 20), (360, 100), (1, 0)),
+            image=_img("textures/ui/plate_r.png", (1, 1, 1, 0.9)))
+    ui(sc, "Weapon Name", wp, ui_rect((1, 1), (-16, -8), (320, 20), (1, 1)),
+       text=ui_text("", 14, (0.75, 0.9, 1, 1), "right", "middle", True))
+    ui(sc, "Ammo", wp, ui_rect((1, 0), (-92, 14), (150, 50), (1, 0)),
+       text=ui_text("", 44, (1, 1, 1, 1), "right", "middle", True))
+    ui(sc, "Reserve", wp, ui_rect((1, 0), (-16, 20), (74, 26), (1, 0)),
+       text=ui_text("", 18, (0.78, 0.86, 0.92, 0.85), "left", "middle", True))
+    pips = ui(sc, "Mag Pips", wp, ui_rect((1, 1), (-16, -34), (MAG_PIPS * 4, 8), (1, 1)))
+    for i in range(MAG_PIPS):
+        ui(sc, f"Pip {i}", pips, ui_rect((1, 0.5), (-i * 4, 0), (3, 8), (1, 0.5), visible=False),
+           panel=ui_panel((1, 1, 1, 0.9), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Reload Back", wp, ui_rect((1, 0), (-16, 8), (200, 3), (1, 0), visible=False),
+       panel=ui_panel((1, 1, 1, 0.16), 1, (0, 0, 0, 0), 0))
+    ui(sc, "Reload Bar", wp, ui_rect((1, 0), (-16, 8), (200, 3), (1, 0), visible=False),
+       panel=ui_panel((0.6, 0.9, 1, 0.95), 1, (0, 0, 0, 0), 0))
+    ui(sc, "Weapon State", wp, ui_rect((1, 0), (-250, 22), (110, 24), (1, 0)),
+       text=ui_text("", 15, (1, 0.8, 0.45, 1), "right", "middle", True))
+    # Vitals (bottom left): health with a trailing damage bar and segment marks, stance, tool, kit.
+    hp = ui(sc, "Status Panel", canvas, ui_rect((0, 0), (24, 20), (340, 80), (0, 0)),
+            image=_img("textures/ui/plate_l.png", (1, 1, 1, 0.9)))
+    ui(sc, "Health Back", hp, ui_rect((0, 1), (16, -16), (272, 8), (0, 1)), panel=ui_panel((1, 1, 1, 0.14), 2))
+    ui(sc, "Health Trail", hp, ui_rect((0, 1), (16, -16), (272, 8), (0, 1)),
+       panel=ui_panel((1, 0.42, 0.28, 0.85), 2, (0, 0, 0, 0), 0))
+    ui(sc, "Health Bar", hp, ui_rect((0, 1), (16, -16), (272, 8), (0, 1)),
+       panel=ui_panel((0.55, 0.9, 0.75, 0.95), 2, (0, 0, 0, 0), 0))
+    for k in range(1, 10):
+        ui(sc, f"Health Seg {k}", hp, ui_rect((0, 1), (16 + 272 * k / 10 - 1, -16), (2, 8), (0, 1)),
+           panel=ui_panel((0.02, 0.03, 0.04, 0.7), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Stance Text", hp, ui_rect((0, 1), (16, -28), (272, 18), (0, 1)),
+       text=ui_text("", 12, (0.78, 0.88, 0.95, 0.8), "left", "middle", True))
+    ui(sc, "Kit Text", hp, ui_rect((1, 0), (-40, 8), (120, 30), (1, 0)),
+       text=ui_text("", 15, (0.65, 1, 0.8, 1), "right", "middle", True))
+    ui(sc, "Tool Text", hp, ui_rect((0, 0), (16, 8), (190, 30), (0, 0)),
+       text=ui_text("", 15, (0.8, 0.95, 1, 1), "left", "middle", False))
     # Subtitles (bottom centre).
     sub = ui(sc, "Subtitle", canvas, ui_rect((0.5, 0), (0, 128), (760, 74), (0.5, 0), visible=False),
              panel=ui_panel((0, 0, 0, 0.55), 6, (0, 0, 0, 0), 0))

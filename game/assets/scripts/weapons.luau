@@ -258,6 +258,7 @@ function W:begin_reload()
     self.reload_len = r.st.ammo == 0 and r.def.reload_empty or r.def.reload
     self.reload_empty = r.st.ammo == 0
     self.reload_sfx = 0
+    Game.emit("reload_started", r.def.id, self.reload_empty)
     return true
 end
 
@@ -300,6 +301,7 @@ function W:fire(ps)
     if r.st.ammo <= 0 then
         play("audio/weapons/dry.wav", 0.8)
         self.cooldown = 0.25
+        if r.st.reserve <= 0 then Game.emit("dry_fire", d.id) end
         if r.st.reserve > 0 then self:begin_reload() end
         return
     end
@@ -791,6 +793,8 @@ function W:update(dt)
     hud.ammo = r.st.ammo
     hud.reserve = r.st.reserve
     hud.state = st
+    hud.mag = d.mag
+    hud.reload = self.state == "reload" and Game.clamp(self.st / math.max(0.01, self.reload_len or 1), 0, 1) or nil
     hud.spread = self:spread_now(ps) / 1.6
     Game.weapon_hud = hud
     self:tool_hud()

@@ -187,12 +187,14 @@ end
 
 function Op:on_hit(info)
     if info.team == "squad" or (Game.player and info.source and info.source.id == Game.player.id) then
-        -- friendly fire: a flinch and a look, nothing else
+        -- friendly fire: a flinch, a look and a word about it (scripts/lib/reactions.luau)
+        if info.source and Game.player and info.source.id == Game.player.id then Game.emit("friendly_hit", self.r.key) end
         self.actor:look_at(Game.camera and Game.camera.world_position or self.entity.position, 1.2)
         if self.actor.face then self.actor.face:set_emotion("surprise", 0.8) end
         return false
     end
     self.hits += 1
+    Game.emit("operator_hit", self.r.key)
     if self.stagger_t <= 0 then
         self.actor:trigger("stumble")
         self.stagger_t = 2.4

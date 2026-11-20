@@ -14610,21 +14610,16 @@
      "opacity": 1.0,
      "clip_children": false
     },
-    "UiPanel": {
-     "color": [
-      0.55,
-      0.08,
+    "UiImage": {
+     "texture": "22fc18a3-abdf-4440-8a30-21ffd9cd29b3",
+     "tint": [
+      0.62,
       0.04,
+      0.02,
       0.0
      ],
-     "corner_radius": 0,
-     "border_color": [
-      0.8,
-      0.1,
-      0.05,
-      0.0
-     ],
-     "border_width": 26
+     "preserve_aspect": false,
+     "corner_radius": 0
     },
     "Transform": {
      "position": [
@@ -14646,6 +14641,544 @@
     }
    },
    "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "a40fb6d8-f626-5621-8493-af49c10546cb",
+   "name": "Damage Dirs",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "65c249ca-de89-53af-9bce-64212d5ea63c",
+   "name": "Dmg Dir 0",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "608551db-6b31-42ae-aec0-bdd6f4d399af",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
+  },
+  {
+   "uuid": "bc3908a3-86d9-5001-b45e-67f8524b00ca",
+   "name": "Dmg Dir 1",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "0ee3e5cf-bdbc-48c2-abd8-fb0a1f32387d",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
+  },
+  {
+   "uuid": "713a933d-816d-5e24-8d75-a644ef253c34",
+   "name": "Dmg Dir 2",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "b7e8aea9-d4ce-473f-88ff-56ffbd4cfd0a",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
+  },
+  {
+   "uuid": "64e194a2-3b76-5457-af24-3b56738f118e",
+   "name": "Dmg Dir 3",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "c6a55213-e515-4026-b11b-0d8b2f44f4fd",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
+  },
+  {
+   "uuid": "8b89bbf6-0edc-5604-97a2-6df75bfeac54",
+   "name": "Dmg Dir 4",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "f68ac5b6-1c3d-4b76-b77d-ab3ab5e46e24",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
+  },
+  {
+   "uuid": "014f1086-db8d-5af0-98ba-a0cfc720c5e6",
+   "name": "Dmg Dir 5",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "46250e95-aca0-4818-ab51-a2fd93108151",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
+  },
+  {
+   "uuid": "52242085-6b0c-59d8-b5a2-2a3952e1b9b9",
+   "name": "Dmg Dir 6",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "9be59249-c891-465b-9e47-45453c1b6e81",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
+  },
+  {
+   "uuid": "83e857aa-140f-5a43-ae9a-d177bc92d9df",
+   "name": "Dmg Dir 7",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      430,
+      430
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "97541c0b-320c-4235-8a6f-bb1f8d29c210",
+     "tint": [
+      1,
+      0.22,
+      0.12,
+      0.0
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a40fb6d8-f626-5621-8493-af49c10546cb"
   },
   {
    "uuid": "fe042eeb-2b2e-5f9f-8ca3-d410b3afe710",
@@ -15049,10 +15582,187 @@
       0
      ],
      "size": [
-      30,
-      30
+      34,
+      34
      ],
      "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "22e47f5e-c4eb-497d-8400-e6cc4d4aa54f",
+     "tint": [
+      1,
+      1,
+      1,
+      0.95
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "dfead925-2b60-544c-af4e-e183e801c314",
+   "name": "Compass",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0
+     ],
+     "anchor_max": [
+      0.5,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0
+     ],
+     "position": [
+      0,
+      14
+     ],
+     "size": [
+      560,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": true
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.22
+     ],
+     "corner_radius": 4,
+     "border_color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "border_width": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "71fff71a-74fb-5d31-b552-5be5286f0f2d",
+   "name": "Compass Strip",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      2,
+      2
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dfead925-2b60-544c-af4e-e183e801c314"
+  },
+  {
+   "uuid": "a584b14f-0c56-5ae8-b59a-707aa0f9a581",
+   "name": "CT -75",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      -300.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
@@ -15061,16 +15771,2725 @@
       1,
       1,
       1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
       0
      ],
-     "corner_radius": 15,
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "c458a584-7be9-5ec1-94d5-3cc749e219f7",
+   "name": "CT -60",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      -240.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
      "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "cd08a583-cb01-53bb-a26c-3db2fb6c9294",
+   "name": "CL -45",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      -180.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "NW",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.85,
+      0.92,
+      1,
+      0.75
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "5c5d1de7-d3a2-588a-906d-476c488e3669",
+   "name": "CT -30",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      -120.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "f9302e4c-10f2-558c-b666-1efa9b158d94",
+   "name": "CT -15",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      -60.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "fd80db07-d8f0-5c32-9ed6-3d41ffcaf181",
+   "name": "CL 0",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "N",
+     "key": "",
+     "font_size": 16,
+     "color": [
+      1,
+      0.86,
+      0.55,
+      1
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "1b85de51-93a0-5865-9601-cab30a5df997",
+   "name": "CT 15",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      60.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "f89aff80-85f3-50ff-80ec-167f74c8af13",
+   "name": "CT 30",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      120.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "55d1f006-c552-575e-be52-46e2555dbbf0",
+   "name": "CL 45",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      180.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "NE",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.85,
+      0.92,
+      1,
+      0.75
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "8d7ead81-bfd0-5051-b54f-171ee99217f0",
+   "name": "CT 60",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      240.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "b657f800-f6d2-5265-80d0-0322db5eb457",
+   "name": "CT 75",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      300.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "8637f9fe-5c86-5b92-88cd-c05db2e63312",
+   "name": "CL 90",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      360.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "E",
+     "key": "",
+     "font_size": 16,
+     "color": [
       1,
       1,
       1,
       0.95
      ],
-     "border_width": 2.5
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "a0648e89-d262-5acc-ad44-f456e428c0c7",
+   "name": "CT 105",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      420.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "4d2d1a33-7e93-5d59-a081-d873b7a17bd8",
+   "name": "CT 120",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      480.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "0387ca14-cd79-56bd-a5de-819904bd2b0e",
+   "name": "CL 135",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      540.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "SE",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.85,
+      0.92,
+      1,
+      0.75
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "d552bd0a-b349-52fa-95e6-971412fe01c2",
+   "name": "CT 150",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      600.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "524072cb-1ea3-57f6-a2a1-c7e0e0eda1b3",
+   "name": "CT 165",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      660.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "90d6cc85-4c32-57cd-a8a5-9326cdea9039",
+   "name": "CL 180",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      720.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "S",
+     "key": "",
+     "font_size": 16,
+     "color": [
+      1,
+      1,
+      1,
+      0.95
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "40be8a59-737e-55fa-8dfd-ebed87059db5",
+   "name": "CT 195",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      780.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "f9348147-9b9f-5d3e-b80a-3167aafbced3",
+   "name": "CT 210",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      840.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "d72db4e6-afcf-5a0f-91b3-207a541d9b12",
+   "name": "CL 225",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      900.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "SW",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.85,
+      0.92,
+      1,
+      0.75
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "2b5fa533-5538-50c0-b471-a9ef0e5763d0",
+   "name": "CT 240",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      960.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "9626faff-e39d-5190-8c61-e659846530c6",
+   "name": "CT 255",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1020.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "096dcfc7-4477-5a84-b856-3c7304374e71",
+   "name": "CL 270",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1080.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "W",
+     "key": "",
+     "font_size": 16,
+     "color": [
+      1,
+      1,
+      1,
+      0.95
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "b01b288b-6762-5206-a409-d32f8b881b0a",
+   "name": "CT 285",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1140.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "9174dff2-92f2-5275-a71a-65ba0ad9d8df",
+   "name": "CT 300",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1200.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "c8f8d0c4-50f1-537e-bab9-59d85a789563",
+   "name": "CL 315",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1260.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "NW",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.85,
+      0.92,
+      1,
+      0.75
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "f77f040c-fa28-599f-80ff-03afe4c38106",
+   "name": "CT 330",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1320.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "3d903e0f-76ca-526e-91b9-5067b2199fdf",
+   "name": "CT 345",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1380.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "adfdbba0-ad02-52f1-8ceb-17826c5aea20",
+   "name": "CL 360",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1440.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "N",
+     "key": "",
+     "font_size": 16,
+     "color": [
+      1,
+      0.86,
+      0.55,
+      1
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "7c72dad1-979f-50af-ba5e-5d440da7eaa8",
+   "name": "CT 375",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1500.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "76538aad-cd03-56d5-b30e-caccd8872199",
+   "name": "CT 390",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1560.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "3cdc45bf-934c-59e0-b888-e87effe7ac32",
+   "name": "CL 405",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1620.0,
+      2
+     ],
+     "size": [
+      40,
+      20
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "NE",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.85,
+      0.92,
+      1,
+      0.75
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "4b051648-c7fe-57de-9d37-edaff1207753",
+   "name": "CT 420",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1680.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "2966aa1b-5988-5457-86ba-bf1cbc26eef9",
+   "name": "CT 435",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      1740.0,
+      -7
+     ],
+     "size": [
+      2,
+      7
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "71fff71a-74fb-5d31-b552-5be5286f0f2d"
+  },
+  {
+   "uuid": "89ee7b29-c17b-556c-b8e5-b34edd01eec8",
+   "name": "Compass Notch",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0
+     ],
+     "anchor_max": [
+      0.5,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0
+     ],
+     "position": [
+      0,
+      10
+     ],
+     "size": [
+      2,
+      10
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      0.82,
+      0.45,
+      0.95
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "1645ddb2-c737-5843-8b07-d4586a41bef1",
+   "name": "Compass Heading",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0
+     ],
+     "anchor_max": [
+      0.5,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0
+     ],
+     "position": [
+      0,
+      44
+     ],
+     "size": [
+      80,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.85,
+      0.92,
+      1,
+      0.8
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "55239c90-208f-59a3-ad73-a4a16a53c864",
+   "name": "Waypoint Tick",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0
+     ],
+     "anchor_max": [
+      0.5,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      31
+     ],
+     "size": [
+      14,
+      14
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "ad544e04-23f3-4878-818a-1cb62ac9cff5",
+     "tint": [
+      1,
+      0.84,
+      0.5,
+      0.95
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "1abdb39f-42a8-52a1-9092-88a6bef4bf8c",
+   "name": "Waypoint",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0
+     ],
+     "anchor_max": [
+      0.5,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0
+     ],
+     "position": [
+      0,
+      62
+     ],
+     "size": [
+      300,
+      20
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 14,
+     "color": [
+      1,
+      0.9,
+      0.7,
+      0.95
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "28f2cf7f-d2e6-55a9-8c8a-7f864b9c5d1c",
+   "name": "Awareness",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0
+     ],
+     "anchor_max": [
+      0.5,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0
+     ],
+     "position": [
+      0,
+      86
+     ],
+     "size": [
+      360,
+      24
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 15,
+     "color": [
+      1,
+      0.8,
+      0.45,
+      1
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
     },
     "Transform": {
      "position": [
@@ -15122,21 +18541,16 @@
      "opacity": 1.0,
      "clip_children": false
     },
-    "UiPanel": {
-     "color": [
-      0.03,
-      0.05,
-      0.06,
-      0.45
-     ],
-     "corner_radius": 6,
-     "border_color": [
-      0.75,
-      0.9,
+    "UiImage": {
+     "texture": "5754bad7-b691-451c-ab7c-9adec2036efa",
+     "tint": [
       1,
-      0.12
+      1,
+      1,
+      0.9
      ],
-     "border_width": 1
+     "preserve_aspect": false,
+     "corner_radius": 0
     },
     "Transform": {
      "position": [
@@ -15158,6 +18572,72 @@
     }
    },
    "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "860b0181-7fac-5b2d-9835-d71d56b52c2d",
+   "name": "Objective Accent",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      0,
+      12
+     ],
+     "size": [
+      3,
+      50
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      0.78,
+      0.4,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "66bac5f1-0d01-5574-9e7a-4a10ab83da94"
   },
   {
    "uuid": "b5b7cb9b-2efc-5d4e-8c1a-e7ff5619d734",
@@ -15191,7 +18671,7 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 15,
+     "font_size": 14,
      "color": [
       0.62,
       0.84,
@@ -15312,6 +18792,1146 @@
    "parent": "66bac5f1-0d01-5574-9e7a-4a10ab83da94"
   },
   {
+   "uuid": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41",
+   "name": "Squad",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      110,
+      102
+     ],
+     "size": [
+      300,
+      100
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "8566f841-1d79-57de-8e30-da6426d9b52a",
+   "name": "Squad 1 Dot",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      16,
+      10
+     ],
+     "size": [
+      6,
+      6
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.55,
+      0.9,
+      0.75,
+      0.95
+     ],
+     "corner_radius": 3,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "71405069-8185-5f04-9f7c-b233eafb192e",
+   "name": "Squad 1 Name",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      28,
+      10
+     ],
+     "size": [
+      90,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 14,
+     "color": [
+      1,
+      1,
+      1,
+      0.92
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "aff2de7a-a827-59bc-893e-4f4eeb64e75c",
+   "name": "Squad 1 State",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      112,
+      10
+     ],
+     "size": [
+      180,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.75,
+      0.85,
+      0.92,
+      0.8
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "bac98da4-b072-580f-8267-4b9307d803be",
+   "name": "Squad 2 Dot",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      16,
+      30
+     ],
+     "size": [
+      6,
+      6
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.55,
+      0.9,
+      0.75,
+      0.95
+     ],
+     "corner_radius": 3,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "034bff13-b21f-5f55-9920-a629f68e417d",
+   "name": "Squad 2 Name",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      28,
+      30
+     ],
+     "size": [
+      90,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 14,
+     "color": [
+      1,
+      1,
+      1,
+      0.92
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "ff920185-909e-5162-9cb7-ff1a95376d46",
+   "name": "Squad 2 State",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      112,
+      30
+     ],
+     "size": [
+      180,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.75,
+      0.85,
+      0.92,
+      0.8
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "adca8636-c407-52b1-8195-df80a0133b9b",
+   "name": "Squad 3 Dot",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      16,
+      50
+     ],
+     "size": [
+      6,
+      6
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.55,
+      0.9,
+      0.75,
+      0.95
+     ],
+     "corner_radius": 3,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "2ce8b460-6080-539a-96ea-4a42a00d22b9",
+   "name": "Squad 3 Name",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      28,
+      50
+     ],
+     "size": [
+      90,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 14,
+     "color": [
+      1,
+      1,
+      1,
+      0.92
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "97d80546-5298-5b85-897b-c97da9c8cdac",
+   "name": "Squad 3 State",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      112,
+      50
+     ],
+     "size": [
+      180,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.75,
+      0.85,
+      0.92,
+      0.8
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "21cf98e2-c392-51cc-ab97-17e9304d0ba2",
+   "name": "Squad 4 Dot",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      16,
+      70
+     ],
+     "size": [
+      6,
+      6
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.55,
+      0.9,
+      0.75,
+      0.95
+     ],
+     "corner_radius": 3,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "0b9e7013-6025-5698-96d7-8a338ada8f75",
+   "name": "Squad 4 Name",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      28,
+      70
+     ],
+     "size": [
+      90,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 14,
+     "color": [
+      1,
+      1,
+      1,
+      0.92
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "ba31ef52-3538-566f-a835-3a0cf76470f8",
+   "name": "Squad 4 State",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      112,
+      70
+     ],
+     "size": [
+      180,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.75,
+      0.85,
+      0.92,
+      0.8
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "c43cee72-db40-52e9-b9cc-317019cba731",
+   "name": "Squad 5 Dot",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      16,
+      90
+     ],
+     "size": [
+      6,
+      6
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.55,
+      0.9,
+      0.75,
+      0.95
+     ],
+     "corner_radius": 3,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "31a66e8f-38d0-5e8d-ba65-48e8e1c3fd6e",
+   "name": "Squad 5 Name",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      28,
+      90
+     ],
+     "size": [
+      90,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 14,
+     "color": [
+      1,
+      1,
+      1,
+      0.92
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
+   "uuid": "11ba3e4f-28a4-5b9e-ae49-490258ce92f4",
+   "name": "Squad 5 State",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      112,
+      90
+     ],
+     "size": [
+      180,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 13,
+     "color": [
+      0.75,
+      0.85,
+      0.92,
+      0.8
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed1c12d-e5e8-5dfd-83e4-48e3fbb3cf41"
+  },
+  {
    "uuid": "0cc9a380-42c8-56d0-9e89-6f0725d65f8b",
    "name": "Toast",
    "components": {
@@ -15404,29 +20024,29 @@
    "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
   },
   {
-   "uuid": "28f2cf7f-d2e6-55a9-8c8a-7f864b9c5d1c",
-   "name": "Awareness",
+   "uuid": "a7002eec-3a14-59d0-8225-7a249581f4a0",
+   "name": "Feed",
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      1,
       0
      ],
      "anchor_max": [
-      0.5,
+      1,
       0
      ],
      "pivot": [
-      0.5,
+      1,
       0
      ],
      "position": [
-      0,
-      24
+      -28,
+      110
      ],
      "size": [
-      360,
-      30
+      420,
+      80
      ],
      "visible": false,
      "opacity": 1.0,
@@ -15435,92 +20055,16 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 17,
+     "font_size": 15,
      "color": [
       1,
-      0.8,
-      0.45,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
-      0,
-      0,
-      0,
-      0.55
-     ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
-    },
-    "Transform": {
-     "position": [
-      0.0,
-      0.0,
-      0.0
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    }
-   },
-   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
-  },
-  {
-   "uuid": "1abdb39f-42a8-52a1-9092-88a6bef4bf8c",
-   "name": "Waypoint",
-   "components": {
-    "UiRect": {
-     "anchor_min": [
-      0.5,
-      0
-     ],
-     "anchor_max": [
-      0.5,
-      0
-     ],
-     "pivot": [
-      0.5,
-      0
-     ],
-     "position": [
-      0,
-      60
-     ],
-     "size": [
-      300,
-      30
-     ],
-     "visible": false,
-     "opacity": 1.0,
-     "clip_children": false
-    },
-    "UiText": {
-     "text": "",
-     "key": "",
-     "font_size": 17,
-     "color": [
-      0.88,
-      0.97,
-      1,
+      0.9,
+      0.72,
       0.95
      ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
+     "align": "right",
+     "vertical_align": "top",
+     "wrap": true,
      "bold": true,
      "shadow_color": [
       0,
@@ -15533,72 +20077,6 @@
       2
      ],
      "font": ""
-    },
-    "Transform": {
-     "position": [
-      0.0,
-      0.0,
-      0.0
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    }
-   },
-   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
-  },
-  {
-   "uuid": "55239c90-208f-59a3-ad73-a4a16a53c864",
-   "name": "Waypoint Tick",
-   "components": {
-    "UiRect": {
-     "anchor_min": [
-      0.5,
-      0
-     ],
-     "anchor_max": [
-      0.5,
-      0
-     ],
-     "pivot": [
-      0.5,
-      0
-     ],
-     "position": [
-      0,
-      46
-     ],
-     "size": [
-      4,
-      10
-     ],
-     "visible": false,
-     "opacity": 1.0,
-     "clip_children": false
-    },
-    "UiPanel": {
-     "color": [
-      0.88,
-      0.97,
-      1,
-      0.9
-     ],
-     "corner_radius": 1,
-     "border_color": [
-      0,
-      0,
-      0,
-      0.4
-     ],
-     "border_width": 1
     },
     "Transform": {
      "position": [
@@ -15640,10 +20118,10 @@
      ],
      "position": [
       0,
-      88
+      92
      ],
      "size": [
-      520,
+      440,
       40
      ],
      "visible": false,
@@ -15655,25 +20133,91 @@
       0.03,
       0.05,
       0.06,
-      0.55
+      0.5
      ],
      "corner_radius": 6,
      "border_color": [
       1,
       1,
       1,
-      0.15
+      0.12
+     ],
+     "border_width": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+  },
+  {
+   "uuid": "2ac498fe-4d87-58ae-826b-965e41b9bd08",
+   "name": "Prompt Key",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      -150,
+      0
+     ],
+     "size": [
+      54,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.92,
+      0.95,
+      1,
+      0.92
+     ],
+     "corner_radius": 5,
+     "border_color": [
+      0,
+      0,
+      0,
+      0.3
      ],
      "border_width": 1
     },
     "UiText": {
-     "text": "",
+     "text": "E",
      "key": "",
-     "font_size": 21,
+     "font_size": 16,
      "color": [
-      1,
-      1,
-      1,
+      0.04,
+      0.05,
+      0.06,
       1
      ],
      "align": "center",
@@ -15711,7 +20255,83 @@
      ]
     }
    },
-   "parent": "889a75e8-df95-5c6f-a6a3-5d1af6ddd65a"
+   "parent": "e7c391e9-8171-5277-8855-a99de8563d9a"
+  },
+  {
+   "uuid": "20dc4bac-3329-53a2-8b2f-ec2ab9af1b85",
+   "name": "Prompt Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      -114,
+      0
+     ],
+     "size": [
+      340,
+      34
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 20,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e7c391e9-8171-5277-8855-a99de8563d9a"
   },
   {
    "uuid": "7dfbb8c2-f920-51e8-a68e-dbfe6109c7ab",
@@ -15823,32 +20443,27 @@
       1
      ],
      "position": [
-      -28,
-      -24
+      -24,
+      -20
      ],
      "size": [
-      300,
-      88
+      360,
+      100
      ],
      "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
-    "UiPanel": {
-     "color": [
-      0.03,
-      0.05,
-      0.06,
-      0.45
+    "UiImage": {
+     "texture": "567ce78c-0405-4c62-be35-f366e1969581",
+     "tint": [
+      1,
+      1,
+      1,
+      0.9
      ],
-     "corner_radius": 6,
-     "border_color": [
-      1,
-      1,
-      1,
-      0.12
-     ],
-     "border_width": 1
+     "preserve_aspect": false,
+     "corner_radius": 0
     },
     "Transform": {
      "position": [
@@ -15877,24 +20492,24 @@
    "components": {
     "UiRect": {
      "anchor_min": [
-      0,
+      1,
       0
      ],
      "anchor_max": [
-      0,
+      1,
       0
      ],
      "pivot": [
-      0,
+      1,
       0
      ],
      "position": [
-      14,
+      -16,
       8
      ],
      "size": [
-      272,
-      24
+      320,
+      20
      ],
      "visible": true,
      "opacity": 1.0,
@@ -15903,14 +20518,14 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 16,
+     "font_size": 14,
      "color": [
       0.75,
       0.9,
       1,
       1
      ],
-     "align": "left",
+     "align": "right",
      "vertical_align": "middle",
      "wrap": false,
      "bold": true,
@@ -15953,24 +20568,24 @@
    "components": {
     "UiRect": {
      "anchor_min": [
-      0,
+      1,
       1
      ],
      "anchor_max": [
-      0,
+      1,
       1
      ],
      "pivot": [
-      0,
+      1,
       1
      ],
      "position": [
-      14,
-      -8
+      -92,
+      -14
      ],
      "size": [
-      180,
-      48
+      150,
+      50
      ],
      "visible": true,
      "opacity": 1.0,
@@ -15979,12 +20594,88 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 36,
+     "font_size": 44,
      "color": [
       1,
       1,
       1,
       1
+     ],
+     "align": "right",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5968458f-f3ec-5f54-9a30-6b0b18b49744"
+  },
+  {
+   "uuid": "b8342bb1-5a8e-5389-90eb-f1b5b1e0a4c3",
+   "name": "Reserve",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      1,
+      1
+     ],
+     "position": [
+      -16,
+      -20
+     ],
+     "size": [
+      74,
+      26
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 18,
+     "color": [
+      0.78,
+      0.86,
+      0.92,
+      0.85
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -16001,6 +20692,2828 @@
       2
      ],
      "font": ""
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5968458f-f3ec-5f54-9a30-6b0b18b49744"
+  },
+  {
+   "uuid": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf",
+   "name": "Mag Pips",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0
+     ],
+     "anchor_max": [
+      1,
+      0
+     ],
+     "pivot": [
+      1,
+      0
+     ],
+     "position": [
+      -16,
+      34
+     ],
+     "size": [
+      160,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5968458f-f3ec-5f54-9a30-6b0b18b49744"
+  },
+  {
+   "uuid": "b0e5adcd-e243-5ec9-ac31-a39f93ff895d",
+   "name": "Pip 0",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "66426c39-c3a9-5f37-ba1c-7d34f170d563",
+   "name": "Pip 1",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -4,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "84b3af65-7d28-510b-bfb1-4e83b32dfe2b",
+   "name": "Pip 2",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -8,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "dea80568-8e91-5ade-a53e-119b0f76983f",
+   "name": "Pip 3",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -12,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "633ec790-ab9e-54cc-b87d-4e63602bb6e3",
+   "name": "Pip 4",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -16,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "c1d87793-c25b-5d0f-8b2b-d7d89eeaf531",
+   "name": "Pip 5",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -20,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "1417f438-a862-56a7-bb88-3e7216d46eab",
+   "name": "Pip 6",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -24,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "25e7b8f6-2bca-5686-8454-ebcd48e5a95c",
+   "name": "Pip 7",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -28,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "ccb9a536-77cd-57b5-9edf-13a870ecde8f",
+   "name": "Pip 8",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -32,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "ff25d653-fd6c-5be8-9bd0-5be8f324e706",
+   "name": "Pip 9",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -36,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "27639c5f-6373-55ff-a465-ae6ef929cf6d",
+   "name": "Pip 10",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -40,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "0b4ad0d2-c3d0-5f51-a876-4c18b99ba4a6",
+   "name": "Pip 11",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -44,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "295622a7-6e20-594d-99dc-e32579942544",
+   "name": "Pip 12",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -48,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "d3707058-21ab-58ce-aba5-814ee2c247e4",
+   "name": "Pip 13",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -52,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "7d580fd3-c83a-542e-bf0c-7c3629063909",
+   "name": "Pip 14",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -56,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "02f04180-a659-50f0-bb5d-12cfbfb934c3",
+   "name": "Pip 15",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -60,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "000eed9c-727e-5d4e-828d-86846d63b697",
+   "name": "Pip 16",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -64,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "843b4e47-7c54-5a9e-b5a4-e1790892327d",
+   "name": "Pip 17",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -68,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "21d32229-24a8-5473-a9fa-3f03496db67f",
+   "name": "Pip 18",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -72,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "15348a32-f58b-50e2-bc50-05e4f9291735",
+   "name": "Pip 19",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -76,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "1c1f8787-6b4b-5db9-96ca-0f2aa67263f3",
+   "name": "Pip 20",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -80,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "86e03869-8e92-5c30-ad10-42a8930d8fc3",
+   "name": "Pip 21",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -84,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "65e560ad-bf50-5444-af3b-853b729e95cd",
+   "name": "Pip 22",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -88,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "b1ba1d5b-9309-5545-a046-fc21ff016b76",
+   "name": "Pip 23",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -92,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "b8c268f1-7181-55cb-8557-cbc5d8c2cf32",
+   "name": "Pip 24",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -96,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "34c42b2c-27e1-5923-b4ef-966af8d95def",
+   "name": "Pip 25",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -100,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "511d67b6-2d33-5b04-b083-82909be1c782",
+   "name": "Pip 26",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -104,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "0f92008d-ee78-568d-8a5e-0a83cd451472",
+   "name": "Pip 27",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -108,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "49eb77bb-3725-5e21-8118-37a74d5a01af",
+   "name": "Pip 28",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -112,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "d8e85e13-0a5d-5e15-8609-ba3bd2bbe18e",
+   "name": "Pip 29",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -116,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "646c4c86-6a58-5b2e-9662-4016a21d17f4",
+   "name": "Pip 30",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -120,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "b8a47829-196b-5899-84b8-958a09a80299",
+   "name": "Pip 31",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -124,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "263e7806-a1b7-5d4c-8b3d-eab90b2eaec1",
+   "name": "Pip 32",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -128,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "a619c6ac-9428-52d0-b997-794131757e3d",
+   "name": "Pip 33",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -132,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "b26456d7-6535-5c23-bc58-6d4831ad5cd3",
+   "name": "Pip 34",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -136,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "09f5dd5b-d599-5e08-a04b-b69a3ce2171d",
+   "name": "Pip 35",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -140,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "de5d5688-0607-5db3-bfbf-aaae0fc94f89",
+   "name": "Pip 36",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -144,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "55490998-0b36-51fd-a0d8-a633457ef0f2",
+   "name": "Pip 37",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -148,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "759814b7-4e12-5da9-945d-2fed0b4baaaf",
+   "name": "Pip 38",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -152,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "2e742605-ce31-5a17-940a-4a8b435c8294",
+   "name": "Pip 39",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      0.5
+     ],
+     "anchor_max": [
+      1,
+      0.5
+     ],
+     "pivot": [
+      1,
+      0.5
+     ],
+     "position": [
+      -156,
+      0
+     ],
+     "size": [
+      3,
+      8
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6eb92ec4-d5c0-5ff8-94ca-1c16acdb24bf"
+  },
+  {
+   "uuid": "db70a65a-7c4e-5d5f-aa16-979037325768",
+   "name": "Reload Back",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      1,
+      1
+     ],
+     "position": [
+      -16,
+      -8
+     ],
+     "size": [
+      200,
+      3
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.16
+     ],
+     "corner_radius": 1,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5968458f-f3ec-5f54-9a30-6b0b18b49744"
+  },
+  {
+   "uuid": "8309fa0c-c9ea-5de0-acf1-31a9d7c70feb",
+   "name": "Reload Bar",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      1,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      1,
+      1
+     ],
+     "position": [
+      -16,
+      -8
+     ],
+     "size": [
+      200,
+      3
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.6,
+      0.9,
+      1,
+      0.95
+     ],
+     "corner_radius": 1,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -16041,12 +23554,12 @@
       1
      ],
      "position": [
-      -14,
-      -12
+      -250,
+      -22
      ],
      "size": [
-      120,
-      30
+      110,
+      24
      ],
      "visible": true,
      "opacity": 1.0,
@@ -16055,11 +23568,11 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 16,
+     "font_size": 15,
      "color": [
       1,
-      0.85,
-      0.5,
+      0.8,
+      0.45,
       1
      ],
      "align": "right",
@@ -16117,32 +23630,27 @@
       1
      ],
      "position": [
-      28,
-      -24
+      24,
+      -20
      ],
      "size": [
-      300,
-      70
+      340,
+      80
      ],
      "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
-    "UiPanel": {
-     "color": [
-      0.03,
-      0.05,
-      0.06,
-      0.45
+    "UiImage": {
+     "texture": "5754bad7-b691-451c-ab7c-9adec2036efa",
+     "tint": [
+      1,
+      1,
+      1,
+      0.9
      ],
-     "corner_radius": 6,
-     "border_color": [
-      1,
-      1,
-      1,
-      0.12
-     ],
-     "border_width": 1
+     "preserve_aspect": false,
+     "corner_radius": 0
     },
     "Transform": {
      "position": [
@@ -16183,12 +23691,12 @@
       0
      ],
      "position": [
-      14,
-      14
+      16,
+      16
      ],
      "size": [
       272,
-      10
+      8
      ],
      "visible": true,
      "opacity": 1.0,
@@ -16199,9 +23707,9 @@
       1,
       1,
       1,
-      0.15
+      0.14
      ],
-     "corner_radius": 3,
+     "corner_radius": 2,
      "border_color": [
       1,
       1,
@@ -16209,6 +23717,72 @@
       0.12
      ],
      "border_width": 1.0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "d4497256-f89f-5e09-89e3-82e3d4ce0467",
+   "name": "Health Trail",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      16,
+      16
+     ],
+     "size": [
+      272,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      0.42,
+      0.28,
+      0.85
+     ],
+     "corner_radius": 2,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -16249,12 +23823,12 @@
       0
      ],
      "position": [
-      14,
-      14
+      16,
+      16
      ],
      "size": [
       272,
-      10
+      8
      ],
      "visible": true,
      "opacity": 1.0,
@@ -16267,7 +23841,7 @@
       0.75,
       0.95
      ],
-     "corner_radius": 3,
+     "corner_radius": 2,
      "border_color": [
       0,
       0,
@@ -16275,6 +23849,676 @@
       0
      ],
      "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "40ec016b-1c8b-5490-ac60-eae33b7126ec",
+   "name": "Health Seg 1",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      42.2,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "40542ab1-61e1-581a-a5b9-8933c4ac7b46",
+   "name": "Health Seg 2",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      69.4,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "8a9743bf-02f2-511d-b8f5-75b480ee252e",
+   "name": "Health Seg 3",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      96.6,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "be85ab86-ab79-5a8e-8c09-9dd7b8703a5f",
+   "name": "Health Seg 4",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      123.8,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "2074f332-3a38-570d-afb7-51916e6f28c1",
+   "name": "Health Seg 5",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      151.0,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "00394443-fd9e-56e6-8a50-5828ed7881dc",
+   "name": "Health Seg 6",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      178.2,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "de5a1686-e344-52ce-ba0f-bb97a2b5a257",
+   "name": "Health Seg 7",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      205.4,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "cfa81900-0825-5072-90b5-b159d51e4eb6",
+   "name": "Health Seg 8",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      232.6,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "b89f68e4-0f11-5549-b984-0959930002c1",
+   "name": "Health Seg 9",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      259.8,
+      16
+     ],
+     "size": [
+      2,
+      8
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.02,
+      0.03,
+      0.04,
+      0.7
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e6a1eff5-bf57-58c1-b573-e84d0ce47fa2"
+  },
+  {
+   "uuid": "8a87a443-1e99-5fe9-847f-33466b050d38",
+   "name": "Stance Text",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      16,
+      28
+     ],
+     "size": [
+      272,
+      18
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "",
+     "key": "",
+     "font_size": 12,
+     "color": [
+      0.78,
+      0.88,
+      0.95,
+      0.8
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": true,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": ""
     },
     "Transform": {
      "position": [
@@ -16315,12 +24559,12 @@
       1
      ],
      "position": [
-      -14,
+      -40,
       -8
      ],
      "size": [
       120,
-      34
+      30
      ],
      "visible": true,
      "opacity": 1.0,
@@ -16329,7 +24573,7 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 16,
+     "font_size": 15,
      "color": [
       0.65,
       1,
@@ -16391,12 +24635,12 @@
       1
      ],
      "position": [
-      14,
+      16,
       -8
      ],
      "size": [
-      170,
-      34
+      190,
+      30
      ],
      "visible": true,
      "opacity": 1.0,
@@ -16405,7 +24649,7 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 17,
+     "font_size": 15,
      "color": [
       0.8,
       0.95,
