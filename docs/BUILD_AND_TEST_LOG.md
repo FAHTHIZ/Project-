@@ -932,3 +932,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - `tools/world/night.py`: for the prologue only, the lantern stands on the camp table (0.62 m / 0.18 m off centre in the table frame) with `Camp Lantern Light`, an unshadowed point light, colour (1.0, 0.76, 0.5), intensity 10, range 9. Unshadowed keeps the mobile cost at one extra clustered light. The squad packs it before Op01, so later chapters do not have it.
 - Scenes regenerated with `python3 tools/world/chapters.py` + `python3 tools/scenes/patch_hud.py`. Before the change this pair reproduced the committed chapter scenes byte for byte; after it only `prologue.vscene` and `tests/story_prologue.vscene` change.
 - Engine VICTUS e9ce2ea Release. `victus import game`: 1 imported, 411 up to date, 0 failed. `victus check game`: 263 scenes, 0 problems. Before/after: docs/media/prologue_camp_lantern.jpg (operators lit warm from below the face, kit and weapons readable).
+
+## 2026-11-20 Spawn overlap check for every character start
+
+- New tools/test/check_spawns.py (uses tools/levels/squad_slots.py): every root CharacterController in game/scenes/*.vscene and world/kestrel.vscene is tested against solid box colliders (radius 0.35). Result before the fix: 1 overlap, Greyline Escort 2 in Op06 at (26, 10), inside Archive Shelf 34 (the shelf spans z 8-16 at x 25.5-26.5). He is dormant and wakes at that spot when Sorn arrives, so he appeared inside the shelf.
+- Moved to (28, 10), the aisle beside Sorn (build_facility.py ENEMIES and op06_basement.vscene, one coordinate each). check_spawns: 13 scenes, 0 character starts in geometry. story_op06 PASS at 20000 frames.

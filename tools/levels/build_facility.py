@@ -945,7 +945,7 @@ ENEMIES = {
              # Sorn and his escort arrive at the vault once the originals are bagged
              ('Sorn', 28, 14, -90, 'sorn', dict(voice='sorn', stun=160, dormant=True, variant=1)),
              ('Greyline Escort 1', 26, 18, -90, 'sorn', dict(dormant=True)),
-             ('Greyline Escort 2', 26, 10, -90, 'sorn', dict(dormant=True))],
+             ('Greyline Escort 2', 28, 10, -90, 'sorn', dict(dormant=True))],  # x 26 is inside Archive Shelf 34
     'op07': [('Sorn', 0, 14, 180, 'sorn', dict(voice='sorn', stun=160, dormant=True, variant=1)),
              ('Greyline Guard 1', -3, 15, 180, 'sorn', dict(dormant=True, voice='greyline1')),
              ('Greyline Guard 2', 3, 15, 180, 'sorn', dict(dormant=True))],
