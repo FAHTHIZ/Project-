@@ -1050,3 +1050,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - tools/world/add_hillside_trees.py (seed 7411): 220 trees on 30-48° slopes within 150 m of the camp, cloned from the existing tree templates. terrain_gen.py splat: rock weight smoothstep(27,40) where forest cover is thin, smoothstep(38,52) under cover (heights unchanged; terrain and docs/world/kestrel_map.png regenerated).
 - world_scene.py / prologue: Camp Flood B yaw 200 to 348 and its beam card moved to match (12 scenes).
 - Verified (Low 1640x720, 60 frames, lavapipe, 0 script errors): docs/media/south_backdrop_before_after.jpg (top: before, bottom: after) - the view south is forested hills instead of the world edge; view_270_25 and view_0_0 checked. Profile of the south view (410x180 Low, 60 frames): triangles 52 025 to 183 524, shadow triangles 85 074 to 115 448, draws 230 to 366, buffer memory +6.6 MB (op01_forest is 608 k triangles for comparison). Not device-run.
+
+## Android APK v5 (2026-11-21)
+- Built with tools/android/build_apk.sh from game 3a511a9 and VICTUS 2096152: export of 1 416 files (412 cooked assets), pack 601 239 484 bytes; APK 631 681 543 bytes, versionCode 161; check_apk OK; apksigner verified with the sideload key.
+- Released as pre-release android-v1.0.4, SHA-256 250b24391ee3932a86003c829339e6bd98253b18b984b136b7de39fc24d78524.
+- Not device-tested.
