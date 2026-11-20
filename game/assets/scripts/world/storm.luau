@@ -61,7 +61,8 @@ function S:update(dt)
             end
         end
         self:set(v * self.peak * f.scale)
-        if not live then self.flash = nil; self:set(0) end
+        Game.flash = v * f.scale
+        if not live then self.flash = nil; self:set(0); Game.flash = 0 end
     end
     for i = #self.thunder, 1, -1 do
         local th = self.thunder[i]

@@ -238,10 +238,8 @@ P.enemy_tactics = {
             r.ctl:investigate(spot, 0)
         end
     end },
-    { at = 26.0, run = function(c)
-        c.check("search_sweep", c.data.sweeps >= 1, string.format("%d sweeps started", c.data.sweeps))
-    end },
     { at = 34.0, run = function(c)
+        c.check("search_sweep", c.data.sweeps >= 1, string.format("%d sweeps started", c.data.sweeps))
         local st = ""
         for _, r in Squad.state().enemies do
             st ..= string.format(" [%s sweep %s i %s at %.0f,%.0f]", r.ctl.state, tostring(r.ctl.sweep ~= nil), tostring(r.ctl.sweep_i), r.entity.position.x, r.entity.position.z)
@@ -250,6 +248,52 @@ P.enemy_tactics = {
         Game.hurt_player = c.data.hurt
     end },
 }
+
+-- Noticing takes time: a contractor 18 m away does not see a crouched, still player with the light
+-- off (at most a "huh"), but stands, light on, is recognised within seconds, after a suspicious
+-- pause first. The player is unhittable.
+P.stealth = {
+    { at = 0.2, run = function(c)
+        c.data.hurt = Game.hurt_player
+        Game.hurt_player = function() return false end
+        c.data.sus_t, c.data.max_aware = nil, 0
+        Game.on("enemy_suspicious", function() c.data.sus_t = c.data.sus_t or time.now() end)
+        c.check("setup", #Squad.active_enemies() == 1, "enemies " .. #Squad.active_enemies())
+    end },
+    { at = 0.3, press = "crouch" }, { at = 0.4, release = "crouch" },
+    { at = 0.5, press = "light" }, { at = 0.6, release = "light" },
+    { at = 6.5, run = function(c)
+        local r = Squad.active_enemies()[1]
+        local ctl = r and (r.ctl or r)
+        local ps = Game.player_state
+        c.check("hidden_low_dark", ctl and ctl.state ~= "engage" and ps.crouched and not ps.torch_on,
+            string.format("state %s aware %.2f crouched %s torch %s", ctl and ctl.state or "?", ctl and ctl.aware or -1,
+                tostring(ps.crouched), tostring(ps.torch_on)))
+    end },
+    { at = 6.6, press = "crouch" }, { at = 6.7, release = "crouch" },
+    { at = 6.8, press = "light" }, { at = 6.9, release = "light" },
+    { at = 7.0, run = function(c) c.data.stand_t = time.now() end },
+    { at = 16.0, run = function(c)
+        local r = Squad.active_enemies()[1]
+        local ctl = r and (r.ctl or r)
+        c.check("seen_standing_lit", ctl and ctl.state == "engage", string.format("state %s aware %.2f", ctl and ctl.state or "?", ctl and ctl.aware or -1))
+        c.check("suspicious_first", c.data.sus_t ~= nil and c.data.engage_t ~= nil and c.data.sus_t <= c.data.engage_t
+            and c.data.engage_t - c.data.stand_t > 0.8,
+            string.format("stood %.1f suspicious %s engaged %s", c.data.stand_t or -1, tostring(c.data.sus_t), tostring(c.data.engage_t)))
+        local huh = false
+        for _, l in Dialogue.state().log do if string.find(l.id, "grey_huh_") then huh = true end end
+        c.check("huh_bark", huh, "")
+        Game.hurt_player = c.data.hurt
+    end },
+}
+for i = 0, 70 do
+    table.insert(P.stealth, { at = 0.5 + i * 0.2, run = function(c)
+        local r = Squad.active_enemies()[1]
+        local ctl = r and (r.ctl or r)
+        if ctl and c.data.engage_t == nil and ctl.state == "engage" then c.data.engage_t = time.now() end
+    end })
+end
+table.sort(P.stealth, function(a, b) return a.at < b.at end)
 
 -- The squad in a firefight next to the player: operators find real cover (the crates) against the
 -- contractor they fight, duck there, still put both contractors down, and someone warns when one

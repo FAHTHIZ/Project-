@@ -15,6 +15,7 @@
 local Game = require("scripts/lib/game")
 local Controls = require("scripts/lib/controls")
 local Combat = require("scripts/lib/combat")
+local Squad = require("scripts/lib/squad")
 local Items = require("scripts/lib/items")
 local Inventory = require("scripts/lib/inventory")
 
@@ -373,6 +374,7 @@ function W:fire(ps)
     ps:add_shake(0.06 * ads)
     play(d.fire, 0.95, 0.95 + math.random() * 0.1)
     Combat.noise(Game.player.world_position, d.noise, Game.player)
+    Squad.state().player_shot_t = time.now()   -- the lead opened fire: weapons free for the squad
     Game.emit("player_fired", d.id)
     if r.st.ammo == 0 and r.st.reserve > 0 then self.auto_reload = 0.35 end
 end

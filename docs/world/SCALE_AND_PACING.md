@@ -69,3 +69,22 @@ only one patrol fight. The plan is to keep the terrain and add authored pockets 
   ([TFR field guide](https://www.scribd.com/document/1006731864/TFR-Basic-Infantry-Skills-Field-Guide)).
 
 Implemented for Greyline in enemy.luau (BUILD_AND_TEST_LOG "Bounding overwatch").
+
+## Awareness model (enemy.luau `E:notice_rate`)
+
+A contractor who can see a target does not react at once. Awareness builds per second at
+`1.8 × (1 − d/24)² + 0.04` (d in metres; under 4 m, or when hit, recognition is instant), multiplied by:
+
+| Condition | × |
+|---|---|
+| target crouched (player, or an operator kneeling) | 0.45 |
+| target still / sprinting | 0.55 / 1.8 |
+| player's weapon light on | 2.4 |
+| inside this contractor's rail-light beam (≤ 18 m, ~18° cone) | 2.6 |
+| lightning flash in progress | 4 |
+| contractor already searching | 1.6 |
+| a group mate already fighting | 3 |
+
+At 0.4 the contractor stops, stares at the spot and says a `grey_huh_*` line, then walks over to look. At 1.0 he
+engages. Awareness decays at 0.22/s out of sight. Examples: at 18 m, crouched, still and with the light off it
+takes ~11 s of unbroken view to raise a "huh"; standing with the light on, ~0.3 s to "huh" and ~2.5 s to a fight.
