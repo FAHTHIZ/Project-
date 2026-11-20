@@ -8253,7 +8253,7 @@
       "components": {
         "Transform": {
           "position": [-18, 50.405399322509766, 493],
-          "rotation": [0, 0.9848077893257141, 0, -0.1736481934785843],
+          "rotation": [0.0, 0.1045285, 0.0, -0.9945219],
           "scale": [1, 1, 1]
         }
       },
@@ -8336,6 +8336,342 @@
         },
         "Transform": {
           "position": [0, 1.2999999523162842, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "8f904181-2657-5495-84ab-4b9cf9c76360",
+      "name": "Hillside Tree 62",
+      "components": {
+        "Collider": {
+          "shape": "capsule",
+          "size": [1, 1, 1],
+          "radius": 0.3,
+          "height": 3.2,
+          "offset": [0, 1.6, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Tree"
+        },
+        "Transform": {
+          "position": [-25.9139, 40.2829, 455.5193],
+          "rotation": [0, 0.8083399, 0, -0.588716],
+          "scale": [1.27526, 1.27526, 1.27526]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "55d21bdc-a938-52a2-9488-e003e72d5d2c",
+      "name": "Hillside Tree 62[0]",
+      "parent": "8f904181-2657-5495-84ab-4b9cf9c76360",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "f9eee44c-80df-5d3d-8087-fd7be7202320"
+    },
+    {
+      "uuid": "f9eee44c-80df-5d3d-8087-fd7be7202320",
+      "name": "Hillside Tree 62[1]",
+      "parent": "8f904181-2657-5495-84ab-4b9cf9c76360",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "44688c9a-3224-57bb-86ca-b021fad67456",
+      "name": "Hillside Tree 63",
+      "components": {
+        "Collider": {
+          "shape": "capsule",
+          "size": [1, 1, 1],
+          "radius": 0.3,
+          "height": 3.2,
+          "offset": [0, 1.6, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Tree"
+        },
+        "Transform": {
+          "position": [-6.5107, 49.8185, 455.7043],
+          "rotation": [0, 0.4941898, 0, 0.869354],
+          "scale": [0.95285, 0.95285, 0.95285]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "10a5f4e9-22bf-586f-b41e-6267e7c067f5",
+      "name": "Hillside Tree 63[0]",
+      "parent": "44688c9a-3224-57bb-86ca-b021fad67456",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "a459e005-89d9-5e20-aaeb-2e044a3eda3c"
+    },
+    {
+      "uuid": "a459e005-89d9-5e20-aaeb-2e044a3eda3c",
+      "name": "Hillside Tree 63[1]",
+      "parent": "44688c9a-3224-57bb-86ca-b021fad67456",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "23d43e5e-4753-5e04-af78-534f118aaf3f",
+      "name": "Hillside Tree 64",
+      "components": {
+        "Collider": {
+          "shape": "capsule",
+          "size": [1, 1, 1],
+          "radius": 0.32,
+          "height": 3.2,
+          "offset": [0, 1.6, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Tree"
+        },
+        "Transform": {
+          "position": [-0.6544, 53.6045, 455.4549],
+          "rotation": [0, 0.9901561, 0, 0.1399675],
+          "scale": [1.04629, 1.04629, 1.04629]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "bfe42040-5804-50f5-aea3-fb9fe20197e0",
+      "name": "Hillside Tree 64[0]",
+      "parent": "23d43e5e-4753-5e04-af78-534f118aaf3f",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "49aad981-75c0-4e80-98c0-3e84eac1da05",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "78278828-fac3-5afc-91d2-8afed62d53f8"
+    },
+    {
+      "uuid": "78278828-fac3-5afc-91d2-8afed62d53f8",
+      "name": "Hillside Tree 64[1]",
+      "parent": "23d43e5e-4753-5e04-af78-534f118aaf3f",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "49aad981-75c0-4e80-98c0-3e84eac1da05",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "5d426ed2-55d0-5fb7-ad17-41089c21fee3",
+      "name": "Hillside Tree 72",
+      "components": {
+        "Collider": {
+          "shape": "capsule",
+          "size": [1, 1, 1],
+          "radius": 0.3,
+          "height": 3.2,
+          "offset": [0, 1.6, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Tree"
+        },
+        "Transform": {
+          "position": [-2.1083, 53.8424, 459.0976],
+          "rotation": [0, 0.6593843, 0, -0.751806],
+          "scale": [1.18581, 1.18581, 1.18581]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "bf43e372-2372-5748-b8cc-42d1d22a9449",
+      "name": "Hillside Tree 72[0]",
+      "parent": "5d426ed2-55d0-5fb7-ad17-41089c21fee3",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "543709b8-61d7-5247-98bf-b9e2964ddf24"
+    },
+    {
+      "uuid": "543709b8-61d7-5247-98bf-b9e2964ddf24",
+      "name": "Hillside Tree 72[1]",
+      "parent": "5d426ed2-55d0-5fb7-ad17-41089c21fee3",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "aafbdcb8-098e-4b76-8a30-0a997c291c33",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }

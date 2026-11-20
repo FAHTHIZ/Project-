@@ -455,7 +455,7 @@ def add_structures(sc, H, masks):
     PLACED['Camp Arms Case'] = ('arms_case', ax, ground(H, ax, az), az, 160.0)
     place_ph_group(sc, 'Camp Generator', GENERATOR, cx + 10, cz + 1, 80.0, H, 'ph_generator')
     place(sc, 'Camp Flood A', 'floodlight', cx - 5, cz - 4, 60.0, H)
-    place(sc, 'Camp Flood B', 'floodlight', cx + 2, cz + 7, 200.0, H)
+    place(sc, 'Camp Flood B', 'floodlight', cx + 2, cz + 7, 348.0, H)  # aimed across the camp at the tents
     POINTS['camp_table'] = (cx - 1, by, cz)
     # where the Mule waits on the ranger road beside the camp (prologue start), nose south
     rd = masks['splines']['road_in']
