@@ -797,3 +797,11 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Spectral onset check (4-11 kHz vs 100-1500 Hz energy per 20 ms frame) showed a real Kokoro defect on very short inputs: "Set."/"Set!"/"Focus." from bm_george/am_onyx/am_eric start voiced with no initial fricative. "Mm." phonemizes as the letters "M M".
 - Reworded (subtitle and audio together): bark_set_1 "Set, ready.", bark_set_5 "Set. Ready.", grey_set_1 "I'm set!", grey_set_3 "Position! Set!", grey_set_4 "Set and ready!", op6_fan_04 "Tally. Focus.", react_stare_5 "Huh.", bark_down_3 "Good hit. He's down." (non-lethal wording kept). Only those 8 re-rendered (manifest hashes).
 - Re-check with small.en on the shipped .ogg files: all 8 now transcribe as the intended words (bark_set_1 hears "Zet ready", onset now has sibilant energy).
+
+## 2026-11-20 Op06 archive lighting and lightmap bake
+
+- tools/levels/build_facility.py: LIGHT style `archive` (light_cage, colour (0.9, 0.94, 1.0), intensity 6.5, range 10, spacing 6); only every third cell on both axes keeps a realtime light, the rest are bake-only fills.
+- tools/levels/bake_interiors.py: op06 added to the default keys; per-key MAX_SIZE (op06 4096) and DENSITY (op06 1.5). At the default 2048 ceiling the bake failed with "does not fit the atlas" even at 1 texel/m (2080x2004 atlas, padding-dominated by repeated shelving instances).
+- Bake: 116 lightmapped renderers, 92 lights, 1438x1398 atlas at 1.50 texels/m, 3 bounces x 64 samples, 67 s; 16384 probes. scenes/op06_basement.vlightmap 26.7 MB.
+- Captured a view inside the archive (temporary copy with the player moved to (6, 0, 26)): shelving, floor light pools and a Greyline silhouette are readable; previously near-black.
+- `SOPS_TEST_FRAMES=14500 run_autotests.py story_op06`: PASS (0 script errors).

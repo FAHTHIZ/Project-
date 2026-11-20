@@ -66,6 +66,10 @@ def mark(scene_json, ids, lightmap):
 # carry no realtime light for the mobile light budget, so big rooms do not fall to black between
 # lit fittings. The deep levels get more bounce: their rooms read black on a phone otherwise.
 INDIRECT = {'op04': 1.0, 'op05': 1.4, 'op06': 2.2, 'op07': 1.0}
+# The lower archive's many repeated shelving units each need their own padded atlas rectangle, so at
+# 2048 the padding alone overflows; it gets a 4096 ceiling and a lower density (atlas ~2.1k at 1 t/m).
+MAX_SIZE = {'op06': 4096}
+DENSITY = {'op06': 1.5}
 FITTING = re.compile(r'^(.*) Light (\d+) Fitting$')
 
 
@@ -111,10 +115,9 @@ def victus_bake(rel, *args):
 
 def main():
     ap = argparse.ArgumentParser()
-    # op06 is not baked yet: the lower archive is a 60 x 44 m hall with sparse work lights, and with
-    # its fake ambient replaced by the bake it reads near-black even at 2.2x bounce (needs a lighting
-    # pass on the room first).
-    ap.add_argument('keys', nargs='*', default=['op04', 'op05', 'op07'])
+    # op06's archive got a dedicated 'archive' light style (cooler cage lights, realtime on a 3x3 grid)
+    # so its bounce bake reads as a dim lit hall instead of near-black.
+    ap.add_argument('keys', nargs='*', default=['op04', 'op05', 'op06', 'op07'])
     ap.add_argument('--density', type=float, default=4.0)
     ap.add_argument('--samples', type=int, default=64)
     ap.add_argument('--bounces', type=int, default=3)
@@ -126,7 +129,8 @@ def main():
         lm = rel.replace('.vscene', '.vlightmap')
         try:
             # 1. let VICTUS decide what cannot move (a 1-sample throwaway bake), then filter it
-            victus_bake(rel, '--mark-static', '--density', '1', '--samples', '1', '--no-probes')
+            victus_bake(rel, '--mark-static', '--density', '1', '--samples', '1', '--no-probes',
+                        '--max-size', str(MAX_SIZE.get(key, 2048)))
             data = json.loads(path.read_text())
             ids = marked_uuids(data)
             # 2. the real bake with only the kept receivers
@@ -135,7 +139,8 @@ def main():
             mark(data, set(ids), lm)
             print(key, bake_lights(data, key), 'bake-only fill lights, indirect x', INDIRECT[key])
             path.write_text(json.dumps(data, indent=1) + '\n')
-            victus_bake(rel, '--density', str(a.density), '--samples', str(a.samples), '--bounces', str(a.bounces))
+            victus_bake(rel, '--density', str(DENSITY.get(key, a.density)), '--samples', str(a.samples),
+                        '--bounces', str(a.bounces), '--max-size', str(MAX_SIZE.get(key, 2048)))
         finally:
             path.write_text(original)
         (HERE / f'{key}_static.json').write_text(json.dumps(ids, indent=0) + '\n')

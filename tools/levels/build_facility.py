@@ -709,7 +709,7 @@ def level_op05():
 def level_op06():
     R = [
         Room('Stair Foot', -3, 34, 3, 42, 'grate', 'wall_conc', 'ceil_conc', 4.0, 'cage', (0.6, 0.35)),
-        Room('Archive', -30, -10, 30, 34, 'conc', 'wall_conc', 'ceil_conc', 6.0, 'work', (0.8, 0.5), sign='sign_archive'),
+        Room('Archive', -30, -10, 30, 34, 'conc', 'wall_conc', 'ceil_conc', 6.0, 'archive', (0.8, 0.5), sign='sign_archive'),
         Room('Pump Room', -44, 2, -30, 20, 'conc_wet', 'wall_conc', 'ceil_conc', 5.0, 'cage', (0.75, 0.45), sign='sign_pump'),
         Room('Manager Office', 30, 10, 42, 22, 'tile', 'wall_office', 'ceil_tile', 3.0, 'fluoro', (0.3, 0.2), sign='sign_manager'),
         Room('North Corridor', -3, -30, 3, -10, 'conc', 'wall_conc', 'ceil_conc', 4.0, 'cage', (0.6, 0.35)),
@@ -766,6 +766,9 @@ LIGHT = {
     'cage': ('light_cage', (1.0, 0.78, 0.5), 5.5, 8.0, 6.0),
     'sodium': ('light_cage', (1.0, 0.66, 0.32), 7.0, 11.0, 8.0),
     'work': ('light_cage', (0.86, 0.93, 1.0), 8.0, 13.0, 10.0),
+    # the archive hall: a dense grid of cage work lights over the shelf aisles. Every fitting is
+    # baked (bake_interiors.py adds bake-only fills); only one in nine carries a realtime light.
+    'archive': ('light_cage', (0.9, 0.94, 1.0), 6.5, 10.0, 6.0),
     'chamber': ('light_fluoro', (1.0, 1.0, 1.0), 9.0, 14.0, 7.0),
 }
 
@@ -782,7 +785,8 @@ def light_room(sc, r, lights, group, emergency_ok=True):
             yaw = 90.0 if (r.z1 - r.z0) > (r.x1 - r.x0) else 0.0
             kit_prop(sc, n + ' Fitting', model, x, z, yaw, y=r.h - 0.02, collide=False)
             # only every other fitting carries a real light in big rooms (mobile light budget)
-            if (i + j) % 2 == 0 or nx * nz <= 4:
+            sparse = (i % 3 == 1 and j % 3 == 1) if r.lights == 'archive' else ((i + j) % 2 == 0)
+            if sparse or nx * nz <= 4:
                 lights.append(sc.light(n, (x, r.h - 0.35, z), 'point', col, inten, rng_, shadows=False, parent=group))
     if emergency_ok:
         x, z = r.x0 + 0.5, r.z0 + 0.6
