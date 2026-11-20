@@ -778,17 +778,11 @@ def build(out):
         'foley/crank.wav': mech(735, 1.2, [(i * 0.15, 0.7, 500, 3500, 70) for i in range(8)]),
         'foley/blast_door.wav': motor_run(7.0, 740, hz=28.0),
         'foley/door_slide.wav': motor_run(1.6, 745, hz=70.0, clunk=False),
-        # storm night: the valley beds are rain, not birdsong (the day versions stay for the menu)
-        'ambient/forest_day.wav': forest_bed(),
-        'ambient/forest.wav': night_forest_bed(),
-        'ambient/roof_rain.wav': roof_rain_bed(),
-        'ambient/thunder_0.wav': thunder(2001, 7.5, 0.9),
-        'ambient/thunder_1.wav': thunder(2002, 6.0, 0.3),
-        'ambient/thunder_2.wav': thunder(2003, 8.5, 0.0),
+        # storm night: the valley beds are rain, not birdsong (the day versions stay for the menu).
+        # forest, forest_day, camp, creek, roof_rain and thunder_0-2 are real field recordings now:
+        # tools/audio/build_field_ambience.py writes them (the generators below are kept for reference).
         'foley/torch_click.wav': torch_click(),
-        'ambient/creek.wav': creek_bed(),
         'ambient/camp_day.wav': camp_bed(),
-        'ambient/camp.wav': night_camp_bed(),
         'ambient/interior.wav': hum_bed(),
         'ambient/bunker.wav': bunker_bed(),
         'ambient/basement.wav': hum_bed(10.0, 950, 60.0, 0.9),
