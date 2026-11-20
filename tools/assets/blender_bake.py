@@ -207,6 +207,20 @@ def bake_hero(ob, size, presets, keep, name, out_dir=None):
     tnor = new_image(name + '_normal', size)
     _bake(ob, 'NORMAL', tnor, normal_setup, samples=8)
 
+    # 6. optional albedo pass for presets without a design colour (imported, already textured models)
+    alb = None
+    if any(p.get('color') is None for p in presets.values()):
+        def albedo_setup(m, nt, i):
+            bsdf = nt.nodes.get('Principled BSDF')
+            if not bsdf:
+                _emit(nt, (0.5, 0.5, 0.5))
+                return
+            bc = bsdf.inputs['Base Color']
+            src = bc.links[0].from_socket if bc.links else None
+            _emit(nt, src if src is not None else tuple(bc.default_value[:3]))
+        talb = new_image(name + '_alb', size)
+        alb = _bake(ob, 'EMIT', talb, albedo_setup, samples=1)[..., :3]
+
     # composite ------------------------------------------------------------------------------
     h, w = mid.shape
     base = np.zeros((h, w, 3), np.float32)
@@ -235,7 +249,8 @@ def bake_hero(ob, size, presets, keep, name, out_dir=None):
             continue
         l = lum[sel]
         lm = float(np.median(l)) or 0.5
-        col = np.array(p['color'], np.float32)[None, :] * np.clip(1 + p['contrast'] * (l / lm - 1), 0.5, 1.6)[:, None]
+        src = np.array(p['color'], np.float32)[None, :] if p.get('color') is not None else alb[sel]
+        col = src * np.clip(1 + p['contrast'] * (l / lm - 1), 0.5, 1.6)[:, None]
         g = grime[sel]
         col *= (1 - 0.5 * g)[:, None]
         wmask = smoothstep(0.32, 0.75, edge[sel] * (0.45 + 1.1 * nz[sel])) * p['wear']
