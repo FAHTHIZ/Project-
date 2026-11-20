@@ -2,6 +2,7 @@
 -- tracer pool. Operators (scripts/operator.luau) and Greyline contractors (scripts/enemy.luau)
 -- register here; mission directors give orders through Squad.order / Squad.move.
 local Game = require("scripts/lib/game")
+local Dialogue = require("scripts/lib/dialogue")
 local Combat = require("scripts/lib/combat")
 
 local Squad = {}
@@ -262,10 +263,50 @@ function Squad.shoot(shooter, aim, opts)
     return hit, struck
 end
 
+-- After contact: once every contractor nearby is down or gone and nobody has been engaged for a
+-- few seconds, the lead calls a sound-off and two of the team answer (hurt ones say so). Real
+-- squads reorganise like this after a fight (status, casualties, ammunition) before moving on.
+local CON_KEYS = { "echo", "tally", "patch", "brick" }
+local function consolidate(s, dt)
+    if not s.con_hooked then
+        s.con_hooked = true
+        Game.on("squad_contact", function() s.con_contact = true; s.con_quiet = 0 end)
+        Game.on("operator_hit", function(key) s.con_hit = s.con_hit or {}; s.con_hit[key] = true end)
+    end
+    if not s.con_contact then return end
+    local engaged = false
+    Squad.each(function(_, m) if m.engaged then engaged = true end end)
+    if engaged or #Squad.active_enemies() > 0 or Game.cinematic then s.con_quiet = 0; return end
+    s.con_quiet = (s.con_quiet or 0) + dt
+    if s.con_quiet < 3.0 or Dialogue.busy() then return end
+    s.con_contact = false
+    local lead = Dialogue.actor("anchor")
+    if not lead or not lead.entity or not lead.entity.valid then s.con_hit = nil; return end
+    s.con_n = (s.con_n or 0) + 1
+    local ids = { "con_call_" .. ((s.con_n - 1) % 3 + 1) }
+    local answered = 0
+    local start = s.con_n % #CON_KEYS
+    for i = 0, #CON_KEYS - 1 do
+        local key = CON_KEYS[(start + i) % #CON_KEYS + 1]
+        local a = Dialogue.actor(key)
+        local hurt = s.con_hit and s.con_hit[key]
+        if a and a.entity and a.entity.valid and (answered < 2 or hurt) then
+            local id = hurt and ("con_hurt_" .. key .. "_1") or ("con_up_" .. key .. "_" .. ((s.con_n + i) % 2 + 1))
+            table.insert(ids, { id, to = "anchor" })
+            answered += 1
+        end
+    end
+    table.insert(ids, "con_done_" .. ((s.con_n - 1) % 2 + 1))
+    s.con_hit = nil
+    Dialogue.conversation(ids, { priority = 1, gap = 0.45 })
+    Game.emit("squad_sound_off", { n = answered })
+end
+
 function Squad.update(dt)
     local s = Squad.state()
     if Game.paused then return end
     s.clock += dt
+    consolidate(s, dt)
     if Game.open_world then crumbs_update(s) end
     for _, t in s.tracers do
         if t.life > 0 then
