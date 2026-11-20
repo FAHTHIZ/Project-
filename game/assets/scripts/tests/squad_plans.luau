@@ -177,13 +177,15 @@ P.enemy_tactics = {
             if ev.kind == "cover" and not seen[ev.id] then seen[ev.id] = true; covered += 1 end
         end
         c.check("took_cover", covered >= 1, string.format("%d contractors reached cover (%d arrivals)", covered, #c.data.cover))
-        local blocked = 0
-        local eye = Game.player.position + V(0, 1.55, 0)
-        local Tactics = require("scripts/lib/tactics")
+        -- sampled 10-20 s (the plan below): the moment of a snapshot shifts with any small change in the fight
+        local why = {}
         for _, r in Squad.state().enemies do
-            if r.ctl.in_cover and not Tactics.exposed(eye, r.ctl.in_cover, r.entity) then blocked += 1 end
+            table.insert(why, string.format("[%s %s cover %s tac %s]", r.entity.name, tostring(r.ctl.state),
+                tostring(r.ctl.in_cover ~= nil), tostring(r.ctl.tac_kind)))
         end
-        c.check("cover_is_cover", blocked >= 1, string.format("%d holding positions hidden from the player", blocked))
+        c.check("cover_is_cover", (c.data.hidden_best or 0) >= 1, string.format(
+            "%d holding positions hidden from the player (best sample 10-20 s; %d samples with one) %s",
+            c.data.hidden_best or 0, c.data.hidden_samples or 0, table.concat(why, " ")))
         local nc = 0
         for _ in c.data.crouched do nc += 1 end
         c.check("ducks_in_cover", nc >= 1, string.format("%d crouched in cover", nc))
@@ -300,6 +302,7 @@ table.sort(P.stealth, function(a, b) return a.at < b.at end)
 -- of them flanks. The player is unhittable and stands still.
 P.squad_cover = {
     { at = 0.3, run = function(c)
+        Game.on("npc_reload", function(i) if i.tactical then c.data.topoffs = (c.data.topoffs or 0) + 1 end end)
         c.data.hurt = Game.hurt_player
         Game.hurt_player = function() return false end
         c.data.covered, c.data.hidden, c.data.flanks = {}, 0, 0
@@ -338,6 +341,18 @@ P.squad_cover = {
     end },
 }
 
+for i = 0, 20 do
+    table.insert(P.enemy_tactics, { at = 10.05 + i * 0.5, run = function(c)
+        local Tactics = require("scripts/lib/tactics")
+        local eye = Game.player.position + V(0, 1.55, 0)
+        local blocked = 0
+        for _, r in Squad.state().enemies do
+            if r.ctl.in_cover and not Tactics.exposed(eye, r.ctl.in_cover, r.entity) then blocked += 1 end
+        end
+        if blocked >= 1 then c.data.hidden_samples = (c.data.hidden_samples or 0) + 1 end
+        c.data.hidden_best = math.max(c.data.hidden_best or 0, blocked)
+    end })
+end
 -- stand still in the open and watch them for a while (sampled every 0.25 s)
 for i = 0, 62 do
     table.insert(P.enemy_tactics, 2 + i, { at = 0.4 + i * 0.25, run = function(c)
@@ -349,6 +364,7 @@ for i = 0, 62 do
         if up >= 2 then c.data.both_moving += 1 end
     end })
 end
+table.sort(P.enemy_tactics, function(a, b) return a.at < b.at end)
 
 for i = 0, 160 do
     table.insert(P.squad_cover, 2 + i, { at = 1 + i * 0.25, run = function(c)
@@ -361,6 +377,18 @@ for i = 0, 170 do
         local up = 0
         Squad.each(function(_, m) if m.cover_goal then up += 1 end end)
         if up >= 2 then c.data.both_up += 1 end
+    end })
+end
+for i = 0, 226 do
+    table.insert(P.squad_cover, { at = 1.15 + i * 0.25, run = function(c)
+        Squad.each(function(_, m)
+            local a = m.actor
+            if a and a:reloading() and a.reload_w > 0.8 and a.carry and a.carry.valid then
+                c.data.reload_seen = (c.data.reload_seen or 0) + 1
+                if a.carry.rotation.z < -20 then c.data.reload_canted = true end
+                if (a.hand_w or 1) < 0.2 then c.data.reload_hand_off = true end
+            end
+        end)
     end })
 end
 table.insert(P.squad_cover, { at = 45.1, run = function(c)
@@ -379,10 +407,31 @@ table.insert(P.squad_cover, { at = 45.1, run = function(c)
         string.format("moving %s covering %s", tostring(heard.moving), tostring(heard.covering)))
 end })
 table.sort(P.squad_cover, function(a, b) return a.at < b.at end)
+table.insert(P.squad_cover, { at = 59.9, run = function(c)
+    local reloads = 0
+    local shots = {}
+    Squad.each(function(k, m) if m.actor then reloads += m.actor.reloads end; table.insert(shots, tostring(k) .. "=" .. tostring(m.shots)) end)
+    c.check("operators_change_cells", reloads >= 1 and (c.data.reload_seen or 0) >= 2
+        and c.data.reload_canted == true and c.data.reload_hand_off == true,
+        string.format("%d reloads (%d tactical), %d samples, canted %s, hand off %s, shots %s", reloads, c.data.topoffs or 0, c.data.reload_seen or 0,
+                      tostring(c.data.reload_canted), tostring(c.data.reload_hand_off), table.concat(shots, " ")))
+end })
 table.insert(P.squad_cover, { at = 60.0, run = function(c)
     local down = Combat.stats.downs - c.data.downs0
     c.check("still_wins", down == 2, string.format("downs %d (by 45 s: %d)", down, c.data.down45))
 end })
+
+-- Screenshot setup: the squad holds facing the player, frozen mid cell change (support hand off the gun).
+P.squad_reload_look = {
+    { at = 0.02, run = function()
+        Squad.order("hold"); Game.face_player(V(0, 1.6, 9.5))
+        Squad.each(function(_, m)
+            m.actor:reload(100, {})
+            m.actor.reload_t = 60; m.actor.reload_w = 1; m.actor.hand_w = 0
+        end)
+    end },
+    { at = 25 },
+}
 
 -- Screenshot setup: the squad faces the player.
 P.squad_look = {

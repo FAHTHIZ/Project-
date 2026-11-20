@@ -37,6 +37,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Op01 search line: three contractors sweep east -> west across the trail below the cabin; let it pass low and dark (team holds, kneels, comments) or fight it | Done (op01_line 8/8, op01_line_loud 6/6, story_op01 pass) | log "search line" |
 | Forest cover pockets: 30 seeded boulders and deadfall along the footbridge and cabin-to-relay stretches, one 3-5 s rush apart | Done (built, streamed, inspected in renders; story_op01 pass) | log "cover pockets" |
 | Halyard bounding overwatch: one man up at a time, 3-5 s rushes, nearest set mate covers with faster bursts, "Moving" / "Covering" / "Set" calls; actor stuck recovery | Done (squad_cover 9/9, op01_line 8/8 with streamed trees, regressions and story_op01 pass) | log "Halyard bounding" |
+| Third-person cell changes: magazine-based reloads for operators, tactical top-offs in a lull, rifle cants in and the support hand leaves the gun, positional cell-out/in/charge sounds (contractors too) | Done (squad_cover operators_change_cells; regressions and story_op01 pass) | log "Third-person reloads" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

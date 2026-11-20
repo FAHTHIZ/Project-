@@ -718,6 +718,8 @@ function E:fire(dt, tgt, tp)
         self.fire_t = 2.4 + math.random() * 0.8
         self.burst = 0
         self:say("reload", 0.7)
+        self.actor:reload(self.fire_t - 0.2, { out = "audio/weapons/pc7_cell_out.wav",
+            inn = "audio/weapons/pc7_cell_in.wav", charge = "audio/weapons/pc7_charge.wav" })
         Game.emit("enemy_reloading", self.entity)
         return
     end
