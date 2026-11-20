@@ -165,6 +165,12 @@ P.op01_line_loud = {
         for _, e in line_ctls() do if e.down then down += 1 end end
         c.check("line_fought", down >= 1, down .. " down")
         c.check("no_quiet_ending", c.data.ev.line_passed == nil, "")
+        -- rounds that miss in the forest land in soil and trees, not "stone" everywhere
+        local surf = require("scripts/lib/squad").state().impact_surfaces or {}
+        local kinds = {}
+        for k, n in surf do table.insert(kinds, k .. "=" .. n) end
+        table.sort(kinds)
+        c.check("forest_impacts", (surf.dirt or 0) + (surf.wood or 0) >= 1, table.concat(kinds, " "))
         Game.hurt_player = c.data.hurt
     end },
 }

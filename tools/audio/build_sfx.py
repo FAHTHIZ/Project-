@@ -139,6 +139,62 @@ def impact(seed, lo, hi, dec, thump_hz, sec=0.25):
     return finish(mix(n, th, fizz), 0.8)
 
 
+def modes(t, freqs, decays, gains, seed):
+    """Damped sinusoids (struck-object resonances) with a seeded phase."""
+    rng = np.random.default_rng(seed)
+    out = np.zeros(len(t))
+    for f, d, g in zip(freqs, decays, gains):
+        out += np.sin(2 * np.pi * f * t + rng.uniform(0, 6.28)) * np.exp(-t * d) * g
+    return out
+
+
+def grit(seed, sec, start, n, lo, hi, g):
+    """Sparse debris ticks falling back after the hit (soil, stone chips, splinters)."""
+    rng = np.random.default_rng(seed)
+    out = np.zeros(int(SR * sec))
+    for _ in range(n):
+        st = start + rng.exponential(0.06)
+        if st > sec - 0.03:
+            continue
+        click = bp(noise(0.02, int(rng.integers(1 << 30))), lo, hi) * env(t_axis(0.02), 0.0002, 260)
+        out += at(click * rng.uniform(0.2, 1.0) * g, st, sec)
+    return out
+
+
+# Surface impacts of a pulse round (lib/footsteps.luau Footsteps.impact_surface picks one).
+def impact_dirt(seed, sec=0.45):
+    t = t_axis(sec)
+    thump = np.sin(2 * np.pi * (62 + 30 * np.exp(-t * 40)) * t) * env(t, 0.001, 30) * 0.9
+    body = lp(bp(noise(sec, seed), 120, 1600) * env(t, 0.0005, 32), 1400)
+    spray = grit(seed + 1, sec, 0.03, 18, 1500, 6000, 0.35)
+    return finish(mix(thump, body * 0.9, spray), 0.8, 1.3)
+
+
+def impact_wood(seed, sec=0.5):
+    t = t_axis(sec)
+    knock = modes(t, [340, 690, 1130, 1790], [38, 52, 70, 95], [0.8, 0.55, 0.35, 0.2], seed)
+    crack = bp(noise(sec, seed + 2), 1500, 7000) * env(t, 0.0002, 140) * 0.9
+    splinter = grit(seed + 3, sec, 0.02, 9, 2000, 7000, 0.3)
+    return finish(mix(knock * env(t, 0.0008, 6), crack, splinter), 0.82, 1.5)
+
+
+def impact_stone(seed, sec=0.5):
+    t = t_axis(sec)
+    crack = bp(noise(sec, seed), 1400, 10000) * env(t, 0.0002, 75)
+    ring = modes(t, [2150, 3420, 4980], [60, 80, 110], [0.35, 0.25, 0.15], seed + 1)
+    thud = np.sin(2 * np.pi * 120 * t) * env(t, 0.001, 50) * 0.4
+    chips = grit(seed + 2, sec, 0.025, 14, 2500, 9000, 0.4)
+    return finish(mix(crack, ring, thud, chips), 0.82, 1.6)
+
+
+def impact_metal(seed, sec=0.8):
+    t = t_axis(sec)
+    clank = bp(noise(sec, seed), 2000, 11000) * env(t, 0.0002, 160) * 0.8
+    ring = modes(t, [1240, 2710, 4160, 5630, 7350], [9, 12, 16, 22, 30], [0.55, 0.5, 0.35, 0.25, 0.15], seed + 1)
+    body = np.sin(2 * np.pi * 410 * t) * env(t, 0.0005, 25) * 0.35
+    return finish(mix(clank, ring, body), 0.8, 1.3)
+
+
 def tick(freq, sec=0.07, g=0.8):
     t = t_axis(sec)
     return finish(np.sin(2 * np.pi * freq * t) * env(t, 0.0006, 70) + 0.3 * np.sin(2 * np.pi * freq * 2.7 * t) * env(t, 0.0003, 120), g, 1.0)
@@ -665,6 +721,14 @@ def build(out):
         'weapons/aim.wav': cloth(90, 0.18, 0.35),
         'weapons/impact_soft.wav': impact(100, 150, 2000, 40, 60),
         'weapons/impact_hard.wav': impact(110, 900, 8000, 55, 140),
+        'weapons/impact_dirt_0.wav': impact_dirt(2000),
+        'weapons/impact_dirt_1.wav': impact_dirt(2010),
+        'weapons/impact_wood_0.wav': impact_wood(2020),
+        'weapons/impact_wood_1.wav': impact_wood(2030),
+        'weapons/impact_stone_0.wav': impact_stone(2040),
+        'weapons/impact_stone_1.wav': impact_stone(2050),
+        'weapons/impact_metal_0.wav': impact_metal(2060),
+        'weapons/impact_metal_1.wav': impact_metal(2070),
         'weapons/target_down.wav': power_down(0.7, 120),
         'weapons/target_up.wav': mech(130, 0.5, [(0.0, 0.6, 300, 2500, 25), (0.32, 1.0, 600, 4000, 60)], tone=(300, 700, 0.0, 0.3, 0.2)),
         'ui/hit_tick.wav': tick(2600, 0.06, 0.6),

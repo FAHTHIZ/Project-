@@ -435,6 +435,10 @@ table.insert(P.squad_cover, { at = 59.95, run = function(c)
         if string.find(l.id, "con_up_") or string.find(l.id, "con_hurt_") then answers += 1 end
     end
     c.check("sound_off", called and answers >= 2, string.format("call %s, %d answers", tostring(called), answers))
+    local kinds = {}
+    for k, n in Squad.state().impact_surfaces or {} do table.insert(kinds, k .. "=" .. n) end
+    table.sort(kinds)
+    c.check("impact_surfaces", #kinds >= 1, table.concat(kinds, " "))
     c.check("npc_impacts", (Squad.state().npc_impacts or 0) >= 5,
         string.format("%d NPC shot impacts shown near the camera", Squad.state().npc_impacts or 0))
     c.check("faces_show_the_fight", (c.data.brow_max or 0) > 0.45 and (c.data.flinches or 0) >= 1,

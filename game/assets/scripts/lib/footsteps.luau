@@ -59,6 +59,54 @@ local function classify(e)
     return s
 end
 
+-- What a round struck, for its impact sound and debris: "dirt" "wood" "stone" "metal" (nil for
+-- nothing). Trees, logs and deadfall are wood; rocks, boulders and concrete are stone; the terrain
+-- is stone on its rock layer and dirt elsewhere. A separate cache from the footstep classifier.
+local IMPACT_WOOD = { "tree", "log", "deadfall", "stump", "branch" }
+local IMPACT_STONE = { "rock", "boulder", "cliff", "stone", "concrete", "wall", "bunker", "slab" }
+local TERRAIN_IMPACT = { "dirt", "stone", "dirt", "dirt" }
+local icache = {}
+local icache_scene = nil
+function Footsteps.impact_surface(hit)
+    if not hit then return nil end
+    local cur = scene.current()
+    if cur ~= icache_scene then icache = {}; icache_scene = cur end
+    local e = hit.entity
+    local s = nil
+    if e and e.valid then
+        s = icache[e.id]
+        if not s then
+            s = "stone"
+            local x = e
+            for _ = 1, 5 do
+                if not (x and x.valid) then break end
+                local n = string.lower(x.name or "")
+                if string.find(n, "terrain", 1, true) then s = "terrain"; break end
+                if matches(n, IMPACT_WOOD) or matches(n, WOOD) then s = "wood"; break end
+                if matches(n, METAL) then s = "metal"; break end
+                if matches(n, IMPACT_STONE) then s = "stone"; break end
+                x = x.parent
+            end
+            icache[e.id] = s
+        end
+    else
+        s = "terrain"
+    end
+    if s == "terrain" then
+        local ok, smp = pcall(function() return terrain.sample(hit.point.x, hit.point.z) end)
+        s = "dirt"
+        if ok and smp and smp.weights then
+            local best, bw = 1, -1
+            for i = 1, 4 do
+                local w = smp.weights[i] or 0
+                if w > bw then best, bw = i, w end
+            end
+            s = TERRAIN_IMPACT[best]
+        end
+    end
+    return s
+end
+
 -- Rain on the ground: { wet = 0..1, puddles = 0..1 } (0 indoors or in dry scenes).
 function Footsteps.weather()
     check_scene()
