@@ -937,3 +937,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 
 - New tools/test/check_spawns.py (uses tools/levels/squad_slots.py): every root CharacterController in game/scenes/*.vscene and world/kestrel.vscene is tested against solid box colliders (radius 0.35). Result before the fix: 1 overlap, Greyline Escort 2 in Op06 at (26, 10), inside Archive Shelf 34 (the shelf spans z 8-16 at x 25.5-26.5). He is dormant and wakes at that spot when Sorn arrives, so he appeared inside the shelf.
 - Moved to (28, 10), the aisle beside Sorn (build_facility.py ENEMIES and op06_basement.vscene, one coordinate each). check_spawns: 13 scenes, 0 character starts in geometry. story_op06 PASS at 20000 frames.
+
+## 2026-11-20 Full autotest sweep at 57c29a8
+
+- `run_autotests.py` (all 56 test scenes, default frames): every plan PASS except the story_* plans (need 20000 frames, run below) and gallery_camp / gallery_site (capture scenes with no autotest, as noted at line 283).
+- `SOPS_TEST_FRAMES=20000`: story_prologue, story_op01 to story_op07, story_epilogue all PASS (op01 and op04-op07 in the previous entries, the rest in this run).
