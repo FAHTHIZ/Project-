@@ -34,6 +34,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Squad takes real cover in follow-mode firefights; contractors relocate instead of shooting their own cover | Done (squad_cover 6/6; regressions pass) | log "Squad cover in firefights" |
 | Bounding overwatch: 3-5 s covered rushes with "Moving!/Covering!/Set!", multi-rush flanks, one man up at a time, pair searches (one checks, one covers) | Done (enemy_tactics 15/15; regressions pass) | log "Bounding overwatch" |
 | Awareness model (gradual noticing by distance, stance, movement, lights, lightning; "huh" pause), squad weapons tight on unaware contractors, team kneels when the player gets low | Done (stealth 5/5; regressions pass) | log "Awareness" |
+| Op01 search line: three contractors sweep east -> west across the trail below the cabin; let it pass low and dark (team holds, kneels, comments) or fight it | Done (op01_line 8/8, op01_line_loud 6/6, story_op01 pass) | log "search line" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

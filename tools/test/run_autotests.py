@@ -57,7 +57,8 @@ def main():
     allok = True
     for plan in plans:
         f = frames or {"movement": 660, "squad": 2200, "squad_combat": 2600,
-                            "enemy_tactics": 2140, "squad_cover": 3620}.get(plan, 1800)
+                            "enemy_tactics": 2140, "squad_cover": 3620,
+                            "op01_line": 9700, "op01_line_loud": 6700}.get(plan, 1800)
         ok, tail, auto, errors = run(plan, f)
         allok &= ok
         print(f"== {plan}: {'PASS' if ok else 'FAIL'}  ({f} frames)")
