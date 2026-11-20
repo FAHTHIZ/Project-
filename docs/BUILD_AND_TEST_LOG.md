@@ -581,3 +581,28 @@ This follows the doctrine notes in docs/world/SCALE_AND_PACING.md: 3-5 s rushes,
   - PASS: stealth, movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, enemy_tactics;
   - world_forest, world_relay, world_creek, world_ravine and world_trail_walk PASS. They had failed on "streamed" until engine d1e1227;
   - story_op01 PASS (19 800 frames, all 15 stages).
+
+## 2026-11-20 Third-person reloads (operators and contractors)
+
+- `lib/actor.luau`: `Actor:reload(seconds, {out, inn, charge})` and `Actor:reloading()`.
+  - The carry blends to a chest-high pose with the muzzle forward-down (RELOAD_P/RELOAD_DIR) and is canted 38° onto its side. `look_at` cannot roll, so the script sets the rotation directly. A small dip and lift happen as the cell comes out and goes in.
+  - The support-hand IK weight goes to 0 from 14% to 60% of the reload (strip the cell, fetch a fresh one), then back onto the gun.
+  - Cue sounds at 18/58/78% are played at the actor when the camera is within 28 m.
+- `operator.luau`:
+  - a real cell per weapon from `Items.defs` (pdw 40, dmr 12, breacher 6, carbine 30) replaces the old "every 24 shots";
+  - running dry calls "reload", pauses fire for `reload_empty` + 0.35 s and animates;
+  - after contact ends (or 1.2-2.7 s later), a cell under 75% is topped off with a quieter "topoff" call;
+  - event `npc_reload` {who, tactical}.
+- `enemy.luau`: contractors animate and sound their existing cell-change pause.
+- Lines: bark_topoff_1..5 and bark_reload_6/7. Voices rebuilt (500 lines).
+- Tests:
+  - `squad_cover` `operators_change_cells` PASS: 6 reloads (2 tactical), 48 samples mid-reload, canted, hand off the gun.
+  - `enemy_tactics` `cover_is_cover` is now sampled every 0.5 s from 10 to 20 s instead of a single 16.0 s snapshot. The cell-change pose moves the muzzle a little, which shifts the whole fight. At 16.0 s one contractor was mid-rush to cover and the other was not yet in cover. The property itself is unchanged: a holding position hidden from the player.
+  - New screenshot plan `squad_reload_look` (operators frozen mid-change). Rendered with `tools/test/shot.sh scenes/tests/squad_reload_look.vscene 40 … 960 540 medium`, saved as docs/media/npc_reload.png: rifles canted in at the chest, support hands off.
+  - Known limitation: the hand hangs at the side rather than reaching a pouch, because there is no arm clip for that yet.
+- Results:
+  - squad_cover PASS;
+  - enemy_tactics PASS;
+  - squad_combat, squad, enemy_fire, reactions, chatter, hud_look, stealth PASS;
+  - op01_line and op01_line_loud PASS;
+  - story_op01 PASS (19 800 frames).

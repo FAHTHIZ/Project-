@@ -10,6 +10,7 @@ local Actor = require("scripts/lib/actor")
 local Squad = require("scripts/lib/squad")
 local Dialogue = require("scripts/lib/dialogue")
 local Tactics = require("scripts/lib/tactics")
+local Items = require("scripts/lib/items")
 
 local Op = {}
 Op.who = "Anchor"
@@ -260,6 +261,16 @@ function Op:update(dt)
         if self.engaged_t <= 0 then
             self.engaged = false
             if #Squad.active_enemies() == 0 then Dialogue.bark("clear", { cooldown = 12 }) end
+            if (self.cell_left or self:cell_size()) < self:cell_size() * 0.75 then
+                self.topoff_t = time.now() + 1.2 + (self.actor.seed % 7) * 0.25
+            end
+        end
+    end
+    if self.topoff_t and time.now() >= self.topoff_t then
+        if self.engaged or self.actor:reloading() then
+            self.topoff_t = nil
+        elseif not Game.cinematic and not self.actor.talking then
+            self:change_cell(true)
         end
     end
     -- bounding overwatch: answer a mate's "Moving!" a beat later
@@ -415,6 +426,32 @@ function Op:combat_move(dt)
     end
 end
 
+function Op:weapon_def()
+    return Items.defs[self.r.weapon or "carbine"] or Items.defs.carbine
+end
+
+function Op:cell_size()
+    return self:weapon_def().mag or 30
+end
+
+-- Change cells. `tactical` = topping off in a lull (no fire pause to cover, quieter call).
+function Op:change_cell(tactical)
+    local d = self:weapon_def()
+    local len = (d.reload_empty or 2.2) + 0.25
+    if tactical then
+        len = (d.reload or 1.8) + 0.2
+        Dialogue.bark("topoff", { speaker = self.key, cooldown = 14 })
+    else
+        Dialogue.bark("reload", { speaker = self.key, cooldown = 10 })
+        self.fire_t = len + 0.1
+        self.burst = 0
+    end
+    self.cell_left = self:cell_size()
+    self.topoff_t = nil
+    self.actor:reload(len, { out = d.cell_out, inn = d.cell_in, charge = d.charge })
+    Game.emit("npc_reload", { who = self.key, tactical = tactical == true })
+end
+
 function Op:fire(dt, tp, dist)
     if self.stagger_t > 1.5 then return end
     self.fire_t -= dt
@@ -435,10 +472,9 @@ function Op:fire(dt, tp, dist)
     else
         self.fire_t = 0.16
     end
-    if self.shots % 24 == 0 then
-        Dialogue.bark("reload", { speaker = self.key, cooldown = 10 })
-        self.fire_t = 2.2
-    end
+    -- a real magazine: run dry, call it, and change cells (the rifle visibly cants in)
+    self.cell_left = (self.cell_left or self:cell_size()) - 1
+    if self.cell_left <= 0 then self:change_cell(false) end
 end
 
 return Op

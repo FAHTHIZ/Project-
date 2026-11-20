@@ -18,6 +18,10 @@ Actor.__index = Actor
 -- the right hip with the muzzle down and across; aim raises it to the right shoulder.
 local READY_P, AIM_P = vector.create(-0.07, 1.14, 0.27), vector.create(-0.13, 1.42, 0.34)
 local SEAT_P = vector.create(-0.02, 0.62, 0.36)
+-- Changing cells: the rifle comes in to the chest, canted, muzzle down and forward, so the support
+-- hand can strip the spent cell, fetch a fresh one off the belt and seat it.
+local RELOAD_P = vector.create(-0.03, 1.2, 0.3)
+local RELOAD_DIR = vector.normalize(vector.create(0.3, -0.42, 0.86))
 
 local function lerpv(a, b, t) return a + (b - a) * t end
 
@@ -54,6 +58,10 @@ function Actor.new(entity, seed)
     self.step_dist = 0
     self.last_pos = entity.position
     self.gesture_t = 0
+    self.reload_t = 0     -- seconds left in a cell change (Actor:reload)
+    self.reload_len = 0
+    self.reload_w = 0
+    self.reloads = 0
     self.talking = false
     self.speed_now = 0
     self.frozen = false
@@ -70,6 +78,39 @@ function Actor:param(name, v)
 end
 function Actor:trigger(name)
     if self.body then self.body:anim_trigger(name) end
+end
+
+-- Change cells over `seconds` (third person): the rifle cants in, the support hand leaves the grip to
+-- strip the spent cell and fetch a fresh one, seats it and charges. `sounds` = { out, inn, charge }
+-- clip paths; they play at the actor when the camera is close enough to hear them.
+function Actor:reload(seconds, sounds)
+    self.reload_len = math.max(0.8, seconds or 2.2)
+    self.reload_t = self.reload_len
+    self.reload_snd = sounds or {}
+    self.reload_cue = 0
+    self.reloads += 1
+end
+
+function Actor:reloading()
+    return self.reload_t > 0
+end
+
+local RELOAD_CUES = { { 0.18, "out", 0.8 }, { 0.58, "inn", 0.85 }, { 0.78, "charge", 0.7 } }
+function Actor:update_reload(dt)
+    if self.reload_t <= 0 then return end
+    self.reload_t = math.max(0, self.reload_t - dt)
+    local u = 1 - self.reload_t / self.reload_len
+    local nxt = RELOAD_CUES[self.reload_cue + 1]
+    if nxt and u >= nxt[1] then
+        self.reload_cue += 1
+        local clip = self.reload_snd[nxt[2]]
+        local cam = Game.camera
+        local pos = self.entity.position + vector.create(0, 1.2, 0)
+        if clip and cam and vector.magnitude(pos - cam.world_position) < 28 then
+            audio.play(clip, { bus = "sfx", volume = nxt[3], pitch = 0.95 + (self.seed % 10) * 0.01,
+                               position = pos, max_instances = 3 })
+        end
+    end
 end
 
 -- Left-arm gestures release the support hand from the weapon for their duration.
@@ -222,23 +263,43 @@ function Actor:update(dt)
     self.aim = Game.damp(self.aim, self.aim_want, 8, dt)
     -- seated: rifle upright between the knees (follows the Sit clip's lowered hips)
     self.sit_w = Game.damp(self.sit_w or 0, (self.seated and self.seated_pose ~= false) and 1 or 0, 5, dt)
+    self:update_reload(dt)
+    self.reload_w = Game.damp(self.reload_w, self.reload_t > 0.25 and 1 or 0, 9, dt)
     if self.carry and self.carry.valid then
         local cpos = lerpv(READY_P, AIM_P, self.aim)
         cpos = lerpv(cpos, SEAT_P, self.sit_w)
+        local rw = self.reload_w * (1 - self.sit_w)
+        if rw > 0.001 then
+            -- a small dip and lift as the cell is stripped and then seated
+            local u = 1 - self.reload_t / math.max(self.reload_len, 0.01)
+            local bob = math.sin(math.min(1, u * 1.6) * math.pi) * 0.03
+            cpos = lerpv(cpos, RELOAD_P + vector.create(0, -bob, 0), rw)
+        end
         self.carry.position = cpos
         -- muzzle direction in character space (look_at works in the parent's space, -Z forward)
         local p = math.rad(self.aim_pitch)
         local ready_dir = vector.create(0.34, -0.66, 0.67)
         local aim_dir = vector.create(0, math.sin(p), math.cos(p))
         local dir = vector.normalize(lerpv(lerpv(ready_dir, aim_dir, self.aim), vector.create(0.05, 0.96, 0.28), self.sit_w))
-        self.carry:look_at(cpos + dir * 2)
+        if rw > 0.001 then
+            dir = vector.normalize(lerpv(dir, RELOAD_DIR, rw))
+            -- look_at cannot roll; build the same pitch/yaw and cant the rifle onto its side
+            local yaw = math.deg(math.atan2(-dir.x, -dir.z))
+            local pitch = math.deg(math.asin(math.clamp(dir.y, -1, 1)))
+            self.carry.rotation = vector.create(pitch, yaw, -38 * rw)
+        else
+            self.carry:look_at(cpos + dir * 2)
+        end
     end
     -- support hand
     if self.gesture_t > 0 then
         self.gesture_t -= dt
     end
     if self.hand_l and self.hand_l.valid and self.carry then
-        local want_w = (self.gesture_t > 0 or (self.talking and self.aim < 0.3)) and 0 or 1
+        -- the support hand is off the gun between stripping the spent cell and seating the new one
+        local ru = self.reload_t > 0 and (1 - self.reload_t / self.reload_len) or -1
+        local reaching = ru >= 0.14 and ru < 0.6
+        local want_w = (self.gesture_t > 0 or reaching or (self.talking and self.aim < 0.3)) and 0 or 1
         self.hand_w = Game.damp(self.hand_w or 1, want_w, 10, dt)
         if math.abs(self.hand_w - want_w) < 0.02 then self.hand_w = want_w end
         if self.hand_w ~= self.hand_w_set then

@@ -394,6 +394,14 @@ LINES = [
     ("bark_cover_5", "brick", "Shifting.", "focus"),
     ("bark_reload_4", "anchor", "Changing cells. Cover me.", "focus"),
     ("bark_reload_5", "patch", "Reloading!", "focus"),
+    # a lull after contact: top off with a fresh cell before the next one (operator.luau)
+    ("bark_topoff_1", "anchor", "Topping off. Eyes out.", "neutral"),
+    ("bark_topoff_2", "echo", "Fresh cell. I'm up.", "deadpan"),
+    ("bark_topoff_3", "tally", "Swapping cells while it's quiet.", "neutral"),
+    ("bark_topoff_4", "patch", "Topping off. Give me a sec.", "neutral"),
+    ("bark_topoff_5", "brick", "Reloaded.", "deadpan"),
+    ("bark_reload_6", "echo", "Out. Changing.", "focus"),
+    ("bark_reload_7", "brick", "Loading! Cover!", "focus"),
     # bounding overwatch on the Halyard side (operator.luau): one moves, a set mate covers
     ("bark_moving_1", "anchor", "Anchor, moving.", "focus"),
     ("bark_moving_2", "patch", "Moving, cover me.", "focus"),
