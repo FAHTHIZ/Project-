@@ -628,3 +628,12 @@ This follows the doctrine notes in docs/world/SCALE_AND_PACING.md: 3-5 s rushes,
   - `squad_cover` `faces_show_the_fight` PASS: the maximum brow-down seen was 0.67, and startles were counted. Before habituation was added, one operator had 26 startles in 60 s, which is why the cap went in.
   - New screenshot plan `squad_face_look`, rendered at 1600x900 medium. At this range the faces read as normal and nothing is broken, but the detail is too small to judge expression quality, so that has not been verified visually.
 - Results: squad_cover PASS (brow-down 0.66, at most 12 startles in 60 s after habituation), squad, squad_combat, chatter, reactions, hud_look, enemy_fire, enemy_tactics, stealth, op01_line_loud PASS; story_op01 PASS (19 800 frames).
+
+## 2026-11-20 NPC shot impacts
+
+- `lib/squad.luau` `Squad.shoot`: when an NPC shot lands within 35 m of the camera, it shows the impact with the player's pooled world-space emitters through `Weapons:impact`: sparks, plus dust off non-combatant surfaces. Within 14 m the impact sound also plays, with a pitch taken from a counter.
+- The first version let `Weapons:impact` play the sound, and it drew `math.random` for the pitch. That shifted the NPC fights' shared random stream and failed `enemy_fire` (enemy_hurts_player, player_stuns_enemy) and `squad_cover` (flank_warning). The NPC path is now quiet in `Weapons:impact` and plays its own sound without drawing random numbers. With that change both plans pass again.
+- `squad_cover` `npc_impacts` PASS: 120 impacts shown near the camera.
+- Results:
+  - PASS: enemy_fire, squad_cover, squad, squad_combat, enemy_tactics, weapons, reactions, chatter, stealth, op01_line_loud;
+  - story_op01 PASS (19 800 frames).
