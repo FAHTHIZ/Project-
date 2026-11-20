@@ -329,17 +329,22 @@ def add_hud(sc: Scene):
        text=ui_text("", 22, (0.75, 0.9, 1, 1), "center", "middle", False))
     # Touch controls: stick base/knob and buttons (positions set by hud.luau from controls.luau).
     touch = ui(sc, "Touch", canvas, ui_rect((0, 0), (0, 0), (0, 0), (0, 0), anchor_max=(1, 1), visible=False))
-    ui(sc, "Stick Base", touch, ui_rect((0, 1), (220, -470), (180, 180), (0.5, 0.5)),
-       panel=ui_panel((1, 1, 1, 0.08), 90, (1, 1, 1, 0.35), 2))
-    ui(sc, "Stick Knob", touch, ui_rect((0, 1), (220, -470), (76, 76), (0.5, 0.5)),
-       panel=ui_panel((1, 1, 1, 0.32), 38, (1, 1, 1, 0.6), 2))
-    from_controls = [("fire", 74, "FIRE"), ("aim", 52, "AIM"), ("reload", 44, "RELOAD"), ("switch", 44, "SWITCH"),
-                     ("jump", 44, "JUMP"), ("crouch", 40, "CROUCH"), ("interact", 48, "USE"), ("tool", 44, "TOOL"), ("utility", 40, "KIT"),
-                     ("pause", 34, "II"), ("objectives", 34, "OBJ"), ("light", 30, "LIGHT")]
-    for n, r, label in from_controls:
-        ui(sc, f"Touch {n}", touch, ui_rect((1, 1), (0, 0), (2 * r, 2 * r), (0.5, 0.5)),
-           panel=ui_panel((0.05, 0.07, 0.08, 0.35), r, (1, 1, 1, 0.45), 2),
-           text=ui_text(label, 15 if r < 60 else 20, (1, 1, 1, 0.92), "center", "middle", True))
+    # Touch v2: original line-art icons (tools/ui/build_touch_icons.py) on dark glass discs; the
+    # floating stick is a ring with direction ticks and a lit knob.
+    ui(sc, "Stick Base", touch, ui_rect((0, 1), (220, -470), (200, 200), (0.5, 0.5)),
+       image=_img("textures/ui/touch/stick_ring.png", (1, 1, 1, 0.9)))
+    ui(sc, "Stick Knob", touch, ui_rect((0, 1), (220, -470), (84, 84), (0.5, 0.5)),
+       image=_img("textures/ui/touch/stick_knob.png", (1, 1, 1, 0.95)))
+    from_controls = [("fire", 80, "fire"), ("aim", 46, "aim"), ("reload", 42, "reload"), ("switch", 38, "switch"),
+                     ("jump", 40, "jump"), ("crouch", 40, "crouch"), ("interact", 50, "use"), ("tool", 38, "tool"),
+                     ("utility", 38, "kit"), ("pause", 32, "pause"), ("objectives", 30, "obj"), ("light", 28, "light")]
+    for n, r, icon in from_controls:
+        b = ui(sc, f"Touch {n}", touch, ui_rect((1, 1), (0, 0), (2 * r, 2 * r), (0.5, 0.5)),
+               image=_img("textures/ui/touch/disc_fire.png" if n == "fire" else "textures/ui/touch/disc.png",
+                          (1, 1, 1, 0.92)))
+        f = 0.6 if n == "fire" else 0.62
+        ui(sc, f"Touch {n} Icon", b, ui_rect((0.5, 0.5), (0, 0), (2 * r * f, 2 * r * f), (0.5, 0.5)),
+           image=_img(f"textures/ui/touch/{icon}.png", (1, 1, 1, 0.95)))
     # Diagnostics overlay (top right).
     # Sits left of the pause button and above the right-hand touch cluster.
     diag = ui(sc, "Diagnostics", canvas, ui_rect((1, 1), (-108, -16), (440, 150), (1, 1), visible=False),

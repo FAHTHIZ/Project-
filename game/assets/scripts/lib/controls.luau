@@ -11,18 +11,20 @@ local Controls = {}
 -- Touch layout in canvas units (the HUD canvas is 720 tall; its width follows the aspect).
 -- y is measured from the top. `ax` 1 measures x from the right edge. Shared with hud.luau.
 Controls.buttons = {
-    { name = "fire",     ax = 1, x = 170, y = 470, r = 74, label = "FIRE" },
-    { name = "aim",      ax = 1, x = 330, y = 585, r = 52, label = "AIM" },
-    { name = "reload",   ax = 1, x = 92,  y = 318, r = 44, label = "RELOAD" },
-    { name = "switch",   ax = 1, x = 210, y = 300, r = 44, label = "SWITCH" },
-    { name = "jump",     ax = 1, x = 92,  y = 640, r = 44, label = "JUMP" },
-    { name = "crouch",   ax = 1, x = 92,  y = 520, r = 40, label = "CROUCH" },
-    { name = "interact", ax = 1, x = 440, y = 470, r = 48, label = "USE" },
-    { name = "tool",     ax = 1, x = 330, y = 390, r = 44, label = "TOOL" },
-    { name = "utility",  ax = 1, x = 450, y = 610, r = 40, label = "KIT", needs = "utility" },
-    { name = "pause",    ax = 1, x = 60,  y = 56,  r = 34, label = "II" },
-    { name = "objectives", ax = 0, x = 60, y = 56, r = 34, label = "OBJ" },
-    { name = "light",    ax = 0, x = 60,  y = 140, r = 30, label = "LIGHT" },
+    -- Right-thumb cluster around FIRE (thumb rests at fire; aim and jump on the right edge for
+    -- the index finger / claw grip), kept clear of the weapon panel in the bottom-right corner.
+    { name = "fire",     ax = 1, x = 205, y = 440, r = 80, label = "FIRE" },
+    { name = "aim",      ax = 1, x = 78,  y = 330, r = 46, label = "AIM" },
+    { name = "jump",     ax = 1, x = 70,  y = 520, r = 40, label = "JUMP" },
+    { name = "reload",   ax = 1, x = 355, y = 545, r = 42, label = "RELOAD" },
+    { name = "crouch",   ax = 1, x = 345, y = 655, r = 40, label = "CROUCH" },
+    { name = "switch",   ax = 1, x = 215, y = 290, r = 38, label = "SWITCH" },
+    { name = "tool",     ax = 1, x = 330, y = 330, r = 38, label = "TOOL" },
+    { name = "interact", ax = 1, x = 480, y = 440, r = 50, label = "USE" },
+    { name = "utility",  ax = 1, x = 470, y = 590, r = 38, label = "KIT", needs = "utility" },
+    { name = "pause",    ax = 1, x = 60,  y = 56,  r = 32, label = "II" },
+    { name = "objectives", ax = 0, x = 56, y = 56, r = 30, label = "OBJ" },
+    { name = "light",    ax = 0, x = 56,  y = 132, r = 28, label = "LIGHT" },
 }
 Controls.stick_zone = 0.42      -- left share of the screen that spawns the floating stick
 Controls.stick_radius = 90      -- canvas units for full deflection

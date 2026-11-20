@@ -28,3 +28,7 @@ Every shipped asset is listed here with its origin. "Original (generated)" means
 | `game/assets/models/characters/victus_vanguard_01.glb`, `_02.glb`, `anim/characters/vanguard_locomotion.vanim`, template scripts, `audio/impact.wav`, `textures/ground_grid.png`, materials, shader | VICTUS 3D template (`victus new --template 3d`) | VICTUS `bc0ce15` | Apache-2.0 (VICTUS) |
 
 Authoring tools: Python 3, NumPy, Pillow (no assets from them; libraries only).
+
+## Touch-control icons (2026-11-20)
+
+game/assets/textures/ui/touch/*.png: original line art drawn by tools/ui/build_touch_icons.py (Pillow primitives). No third-party content.
