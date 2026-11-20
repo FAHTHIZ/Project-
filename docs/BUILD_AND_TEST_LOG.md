@@ -790,3 +790,10 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - `fp_player.luau` spawns "Weapon Spill" under the camera at start when the scene has a weapon light: an unshadowed point light (0.9, range 1.1 m) 0.62 m ahead and below the eye, toggled with the torch. Physically it stands in for torch light bounced back off the ground ahead.
 - Seen in the prologue (Medium 960x432, left before, right after): top rail, sight housing and edges now catch light; the gun's side stays dark as it would. `docs/media/weapon_spill.png`.
 - Autotests weapons 26/26, stealth 5/5 (toggles the torch twice), 0 script errors.
+
+## 2026-11-20 Voice intelligibility pass
+
+- Transcribed all 517 voice lines (faster-whisper base.en, then small.en). Median text match 1.0; low scores were mostly ASR errors on one-word lines.
+- Spectral onset check (4-11 kHz vs 100-1500 Hz energy per 20 ms frame) showed a real Kokoro defect on very short inputs: "Set."/"Set!"/"Focus." from bm_george/am_onyx/am_eric start voiced with no initial fricative. "Mm." phonemizes as the letters "M M".
+- Reworded (subtitle and audio together): bark_set_1 "Set, ready.", bark_set_5 "Set. Ready.", grey_set_1 "I'm set!", grey_set_3 "Position! Set!", grey_set_4 "Set and ready!", op6_fan_04 "Tally. Focus.", react_stare_5 "Huh.", bark_down_3 "Good hit. He's down." (non-lethal wording kept). Only those 8 re-rendered (manifest hashes).
+- Re-check with small.en on the shipped .ogg files: all 8 now transcribe as the intended words (bark_set_1 hears "Zet ready", onset now has sibilant energy).

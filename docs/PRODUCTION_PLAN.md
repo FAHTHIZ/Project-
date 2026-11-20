@@ -55,6 +55,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Hands v2: first-person hands with real fingers (MakeHuman CC0 mesh, posed per finger, trigger finger, thumbs forward, clean glove/sleeve cuffs) | Done — `docs/media/hands_v2.png` | `tools/assets/build_vm_arms.py` |
 | Body-cam lens: animated sensor grain, chromatic fringing, mild barrel (engine ADR-0146), "Body-cam lens" setting 0-100 % | Done — `docs/media/bodycam_lens.png` | `game/assets/scripts/lib/game.luau` |
 | Weapon-light spill: gun and gloves catch bounced torch light at night | Done — `docs/media/weapon_spill.png` | `game/assets/scripts/fp_player.luau` |
+| Voice intelligibility pass | Done | All 517 Kokoro lines transcribed with faster-whisper small.en plus a 20 ms sibilant-onset check; 8 short barks/lines whose initial s/f was dropped or misread (e.g. "Set.", "Mm." spoken as letters) reworded to longer carrier phrases and re-rendered; ASR now matches all 8. |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof
