@@ -36,6 +36,8 @@ from PIL import Image, ImageFilter
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', 'characters'))
 from gltf_util import read_glb, accessor, Writer, node_globals, add_image  # noqa: E402
+sys.path.insert(0, HERE)
+import cast_kit  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 CHARS = os.path.join(ROOT, 'game', 'assets', 'models', 'characters')
@@ -54,8 +56,10 @@ CAST = {
     'sops_patch': ('Military_Female_01', '#5d6a55'),
     'sops_echo': ('Military_Female_02', '#4a5446'),
     'sops_ranger': ('Male_Adult_05', None),              # Hollis, forestry service
-    'sops_greyline_a': ('Military_Male_04', '#5c6064'),  # Greyline contractor greys
-    'sops_greyline_b': ('Security_Male_01', None),
+    # Greyline: charcoal tactical kit, helmet, balaclava and goggles (lenses tinted safety orange
+    # in cast_kit); _b is the lighter-grey shift.
+    'sops_greyline_a': ('Police_Male_02', None),
+    'sops_greyline_b': ('Police_Male_02', None),
 }
 HEAD_MATS = ('head', 'hair', 'opacity', 'eye', 'lash', 'teeth', 'tongue')
 DROP_MATS = ('knife', 'pistol')  # non-lethal canon: no blades or real firearms on the kit
@@ -232,22 +236,63 @@ def build(char):
 
     # --- mesh -------------------------------------------------------------------------------
     folder = os.path.join(RB, avatar)
+    K = cast_kit.KIT.get(char, {})
+    drop = DROP_MATS + tuple(K.get('drop', ()))
+
+    def flatten(DD):
+        lv, luv, ln = DD['loop_v'], DD['loop_uv'], DD['loop_n']
+        key = np.c_[lv, np.round(luv * 4096), np.round(ln * 64)]
+        _, first, inv = np.unique(key, axis=0, return_index=True, return_inverse=True)
+        inv = inv.reshape(-1)
+        V = lv[first]
+        n = ln[first]; n = n / (np.linalg.norm(n, axis=1, keepdims=True) + 1e-9)
+        return V, DD['base'][V].astype(np.float64), n, luv[first], DD['weights'][V], inv[DD['tri_loops']]
+
+    V, P, N, UV, Wt, tris = flatten(D)
     mats = [str(m) for m in D['mats']]
-    loop_v, loop_uv, loop_n = D['loop_v'], D['loop_uv'], D['loop_n']
-    key = np.c_[loop_v, np.round(loop_uv * 4096), np.round(loop_n * 64)]
-    _, first, inv = np.unique(key, axis=0, return_index=True, return_inverse=True)
-    inv = inv.reshape(-1)
-    V = loop_v[first]
-    P = D['base'][V]; N = loop_n[first]; N /= np.linalg.norm(N, axis=1, keepdims=True) + 1e-9
-    UV = loop_uv[first]
-    Wt = D['weights'][V]
+    TRI_MAT = D['tri_mat'].copy()
+    mat_folder = [folder] * len(mats)
+    morphs = D['morphs'][:, V] if D['morphs'].size else None
+    morph_names = [str(x) for x in D['morph_names']]
+
+    def append(P2, N2, UV2, W2, T2, TM2):
+        nonlocal P, N, UV, Wt, tris, TRI_MAT
+        o = len(P)
+        P = np.concatenate([P, P2]); N = np.concatenate([N, N2]); UV = np.concatenate([UV, UV2])
+        Wt = np.concatenate([Wt, W2]); tris = np.concatenate([tris, T2 + o]); TRI_MAT = np.concatenate([TRI_MAT, TM2])
+
+    # borrowed materials from another avatar, shifted joint-by-joint onto this body
+    for dav, dsub in K.get('borrow', []):
+        DD = bake(dav, {n: list(map(float, p)) for n, p in old_pos.items()})
+        dV, dP, dN, dUV, dW, dT = flatten(DD)
+        delta = np.array([new_pos[n] - DD['jpos'][k] for k, n in enumerate(JOINTS)])
+        dP = dP + (dW / np.maximum(dW.sum(1, keepdims=True), 1e-6)) @ delta
+        for dmi, dm in enumerate(str(m) for m in DD['mats']):
+            if dsub not in dm.lower(): continue
+            sel = DD['tri_mat'] == dmi
+            used = np.unique(dT[sel]); remap = -np.ones(len(dP), np.int64); remap[used] = np.arange(len(used))
+            mats.append(dm); mat_folder.append(os.path.join(RB, dav))
+            append(dP[used], dN[used], dUV[used], dW[used], remap[dT[sel]], np.full(sel.sum(), len(mats) - 1))
+            print(f'  borrowed {dm} from {dav}: {sel.sum()} tris')
+
+    # procedural accessories (rigid, one swatch each in a kit tile)
+    acc_specs = K.get('acc', [])
+    if acc_specs:
+        vmat = np.empty(len(P), object); vmat[:] = ''
+        for mi, mname in enumerate(mats):
+            vmat[np.unique(tris[TRI_MAT == mi])] = mname.lower()
+        body_lm = cast_kit.Body(P, Wt, list(vmat), new_pos)
+        mats.append('kit_acc'); mat_folder.append(None); acc_mi = len(mats) - 1
+        for k, (kind, col) in enumerate(acc_specs):
+            for aP, aUV, aT, jname in cast_kit.accessory(kind, body_lm):
+                aW = np.zeros((len(aP), len(JOINTS)), np.float32); aW[:, JOINTS.index(jname)] = 1
+                append(aP, cast_kit._vnormals(aP, aT), cast_kit.swatch_uv(k, aUV), aW, aT, np.full(len(aT), acc_mi))
+        print(f'  accessories: {", ".join(a for a, _ in acc_specs)}')
+
     order = np.argsort(-Wt, axis=1)[:, :4]
     J4 = order.astype(np.uint16)
     W4 = np.take_along_axis(Wt, order, 1)
     W4 /= np.maximum(W4.sum(1, keepdims=True), 1e-6)
-    tris = inv[D['tri_loops']]
-    morphs = D['morphs'][:, V] if D['morphs'].size else None
-    morph_names = [str(x) for x in D['morph_names']]
 
     # One primitive per mesh (scene tools address primitives by index, and it is one draw call on
     # the phone): every material of a group is packed into a texture atlas and its UVs remapped.
@@ -255,12 +300,15 @@ def build(char):
     groups = {False: [], True: []}
     for mi, mname in enumerate(mats):
         low = mname.lower()
-        if any(d in low for d in DROP_MATS) or not np.any(D['tri_mat'] == mi):
+        if any(d in low for d in drop) or not np.any(TRI_MAT == mi):
             continue
-        groups[any(k in low for k in HEAD_MATS)].append(mi)
+        groups[mname != 'kit_acc' and any(k in low for k in HEAD_MATS)].append(mi)
 
     def tile_maps(mi):
-        mname = mats[mi]; low = mname.lower()
+        mname = mats[mi]; low = mname.lower(); folder = mat_folder[mi]
+        if mname == 'kit_acc':
+            rgb, nor, rough = cast_kit.swatch_tile(TILE, [c for _, c in acc_specs], [a for a, _ in acc_specs])
+            return rgb, np.ones(rgb.shape[:2], np.float32), False, nor, rough
         col_p = find_tex(folder, mname, '_color') or find_tex(folder, mname, 'color')
         nor_p = find_tex(folder, mname, 'normal')
         spec_p = find_tex(folder, mname, 'specular')
@@ -271,6 +319,12 @@ def build(char):
         if uniform and not any(k in low for k in ('hair', 'eye', 'lash', 'teeth', 'opacity')):
             rgb = dye(rgb, uniform, protect_bright='head' in low)
         rgb = paint_out_insignia(rgb, avatar, low)
+        for sub, kind, arg in K.get('fx', []):
+            if sub == '' and 'opacity' in low: continue
+            if sub in low and (kind == 'lens' or not any(k in low for k in ('opacity', 'eye', 'lash'))):
+                ctx = {'mask': lambda js, mi=mi: cast_kit.uv_mask(TILE, UV[tris[(TRI_MAT == mi) &
+                       np.isin(Wt[tris].sum(1).argmax(1), [JOINTS.index(x) for x in js])]])}
+                rgb = cast_kit.fx_apply(rgb, kind, arg, ctx)
         a = col[..., 3] if alpha else np.ones(rgb.shape[:2], np.float32)
         nor = load_img(nor_p, TILE)[0][..., :3] if nor_p else np.dstack([np.full((TILE, TILE), v, np.float32) for v in (0.5, 0.5, 1.0)])
         if nor.shape[0] != TILE:
@@ -315,8 +369,8 @@ def build(char):
         group = groups[sel_head]
         if not group: return None
         mat_i, place = atlas(group, label)
-        sel = np.isin(D['tri_mat'], group)
-        T = tris[sel]; TM = D['tri_mat'][sel]
+        sel = np.isin(TRI_MAT, group)
+        T = tris[sel]; TM = TRI_MAT[sel]
         # a vertex can only live in one tile: duplicate it per material
         corner_v = T.reshape(-1); corner_m = np.repeat(TM, 3)
         keyv = corner_v.astype(np.int64) * 64 + corner_m
