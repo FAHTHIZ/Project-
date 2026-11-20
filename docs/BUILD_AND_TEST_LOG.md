@@ -872,3 +872,11 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - rig.py: Title Kicker, Title Card, Title Rule and Title Sub (explicit Barlow fonts, so _hud_type leaves them). hud.luau Hud:title_card replaces the two-line text card; the campaign titles and subtitles in lib/campaign.luau are unchanged (only displayed in caps).
 - Capture at 1312x576 with hud.luau temporarily forcing the op01 title (reverted): docs/media/chapter_card_v2.png.
 - patch_hud re-emitted 64 scenes; `victus check game` 0 problems; autotests hud 6/0 (includes the toast-waits-for-title check), pause_ui 5/0.
+
+## 2026-11-20 Weapon hero bake for the procedural guns
+
+- New tools/assets/blender_rebake.py; blender_bake.bake_hero gains an albedo pass for presets with `color=None`. Run on the build_weapons + retexture GLBs (source must be those, not an earlier rebake): `blender -b --factory-startup --python tools/assets/blender_rebake.py -- <src> <out>`. Vertex colours are dropped from the export because they are baked into the albedo.
+- Material counts: kv5_body 6 -> 4, br9_body 4 -> 2, mr6_body 5 -> 3, lr4_body 4 -> 3, world copies down 2-5 each. Triangles unchanged (kv5 21024, br9 9604, mr6 13812, lr4 9448, sp2 3072 + slide 4872).
+- tools/scenes/sync_model_prims.py fixed 1268 prop groups in 69 scenes for the new primitive counts (also covers the PC-7 bake from 95514c8, whose scenes still had 9 children for a 4-primitive body; the extra children pointed past the mesh). Those scene changes went out with ddfb0f0; the matching GLBs are in this commit.
+- First pass used polymer roughness 0.5 and read glossy at 1312x576 (left half of docs/media/weapons_rebake.png); rebaked at 0.62.
+- `victus import game` 0 failed; `victus check game` 0 problems. Autotests weapons 26/0, armory 20/0, sniper 19/0, vm_ads_pdw/breacher/dmr 1/0 each, reload_feel 22/0.

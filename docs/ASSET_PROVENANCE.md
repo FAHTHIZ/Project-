@@ -45,3 +45,9 @@ game/assets/textures/ui/touch/*.png: original line art drawn by tools/ui/build_t
 | Asset | Source | Licence |
 |---|---|---|
 | Baked base colour, metal/rough and normal maps embedded in game/assets/models/weapons/pc7_body.glb, pc7_cell.glb, pc7_world.glb | Baked by tools/assets/blender_bake.py from the original PC-7 model, with detail from ambientCG Plastic006, Metal032, Rubber004 and PaintedMetal004 (https://ambientcg.com) | Model Apache-2.0 (original); scans CC0 1.0 |
+
+## Weapon baked texture sets (2026-11-20)
+
+| Asset | Source | Licence |
+|---|---|---|
+| Baked maps in game/assets/models/weapons/{kv5,br9,mr6,lr4,sp2}_*.glb | tools/assets/blender_rebake.py over the original procedural models (tools/props/build_weapons.py), detail from ambientCG Plastic006, Metal032, Rubber004, PaintedMetal004 (https://ambientcg.com) | Models Apache-2.0 (original); scans CC0 1.0 |
