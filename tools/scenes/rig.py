@@ -355,8 +355,32 @@ def add_hud(sc: Scene):
     ui(sc, "Objectives Log", canvas, ui_rect((0, 1), (110, -108), (560, 300), (0, 1), visible=False),
        panel=ui_panel((0.02, 0.03, 0.04, 0.78), 8, (1, 1, 1, 0.14), 1),
        text=ui_text("", 18, (0.92, 0.96, 1, 1), "left", "top", False, True))
+    _hud_type(sc, canvas)
     add_pause_menu(sc)
     return canvas
+
+
+# HUD type system (2026-11-20): labels, numbers and the chapter title use Barlow Condensed (the
+# front-end face, SIL OFL); running sentences (subtitles, objective line, toasts, logs) stay on
+# the built-in Inter for reading speed, as do labels under 16 units. Condensed glyphs are ~20 % narrower, so sizes go up 18 %.
+HUD_FONT_BOLD = "fonts/BarlowCondensed-Bold.ttf"
+HUD_FONT = "fonts/BarlowCondensed-SemiBold.ttf"
+HUD_SENTENCES = {"Subtitle Text", "Objective Text", "Toast", "Prompt Detail", "Objectives Log", "Diagnostics Text",
+                 "Title Sub", "Skip Hint"}
+
+
+def _hud_type(sc: Scene, canvas):
+    under = {canvas}
+    for e in sc.entities:
+        if e.get("parent") in under:
+            under.add(e["uuid"])
+        t = e["components"].get("UiText")
+        if e["uuid"] not in under or not t or e["name"] in HUD_SENTENCES or t.get("font"):
+            continue
+        if t["font_size"] < 16:  # small labels stay on Inter: condensed caps smudge below ~18 px on a phone
+            continue
+        t["font"] = HUD_FONT_BOLD if t.get("bold") else HUD_FONT
+        t["font_size"] = round(t["font_size"] * 1.18)
 
 
 def add_pause_menu(sc: Scene):

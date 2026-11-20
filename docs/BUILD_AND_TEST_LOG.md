@@ -848,3 +848,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - menu.luau: phases boot -> title -> main; cards fade 0.6-2.9 / 3.2-5.7 / 6.0-8.4 s, black lifts 8.6-10.2 s, heading fades in from 9.6 s, prompt at 11 s. skip_boot jumps to 8.6 s. Game.front_end_booted makes later visits go straight to the list. Rows slide 36 units from the left, 60 ms stagger. Camera dolly is now a cosine (the old `-t*0.05 % 6` jumped back 6 m every 120 s). set_label upper-cases runtime labels.
 - Storm's first lightning moved to 10.6 s (it used to flash during the boot cards, unseen).
 - Captures at 1312x576 with menu.luau temporarily started at t = 3.6, 11.5 and booted (reverted after). New autotest scenes/tests/menu_flow.vscene: 11/11 PASS, 0 script errors. `victus check game`: 263 scenes, 0 problems.
+
+## 2026-11-20 HUD type pass
+
+- rig._hud_type() post-processes the HUD subtree: UiText of 16+ units outside HUD_SENTENCES gets Barlow Condensed (Bold when bold) at 1.18x size. A first pass that also converted the 13-15 unit roster/compass labels smudged them at 1312x576 (Hot 10S aspect), so those stay on Inter.
+- patch_hud re-emitted 64 scenes. `victus check game`: 0 problems; autotests hud and pause_ui PASS. Capture: docs/media/hud_type.png (touch forced on for the capture only).
