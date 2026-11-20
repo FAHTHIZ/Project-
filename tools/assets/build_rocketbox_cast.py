@@ -57,8 +57,8 @@ CAST = {
     'sops_greyline_a': ('Military_Male_04', '#5c6064'),  # Greyline contractor greys
     'sops_greyline_b': ('Security_Male_01', None),
 }
-HEAD_MATS = ('head', 'hair', 'eye', 'lash', 'teeth', 'tongue')
-DROP_MATS = ('knife',)  # non-lethal canon: no blades on the kit
+HEAD_MATS = ('head', 'hair', 'opacity', 'eye', 'lash', 'teeth', 'tongue')
+DROP_MATS = ('knife', 'pistol')  # non-lethal canon: no blades or real firearms on the kit
 
 
 def srgb_to_lin(c):
@@ -249,75 +249,110 @@ def build(char):
     morphs = D['morphs'][:, V] if D['morphs'].size else None
     morph_names = [str(x) for x in D['morph_names']]
 
-    sizes = {'head': 1024, 'body': 1024, 'equipment': 1024, 'helmet': 512, 'hair': 512}
-    mat_index = {}
+    # One primitive per mesh (scene tools address primitives by index, and it is one draw call on
+    # the phone): every material of a group is packed into a texture atlas and its UVs remapped.
+    TILE = 1024
+    groups = {False: [], True: []}
     for mi, mname in enumerate(mats):
         low = mname.lower()
         if any(d in low for d in DROP_MATS) or not np.any(D['tri_mat'] == mi):
             continue
-        size = next((v for k, v in sizes.items() if k in low), 512)
+        groups[any(k in low for k in HEAD_MATS)].append(mi)
+
+    def tile_maps(mi):
+        mname = mats[mi]; low = mname.lower()
         col_p = find_tex(folder, mname, '_color') or find_tex(folder, mname, 'color')
         nor_p = find_tex(folder, mname, 'normal')
         spec_p = find_tex(folder, mname, 'specular')
-        col, alpha = load_img(col_p, size) if col_p else (np.full((4, 4, 3), 0.5, np.float32), False)
-        rgb = col[..., :3]
-        if uniform and not any(k in low for k in ('hair', 'eye', 'lash', 'teeth')):
+        col, alpha = load_img(col_p, TILE) if col_p else (np.full((TILE, TILE, 3), 0.5, np.float32), False)
+        if col.shape[0] != TILE:
+            col = np.asarray(Image.fromarray((col * 255).astype(np.uint8)).resize((TILE, TILE), Image.LANCZOS)).astype(np.float32) / 255
+        rgb = col[..., :3].copy()
+        if uniform and not any(k in low for k in ('hair', 'eye', 'lash', 'teeth', 'opacity')):
             rgb = dye(rgb, uniform, protect_bright='head' in low)
         rgb = paint_out_insignia(rgb, avatar, low)
-        base = np.dstack([rgb, col[..., 3]]) if alpha else rgb
-        m = {'name': f'{name}_{low.split("_")[-1].title()}',
-             'pbrMetallicRoughness': {'baseColorTexture': {'index': add_tex(w, base, mname + '_color', alpha)},
-                                      'metallicFactor': 0.0, 'roughnessFactor': 1.0}}
-        if alpha:
-            m['alphaMode'] = 'MASK'; m['alphaCutoff'] = 0.45; m['doubleSided'] = True
-        if nor_p:
-            nimg, _ = load_img(nor_p, size)
-            m['normalTexture'] = {'index': add_tex(w, nimg[..., :3], mname + '_normal'), 'scale': 1.0}
+        a = col[..., 3] if alpha else np.ones(rgb.shape[:2], np.float32)
+        nor = load_img(nor_p, TILE)[0][..., :3] if nor_p else np.dstack([np.full((TILE, TILE), v, np.float32) for v in (0.5, 0.5, 1.0)])
+        if nor.shape[0] != TILE:
+            nor = np.asarray(Image.fromarray((nor * 255).astype(np.uint8)).resize((TILE, TILE), Image.LANCZOS)).astype(np.float32) / 255
+        skin_like = 'head' in low
         if spec_p:
-            sp, _ = load_img(spec_p, size)
-            spl = sp[..., :3].mean(-1)
-            skin_like = 'head' in low
+            spl = load_img(spec_p, TILE)[0][..., :3].mean(-1)
+            if spl.shape[0] != TILE:
+                spl = np.asarray(Image.fromarray((spl * 255).astype(np.uint8)).resize((TILE, TILE))).astype(np.float32) / 255
             rough = np.clip((0.62 if skin_like else 0.9) - spl * (0.45 if skin_like else 0.6), 0.25, 1.0)
-            mr = np.dstack([np.ones_like(rough), rough, np.zeros_like(rough)])
-            m['pbrMetallicRoughness']['metallicRoughnessTexture'] = {'index': add_tex(w, mr, mname + '_mr')}
-            m['pbrMetallicRoughness']['metallicFactor'] = 0.0
-        j['materials'].append(m); mat_index[mi] = len(j['materials']) - 1
+        else:
+            rough = np.full((TILE, TILE), 0.8, np.float32)
+        return rgb, a, alpha, nor, rough
 
-    def prims_for(sel_head):
-        out = []
-        for mi in sorted(mat_index):
-            is_head = any(k in mats[mi].lower() for k in HEAD_MATS)
-            if is_head != sel_head: continue
-            T = tris[D['tri_mat'] == mi]
-            vs, local = np.unique(T.reshape(-1), return_inverse=True)
-            I = local.reshape(-1, 3).astype(np.uint32)
-            # glTF winding is counter-clockwise; Blender's loop triangles already are
-            pr = {'attributes': {'POSITION': w.add(P[vs].astype(np.float32), 'VEC3', target=34962, minmax=True),
-                                 'NORMAL': w.add(N[vs].astype(np.float32), 'VEC3', target=34962),
-                                 'TEXCOORD_0': w.add(UV[vs].astype(np.float32), 'VEC2', target=34962),
-                                 'JOINTS_0': w.add(J4[vs], 'VEC4', target=34962),
-                                 'WEIGHTS_0': w.add(W4[vs].astype(np.float32), 'VEC4', target=34962)},
-                  'indices': w.add(I.reshape(-1), 'SCALAR', target=34963), 'material': mat_index[mi]}
-            if sel_head and morphs is not None:
-                pr['targets'] = [{'POSITION': w.add(morphs[k][vs].astype(np.float32), 'VEC3', minmax=True)}
-                                 for k in range(len(morph_names))]
-            out.append(pr)
-        return out
+    def atlas(group, label):
+        n = len(group)
+        cols, rows = (1, 1) if n == 1 else (2, 1) if n == 2 else (2, 2)
+        H, W = rows * TILE, cols * TILE
+        RGB = np.zeros((H, W, 3), np.float32); A = np.ones((H, W), np.float32)
+        NOR = np.zeros((H, W, 3), np.float32); NOR[..., :] = (0.5, 0.5, 1.0)
+        RO = np.full((H, W), 0.8, np.float32)
+        any_alpha = False; place = {}
+        for k, mi in enumerate(group):
+            cx, cy = k % cols, k // cols
+            rgb, a, has_a, nor, rough = tile_maps(mi)
+            ys, xs = slice(cy * TILE, (cy + 1) * TILE), slice(cx * TILE, (cx + 1) * TILE)
+            RGB[ys, xs] = rgb; A[ys, xs] = a; NOR[ys, xs] = nor; RO[ys, xs] = rough
+            any_alpha |= has_a
+            place[mi] = (cx / cols, cy / rows, 1 / cols, 1 / rows)
+        m = {'name': f'{name}_{label}',
+             'pbrMetallicRoughness': {
+                 'baseColorTexture': {'index': add_tex(w, np.dstack([RGB, A]) if any_alpha else RGB, f'{name}_{label}_color', any_alpha)},
+                 'metallicRoughnessTexture': {'index': add_tex(w, np.dstack([np.ones_like(RO), RO, np.zeros_like(RO)]), f'{name}_{label}_mr')},
+                 'metallicFactor': 0.0, 'roughnessFactor': 1.0},
+             'normalTexture': {'index': add_tex(w, NOR, f'{name}_{label}_normal'), 'scale': 1.0}}
+        if any_alpha:
+            m['alphaMode'] = 'MASK'; m['alphaCutoff'] = 0.45; m['doubleSided'] = True
+        j['materials'].append(m)
+        return len(j['materials']) - 1, place
 
-    j['meshes'][body_mesh] = {'name': f'{name}_Body', 'primitives': prims_for(False)}
-    hp = prims_for(True)
+    def prim_for(sel_head, label):
+        group = groups[sel_head]
+        if not group: return None
+        mat_i, place = atlas(group, label)
+        sel = np.isin(D['tri_mat'], group)
+        T = tris[sel]; TM = D['tri_mat'][sel]
+        # a vertex can only live in one tile: duplicate it per material
+        corner_v = T.reshape(-1); corner_m = np.repeat(TM, 3)
+        keyv = corner_v.astype(np.int64) * 64 + corner_m
+        uniq, local = np.unique(keyv, return_inverse=True)
+        vs = (uniq // 64).astype(np.int64); vm = (uniq % 64).astype(np.int64)
+        uv = UV[vs].copy()
+        for mi, (ox, oy, sx, sy) in place.items():
+            s = vm == mi
+            uv[s] = np.clip(uv[s], 0.002, 0.998) * (sx, sy) + (ox, oy)
+        I = local.reshape(-1).astype(np.uint32)
+        pr = {'attributes': {'POSITION': w.add(P[vs].astype(np.float32), 'VEC3', target=34962, minmax=True),
+                             'NORMAL': w.add(N[vs].astype(np.float32), 'VEC3', target=34962),
+                             'TEXCOORD_0': w.add(uv.astype(np.float32), 'VEC2', target=34962),
+                             'JOINTS_0': w.add(J4[vs], 'VEC4', target=34962),
+                             'WEIGHTS_0': w.add(W4[vs].astype(np.float32), 'VEC4', target=34962)},
+              'indices': w.add(I, 'SCALAR', target=34963), 'material': mat_i}
+        if sel_head and morphs is not None:
+            pr['targets'] = [{'POSITION': w.add(morphs[k][vs].astype(np.float32), 'VEC3', minmax=True)}
+                             for k in range(len(morph_names))]
+        return pr, len(vs), len(T)
+
+    body = prim_for(False, 'Body')
+    head = prim_for(True, 'Head')
+    j['meshes'][body_mesh] = {'name': f'{name}_Body', 'primitives': [body[0]]}
     if head_mesh is None:
         head_mesh = len(j['meshes']); j['meshes'].append({})
         hn = len(j['nodes']); j['nodes'].append({'name': f'{name}_Head', 'mesh': head_mesh, 'skin': 0})
         j['nodes'][j['scenes'][0]['nodes'][0]].setdefault('children', []).append(hn)
-    j['meshes'][head_mesh] = {'name': f'{name}_Head', 'primitives': hp}
-    if morphs is not None and hp:
+    j['meshes'][head_mesh] = {'name': f'{name}_Head', 'primitives': [head[0]]}
+    if morphs is not None:
         j['meshes'][head_mesh]['extras'] = {'targetNames': morph_names}
         j['meshes'][head_mesh]['weights'] = [0.0] * len(morph_names)
     j['asset'] = {'version': '2.0', 'generator': 'SPECIAL OPS build_rocketbox_cast.py (Microsoft Rocketbox, MIT)'}
     w.save(path)
-    ntri = int(len(tris) - sum(np.sum(D['tri_mat'] == mi) for mi in range(len(mats)) if mi not in mat_index))
-    print(f'CAST_OK {char} <- {avatar}: {len(P)} verts, {ntri} tris, {len(j["materials"])} materials, '
+    nv, ntri = body[1] + head[1], body[2] + head[2]
+    print(f'CAST_OK {char} <- {avatar}: {nv} verts, {ntri} tris, {len(j["materials"])} materials, '
           f'{os.path.getsize(path) // 1024} KiB, height {P[:, 1].max():.2f} m')
 
 
@@ -328,7 +363,7 @@ def paint_out_insignia(rgb, avatar, mat_low):
     """Cover national flags with plain cloth: saturated red/blue blobs (nothing else on the kit is
     that colour) are found automatically; extra rectangles (UV 0..1) can be listed in INSIGNIA."""
     from scipy import ndimage
-    if 'head' not in mat_low and 'hair' not in mat_low:
+    if not any(k in mat_low for k in ('head', 'hair', 'opacity')):
         hsv = np.asarray(Image.fromarray((rgb * 255).astype(np.uint8)).convert('HSV')).astype(np.float32) / 255.0
         h, s, v = hsv[..., 0], hsv[..., 1], hsv[..., 2]
         flag = (s > 0.38) & (v > 0.2) & (((h > 0.92) | (h < 0.015)) | ((h > 0.55) & (h < 0.72)))
