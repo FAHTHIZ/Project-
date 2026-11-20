@@ -316,3 +316,9 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - Triangle budgets per instance (LOD0): grass 12 (photo cards; was 12), fern 360-420 (was 252-336), hero fern 1800, shrubs 1500-2200, rocks 500-1400, log 1600, stump 1000.
 - Finding: lavapipe decodes BC7/ASTC per sample, so a capture of the compressed project took more than 10 minutes; `shot.sh` now sets `VICTUS_NO_COMPRESSED_TEXTURES=1` (about 5 minutes for 20 frames at 960x432).
 - Not measured: frame time, memory and thermals on the Hot 10S.
+
+## 2026-11-20 Photoreal trees
+
+- `tools/assets/build_photoreal_trees.py`: same tree shapes and triangle counts (1058-2387 tris), photo bark plus leaf-cluster and fir-bough cards baked from Poly Haven scans.
+- Ran: `victus import game` (5 imported, 0 failed), `victus check game` (246 scenes, 0 problems), `tools/test/shot.sh scenes/tests/world_forest.vscene 20 /tmp/forest.png 960 432` (visually inspected, lavapipe).
+- Not measured: Hot 10S frame time or thermals.
