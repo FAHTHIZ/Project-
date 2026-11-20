@@ -561,12 +561,48 @@ def camp_tent(out):
     floor = Part(m, 'tent_Floor', tex_canvas(33, '#3b3e33'), tile=2.0, rough=0.95)
     W, D, Hr, He = 2.1, 2.6, 2.6, 1.5
     floor.box((-W, 0, -D), (W, 0.02, D))
-    # roof slopes
+    # roof slopes and side walls: canvas sheets that sag between the pole frames (z = -D, 0, D),
+    # with wrinkles, mud splash darkening the bottom 40 cm and rain streaks running down the roof.
+    # Double-sided (outer face 12 mm out) so they also read from inside the tent.
+    rng = np.random.default_rng(31)
+    ph = rng.uniform(0, 2 * np.pi, 8)
+    nv = 25
+    v = np.linspace(-1, 1, nv)[None, :]
+    span = np.abs(np.sin(np.pi * v))                                 # 0 at each pole frame
+    streak = 0.5 + 0.5 * np.sin(23 * v + ph[2]) * np.sin(7 * v + ph[3])
+
+    def sheet(A, B, nu, out, sag, wrinkle, uvlen):
+        """Grid from edge A(z) to edge B(z) (u = 0..1), displaced by -out * offset."""
+        u = np.linspace(0, 1, nu)[:, None]
+        P = A[None] * (1 - u[..., None]) + B[None] * u[..., None]
+        P = np.broadcast_to(P, (nu, nv, 3)).copy()
+        P[..., 2] = D * v
+        off = sag * span * np.sin(np.pi * u) ** 0.8 + wrinkle * span * np.sin(17 * v + ph[0] + 6 * u) * np.sin(9 * u + ph[1])
+        P -= out[None, None] * off[..., None]
+        du = np.gradient(P, axis=0); dv = np.gradient(P, axis=1)
+        N = np.cross(du, dv)
+        N /= np.linalg.norm(N, axis=-1, keepdims=True)
+        if (N.reshape(-1, 3) @ out).mean() < 0:
+            N = -N
+        y = P[..., 1]
+        mud = np.clip(1 - y / 0.4, 0, 1) ** 1.5
+        wet = (0.10 * streak * np.clip((y - He * 0.6) / (Hr - He * 0.6), 0, 1)) * np.ones_like(y)
+        k = 1 - 0.42 * mud - wet
+        col = np.stack([k * (1 - 0.06 * mud), k * (1 - 0.12 * mud), k * (1 - 0.2 * mud)], -1)
+        UV = np.stack([np.broadcast_to(u * uvlen, y.shape), np.broadcast_to(P[..., 2], y.shape)], -1) / 2.0
+        idx = np.arange(nu * nv).reshape(nu, nv)
+        q = np.stack([idx[:-1, :-1], idx[1:, :-1], idx[1:, 1:], idx[:-1, 1:]], -1).reshape(-1, 4)
+        tris = np.concatenate([q[:, [0, 1, 2]], q[:, [0, 2, 3]]]).reshape(-1)
+        Pf, Nf, Cf, UVf = P.reshape(-1, 3), N.reshape(-1, 3), col.reshape(-1, 3), UV.reshape(-1, 2)
+        canvas.mesh.add((Pf + Nf * 0.012, Nf, tris), Cf, uv=UVf)
+        canvas.mesh.add((Pf, -Nf, tris), Cf, uv=UVf)
+
+    L = np.hypot(W, Hr - He)
     for s in (-1, 1):
-        c = [(s * W, He, -D), (s * W, He, D), (0, Hr, D), (0, Hr, -D),
-             (s * (W + 0.03), He + 0.03, -D), (s * (W + 0.03), He + 0.03, D), (0, Hr + 0.04, D), (0, Hr + 0.04, -D)]
-        canvas.hexa(c)
-        canvas.box((s * W - 0.02, 0, -D), (s * W + 0.02, He, D))
+        out_roof = np.array([s * (Hr - He) / L, W / L, 0.0])
+        sheet(np.array([s * W, He, 0.0]), np.array([0.0, Hr, 0.0]), 9, out_roof, 0.15, 0.012, L)
+        # side wall: slack canvas bellies in between the frames, pinned at the eave and the ground
+        sheet(np.array([s * W, 0.0, 0.0]), np.array([s * W, He, 0.0]), 7, np.array([s * 1.0, 0, 0]), 0.09, 0.01, He)
         lay.col((s * W - 0.05, 0, -D), (s * W + 0.05, He, D))
     # back gable closed, front open with flaps tied back
     c = [(-W, 0, D), (W, 0, D), (W, He, D), (-W, He, D), (-W, 0, D + 0.03), (W, 0, D + 0.03), (W, He, D + 0.03), (-W, He, D + 0.03)]
