@@ -40683,9 +40683,9 @@
     "UiPanel": {
      "color": [
       0.01,
+      0.015,
       0.02,
-      0.03,
-      0.78
+      0.7
      ],
      "corner_radius": 0,
      "border_color": [
@@ -40718,49 +40718,44 @@
    "parent": "7c9ff822-b7c9-5c1b-90be-feff31362e0b"
   },
   {
-   "uuid": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a",
-   "name": "Pause Main",
+   "uuid": "32931a2d-29e8-527f-85ea-674530bfa863",
+   "name": "Pause Shade",
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
-      0.5
+      0,
+      0
      ],
      "anchor_max": [
-      0.5,
-      0.5
+      0,
+      1
      ],
      "pivot": [
-      0.5,
-      0.5
+      0,
+      1
      ],
      "position": [
       0,
       0
      ],
      "size": [
-      440,
-      470
+      760,
+      0
      ],
      "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
-    "UiPanel": {
-     "color": [
-      0.04,
-      0.06,
-      0.07,
-      0.92
+    "UiImage": {
+     "texture": "ef916081-365e-4620-ad52-7455813bb241",
+     "tint": [
+      1,
+      1,
+      1,
+      1
      ],
-     "corner_radius": 10,
-     "border_color": [
-      1,
-      1,
-      1,
-      0.14
-     ],
-     "border_width": 1
+     "preserve_aspect": false,
+     "corner_radius": 0
     },
     "Transform": {
      "position": [
@@ -40784,48 +40779,98 @@
    "parent": "7c9ff822-b7c9-5c1b-90be-feff31362e0b"
   },
   {
-   "uuid": "583b7e64-3b3c-5dfa-b7db-c91ddc030d07",
-   "name": "Pause Title",
+   "uuid": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a",
+   "name": "Pause Main",
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      96,
+      -10
+     ],
+     "size": [
+      460,
+      520
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7c9ff822-b7c9-5c1b-90be-feff31362e0b"
+  },
+  {
+   "uuid": "268170ab-c208-5cce-ab26-0d69ca428fb8",
+   "name": "Pause Op",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
-      0,
-      18
+      2,
+      0
      ],
      "size": [
-      400,
-      48
+      460,
+      26
      ],
      "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
     "UiText": {
-     "text": "PAUSED",
+     "text": "",
      "key": "",
-     "font_size": 34,
+     "font_size": 18,
      "color": [
-      1,
-      1,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
-     "align": "center",
+     "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -40836,7 +40881,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -40860,45 +40905,45 @@
    "parent": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a"
   },
   {
-   "uuid": "268170ab-c208-5cce-ab26-0d69ca428fb8",
-   "name": "Pause Op",
+   "uuid": "583b7e64-3b3c-5dfa-b7db-c91ddc030d07",
+   "name": "Pause Title",
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
       0,
-      64
+      24
      ],
      "size": [
-      400,
-      30
+      460,
+      74
      ],
      "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
     "UiText": {
-     "text": "",
+     "text": "PAUSED",
      "key": "",
-     "font_size": 18,
+     "font_size": 72,
      "color": [
-      0.65,
-      0.85,
-      0.95,
+      1,
+      1,
+      1,
       1
      ],
-     "align": "center",
+     "align": "left",
      "vertical_align": "middle",
      "wrap": false,
      "bold": false,
@@ -40906,13 +40951,79 @@
       0,
       0,
       0,
-      0.55
+      0.7
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Bold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a"
+  },
+  {
+   "uuid": "4ed209f2-5f12-55ea-8446-861de3fb0621",
+   "name": "Pause Accent",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      4,
+      104
+     ],
+     "size": [
+      56,
+      3
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -40941,24 +41052,24 @@
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
       0,
-      112
+      128
      ],
      "size": [
-      360,
-      54
+      430,
+      50
      ],
      "visible": true,
      "opacity": 1.0,
@@ -40966,66 +41077,40 @@
     },
     "UiPanel": {
      "color": [
-      0.1,
-      0.13,
-      0.15,
-      0.9
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.18
-     ],
-     "border_width": 1
-    },
-    "UiText": {
-     "text": "Resume",
-     "key": "",
-     "font_size": 22,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "resume",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -41054,6 +41139,224 @@
     }
    },
    "parent": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a"
+  },
+  {
+   "uuid": "4623a866-f71f-5991-8b64-4cac355b8752",
+   "name": "Pause Resume Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "01",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f7f4614b-f7e8-56fa-9d1a-ac3391d2b799"
+  },
+  {
+   "uuid": "c12ec239-70d6-5f33-88d2-deaeee0bb50a",
+   "name": "Pause Resume Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      54,
+      0
+     ],
+     "size": [
+      -70,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "RESUME",
+     "key": "",
+     "font_size": 28,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f7f4614b-f7e8-56fa-9d1a-ac3391d2b799"
+  },
+  {
+   "uuid": "1869063c-2e43-5916-9872-240efa75adab",
+   "name": "Pause Resume Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f7f4614b-f7e8-56fa-9d1a-ac3391d2b799"
   },
   {
    "uuid": "96c6476c-def4-58dd-a965-ecb12e45d683",
@@ -41061,24 +41364,24 @@
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
       0,
-      178
+      182
      ],
      "size": [
-      360,
-      54
+      430,
+      50
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41086,66 +41389,40 @@
     },
     "UiPanel": {
      "color": [
-      0.1,
-      0.13,
-      0.15,
-      0.9
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.18
-     ],
-     "border_width": 1
-    },
-    "UiText": {
-     "text": "Restart from checkpoint",
-     "key": "",
-     "font_size": 22,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "restart_checkpoint",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -41174,6 +41451,224 @@
     }
    },
    "parent": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a"
+  },
+  {
+   "uuid": "8f35ee32-6316-570b-8dc8-f1d522205864",
+   "name": "Pause Restart from checkpoint Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "02",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "96c6476c-def4-58dd-a965-ecb12e45d683"
+  },
+  {
+   "uuid": "1a672b7a-4f9e-5c6d-a2ac-aba1cc287e8b",
+   "name": "Pause Restart from checkpoint Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      54,
+      0
+     ],
+     "size": [
+      -70,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "RESTART FROM CHECKPOINT",
+     "key": "",
+     "font_size": 28,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "96c6476c-def4-58dd-a965-ecb12e45d683"
+  },
+  {
+   "uuid": "f96c6ba7-8535-5b71-b0df-b1fac0a55469",
+   "name": "Pause Restart from checkpoint Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "96c6476c-def4-58dd-a965-ecb12e45d683"
   },
   {
    "uuid": "8ba48880-f414-5bbf-a22b-f25607ff43b2",
@@ -41181,24 +41676,24 @@
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
       0,
-      244
+      236
      ],
      "size": [
-      360,
-      54
+      430,
+      50
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41206,66 +41701,40 @@
     },
     "UiPanel": {
      "color": [
-      0.1,
-      0.13,
-      0.15,
-      0.9
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.18
-     ],
-     "border_width": 1
-    },
-    "UiText": {
-     "text": "Settings",
-     "key": "",
-     "font_size": 22,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "settings",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -41294,6 +41763,224 @@
     }
    },
    "parent": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a"
+  },
+  {
+   "uuid": "eadf4893-89f9-5428-bb29-58a4c5c56a25",
+   "name": "Pause Settings Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "03",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8ba48880-f414-5bbf-a22b-f25607ff43b2"
+  },
+  {
+   "uuid": "2be0ad2e-f039-5c3d-a90c-2703494f513e",
+   "name": "Pause Settings Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      54,
+      0
+     ],
+     "size": [
+      -70,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "SETTINGS",
+     "key": "",
+     "font_size": 28,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8ba48880-f414-5bbf-a22b-f25607ff43b2"
+  },
+  {
+   "uuid": "727689ec-0d0c-56e5-ace9-01a5ee1bc7d7",
+   "name": "Pause Settings Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8ba48880-f414-5bbf-a22b-f25607ff43b2"
   },
   {
    "uuid": "1ea48bdf-806a-5f24-b91f-3dac16d0a769",
@@ -41301,24 +41988,24 @@
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
       0,
-      310
+      290
      ],
      "size": [
-      360,
-      54
+      430,
+      50
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41326,66 +42013,40 @@
     },
     "UiPanel": {
      "color": [
-      0.1,
-      0.13,
-      0.15,
-      0.9
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.18
-     ],
-     "border_width": 1
-    },
-    "UiText": {
-     "text": "Objectives",
-     "key": "",
-     "font_size": 22,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "objectives",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -41414,6 +42075,224 @@
     }
    },
    "parent": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a"
+  },
+  {
+   "uuid": "72611fd4-8c57-5e13-8798-c4e92f2015ac",
+   "name": "Pause Objectives Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "04",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "1ea48bdf-806a-5f24-b91f-3dac16d0a769"
+  },
+  {
+   "uuid": "e303890a-dbeb-5f13-8291-2d8d7446d256",
+   "name": "Pause Objectives Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      54,
+      0
+     ],
+     "size": [
+      -70,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "OBJECTIVES",
+     "key": "",
+     "font_size": 28,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "1ea48bdf-806a-5f24-b91f-3dac16d0a769"
+  },
+  {
+   "uuid": "cfcbd4e8-47a5-5a1e-8da1-10bd99f182c4",
+   "name": "Pause Objectives Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "1ea48bdf-806a-5f24-b91f-3dac16d0a769"
   },
   {
    "uuid": "ddbf64a2-d33d-5e1e-bbd1-ba693ea843ab",
@@ -41421,24 +42300,24 @@
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
       0,
-      376
+      344
      ],
      "size": [
-      360,
-      54
+      430,
+      50
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41446,66 +42325,40 @@
     },
     "UiPanel": {
      "color": [
-      0.1,
-      0.13,
-      0.15,
-      0.9
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.18
-     ],
-     "border_width": 1
-    },
-    "UiText": {
-     "text": "Quit to main menu",
-     "key": "",
-     "font_size": 22,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "quit_menu",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -41536,28 +42389,322 @@
    "parent": "9b331eb2-bbd0-59ec-89e1-f4e32c60f55a"
   },
   {
+   "uuid": "a8b32c0e-5d39-594e-ad7d-20abe3843e7d",
+   "name": "Pause Quit to main menu Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "05",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ddbf64a2-d33d-5e1e-bbd1-ba693ea843ab"
+  },
+  {
+   "uuid": "f5dd04b0-08cc-5b19-9dfa-1904c97b79e4",
+   "name": "Pause Quit to main menu Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      54,
+      0
+     ],
+     "size": [
+      -70,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "QUIT TO MAIN MENU",
+     "key": "",
+     "font_size": 28,
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ddbf64a2-d33d-5e1e-bbd1-ba693ea843ab"
+  },
+  {
+   "uuid": "2c871b6b-5a25-5a75-a14d-9759ef019540",
+   "name": "Pause Quit to main menu Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ddbf64a2-d33d-5e1e-bbd1-ba693ea843ab"
+  },
+  {
+   "uuid": "356c89a0-e3b6-59b5-a4e2-d67a41f6e2b8",
+   "name": "Pause Hint",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      0,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      98,
+      -34
+     ],
+     "size": [
+      600,
+      24
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "PROGRESS SAVES AT EACH CHECKPOINT  \u00b7  ESC / START TO RESUME",
+     "key": "",
+     "font_size": 15,
+     "color": [
+      1,
+      1,
+      1,
+      0.5
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7c9ff822-b7c9-5c1b-90be-feff31362e0b"
+  },
+  {
    "uuid": "030cb717-99ae-5f2a-8057-9040794e4ebb",
    "name": "Settings Panel",
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      1,
       0.5
      ],
      "anchor_max": [
-      0.5,
+      1,
       0.5
      ],
      "pivot": [
-      0.5,
+      1,
       0.5
      ],
      "position": [
-      0,
+      -60,
       0
      ],
      "size": [
-      760,
+      720,
       640
      ],
      "visible": false,
@@ -41566,17 +42713,17 @@
     },
     "UiPanel": {
      "color": [
-      0.04,
-      0.06,
-      0.07,
-      0.95
+      0.025,
+      0.035,
+      0.045,
+      0.9
      ],
-     "corner_radius": 10,
+     "corner_radius": 4,
      "border_color": [
       1,
       1,
       1,
-      0.14
+      0.1
      ],
      "border_width": 1
     },
@@ -41602,29 +42749,95 @@
    "parent": "7c9ff822-b7c9-5c1b-90be-feff31362e0b"
   },
   {
+   "uuid": "76f40069-f886-579a-a6c9-26b906b6565c",
+   "name": "Settings Top",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      3
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "030cb717-99ae-5f2a-8057-9040794e4ebb"
+  },
+  {
    "uuid": "7b7e0e0b-5f63-5995-ad50-9fe54f267e51",
    "name": "Settings Title",
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       0
      ],
      "anchor_max": [
-      0.5,
+      0,
       0
      ],
      "pivot": [
-      0.5,
+      0,
       0
      ],
      "position": [
-      0,
-      10
+      28,
+      14
      ],
      "size": [
-      700,
-      40
+      500,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41633,28 +42846,28 @@
     "UiText": {
      "text": "SETTINGS",
      "key": "",
-     "font_size": 28,
+     "font_size": 40,
      "color": [
       1,
       1,
       1,
       1
      ],
-     "align": "center",
+     "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0.6
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Bold.ttf"
     },
     "Transform": {
      "position": [
@@ -41696,11 +42909,11 @@
      ],
      "position": [
       0,
-      56
+      66
      ],
      "size": [
-      720,
-      500
+      680,
+      492
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41759,8 +42972,8 @@
       0
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41768,19 +42981,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -41821,11 +43034,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -41833,14 +43046,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Look sensitivity",
+     "text": "LOOK SENSITIVITY",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -41856,7 +43069,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -41897,11 +43110,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -41911,17 +43124,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -41932,7 +43145,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -41973,12 +43186,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -41986,24 +43199,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -42013,39 +43226,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:look_sensitivity:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -42093,12 +43306,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -42106,24 +43319,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -42133,39 +43346,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:look_sensitivity:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -42173,6 +43386,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6fbe4051-0003-52a0-9177-0df07a6870a6"
+  },
+  {
+   "uuid": "4523bd5d-ec25-5846-9471-16908abcedb8",
+   "name": "Set look_sensitivity Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -42214,11 +43493,11 @@
      ],
      "position": [
       0,
-      58
+      56
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -42226,19 +43505,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -42279,11 +43558,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -42291,14 +43570,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Aim sensitivity",
+     "text": "AIM SENSITIVITY",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -42314,7 +43593,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -42355,11 +43634,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -42369,17 +43648,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -42390,7 +43669,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -42431,12 +43710,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -42444,24 +43723,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -42471,39 +43750,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:aim_sensitivity:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -42551,12 +43830,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -42564,24 +43843,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -42591,39 +43870,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:aim_sensitivity:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -42631,6 +43910,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "27d32d16-be1b-5b7c-bfc8-34a75355c6e9"
+  },
+  {
+   "uuid": "a67794ad-aece-5ff0-ab2b-3991f9044994",
+   "name": "Set aim_sensitivity Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -42672,11 +44017,11 @@
      ],
      "position": [
       0,
-      116
+      112
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -42684,19 +44029,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -42737,11 +44082,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -42749,14 +44094,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Field of view",
+     "text": "FIELD OF VIEW",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -42772,7 +44117,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -42813,11 +44158,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -42827,17 +44172,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -42848,7 +44193,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -42889,12 +44234,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -42902,24 +44247,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -42929,39 +44274,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:fov:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -43009,12 +44354,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -43022,24 +44367,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -43049,39 +44394,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:fov:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -43089,6 +44434,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a22d3f35-da42-5588-acea-15e057851003"
+  },
+  {
+   "uuid": "16b24c9a-0df4-5779-98c7-d2609819737c",
+   "name": "Set fov Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -43130,11 +44541,11 @@
      ],
      "position": [
       0,
-      174
+      168
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -43142,19 +44553,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -43195,11 +44606,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -43207,14 +44618,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Invert look",
+     "text": "INVERT LOOK",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -43230,7 +44641,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -43271,11 +44682,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -43285,17 +44696,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -43306,7 +44717,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -43347,12 +44758,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -43360,24 +44771,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -43387,39 +44798,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:invert_y:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -43467,12 +44878,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -43480,24 +44891,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -43507,39 +44918,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:invert_y:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -43547,6 +44958,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5da7d8c4-9491-5909-8d12-b7e988910f17"
+  },
+  {
+   "uuid": "c87ea0b2-155f-5edc-82f5-898318ec0db4",
+   "name": "Set invert_y Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -43588,11 +45065,11 @@
      ],
      "position": [
       0,
-      232
+      224
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -43600,19 +45077,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -43653,11 +45130,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -43665,14 +45142,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Camera shake",
+     "text": "CAMERA SHAKE",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -43688,7 +45165,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -43729,11 +45206,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -43743,17 +45220,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -43764,7 +45241,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -43805,12 +45282,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -43818,24 +45295,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -43845,39 +45322,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:camera_shake:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -43925,12 +45402,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -43938,24 +45415,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -43965,39 +45442,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:camera_shake:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -44005,6 +45482,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "251718db-5667-521c-86c1-fcca6715363a"
+  },
+  {
+   "uuid": "b867e2ba-748a-583e-a602-e127a081a5db",
+   "name": "Set camera_shake Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -44046,11 +45589,11 @@
      ],
      "position": [
       0,
-      290
+      280
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -44058,19 +45601,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -44111,11 +45654,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -44123,14 +45666,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Body-cam lens",
+     "text": "BODY-CAM LENS",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -44146,7 +45689,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -44187,11 +45730,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -44201,17 +45744,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -44222,7 +45765,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -44263,12 +45806,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -44276,24 +45819,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -44303,39 +45846,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:lens_effects:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -44383,12 +45926,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -44396,24 +45939,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -44423,39 +45966,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:lens_effects:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -44463,6 +46006,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "709a638a-fc2b-5db2-b212-be4a87952b62"
+  },
+  {
+   "uuid": "5e5e0c3a-710f-5cbf-997d-4b152545ce08",
+   "name": "Set lens_effects Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -44504,11 +46113,11 @@
      ],
      "position": [
       0,
-      348
+      336
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -44516,19 +46125,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -44569,11 +46178,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -44581,14 +46190,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Reticle size",
+     "text": "RETICLE SIZE",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -44604,7 +46213,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -44645,11 +46254,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -44659,17 +46268,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -44680,7 +46289,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -44721,12 +46330,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -44734,24 +46343,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -44761,39 +46370,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:reticle_size:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -44841,12 +46450,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -44854,24 +46463,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -44881,39 +46490,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:reticle_size:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -44921,6 +46530,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5c89b87e-9845-5152-84b3-f112dcb809a0"
+  },
+  {
+   "uuid": "f34cdf6f-d755-548c-984d-ff010e3fbcd8",
+   "name": "Set reticle_size Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -44962,11 +46637,11 @@
      ],
      "position": [
       0,
-      406
+      392
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -44974,19 +46649,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -45027,11 +46702,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -45039,14 +46714,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Reticle opacity",
+     "text": "RETICLE OPACITY",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -45062,7 +46737,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -45103,11 +46778,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -45117,17 +46792,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -45138,7 +46813,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -45179,12 +46854,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -45192,24 +46867,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -45219,39 +46894,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:reticle_opacity:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -45299,12 +46974,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -45312,24 +46987,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -45339,39 +47014,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:reticle_opacity:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -45379,6 +47054,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8f5b87f0-aadf-59a5-87d6-1c23e7994866"
+  },
+  {
+   "uuid": "3eccf14e-be2f-57e2-90fa-e188e11a0634",
+   "name": "Set reticle_opacity Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -45420,11 +47161,11 @@
      ],
      "position": [
       0,
-      464
+      448
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -45432,19 +47173,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -45485,11 +47226,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -45497,14 +47238,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Subtitles",
+     "text": "SUBTITLES",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -45520,7 +47261,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -45561,11 +47302,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -45575,17 +47316,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -45596,7 +47337,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -45637,12 +47378,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -45650,24 +47391,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -45677,39 +47418,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:subtitles:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -45757,12 +47498,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -45770,24 +47511,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -45797,39 +47538,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:subtitles:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -45837,6 +47578,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0b8a039f-3643-5449-8df2-604f4c39b933"
+  },
+  {
+   "uuid": "59c831a6-7d74-503b-aeef-4507ed8c2ca9",
+   "name": "Set subtitles Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -45878,11 +47685,11 @@
      ],
      "position": [
       0,
-      522
+      504
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -45890,19 +47697,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -45943,11 +47750,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -45955,14 +47762,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Subtitle size",
+     "text": "SUBTITLE SIZE",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -45978,7 +47785,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -46019,11 +47826,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -46033,17 +47840,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -46054,7 +47861,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -46095,12 +47902,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -46108,24 +47915,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -46135,39 +47942,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:subtitle_size:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -46215,12 +48022,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -46228,24 +48035,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -46255,39 +48062,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:subtitle_size:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -46295,6 +48102,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2e7ea7c9-0b9a-50ba-b7d6-8f019d378a2f"
+  },
+  {
+   "uuid": "2b1c2782-13d2-5456-bf79-3c8c6eba299a",
+   "name": "Set subtitle_size Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -46336,11 +48209,11 @@
      ],
      "position": [
       0,
-      580
+      560
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -46348,19 +48221,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -46401,11 +48274,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -46413,14 +48286,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Touch controls",
+     "text": "TOUCH CONTROLS",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -46436,7 +48309,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -46477,11 +48350,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -46491,17 +48364,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -46512,7 +48385,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -46553,12 +48426,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -46566,24 +48439,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -46593,39 +48466,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:touch_controls:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -46673,12 +48546,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -46686,24 +48559,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -46713,39 +48586,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:touch_controls:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -46753,6 +48626,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8a443f91-4747-57df-8643-904765747d44"
+  },
+  {
+   "uuid": "9cf0aa16-46c9-5553-a9c7-dab9d8a95733",
+   "name": "Set touch_controls Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -46794,11 +48733,11 @@
      ],
      "position": [
       0,
-      638
+      616
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -46806,19 +48745,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -46859,11 +48798,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -46871,14 +48810,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Master volume",
+     "text": "MASTER VOLUME",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -46894,7 +48833,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -46935,11 +48874,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -46949,17 +48888,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -46970,7 +48909,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -47011,12 +48950,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -47024,24 +48963,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -47051,39 +48990,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:master_volume:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -47131,12 +49070,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -47144,24 +49083,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -47171,39 +49110,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:master_volume:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -47211,6 +49150,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f95ff587-5a35-58d4-8c76-858ddb81346a"
+  },
+  {
+   "uuid": "64c02557-34c7-5700-af82-d985066b9cb9",
+   "name": "Set master_volume Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -47252,11 +49257,11 @@
      ],
      "position": [
       0,
-      696
+      672
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -47264,19 +49269,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -47317,11 +49322,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -47329,14 +49334,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Music volume",
+     "text": "MUSIC VOLUME",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -47352,7 +49357,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -47393,11 +49398,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -47407,17 +49412,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -47428,7 +49433,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -47469,12 +49474,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -47482,24 +49487,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -47509,39 +49514,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:music_volume:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -47589,12 +49594,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -47602,24 +49607,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -47629,39 +49634,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:music_volume:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -47669,6 +49674,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6f78bcc8-068f-5f46-8043-8b69119f9ee4"
+  },
+  {
+   "uuid": "91961d32-f0ba-5cec-b012-cbc408903542",
+   "name": "Set music_volume Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -47710,11 +49781,11 @@
      ],
      "position": [
       0,
-      754
+      728
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -47722,19 +49793,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -47775,11 +49846,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -47787,14 +49858,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Dialogue volume",
+     "text": "DIALOGUE VOLUME",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -47810,7 +49881,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -47851,11 +49922,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -47865,17 +49936,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -47886,7 +49957,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -47927,12 +49998,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -47940,24 +50011,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -47967,39 +50038,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:voice_volume:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -48047,12 +50118,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -48060,24 +50131,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -48087,39 +50158,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:voice_volume:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -48127,6 +50198,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4f282500-53eb-57dd-8b7d-631a773b96fc"
+  },
+  {
+   "uuid": "fb2240eb-cced-5579-96fa-2dec275ad203",
+   "name": "Set voice_volume Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -48168,11 +50305,11 @@
      ],
      "position": [
       0,
-      812
+      784
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -48180,19 +50317,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -48233,11 +50370,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -48245,14 +50382,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Effects volume",
+     "text": "EFFECTS VOLUME",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -48268,7 +50405,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -48309,11 +50446,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -48323,17 +50460,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -48344,7 +50481,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -48385,12 +50522,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -48398,24 +50535,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -48425,39 +50562,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:sfx_volume:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -48505,12 +50642,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -48518,24 +50655,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -48545,39 +50682,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:sfx_volume:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -48585,6 +50722,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c557714c-708a-57a7-9a4d-60d976f666ee"
+  },
+  {
+   "uuid": "3bb3bbde-93a1-5fa0-9550-8a6a871134ea",
+   "name": "Set sfx_volume Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -48626,11 +50829,11 @@
      ],
      "position": [
       0,
-      870
+      840
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -48638,19 +50841,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.0
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -48691,11 +50894,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -48703,14 +50906,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Ambience volume",
+     "text": "AMBIENCE VOLUME",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -48726,7 +50929,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -48767,11 +50970,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -48781,17 +50984,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -48802,7 +51005,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -48843,12 +51046,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -48856,24 +51059,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -48883,39 +51086,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:ambient_volume:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -48963,12 +51166,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -48976,24 +51179,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -49003,39 +51206,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:ambient_volume:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -49043,6 +51246,72 @@
       0.22,
       0.5
      ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "14d693b9-8b7b-5561-af4d-32683b7a8b04"
+  },
+  {
+   "uuid": "a3f96714-0f5e-5f7b-bfa0-2592f99ed504",
+   "name": "Set ambient_volume Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.06
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -49084,11 +51353,11 @@
      ],
      "position": [
       0,
-      928
+      896
      ],
      "size": [
-      700,
-      52
+      680,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -49096,19 +51365,19 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.12,
-      0.8
+      1,
+      1,
+      1,
+      0.025
      ],
-     "corner_radius": 6,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.08
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -49149,11 +51418,11 @@
       0.5
      ],
      "position": [
-      18,
+      16,
       0
      ],
      "size": [
-      340,
+      380,
       40
      ],
      "visible": true,
@@ -49161,14 +51430,14 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Diagnostics overlay",
+     "text": "DIAGNOSTICS OVERLAY",
      "key": "",
-     "font_size": 20,
+     "font_size": 22,
      "color": [
       1,
       1,
       1,
-      1
+      0.92
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -49184,7 +51453,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -49225,11 +51494,11 @@
       0.5
      ],
      "position": [
-      -130,
+      -118,
       0
      ],
      "size": [
-      150,
+      130,
       40
      ],
      "visible": true,
@@ -49239,17 +51508,17 @@
     "UiText": {
      "text": "",
      "key": "",
-     "font_size": 20,
+     "font_size": 24,
      "color": [
-      0.7,
-      0.9,
-      1,
+      0.93,
+      0.68,
+      0.34,
       1
      ],
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -49260,7 +51529,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -49301,12 +51570,12 @@
       0.5
      ],
      "position": [
-      -228,
+      -206,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -49314,24 +51583,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
-     "text": "-",
+     "text": "\u2212",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -49341,39 +51610,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:diagnostics:-",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -49421,12 +51690,12 @@
       0.5
      ],
      "position": [
-      -34,
+      -30,
       0
      ],
      "size": [
-      48,
-      42
+      46,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -49434,24 +51703,24 @@
     },
     "UiPanel": {
      "color": [
-      0.14,
-      0.17,
-      0.2,
-      0.95
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 6,
+     "corner_radius": 23,
      "border_color": [
       1,
       1,
       1,
-      0.2
+      0.32
      ],
-     "border_width": 1
+     "border_width": 1.5
     },
     "UiText": {
      "text": "+",
      "key": "",
-     "font_size": 26,
+     "font_size": 30,
      "color": [
       1,
       1,
@@ -49461,39 +51730,39 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
      "shadow_offset": [
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
      "action": "set:diagnostics:+",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      1,
+      1,
+      1,
+      0.06
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.3
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "disabled": [
       0.2,
@@ -49524,29 +51793,29 @@
    "parent": "e55b28ba-7c23-5541-9ea8-00f73febcfb1"
   },
   {
-   "uuid": "09e96ce9-f7d7-5c79-a9e7-768c531f4a03",
-   "name": "Settings Back",
+   "uuid": "1ee16e52-24be-5742-80d1-04a8bf40d4d3",
+   "name": "Set diagnostics Rule",
    "components": {
     "UiRect": {
      "anchor_min": [
-      0.5,
+      0,
       1
      ],
      "anchor_max": [
-      0.5,
+      1,
       1
      ],
      "pivot": [
-      0.5,
+      0,
       1
      ],
      "position": [
       0,
-      -18
+      0
      ],
      "size": [
-      300,
-      54
+      0,
+      1
      ],
      "visible": true,
      "opacity": 1.0,
@@ -49554,66 +51823,106 @@
     },
     "UiPanel": {
      "color": [
-      0.1,
-      0.13,
-      0.15,
-      0.9
+      1,
+      1,
+      1,
+      0.06
      ],
-     "corner_radius": 8,
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e55b28ba-7c23-5541-9ea8-00f73febcfb1"
+  },
+  {
+   "uuid": "09e96ce9-f7d7-5c79-a9e7-768c531f4a03",
+   "name": "Settings Back",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      0,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      28,
+      -22
+     ],
+     "size": [
+      220,
+      50
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "corner_radius": 2,
      "border_color": [
       1,
       1,
       1,
-      0.18
+      0.3
      ],
      "border_width": 1
-    },
-    "UiText": {
-     "text": "Back",
-     "key": "",
-     "font_size": 22,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
-      0,
-      0,
-      0,
-      0.55
-     ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
     },
     "UiButton": {
      "interactable": true,
      "action": "settings_back",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -49642,6 +51951,82 @@
     }
    },
    "parent": "030cb717-99ae-5f2a-8057-9040794e4ebb"
+  },
+  {
+   "uuid": "12270fdb-cbe6-54ce-92cb-ac37de23632f",
+   "name": "Settings Back Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "BACK",
+     "key": "",
+     "font_size": 24,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "09e96ce9-f7d7-5c79-a9e7-768c531f4a03"
   },
   {
    "uuid": "5aae8b3b-1afd-40f5-8d92-d97809bd8984",

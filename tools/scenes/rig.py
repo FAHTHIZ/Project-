@@ -383,47 +383,78 @@ def _hud_type(sc: Scene, canvas):
         t["font_size"] = round(t["font_size"] * 1.18)
 
 
+PM_B = "fonts/BarlowCondensed-Bold.ttf"
+PM_S = "fonts/BarlowCondensed-SemiBold.ttf"
+PM_M = "fonts/BarlowCondensed-Medium.ttf"
+PM_AMBER = (0.93, 0.68, 0.34, 1)
+
+
+def _pt(text, size, color=(1, 1, 1, 1), align="left", font=PM_S, shadow=0.55):
+    t = ui_text(text, size, color, align, "middle", False)
+    t["font"] = font
+    t["shadow_color"] = [0, 0, 0, shadow]
+    return t
+
+
 def add_pause_menu(sc: Scene):
+    """Pause v2, matching the front end: the frozen frame dims behind a left gradient, a condensed
+    caps list with amber index numbers and hairline rules sits left (thumb side), settings open as
+    a glass sheet with amber values and round -/+ steppers. Entity names and actions are the ones
+    scripts/pause_menu.luau looks up."""
     modal = sc.add("Pause Menu", {
         "UiCanvas": {"visible": False, "scale_mode": "scale_with_screen", "reference_size": [1280, 720], "match": 1,
                      "sort_order": 10, "keyboard_navigation": True, "blocks_input": True},
         "Script": script("scripts/pause_menu.luau"),
     })
     ui(sc, "Pause Dim", modal, ui_rect((0, 0), (0, 0), (0, 0), (0.5, 0.5), anchor_max=(1, 1)),
-       panel=ui_panel((0.01, 0.02, 0.03, 0.78), 0, (0, 0, 0, 0), 0))
-    main = ui(sc, "Pause Main", modal, ui_rect((0.5, 0.5), (0, 0), (440, 470)),
-              panel=ui_panel((0.04, 0.06, 0.07, 0.92), 10, (1, 1, 1, 0.14), 1))
-    ui(sc, "Pause Title", main, ui_rect((0.5, 1), (0, -18), (400, 48), (0.5, 1)),
-       text=ui_text("PAUSED", 34, (1, 1, 1, 1), "center", "middle", True))
-    ui(sc, "Pause Op", main, ui_rect((0.5, 1), (0, -64), (400, 30), (0.5, 1)),
-       text=ui_text("", 18, (0.65, 0.85, 0.95, 1), "center", "middle", False))
-    for i, (label, action) in enumerate([("Resume", "resume"), ("Restart from checkpoint", "restart_checkpoint"),
-                                          ("Settings", "settings"), ("Objectives", "objectives"),
-                                          ("Quit to main menu", "quit_menu")]):
-        ui(sc, f"Pause {label}", main, ui_rect((0.5, 1), (0, -112 - i * 66), (360, 54), (0.5, 1)),
-           panel=ui_panel((0.1, 0.13, 0.15, 0.9), 8, (1, 1, 1, 0.18), 1), button=ui_button(action),
-           text=ui_text(label, 22, (1, 1, 1, 1), "center", "middle", True))
-    settings = ui(sc, "Settings Panel", modal, ui_rect((0.5, 0.5), (0, 0), (760, 640), visible=False),
-                  panel=ui_panel((0.04, 0.06, 0.07, 0.95), 10, (1, 1, 1, 0.14), 1))
-    ui(sc, "Settings Title", settings, ui_rect((0.5, 1), (0, -10), (700, 40), (0.5, 1)),
-       text=ui_text("SETTINGS", 28, (1, 1, 1, 1), "center", "middle", True))
-    scroll = ui(sc, "Settings Scroll", settings, ui_rect((0.5, 1), (0, -56), (720, 500), (0.5, 1)),
+       panel=ui_panel((0.01, 0.015, 0.02, 0.7), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Pause Shade", modal, ui_rect((0, 0), (0, 0), (760, 0), (0, 0), anchor_max=(0, 1)),
+       image=_img("textures/ui/menu/shade_left.png", (1, 1, 1, 1)))
+    main = ui(sc, "Pause Main", modal, ui_rect((0, 0.5), (96, 10), (460, 520), (0, 0.5)))
+    ui(sc, "Pause Op", main, ui_rect((0, 1), (2, 0), (460, 26), (0, 1)), text=_pt("", 18, PM_AMBER, font=PM_M))
+    ui(sc, "Pause Title", main, ui_rect((0, 1), (0, -24), (460, 74), (0, 1)), text=_pt("PAUSED", 72, font=PM_B, shadow=0.7))
+    ui(sc, "Pause Accent", main, ui_rect((0, 1), (4, -104), (56, 3), (0, 1)),
+       panel=ui_panel(PM_AMBER, 0, (0, 0, 0, 0), 0))
+    rows = [("Resume", "resume"), ("Restart from checkpoint", "restart_checkpoint"), ("Settings", "settings"),
+            ("Objectives", "objectives"), ("Quit to main menu", "quit_menu")]
+    for i, (label, action) in enumerate(rows):
+        r = ui(sc, f"Pause {label}", main, ui_rect((0, 1), (0, -128 - i * 54), (430, 50), (0, 1)),
+               panel=ui_panel((0, 0, 0, 0), 2, (0, 0, 0, 0), 0),
+               button=ui_button(action, (0, 0, 0, 0), (0.93, 0.68, 0.34, 0.2), (0.93, 0.68, 0.34, 0.34)))
+        ui(sc, f"Pause {label} Num", r, ui_rect((0, 0.5), (14, 0), (40, 30), (0, 0.5)),
+           text=_pt(f"{i + 1:02d}", 17, PM_AMBER, font=PM_M))
+        ui(sc, f"Pause {label} Label", r, ui_rect((0, 0), (54, 0), (-70, 0), (0, 0), anchor_max=(1, 1)),
+           text=_pt(label.upper(), 28, (1, 1, 1, 0.55 if action == "quit_menu" else 1)))
+        ui(sc, f"Pause {label} Rule", r, ui_rect((0, 0), (0, -2), (0, 1), (0, 0), anchor_max=(1, 0)),
+           panel=ui_panel((1, 1, 1, 0.09), 0, (0, 0, 0, 0), 0))
+    ui(sc, "Pause Hint", modal, ui_rect((0, 0), (98, 34), (600, 24), (0, 0)),
+       text=_pt("PROGRESS SAVES AT EACH CHECKPOINT  \u00b7  ESC / START TO RESUME", 15, (1, 1, 1, 0.5), font=PM_M))
+    settings = ui(sc, "Settings Panel", modal, ui_rect((1, 0.5), (-60, 0), (720, 640), (1, 0.5), visible=False),
+                  panel=ui_panel((0.025, 0.035, 0.045, 0.9), 4, (1, 1, 1, 0.1), 1))
+    ui(sc, "Settings Top", settings, ui_rect((0, 1), (0, 0), (0, 3), (0, 1), anchor_max=(1, 1)),
+       panel=ui_panel(PM_AMBER, 0, (0, 0, 0, 0), 0))
+    ui(sc, "Settings Title", settings, ui_rect((0, 1), (28, -14), (500, 44), (0, 1)),
+       text=_pt("SETTINGS", 40, font=PM_B, shadow=0.6))
+    scroll = ui(sc, "Settings Scroll", settings, ui_rect((0.5, 1), (0, -66), (680, 492), (0.5, 1)),
                 extra={"UiScroll": {"vertical": True, "horizontal": False, "offset": [0, 0], "wheel_step": 40,
                                     "drag_to_scroll": True}})
     for i, (key, label) in enumerate(PAUSE_SETTINGS):
-        row = ui(sc, f"Set {key}", scroll, ui_rect((0.5, 1), (0, -i * 58), (700, 52), (0.5, 1)),
-                 panel=ui_panel((0.08, 0.1, 0.12, 0.8), 6, (1, 1, 1, 0.08), 1))
-        ui(sc, f"Set {key} Label", row, ui_rect((0, 0.5), (18, 0), (340, 40), (0, 0.5)),
-           text=ui_text(label, 20, (1, 1, 1, 1), "left", "middle"))
-        ui(sc, f"Set {key} Value", row, ui_rect((1, 0.5), (-130, 0), (150, 40), (0.5, 0.5)),
-           text=ui_text("", 20, (0.7, 0.9, 1, 1), "center", "middle", True))
-        ui(sc, f"Set {key} Minus", row, ui_rect((1, 0.5), (-228, 0), (48, 42), (0.5, 0.5)),
-           panel=ui_panel((0.14, 0.17, 0.2, 0.95), 6, (1, 1, 1, 0.2), 1), button=ui_button(f"set:{key}:-"),
-           text=ui_text("-", 26, (1, 1, 1, 1), "center", "middle", True))
-        ui(sc, f"Set {key} Plus", row, ui_rect((1, 0.5), (-34, 0), (48, 42), (0.5, 0.5)),
-           panel=ui_panel((0.14, 0.17, 0.2, 0.95), 6, (1, 1, 1, 0.2), 1), button=ui_button(f"set:{key}:+"),
-           text=ui_text("+", 26, (1, 1, 1, 1), "center", "middle", True))
-    ui(sc, "Settings Back", settings, ui_rect((0.5, 0), (0, 18), (300, 54), (0.5, 0)),
-       panel=ui_panel((0.1, 0.13, 0.15, 0.9), 8, (1, 1, 1, 0.18), 1), button=ui_button("settings_back"),
-       text=ui_text("Back", 22, (1, 1, 1, 1), "center", "middle", True))
+        row = ui(sc, f"Set {key}", scroll, ui_rect((0.5, 1), (0, -i * 56), (680, 54), (0.5, 1)),
+                 panel=ui_panel((1, 1, 1, 0.025 if i % 2 == 0 else 0.0), 2, (0, 0, 0, 0), 0))
+        ui(sc, f"Set {key} Label", row, ui_rect((0, 0.5), (16, 0), (380, 40), (0, 0.5)),
+           text=_pt(label.upper(), 22, (1, 1, 1, 0.92), font=PM_M))
+        ui(sc, f"Set {key} Value", row, ui_rect((1, 0.5), (-118, 0), (130, 40), (0.5, 0.5)),
+           text=_pt("", 24, PM_AMBER, "center", font=PM_S))
+        for sign, x in (("-", -206), ("+", -30)):
+            ui(sc, f"Set {key} {'Minus' if sign == '-' else 'Plus'}", row, ui_rect((1, 0.5), (x, 0), (46, 46), (0.5, 0.5)),
+               panel=ui_panel((1, 1, 1, 0.06), 23, (1, 1, 1, 0.32), 1.5),
+               button=ui_button(f"set:{key}:{sign}", (1, 1, 1, 0.06), (0.93, 0.68, 0.34, 0.3), (0.93, 0.68, 0.34, 0.5)),
+               text=_pt("\u2212" if sign == "-" else "+", 30, (1, 1, 1, 1), "center", font=PM_S, shadow=0))
+        ui(sc, f"Set {key} Rule", row, ui_rect((0, 0), (0, 0), (0, 1), (0, 0), anchor_max=(1, 0)),
+           panel=ui_panel((1, 1, 1, 0.06), 0, (0, 0, 0, 0), 0))
+    b = ui(sc, "Settings Back", settings, ui_rect((0, 0), (28, 22), (220, 50), (0, 0)),
+           panel=ui_panel((0, 0, 0, 0), 2, (1, 1, 1, 0.3), 1),
+           button=ui_button("settings_back", (0, 0, 0, 0), (0.93, 0.68, 0.34, 0.2), (0.93, 0.68, 0.34, 0.34)))
+    ui(sc, "Settings Back Label", b, ui_rect((0, 0), (0, 0), (0, 0), (0, 0), anchor_max=(1, 1)),
+       text=_pt("BACK", 24, align="center"))
     return modal

@@ -860,3 +860,9 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Blender 4.2.3 run (2 vCPU): body 12588 tris, cell 1156, world 13744 (unchanged). GLB sizes: pc7_body 3.0 → 4.2 MB, pc7_world 3.1 → 5.0 MB, pc7_cell 0.6 → 0.8 MB; textures cook to BC7/ASTC 4x4 per the existing .meta. A 2048 px trial gave 13 MB GLBs and was dropped for the phone's memory.
 - Captured scenes/tests/hud_look.vscene at 1312x576 high, before/after crop in docs/media/pc7_bake_before_after.png: edge wear on the receiver and handguard, polymer stipple and AO in the recesses are visible; the look still needs a real-GPU check.
 - Autotests: weapons 26/0, reload_feel 22/0, vm_ads 1/0, armory 20/0.
+
+## 2026-11-20 Pause and settings v2
+
+- rig.add_pause_menu rewritten (front-end style, Barlow Condensed); patch_hud re-emitted 64 scenes, build_menu.py rebuilt the menu scenes. Barlow has U+2212 (used on the - stepper) but no arrows, so BACK has no glyph.
+- Captures at 1312x576 with pause_menu.luau temporarily opening itself in start() (reverted): docs/media/pause_v2.png. A first pass with a 0.5 dim let the HUD subtitle box read through; the dim is now 0.7.
+- `victus check game`: 263 scenes, 0 problems. Autotests pause_ui 5/0, menu_flow 11/0, hud 6/0.
