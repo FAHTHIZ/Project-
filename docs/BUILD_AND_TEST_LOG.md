@@ -485,3 +485,22 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
   - both contractors were down by 45 s (before the clear-shot fix: 1 of 2 by 60 s).
 - Regressions PASS: enemy_tactics 10/10, squad_combat, enemy_fire, reactions, chatter, squad, hud_look, story_op01 (19 800 frames, 0 script errors). `victus check game`: 251 scenes, 43 scripts, 0 problems.
 - Not tested: operators in hold/move orders (unchanged: they stay put), and cover choice among open-world trees.
+
+## 2026-11-20 Bounding overwatch and pair searches (Greyline)
+
+Doctrine followed (cited in docs/world/SCALE_AND_PACING.md): individual rushes last 3-5 s ("I'm up, he sees me, I'm down", [FM 3-21.8 / InfantryDrills](https://infantrydrills.com/manuals/fm-atp-3-21-8-infantry-rifle-platoon-squad-2024/movement-and-maneuver/tactical-movement-approach-march/movement-techniques/), [USMC patrolling](https://www.trngcmd.marines.mil/Portals/207/Docs/FMTBE/Student%20Materials/FMST/204.pdf)); in bounding overwatch one element is always stopped to cover the one that moves ([FM 3-21.9](https://www.globalsecurity.org/military/library/policy/army/fm/3-21-9/chap3.htm)).
+
+- `enemy.luau`:
+  - every cover move and flank rush asks the nearest set group mate to overwatch. The mate steps up his fire on the threat (0.45-0.75 s between bursts instead of 1.2-2.0 s) and holds his position until the rush ends. The mover calls `grey_moving_*`, the mate answers `grey_covering_*` ~0.9 s later, and the arrival may call `grey_set_*`.
+  - one man up at a time: a contractor waits (0.7 s re-checks) while a mate is mid-rush, unless rounds are landing on him (hit in the last 1.5 s).
+  - cover rushes are capped at 4.5 s; flanks are now up to 4 rushes of ≤ ~14 m (12 m step plus cover near it), each ≤ 5 s with a 1-2 s pause in cover, instead of one 9 s run in the open.
+  - searching in pairs: a contractor heading for a spot a mate is already sweeping holds within 11 m and watches the mate's current search point (`enemy_sweep_cover`); it stands down when the mate finishes. While both sweep, the one paused holds while the other walks (≤ 6 s).
+  - fixed a sweep bug: after reaching a search point the arrival check re-fired every frame, so a contractor whose halt left it > 1 m from the point never moved on (seen as `sweep_i` stuck at 1 for 14 s). Legs now also time out after 6 s.
+  - new events: `enemy_bound` (kind, {dur, by}), `enemy_overwatch`, `enemy_sweep_cover`. Note: `Game.emit` passes at most 3 arguments.
+- 12 new voiced lines `grey_moving/covering/set_1..4` (Kokoro; 451 lines).
+- `tools/test/run_autotests.py`: a plan now also fails on any `[error] [script]` line in the log. The engine's "N script errors" count does not include runtime errors that disable a script mid-run (seen while writing this slice: count 0 with `enemy.luau` disabled). `enemy_tactics` default raised to 2140 frames.
+- `enemy_tactics` now 15/15: 3 rushes, longest 3.9 s; 3 of 3 rushes covered by a mate; 0 samples with both rushing; moving and covering callouts heard; the second searcher held and covered the first (1 hold); plus the 10 earlier checks.
+- Ran (engine VICTUS cd59c05, Release): `victus import game`, `victus check game` (251 scenes, 43 scripts: 0 problems).
+- Regressions PASS (with the stricter error check): movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, squad_cover. story_op01: see below.
+- Not tested: bounding among open-world trees (the dev range has blocks and crates), three-man groups, and the Halyard side (operators do not bound yet).
+- story_op01 PASS (19 800 frames, 330 s game time, 0 script errors, no runtime script errors in the log): all 15 stages through `enter_facility`.
