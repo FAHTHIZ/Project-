@@ -710,3 +710,13 @@ Baseline for this session: game `c7fd75c`, VICTUS `f40fb3a` (Release build, gcc 
 - `victus import game` (0 failed), `victus check game`: 261 scenes, 0 problems.
 - Render `docs/media/ads_pc7.png`: target seen through the window with the dot on it.
 - Regression: weapons, armory, sniper, movement, hud, vm_ads, vm_ads_pdw, vm_ads_breacher, vm_ads_dmr: all PASS.
+
+## 2026-11-20 KV-5 and BR-9 sight pictures (ADS sight pictures, part 2)
+
+Follows `7816b18` (PC-7 reflex sight). Code and models in `d71a94c`.
+
+- KV-5 Hornet: the reflex tube had an opaque "glass" disc in front of the dot, so aiming showed a grey-green disc. `tools/props/build_weapons.py` `hornet()` now builds an open rectangular hood (27 x 23 mm window), thin tinted lens rims at the front and the red dot in the window centre on the 0.103 m sight line. The folded stock's end plate moved to the front end of the folded wires on the left; a small receiver cap replaces the block that sat behind the receiver.
+- BR-9 Ram: the stock comb and recoil pad were at eye height and filled the lower half of the aimed view. The comb and pad now sit 16-23 mm lower, and `items.luau` breacher `ads` z goes from -0.30 to -0.25 (the eye sits over the comb instead of behind the pad).
+- `python3 tools/props/build_weapons.py --out /tmp/w`; copied kv5_body, kv5_world, br9_body and br9_world only, then ran `python3 tools/assets/retexture.py` on them. `sync_model_prims.py` found no primitive count changes. `victus import game` (0 failed), `victus check game`: 0 problems.
+- Renders `docs/media/ads_kv5.png` (target in the window, dot on it) and `docs/media/ads_br9.png` (front bead on the target, stock below the view).
+- Regression: weapons, armory, sniper, movement, hud, vm_ads, vm_ads_pdw, vm_ads_breacher, squad and squad_combat: all PASS.
