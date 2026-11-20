@@ -421,6 +421,8 @@ table.insert(P.squad_cover, { at = 59.9, run = function(c)
                       tostring(c.data.reload_canted), tostring(c.data.reload_hand_off), table.concat(shots, " ")))
 end })
 table.insert(P.squad_cover, { at = 59.95, run = function(c)
+    c.check("npc_impacts", (Squad.state().npc_impacts or 0) >= 5,
+        string.format("%d NPC shot impacts shown near the camera", Squad.state().npc_impacts or 0))
     c.check("faces_show_the_fight", (c.data.brow_max or 0) > 0.45 and (c.data.flinches or 0) >= 1,
         string.format("max brow-down %.2f, most flinches %d", c.data.brow_max or 0, c.data.flinches or 0))
 end })

@@ -210,6 +210,22 @@ function Squad.shoot(shooter, aim, opts)
     end
     show_tracer(s, from, endp)
     local cam = Game.camera
+    -- where the pulse lands: sparks (and dust off the ground) from the shared pooled emitters, with
+    -- the impact sound only close by; nothing is spawned per shot
+    if hit and cam and Game.weapons and Game.weapons.impact then
+        local dcam = vector.magnitude(hit.point - cam.world_position)
+        if dcam < 35 then
+            -- quiet = true: Weapons:impact draws math.random for the sound pitch, and the NPC fights'
+            -- shared random stream must not shift because a camera happened to be close
+            Game.weapons:impact(hit, struck, true)
+            if dcam < 14 then
+                audio.play(struck and "audio/weapons/impact_hard.wav" or "audio/weapons/impact_soft.wav",
+                           { position = hit.point, volume = 0.6, pitch = 0.9 + ((s.npc_impacts or 0) % 5) * 0.05,
+                             bus = "sfx", max_instances = 4 })
+            end
+            s.npc_impacts = (s.npc_impacts or 0) + 1
+        end
+    end
     if cam and vector.magnitude(from - cam.world_position) < 70 then
         audio.play(opts.sound or "audio/weapons/pc7_fire.wav",
                    { position = from, volume = opts.volume or 0.55, pitch = opts.pitch or (0.93 + math.random() * 0.1),
