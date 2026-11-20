@@ -13827,7 +13827,7 @@
       "name": "Relay Generator",
       "components": {
         "Transform": {
-          "position": [-46.5, 41.58190155029297, 10.5],
+          "position": [-46.5, 41.631900787353516, 10.5],
           "rotation": [0, 0.1736481934785843, 0, 0.9848077893257141],
           "scale": [1, 1, 1]
         }
@@ -13835,12 +13835,25 @@
       "next": null
     },
     {
-      "uuid": "10660650-6e29-57fb-b191-d144738d7ee1",
-      "name": "Relay Generator[0]",
+      "uuid": "98e8db56-72e5-54e2-b4c9-a703298209a2",
+      "name": "Relay Generator 0",
       "parent": "e8f7e057-5c8d-516c-bafb-aeb9269f64f3",
       "components": {
+        "Transform": {
+          "position": [0, -0.019999999552965164, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "5b0e2dc6-079e-5c7f-8e72-f11ffa1db9b8"
+    },
+    {
+      "uuid": "f4fc0961-8ca0-5c24-8ba1-eb63da0c7cbe",
+      "name": "Relay Generator 0[0]",
+      "parent": "98e8db56-72e5-54e2-b4c9-a703298209a2",
+      "components": {
         "MeshRenderer": {
-          "mesh": "f657be30-2936-4a60-b1da-5978d576e489",
+          "mesh": "d1af6223-dd3d-4e5b-b0cd-6cb666fc5acf",
           "mesh_index": 0,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
@@ -13854,15 +13867,15 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "bc6557f3-da79-532e-8773-ff3da04cb0d8"
+      "next": "ab1132fb-23cb-54c1-a2eb-03ae7432e157"
     },
     {
-      "uuid": "bc6557f3-da79-532e-8773-ff3da04cb0d8",
-      "name": "Relay Generator[1]",
-      "parent": "e8f7e057-5c8d-516c-bafb-aeb9269f64f3",
+      "uuid": "ab1132fb-23cb-54c1-a2eb-03ae7432e157",
+      "name": "Relay Generator 0[1]",
+      "parent": "98e8db56-72e5-54e2-b4c9-a703298209a2",
       "components": {
         "MeshRenderer": {
-          "mesh": "f657be30-2936-4a60-b1da-5978d576e489",
+          "mesh": "d1af6223-dd3d-4e5b-b0cd-6cb666fc5acf",
           "mesh_index": 1,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
@@ -13876,16 +13889,16 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "63a49518-480d-5f2f-9021-eb2493d4cef3"
+      "next": "ffec1c10-decc-56d7-9a33-5adbd9a0dddd"
     },
     {
-      "uuid": "63a49518-480d-5f2f-9021-eb2493d4cef3",
-      "name": "Relay Generator Collider 0",
-      "parent": "e8f7e057-5c8d-516c-bafb-aeb9269f64f3",
+      "uuid": "ffec1c10-decc-56d7-9a33-5adbd9a0dddd",
+      "name": "Relay Generator 0 Collider",
+      "parent": "98e8db56-72e5-54e2-b4c9-a703298209a2",
       "components": {
         "Collider": {
           "shape": "box",
-          "size": [1, 0.78, 0.68],
+          "size": [0.82169508934021, 0.577029287815094, 0.5657284259796143],
           "radius": 0.5,
           "height": 1,
           "offset": [0, 0, 0],
@@ -13910,7 +13923,79 @@
           "angular_velocity": [0, 0, 0]
         },
         "Transform": {
-          "position": [0, 0.38999998569488525, 0],
+          "position": [0, 0.28850001096725464, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "5b0e2dc6-079e-5c7f-8e72-f11ffa1db9b8",
+      "name": "Relay Generator 1",
+      "parent": "e8f7e057-5c8d-516c-bafb-aeb9269f64f3",
+      "components": {
+        "Transform": {
+          "position": [0.6200000047683716, 0.14579999446868896, 0.30000001192092896],
+          "rotation": [0, -0.1736481934785843, 0, 0.9848077893257141],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "0eff96eb-6c39-5267-a4ac-ce4856be3d99",
+      "name": "Relay Generator 1[0]",
+      "parent": "5b0e2dc6-079e-5c7f-8e72-f11ffa1db9b8",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "45695017-1aa5-47f7-a1ff-95fc3da85d9c",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "cc6a81e7-664b-5fca-802a-a889636af65a"
+    },
+    {
+      "uuid": "cc6a81e7-664b-5fca-802a-a889636af65a",
+      "name": "Relay Generator 1 Collider",
+      "parent": "5b0e2dc6-079e-5c7f-8e72-f11ffa1db9b8",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.2680235207080841, 0.31838423013687134, 0.3419806659221649],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 0.15919999778270721, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }
