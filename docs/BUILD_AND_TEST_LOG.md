@@ -853,3 +853,10 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 
 - rig._hud_type() post-processes the HUD subtree: UiText of 16+ units outside HUD_SENTENCES gets Barlow Condensed (Bold when bold) at 1.18x size. A first pass that also converted the 13-15 unit roster/compass labels smudged them at 1312x576 (Hot 10S aspect), so those stay on Inter.
 - patch_hud re-emitted 64 scenes. `victus check game`: 0 problems; autotests hud and pause_ui PASS. Capture: docs/media/hud_type.png (touch forced on for the capture only).
+
+## 2026-11-20 PC-7 hero texture bake
+
+- New tools/assets/blender_bake.py `bake_hero()`; blender_pc7.py calls it on pc7_body (1024 px, `PC7_BAKE_SIZE` overrides) and pc7_cell (512 px). Scans: ambientCG Plastic006, Metal032, Rubber004, PaintedMetal004 (CC0, cached 1K). Emissive glow/dot and the lens keep their own materials. `PC7_NO_BAKE=1` restores the old flat-colour export.
+- Blender 4.2.3 run (2 vCPU): body 12588 tris, cell 1156, world 13744 (unchanged). GLB sizes: pc7_body 3.0 → 4.2 MB, pc7_world 3.1 → 5.0 MB, pc7_cell 0.6 → 0.8 MB; textures cook to BC7/ASTC 4x4 per the existing .meta. A 2048 px trial gave 13 MB GLBs and was dropped for the phone's memory.
+- Captured scenes/tests/hud_look.vscene at 1312x576 high, before/after crop in docs/media/pc7_bake_before_after.png: edge wear on the receiver and handguard, polymer stipple and AO in the recesses are visible; the look still needs a real-GPU check.
+- Autotests: weapons 26/0, reload_feel 22/0, vm_ads 1/0, armory 20/0.
