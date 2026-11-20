@@ -26,13 +26,13 @@ def add_target(sc, name, pos, yaw=0.0, reset=3.0, group=""):
 
 
 # Plans that place the Halyard Team, Greyline contractors and Ranger Hollis on the range.
-SQUAD_PLANS = {"squad", "squad_combat", "enemy_fire", "squad_look", "chatter", "reactions", "hud_look", "enemy_tactics", "squad_cover"}
+SQUAD_PLANS = {"squad", "squad_combat", "enemy_fire", "squad_look", "chatter", "reactions", "hud_look", "enemy_tactics", "squad_cover", "stealth"}
 
 
 def add_squad_setup(sc, plan):
     actors.add_ensemble(sc)
     actors.add_npc_tracers(sc)
-    if plan not in ("enemy_fire", "enemy_tactics"):
+    if plan not in ("enemy_fire", "enemy_tactics", "stealth"):
         for who, (x, z) in (("Anchor", (-1.7, 8.0)), ("Patch", (1.6, 8.6)), ("Echo", (-3.0, 9.6)), ("Tally", (2.6, 10.4))):
             actors.add_operator(sc, who, (x, 0, z), 180.0 if plan == "squad_look" else 0.0)
     if plan in ("chatter", "reactions", "hud_look"):
@@ -53,6 +53,9 @@ def add_squad_setup(sc, plan):
             sc.box(f"Crate {i}", (x, 0.55, z), (1.6, 1.1, 0.9), (0.42, 0.38, 0.3))
         actors.add_enemy(sc, "Greyline 1", (-8, 0, -10), 0.0, variant=0, voice="greyline1", group="range", alert=True)
         actors.add_enemy(sc, "Greyline 2", (8, 0, -10), 0.0, variant=1, voice="greyline2", group="range", alert=True)
+    if plan == "stealth":
+        # one unalerted contractor 18 m from the player, facing him
+        actors.add_enemy(sc, "Greyline 1", (3, 0, -12), -9.5, variant=0, voice="greyline1", group="range")
     if plan == "enemy_tactics":
         # two alerted contractors in the open in front of the range's cover blocks
         actors.add_enemy(sc, "Greyline 1", (-7, 0, -9), 20.0, variant=0, voice="greyline1", group="range", alert=True)

@@ -33,9 +33,11 @@ def run(plan, frames):
     cmd = ["victus", "simulate", str(GAME), "--scene", f"scenes/tests/{plan}.vscene", "--frames", str(frames),
            "--saves", f"/tmp/sops_saves_{plan}"]
     subprocess.run(["rm", "-rf", f"/tmp/sops_saves_{plan}"])
-    p = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=900)
-    out = p.stdout + p.stderr
-    log = newest_log(t0)
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, env=env)
+    out, _ = p.communicate(timeout=900)
+    # the engine names its log victus-<time>-<pid>.log: take this run's, not a concurrent one's
+    mine = sorted(LOGDIR.glob(f"victus-*-{p.pid}.log"), key=lambda q: q.stat().st_mtime)
+    log = mine[-1] if mine else newest_log(t0)
     lines = log.read_text(errors="replace").splitlines() if log else []
     auto = [l.split("[script] ", 1)[-1] for l in lines if "AUTOTEST" in l]
     errors = [l for l in lines if "[error]" in l]

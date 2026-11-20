@@ -219,6 +219,11 @@ function Op:visible_enemy()
         end
         return nil, p
     end
+    -- weapons tight on contractors who have not noticed anyone: the squad does not start the fight
+    -- unless the player fires first (or the contractor goes alert)
+    if rec and rec.ctl and rec.ctl.state == "patrol" and time.now() - (Squad.state().player_shot_t or -100) > 15 then
+        return nil, p
+    end
     if p.visible then return p.target, p end
     return nil, p
 end
@@ -317,6 +322,8 @@ function Op:update(dt)
     if not self.engaged then self.cover_goal, self.in_cover = nil, nil end
     local crouch = self.engaged and not self.goal and (self.r.role == "scout" or self.r.role == "lead") and self.stagger_t <= 0
     if self.in_cover and not self.goal then crouch = self.fire_t > 0.45 or self.stagger_t > 0 end
+    -- quiet moves: when the player gets low, the team takes a knee at each halt too
+    if not self.engaged and not self.goal and Game.player_state and Game.player_state.crouched then crouch = true end
     self.crouching = crouch
     a:param("crouch", crouch)
     a:update(dt)

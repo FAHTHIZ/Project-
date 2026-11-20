@@ -112,14 +112,61 @@ function E:say(kind, chance, ttl)
     return Dialogue.bark(kind, { prefix = "grey_", speaker = self.voice, cooldown = 7, ttl = ttl })
 end
 
--- A group mate already sweeping the spot this contractor is heading for.
+-- How fast this contractor recognises a visible target, per second (1 = recognised).
+function E:notice_rate(tgt)
+    local d = flat_dist(self.entity.position, tgt.position)
+    if d < 4.0 or time.now() - self.hit_t < 2.0 then return 100 end
+    local r = 1.8 * math.max(0, 1 - d / 24) ^ 2 + 0.04
+    local is_player = Game.player ~= nil and tgt.id == Game.player.id
+    local ps = is_player and Game.player_state or nil
+    local v = tgt.velocity or vector.create(0, 0, 0)
+    local speed = math.sqrt(v.x * v.x + v.z * v.z)
+    local crouched = ps and ps.crouched
+    if not is_player then
+        for _, m in Squad.state().members do
+            if m.entity and m.entity.valid and m.entity.id == tgt.id then crouched = m.crouching end
+        end
+    end
+    if crouched then r *= 0.45 end
+    if speed < 0.3 then r *= 0.55 elseif speed > 4.0 then r *= 1.8 end
+    if ps and ps.torch_on then r *= 2.4 end              -- a lit weapon light is a beacon
+    -- inside this contractor's own rail-light beam
+    local f = self.entity.forward
+    local to = tgt.position - self.entity.position
+    local len = math.max(0.01, math.sqrt(to.x * to.x + to.z * to.z))
+    if d < 18 and f and -(f.x * to.x + f.z * to.z) / len > 0.95 then r *= 2.6 end   -- model faces -forward
+    if (Game.flash or 0) > 0.2 then r *= 4 end            -- lightning lights the whole slope
+    if self.state == "alert" then r *= 1.6 end            -- already looking for someone
+    for _, o in self.group ~= "" and group_of(self.group) or {} do
+        if o ~= self and not o.down and o.state == "engage" then r *= 3; break end
+    end
+    return r
+end
+
+-- The group mate who checks the spot this contractor is heading for (already sweeping it, or
+-- closer to it); this one covers him instead.
 function E:spot_lead()
     if self.group == "" or not self.noise_pos then return nil end
     for _, o in group_of(self.group) do
-        if o ~= self and not o.down and o.state == "alert" and o.sweep and o.noise_pos
-            and flat_dist(o.noise_pos, self.noise_pos) < 6 then return o end
+        if o ~= self and not o.down and o.state == "alert" and o.noise_pos and flat_dist(o.noise_pos, self.noise_pos) < 6
+            and (o.sweep or (not o.held and flat_dist(o.entity.position, o.noise_pos) + 1 < flat_dist(self.entity.position, self.noise_pos))) then
+            return o
+        end
     end
     return nil
+end
+
+-- A group mate walking over to the same spot, not yet close enough to cover.
+function E:mate_coming()
+    if self.group == "" or not self.noise_pos then return false end
+    for _, o in group_of(self.group) do
+        if o ~= self and not o.down and o.state == "alert" and not o.sweep and o.noise_pos
+            and flat_dist(o.noise_pos, self.noise_pos) < 6 then
+            local d = flat_dist(o.entity.position, self.noise_pos)
+            if d >= 11 and d < 40 then return true end
+        end
+    end
+    return false
 end
 
 -- A group mate currently walking to a search point nearby (the one this contractor covers).
@@ -143,7 +190,7 @@ end
 
 function E:investigate(pos, delay)
     if self.down or self.state == "engage" then return end
-    self.sweep_moving, self.held, self.hold_t = nil, nil, 0
+    self.sweep_moving, self.held, self.hold_t, self.wait_mate = nil, nil, 0, 0
     -- more of the same noise (footsteps, a burst) refines the spot instead of restarting the search
     if self.state == "alert" and self.noise_pos and flat_dist(pos, self.noise_pos) < 5 then
         self.noise_pos = pos
@@ -228,6 +275,16 @@ function E:wake(pos, yaw)
     self.entity:set("Perceptible", { enabled = true })
 end
 
+-- Out of the level again (end of a search line, far from the player).
+function E:stow()
+    self.dormant = true
+    self.actor:halt()
+    self.state = "patrol"
+    self.entity.position = vector.create(self.home.x, -400, self.home.z)
+    self.entity:set("Perceptible", { enabled = false })
+    Game.emit("enemy_stowed", self.entity)
+end
+
 function E:retreat(points)
     self.parley = true
     self.retreating = true
@@ -282,7 +339,34 @@ function E:update(dt)
         a:update(dt)
         return
     end
+    -- noticing takes time (CoD4 "All Ghillied Up" style): distance, stance, movement, light and
+    -- lightning decide how fast; a glimpse makes a contractor stop and stare before he opens up
+    if self.state ~= "engage" then
+        if tgt then
+            self.aware = math.min(1, (self.aware or 0) + self:notice_rate(tgt) * dt)
+            self.aware_pos = tgt.position
+        else
+            self.aware = math.max(0, (self.aware or 0) - 0.22 * dt)
+        end
+        if self.aware >= 0.4 and not self.suspect and self.aware_pos then
+            self.suspect = true
+            if self.state == "patrol" then self:say("huh", 0.8, 1.6) end   -- searchers are already suspicious
+            Game.emit("enemy_suspicious", e, self.aware_pos)
+            if self.state == "patrol" then
+                a:halt()
+                self.state = "alert"
+                self.noise_pos = self.aware_pos
+                self.st = -1.2      -- stand and look before walking over
+                self.sweep = nil
+            end
+        elseif self.aware < 0.15 then
+            self.suspect = nil
+        end
+        if self.suspect and self.aware_pos then a.focus = self.aware_pos end
+        if self.aware < 1 then tgt = nil end
+    end
     if tgt and self.state ~= "engage" then
+        self.aware = 1
         self.state = "engage"
         self.st = 0
         self.react = 0.6 + math.random() * 0.4
@@ -312,6 +396,12 @@ function E:update(dt)
                 if math.random() < 0.25 then self:say("idle") end
             end
             a.focus = nil
+            if self.line and a.goal then
+                -- walking a search line: weapon at the low ready, light and eyes sweeping ±40 degrees
+                a.aim_want = 0.45
+                local yaw = math.atan2(p.x - e.position.x, p.z - e.position.z) + math.rad(math.sin(self.st * 0.7 + self.actor.seed) * 40)
+                a.focus = e.position + vector.create(math.sin(yaw), 0, math.cos(yaw)) * 8
+            end
         end
     elseif self.state == "alert" then
         if self.st >= 0 and self.noise_pos then
@@ -323,7 +413,7 @@ function E:update(dt)
             if lead then
                 if flat_dist(e.position, self.noise_pos) < 11 then
                     if a.goal then a:halt() end
-                    a.focus = lead.sweep[math.max(1, lead.sweep_i)] or lead.entity.position
+                    a.focus = lead.sweep and lead.sweep[math.max(1, lead.sweep_i)] or lead.entity.position
                     if not self.held then
                         self.held = true
                         self:say("covering", 0.5, 1.4)
@@ -341,6 +431,11 @@ function E:update(dt)
                 local p = nav.available() and nav.nearest(self.noise_pos, vector.create(3, 4, 3)) or self.noise_pos
                 self.actor:set_speed(2.2)
                 a:go(p)
+            elseif self.st > 0.8 and not self.sweep and (a:arrived() or flat_dist(e.position, self.noise_pos) <= 3)
+                and self:mate_coming() and (self.wait_mate or 0) < 10 then
+                -- a mate is on his way to cover this: wait for him before going in (up to 10 s)
+                self.wait_mate = (self.wait_mate or 0) + dt
+                if a.goal then a:halt() end
             elseif self.st > 0.8 and not self.sweep and (a:arrived() or flat_dist(e.position, self.noise_pos) <= 3) then
                 -- reached the spot: sweep a few points around it, pausing to look at each
                 self.sweep = Tactics.search_points(self.noise_pos, 3, 7)
@@ -384,7 +479,7 @@ function E:update(dt)
                 end
             end
             local give_up = self.sweep and (self.sweep_i >= #self.sweep and self.sweep_wait <= 0 or self.st > 30)
-                or (not self.sweep and not lead and self.st > (a.goal and 20 or 9))
+                or (not self.sweep and not lead and self.st > (a.goal and 20 or 9) + (self.wait_mate or 0))
             if give_up then
                 self.sweep, self.sweep_moving = nil, nil
                 self:say("calm", 0.6)

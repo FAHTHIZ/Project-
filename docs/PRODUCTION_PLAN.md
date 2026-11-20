@@ -33,6 +33,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Contractor tactics: real cover from colliders, peek/duck, one-at-a-time flank, suppress last known, search sweeps | Done (enemy_tactics 10/10; regressions pass) | log "Greyline contractor tactics" |
 | Squad takes real cover in follow-mode firefights; contractors relocate instead of shooting their own cover | Done (squad_cover 6/6; regressions pass) | log "Squad cover in firefights" |
 | Bounding overwatch: 3-5 s covered rushes with "Moving!/Covering!/Set!", multi-rush flanks, one man up at a time, pair searches (one checks, one covers) | Done (enemy_tactics 15/15; regressions pass) | log "Bounding overwatch" |
+| Awareness model (gradual noticing by distance, stance, movement, lights, lightning; "huh" pause), squad weapons tight on unaware contractors, team kneels when the player gets low | Done (stealth 5/5; regressions pass) | log "Awareness" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

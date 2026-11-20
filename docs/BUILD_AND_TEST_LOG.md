@@ -504,3 +504,18 @@ Doctrine followed (cited in docs/world/SCALE_AND_PACING.md): individual rushes l
 - Regressions PASS (with the stricter error check): movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, squad_cover. story_op01: see below.
 - Not tested: bounding among open-world trees (the dev range has blocks and crates), three-man groups, and the Halyard side (operators do not bound yet).
 - story_op01 PASS (19 800 frames, 330 s game time, 0 script errors, no runtime script errors in the log): all 15 stages through `enter_facility`.
+
+## 2026-11-20 Awareness: gradual noticing, weapons tight, team takes a knee
+
+- `enemy.luau` `E:notice_rate`: seeing a target fills an awareness meter instead of starting a fight on the first visible frame (rates and multipliers in docs/world/SCALE_AND_PACING.md). At 0.4 a patrolling contractor halts, says `grey_huh_*`, stares and then walks over to look (`enemy_suspicious` event). At 1.0 he engages. The meter decays out of sight. Searching contractors skip the "huh" (they are already suspicious), so it does not mask the `contact` bark.
+- Pair search refinement: the closer contractor checks the spot and the other covers. The one who arrives first waits up to 10 s for a mate still on his way (11-40 m out) before going in.
+- `world/storm.luau` publishes `Game.flash` (lightning level 0-1); lightning makes everyone easier to see.
+- `operator.luau`:
+  - weapons tight. Operators do not open fire on contractors still in `patrol` state unless the player has fired in the last 15 s (`Squad.state().player_shot_t`, set in `weapons.luau`).
+  - when the player crouches, operators take a knee at every halt.
+- 4 new voiced lines `grey_huh_1..4` (459 with the Op01 search-line lines staged next).
+- New autotest `stealth` (dev range, one unalerted contractor 18 m out, player unhittable): PASS 5/5. Crouched, still, light off for 6 s: not engaged (awareness 0.29). Standing, light on: suspicious 0.3 s later, engaged 2.5 s later; the "huh" bark was heard.
+- `run_autotests.py`: picks the engine log by the child's pid (`victus-<t>-<pid>.log`), not "newest". A concurrent run had been read as this run's log, and that produced false FAILs.
+- Regressions PASS: stealth, movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, enemy_tactics 15/15, squad_cover 6/6.
+- Not tested: foliage concealment (grass and bushes do not lower awareness yet; only colliders block sight), and the lightning multiplier (no plan has a storm).
+- story_op01 PASS (19 800 frames, 0 script errors) with the awareness model and weapons tight.
