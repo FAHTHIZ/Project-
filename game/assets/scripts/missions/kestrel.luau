@@ -51,7 +51,10 @@ local function group_up(name)
     for _, e in group(name) do if not e.down then n += 1 end end
     return n
 end
-local function group_total(name) return #group(name) end
+-- Enemies downed before the last checkpoint are removed on restore; cleared keeps their count
+-- per group so resumed objective counts and the patrol surrender check still see them.
+local cleared = {}
+local function group_total(name) return #group(name) + (cleared[name] or 0) end
 local function group_engaged(name)
     for _, e in group(name) do
         if not e.down and e.state ~= "patrol" then return true end
@@ -870,7 +873,7 @@ function M:update_line(dt)
     local f = self.flags
     if f.line_done then return end
     if not f.line_woke then
-        if near(LINE_TRIGGER, 28) and group_total("line") > 0 then
+        if near(LINE_TRIGGER, 28) and #group("line") > 0 then
             f.line_woke = true
             for _, e in group("line") do
                 e:wake()
@@ -1035,9 +1038,17 @@ function M:restore(cp)
     self.restoring = true
     self.flags = cp.flags or {}
     if cp.inv then Inventory.restore(cp.inv) end
+    table.clear(cleared)
     for _, nm in cp.downed or {} do
         local e = scene.find(nm)
-        if e then scene.destroy(e) end
+        if e then
+            for _, r in Squad.state().enemies do
+                if r.entity.valid and r.entity.name == nm and r.ctl and r.ctl.group then
+                    cleared[r.ctl.group] = (cleared[r.ctl.group] or 0) + 1
+                end
+            end
+            scene.destroy(e)
+        end
     end
     local pos = vec(cp.pos)
     self:place_player(pos, cp.yaw or 0)

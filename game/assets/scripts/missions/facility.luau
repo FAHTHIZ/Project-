@@ -53,7 +53,10 @@ local function group_up(name)
     for _, e in group(name) do if not e.down and not e.dormant and not e.gone then n += 1 end end
     return n
 end
-local function group_total(name) return #group(name) end
+-- Enemies downed before the last checkpoint are removed on restore; M.cleared keeps their count
+-- per group so a resumed "Clear the labs" reads 3/5 instead of 0/2 (or 0/0 with the room clear).
+local cleared = {}
+local function group_total(name) return #group(name) + (cleared[name] or 0) end
 local function enemy(name)
     for _, r in Squad.state().enemies do
         if r.entity.valid and r.entity.name == name then return r.ctl end
@@ -796,9 +799,15 @@ function M:restore(cp)
     self.restoring = true
     self.flags = cp.flags or {}
     if cp.inv then Inventory.restore(cp.inv) end
+    table.clear(cleared)
     for _, nm in cp.downed or {} do
         local e = scene.find(nm)
-        if e then scene.destroy(e) end
+        if e then
+            for _, r in Squad.state().enemies do
+                if r.entity.valid and r.entity.name == nm and r.ctl and r.ctl.group then cleared[r.ctl.group] = (cleared[r.ctl.group] or 0) + 1 end
+            end
+            scene.destroy(e)
+        end
     end
     for id in self.flags.doors or {} do
         local d = door(id)

@@ -1010,3 +1010,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Found in the campaign tour: at the relay, ravine and ridge checkpoints flat ground (relay gravel pad, creek-side stones) rendered as white sparkle noise. The engine wet film drives roughness to 0.08 on up-facing faces in proportion to `wetness` (0.8) and puddles covered 42% of flat ground, so torch highlights and rain ripples aliased into glitter.
 - Fix: night_storm preset and the six storm scenes (prologue, op01-03, menu, credits) now use wetness 0.55, puddles 0.28, ripples 0.7.
 - Verified: relay checkpoint (op01 cp02), 768x336 medium, 60 frames, lavapipe: docs/media/wet_ground_before_after.jpg (top 0.8/0.42/1.0, bottom 0.5/0.2/0.6 test values) — the pad reads as wet gravel instead of glitter; 0 script errors. Final values sit between the two and will be checked in the next tour pass.
+
+## Resumed clear-room objectives keep their counts (2026-11-20)
+- Found in the campaign tour: resuming the op04 labs checkpoint showed "Clear the labs (0/0)". Restore destroys enemies downed before the checkpoint, so `group_total` only counted the survivors.
+- Fix: kestrel.luau and facility.luau keep a per-group `cleared` count of enemies removed on restore and add it to `group_total` (line-wake trigger still checks live members only).
+- Verified: op04 cp02 resume now reads "Clear the labs (4/4)" (768x336 medium, 60 frames, 0 script errors); `tour.py restore` 35/35 ok.
