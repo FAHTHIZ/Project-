@@ -378,6 +378,7 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 
 ## 2026-11-20 HUD v2 and reactive squad voice
 
+- Commit a437436 (game main).
 - HUD v2 (`tools/scenes/rig.py` `add_hud`, `game/assets/scripts/hud.luau`, new textures from `tools/ui/build_ui_textures.py`):
   - A heading compass sits top centre: a clipped strip with ticks every 15 degrees, cardinal and intercardinal labels, a centre notch, a heading readout, and the waypoint diamond with its distance.
   - A squad roster lists each operator with a status dot and state (ON YOU / HOLDING / MOVING / MOUNTED / ENGAGED / HIT, plus distance past 25 m).
@@ -409,3 +410,10 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - story_op01 still FAIL: the known face.luau 250 ms watchdog fired on both runs, so the plan did not reach its checks in 1800 frames. This is the pre-existing issue above, not yet fixed.
 - Captured `shot.sh scenes/tests/hud_look.vscene 40 docs/evidence/hud_v2.png 1280 576` and inspected it on lavapipe. The compass heading matches the view (347°, N 13° right), the waypoint diamond and distance show, the squad roster, health trail, mag pips, hit marker, damage wedge, feed and awareness all render, and a squad hurt bark replaced the scripted subtitle.
 - Not measured: on-device cost of the extra ~130 HUD entities per scene, or the reticle raycast.
+
+## 2026-11-20 story_op01 watchdog fixed (engine: background navmesh builds)
+
+- Cause: it was not the face code. `VICTUS_SCRIPT_SLOW_CALLS=40` (new engine diagnostic) logged `slow native call available: 24591.2 ms`. The first `nav.available()` call in `operator.luau` (follow mode, `nav.nearest` for the slot) built the 1024 m terrain navmesh synchronously inside the script call. The budget error then surfaced at the next VM interrupt check, which happened to be in `face.luau`'s head search. A coarser `NavMeshSurface` (0.3 m cells) only cut the stall to 14.8 s, so it was not kept.
+- Fix in VICTUS cd59c05 (engine main, see its docs/STATUS.md "Background navmesh builds and script budget accounting"): large navmeshes cook on a worker thread. `nav.available()` returns false until the mesh is installed, and `operator.luau`/`enemy.luau` already fall back to the raw slot or noise point. Navmesh builds and first-use model loads are no longer charged to the script budget. No game script change was needed.
+- Ran: `SOPS_TEST_FRAMES=2400 python3 tools/test/run_autotests.py story_op01` before the fix: script error at the first operator update. After the fix: `SOPS_TEST_FRAMES=19800 ... story_op01` PASS, 19 800 frames, 0 script errors, all 15 stages (trail through enter_facility), completed=op03.
+
