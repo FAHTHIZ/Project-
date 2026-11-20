@@ -965,6 +965,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Phone pack: `tools/android/mobile_pack.py` (new) strips `bc7+` from every `.meta` for one import/export and restores them byte for byte. 332 imported, 80 up to date, 0 failed; 1394 files, 412 cooked assets, pack 1 971 126 979 bytes (desktop export of the same tree: 2 293 172 243 bytes). The size matters: a GitHub release asset must be under 2 GiB.
 - `tools/android/inject_pack.py` (new) streams the pack into the engine shell APK as a stored entry instead of letting Gradle copy it twice; native libraries 16 KiB aligned, everything else stored 4-byte aligned. Signed with `apksigner` (v3, `--alignment-preserved`; without that flag apksigner moved the .so data off the 16 KiB boundary by 8 bytes, which `zipalign -c -P 16` caught). `tools/android/build_apk.sh` runs the whole chain.
 - Result `SpecialOps.apk`, 2 001 536 373 bytes, package `com.fahthiz.specialops`, minSdk 28, targetSdk 36. Engine `tools/android/check_apk.sh`: OK (3 native libraries, game.vpak, classes.dex, SDL_main and JNI_OnLoad exported, 16 KB ELF alignment). `zipalign -c -P 16 -v 4`: Verification successful. `apksigner verify`: Verifies (v3).
+- Published: GitHub release android-v1.0.0 (https://github.com/FAHTHIZ/Project-/releases/tag/android-v1.0.0), asset SpecialOps-1.0.0-android.apk, 2 001 536 373 bytes, SHA-256 d4868191f723359c1586b7200dda67c953e29188aa5fa1d31728de00e3ce754d.
+- Desktop cache re-imported afterwards (meta files back to bc7+astc); `victus check game` clean.
 - Not done: install or run on a phone or emulator (none available here). Hot 10S frame time, memory, thermals and touch still unmeasured.
 
 ## 2026-11-20 Android APK v2: engine texture profile, 2.0 GB to about 0.6 GB

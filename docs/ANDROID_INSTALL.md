@@ -5,7 +5,7 @@ Android 9 or newer with Vulkan 1.1 or OpenGL ES 3.0 is supported by the engine.
 
 ## Install
 
-1. Download `SpecialOps-<version>.apk` from the GitHub release (about 2.0 GB).
+1. Download `SpecialOps-1.0.0-android.apk` from the [android-v1.0.0 release](https://github.com/FAHTHIZ/Project-/releases/tag/android-v1.0.0) (about 2.0 GB).
 2. Free at least 4.5 GB on the phone: the APK holds the 1.97 GB game pack, and on first launch the
    engine copies that pack to the app's internal storage once (VICTUS `install_bundled_pack`).
 3. Open the APK and allow "Install unknown apps" for the browser or file manager when asked.
