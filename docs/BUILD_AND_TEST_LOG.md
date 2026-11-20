@@ -356,3 +356,14 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 
 - `tools/world/night_grade.py` applies a new storm-night grade to the 10 night scenes; the `common.py` `night_storm` preset uses the same values. Fog and volumetric albedo are a deep green, shadows are lifted (ambient 0.68, exposure +1.75 EV) with contrast 1.07, so trunks read as silhouettes in luminous mist instead of crushed black.
 - Ran: `shot.sh scenes/tests/story_op01.vscene` before and after (inspected; before it was near-black).
+
+## 2026-11-20 Cast kit to match the bible
+
+- `tools/assets/cast_kit.py` is a kit stage for `build_rocketbox_cast.py` that follows OPERATORS_AND_WEAPON_DESIGN section 10. Accessories are generated, skinned rigidly and given swatches in the free atlas tile, so each mesh is still one primitive.
+  - Anchor borrows Military_Male_01's pouches and webbing, plus a backpack.
+  - Tally has a headset, boom mic, radio pack and whip antenna.
+  - Patch has a teal armband, white gloves, a red bun and a medic pack.
+  - Echo drops the vest (slim scout) and Brick gets a backpack.
+  - Greyline are recast to Rocketbox Police_Male_02 (charcoal kit, helmet, balaclava). Their goggle lenses are tinted safety orange and the unit patches are painted out. The _b variant is lifted to mid grey.
+- Ran: `build_rocketbox_cast.py` (all nine CAST_OK), Blender close-ups of Patch, Tally, Anchor, Echo and Greyline (inspected), `victus import game` (7 imported, 0 failed), `victus check game` (246 scenes, 0 problems), and an in-engine squad close-up (inspected: accessories follow the rig).
+- Not measured: on-device cost. Accessories add under 2k tris per character.
