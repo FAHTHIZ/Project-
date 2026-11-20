@@ -339,3 +339,10 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - `game/victus.project`: mobile target 60 FPS. With VICTUS 590ffef (ADR-0124) the player sleeps out each frame period instead of rendering at the 90 Hz vsync rate, and dynamic resolution has a 0.55 floor. The asset cache is capped at 1024 MB with texture mip streaming on, so the cache evicts instead of growing until Android kills the app.
 - Ran: `victus check game` (0 problems), `shot.sh scenes/tests/world_trailhead.vscene 20 ... low` (Low tier, inspected).
 - Not measured: Hot 10S frame time, memory, thermals, or whether 60 holds. If 60 does not hold, set `mobile_target_fps` to 45, which paces evenly on a 90 Hz panel.
+
+## 2026-11-20 Rocketbox cast
+
+- `tools/assets/blender_rocketbox.py` (Blender 4.2) poses each Microsoft Rocketbox `_facial.fbx` (MIT) into the rig's rest A-pose. It merges the Biped weights onto the 21 joints and mixes ARKit/viseme blendshapes into the 11 morphs `lib/face.luau` drives.
+- `tools/assets/build_rocketbox_cast.py` keeps each `sops_*.glb` rig and its 22 clips (translations re-based to the new proportions) and writes one atlased primitive per mesh. The originals are kept as sources in `.cache/rocketbox/_src/`.
+- Ran: `victus import game` (9 imported, 0 failed), `victus check game` (246 scenes, 0 problems), and a squad close-up from `squad_look` (inspected: faces, kit and held rifles render).
+- Not measured: on-device skinning cost (about 7k to 15k tris per human), memory or frame time.
