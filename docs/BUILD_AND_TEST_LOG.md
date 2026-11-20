@@ -951,7 +951,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
   - White, low-saturation texels on the hands (|x| > 0.45 m in the A-pose) re-dyed coyote leather with their own shading (Patch, Venn).
   - Damp: rain from above (tops of shoulders, helmet, pack darkest), soaked below the knee; albedo up to -38 %, roughness up to -38 %. Exposure 0.6 for Greyline (on watch under cover), 0.7 Hollis, 0.8 Venn.
   - Mud: splash band from the soles to the shins and kneeling patches on the front of the knees, fixed-seed fBm per character. Warm-saturated texels count as skin only above 0.6 m, so tan boots get mud.
-  - Marker `asset.extras.sops_weather = 1` stops a second application. `build_rocketbox_cast.py` notes to re-run it after a cast rebuild.
+  - Only texels a triangle maps to (dilated 8 texels for mip bleed) are edited; the gutters between UV islands keep their original colour (a first run painted them with mud and was redone from the pre-weather files as v2).
+  - Marker `asset.extras.sops_weather = 2` stops a second application. `build_rocketbox_cast.py` notes to re-run it after a cast rebuild.
 - Mean coverage of mapped texels: damp 0.17 (Hollis) to 0.37 (Patch), mud 0.02 to 0.06, gloves 0.03 (Patch).
 - Look-dev check in Blender 4.2.3 Cycles (orthographic, three area lights) before and after: docs/media/cast_weather_patch.jpg. In the night prologue capture the change is subtle (the lantern and the grade dominate), which is the intent.
 - VICTUS e9ce2ea Release: `victus import game` 9 imported, 403 up to date, 0 failed; `victus check game` 263 scenes, 0 problems. Autotests: squad 19/0, reactions 10/0.
