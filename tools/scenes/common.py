@@ -48,7 +48,9 @@ def environment(sc: Scene, preset="forest", **over):
             "fog_density": 0.018, "fog_max_opacity": 0.96,
             "precipitation": "rain", "precipitation_intensity": 0.85, "precipitation_wind": [2.2, 0.0, 1.1],
             "precipitation_radius": 15.0, "precipitation_brightness": 1.1, "precipitation_opacity": 0.0,
-            "wetness": 0.8, "puddles": 0.42, "puddle_size": 2.6, "precipitation_ripples": 1.0,
+            # wet film 0.55 / puddles 0.28: at 0.8 / 0.42 every flat face went mirror-smooth and the
+            # torch and ripples turned gravel pads and rocks into white glitter (campaign tour, 2026-11)
+            "wetness": 0.55, "puddles": 0.28, "puddle_size": 2.6, "precipitation_ripples": 0.7,
             "precipitation_splashes": 0.8,
             "volumetric_fog": True, "volumetric_density": 0.022, "volumetric_height": 4.0,
             "volumetric_falloff": 0.08, "volumetric_albedo": [0.76, 0.8, 0.86, 1], "volumetric_anisotropy": 0.62,
