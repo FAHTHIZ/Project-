@@ -17,6 +17,8 @@ The Rocketbox avatar supplies everything visible:
   ACU camouflage is re-dyed to each character's unit palette and national insignia are
   painted out (Halyard and Greyline are fictional).
 
+After a rebuild, run tools/assets/cast_weather.py (storm weathering of the body atlases).
+
 Joint translations are rewritten to the avatar's proportions; animation translation channels
 are re-based on the new rest offsets (the hips' motion is scaled by the hip-height ratio).
 """
