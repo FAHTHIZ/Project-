@@ -44,7 +44,7 @@ from gltf_util import read_glb, accessor  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 CHARS = os.path.join(ROOT, 'game', 'assets', 'models', 'characters')
-VERSION = 1
+VERSION = 2
 # Halyard Team (dyed camo); everyone else gets damp and mud only
 CAMO = {'sops_anchor', 'sops_brick', 'sops_tally', 'sops_patch', 'sops_echo', 'sops_explorer'}
 # how long each has been out in it: Hollis lives here and Greyline stand watch under cover
@@ -157,6 +157,12 @@ def weather(stem, rgb, mr, h, ny, nz, ax, height_m):
     rough = rough * (1 - mud) + (0.55 + 0.3 * smooth(hy, 0.0, 0.3)) * mud
     out = np.clip(lin, 0, 1) ** (1 / 2.2)
     mr2 = mr.copy(); mr2[..., 1] = np.clip(rough, 0.04, 1)
+    # leave the gutters between UV islands as they were (8-texel bleed margin for mips)
+    from scipy.ndimage import binary_dilation
+    keep = binary_dilation(getattr(surface_maps, 'cover', np.ones(n)) > 0, iterations=8).astype(np.float32)
+    keep = blur(keep, 1.0)[..., None]
+    out = rgb * (1 - keep) + out * keep
+    mr2 = mr * (1 - keep) + mr2 * keep
     cv = getattr(surface_maps, 'cover', np.ones_like(damp)) > 0
     return out, mr2, dict(damp=float(damp[cv].mean()), mud=float(mud[cv].mean()), gloves=float(gm[cv].mean()))
 
