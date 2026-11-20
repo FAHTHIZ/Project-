@@ -637,3 +637,13 @@ This follows the doctrine notes in docs/world/SCALE_AND_PACING.md: 3-5 s rushes,
 - Results:
   - PASS: enemy_fire, squad_cover, squad, squad_combat, enemy_tactics, weapons, reactions, chatter, stealth, op01_line_loud;
   - story_op01 PASS (19 800 frames).
+
+## 2026-11-20 Rifle follows the body (kneeling bug fix)
+
+- Bug found in a render (new screenshot plan `squad_kneel_look`): the NPC Carry is a child of the body root at a fixed 1.14 m, so a kneeling operator held his rifle at head height with his arms stretched up to it.
+- Fix in `lib/actor.luau`: every frame the carry is offset by the Chest bone's drop below its standing height, damped. The standing height is the highest the chest has been, and drops under 4 cm are ignored, so walking bob does not move the rifle. The offset includes a small forward move, and seated riders keep their own pose. The bone position read is the previous frame's pose.
+- Render after the fix (docs/media/kneel_carry.png): the kneeling operators hold their rifles at low ready at the waist.
+- `squad_cover` `kneeling_rifle_low` PASS: 138 kneeling samples, with the rifle at least 0.26 m below the standing pose. Reload frames are excluded because the reload pose sits higher.
+  - First threshold attempt: absolute height under 0.95 m. It failed at 1.20 m, which is correct for a kneeling aimed rifle, so the check is now relative to the standing pose.
+  - Second attempt: -0.11 m. It failed because it counted frames mid-reload.
+- Regressions with this change: squad, squad_combat, enemy_fire, enemy_tactics, reactions, chatter, hud_look, stealth, op01_line, op01_line_loud PASS; story_op01 PASS (19 800 frames).

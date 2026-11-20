@@ -47,6 +47,10 @@ function Actor.new(entity, seed)
     self.carry = self.body and Face.find_named(self.body, "Carry")
     self.muzzle = self.carry and self.carry:find_child("Carry Muzzle")
     self.hand_l = self.body and Face.find_named(self.body, "Hand.L")
+    -- the rifle rides with the chest: kneeling, stumbling or surrendering lowers it with the body
+    self.chest = self.body and Face.find_named(self.body, "Chest")
+    self.chest_rest = nil
+    self.chest_dy = 0
     self.yaw = Actor.yaw_of(entity)
     self.aim = 0          -- 0 low ready .. 1 aiming
     self.aim_want = 0
@@ -274,6 +278,16 @@ function Actor:update(dt)
     if self.carry and self.carry.valid then
         local cpos = lerpv(READY_P, AIM_P, self.aim)
         cpos = lerpv(cpos, SEAT_P, self.sit_w)
+        -- follow the chest bone's drop below its standing height (last frame's pose; the standing
+        -- height is the highest the chest has been, so walking bob is ignored)
+        if self.chest and self.chest.valid and self.body and self.body.valid then
+            local cy = self.chest.world_position.y - self.body.world_position.y
+            if not self.chest_rest or cy > self.chest_rest then self.chest_rest = cy end
+            local want = math.clamp(cy - self.chest_rest, -0.7, 0)
+            if want > -0.04 then want = 0 end
+            self.chest_dy = Game.damp(self.chest_dy, want, 14, dt)
+            cpos = cpos + vector.create(0, self.chest_dy * (1 - self.sit_w), -self.chest_dy * 0.12 * (1 - self.sit_w))
+        end
         local rw = self.reload_w * (1 - self.sit_w)
         if rw > 0.001 then
             -- a small dip and lift as the cell is stripped and then seated
