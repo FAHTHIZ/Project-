@@ -47,6 +47,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Photoscanned interior dressing for Op04–Op07: 48 Poly Haven CC0 props (desks, cabinets, shelving, crates, barrels, generator, compressor, carts, safety kit, CCTV, wall fittings, desk clutter, Venn's radio desk, lab kit) rebuilt to mobile budgets and placed room by room around doors and story marks; playtime measured per chapter (`docs/world/PLAYTIME.md`) | Done (story_op04–op07; squad, squad_combat, enemy_fire) | log "Interior dressing and playtime" |
 | Interior exposure lift (bunker, archive) and location-neutral generic barks | Done (17-plan regression) | log "Interior exposure and location-neutral barks" |
 | ADS sight pictures: open reflex windows with a red dot for PC-7 and KV-5 (no opaque glass in the eye line), BR-9 stock below the aimed view; ADS plans for every primary | Done (vm_ads, vm_ads_pdw, vm_ads_breacher, vm_ads_dmr; renders docs/media/ads_*.png) | log "ADS sight pictures" |
+| HUD centre discipline: toasts wait for title cards and fades, stale objective toasts are dropped, duplicates merged; objective panel slides in with an accent flare on change | Done (hud 6/6, story_prologue) | log "HUD: one thing at a time" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

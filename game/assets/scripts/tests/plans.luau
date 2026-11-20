@@ -87,6 +87,32 @@ Plans.hud = {
     end },
     { at = 1.5, run = function(c)
         c.check("hud_objective", Game.objective ~= nil and Game.objective.text ~= nil, "objective set")
+        -- queue hygiene: three objectives in a row leave at most one waiting objective toast
+        Game.set_objective("Cross the footbridge")
+        Game.set_objective("Check the cabin")
+        Game.set_objective("Reach the relay mast")
+        local q, n = Game.toast_queue, 0
+        for i = 2, #q do if q[i].kind == "objective" then n += 1 end end
+        Game.toast("Checkpoint reached", 30)
+        local dup = 0
+        for _, t in q do if t.text == "Checkpoint reached" then dup += 1 end end
+        c.check("hud_toast_queue", n == 1 and q[#q].text ~= "New objective: Cross the footbridge" and dup == 1,
+            string.format("waiting objective toasts %d, duplicate checkpoint toasts %d, queue %d", n, dup, #q))
+        Game.present.title = "OPERATION 02"
+        c.toast_t = q[1] and q[1].t
+        c.toast_head = q[1]
+    end },
+    { at = 2.5, run = function(c)
+        local q = Game.toast_queue
+        c.check("hud_toast_waits_for_title", q[1] ~= nil and q[1].t == c.toast_t,
+            string.format("toast timer %.2f -> %.2f while the title card is up", c.toast_t or -1, q[1] and q[1].t or -1))
+        Game.present.title = nil
+    end },
+    { at = 3.0, run = function(c)
+        local q = Game.toast_queue
+        c.check("hud_toast_resumes", q[1] ~= c.toast_head or q[1].t < c.toast_t, "toast timer runs again after the title card")
+        c.check("hud_stale_objective_toast", q[1] == nil or q[1].text ~= "New objective: Reach the ranger station past the old fence line",
+            "the superseded objective toast was cut short")
     end },
 }
 
