@@ -18933,6 +18933,378 @@
       }
     },
     {
+      "uuid": "2bdc1cc6-2b27-5b3a-8f07-576374469f8c",
+      "name": "Cover Deadfall relay 17",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4.2, 0.75, 0.75],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.37, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Cover"
+        },
+        "Transform": {
+          "position": [24.809900283813477, 26.193300247192383, 59.04130172729492],
+          "rotation": [0, 0.9513965249061584, 0, 0.3079685866832733],
+          "scale": [1.0660661458969116, 1.0660661458969116, 1.0660661458969116]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "4d155fd2-512f-5905-9001-5047bdbae1a0",
+      "name": "Cover Deadfall relay 17[0]",
+      "parent": "2bdc1cc6-2b27-5b3a-8f07-576374469f8c",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8b419264-c77b-49b5-a369-86ed5441049a",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "262c8226-f52e-5f9c-b75b-d31459ac797e",
+      "name": "Cover Deadfall relay 17 Top",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4, 0.7, 0.7],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.35, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Cover"
+        },
+        "Transform": {
+          "position": [24.809900283813477, 26.623300552368164, 59.04130172729492],
+          "rotation": [0.06890960037708282, 0.9854537844657898, 0.010836400091648102, 0.1549672931432724],
+          "scale": [0.980780839920044, 0.980780839920044, 0.980780839920044]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "66eb0bea-b385-59e4-a363-21780b4099b7",
+      "name": "Cover Deadfall relay 17 Top[0]",
+      "parent": "262c8226-f52e-5f9c-b75b-d31459ac797e",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8b419264-c77b-49b5-a369-86ed5441049a",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "264c35c6-6447-51da-985f-c0768c80d4e7",
+      "name": "Cover Boulder relay 18",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.55, 1.05, 1.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.55, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock Cover"
+        },
+        "Transform": {
+          "position": [14.216099739074707, 26.042600631713867, 61.453399658203125],
+          "rotation": [0, 0.8961418867111206, 0, 0.4437677264213562],
+          "scale": [1.419030785560608, 1.419030785560608, 1.419030785560608]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "f3656ec6-3c65-567c-a80c-b32d4b373cc0",
+      "name": "Cover Boulder relay 18[0]",
+      "parent": "264c35c6-6447-51da-985f-c0768c80d4e7",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "51b40244-5dc0-4b28-a8c8-7dbfafb61515",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "89d78121-6407-5029-9d58-1f7f643cc206",
+      "name": "Cover Boulder relay 18 Side",
+      "components": {
+        "Collider": {
+          "shape": "sphere",
+          "size": [1, 1, 1],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.25, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock"
+        },
+        "Transform": {
+          "position": [13.097900390625, 26.335899353027344, 59.98609924316406],
+          "rotation": [0, 0.9886111617088318, 0, -0.1504926085472107],
+          "scale": [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "03342e78-6532-5615-b74b-a3ad87edc4d1",
+      "name": "Cover Boulder relay 18 Side[0]",
+      "parent": "89d78121-6407-5029-9d58-1f7f643cc206",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "d97770cf-04bd-42d7-9176-5946664e849d",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "1bbc0d08-7b9e-57c0-91da-f9ff66c4f3a3",
+      "name": "Cover Deadfall relay 20",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4.2, 0.75, 0.75],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.37, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Cover"
+        },
+        "Transform": {
+          "position": [9.048299789428711, 28.212499618530273, 51.125],
+          "rotation": [0, 0.9295377135276794, 0, 0.36872708797454834],
+          "scale": [1.1178336143493652, 1.1178336143493652, 1.1178336143493652]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "587b04e5-6c86-5924-960d-315a9d0813a7",
+      "name": "Cover Deadfall relay 20[0]",
+      "parent": "1bbc0d08-7b9e-57c0-91da-f9ff66c4f3a3",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8b419264-c77b-49b5-a369-86ed5441049a",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "c4f49325-79b8-5b5e-9720-bc3a3acaee6a",
+      "name": "Cover Deadfall relay 20 Top",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4, 0.7, 0.7],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.35, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Cover"
+        },
+        "Transform": {
+          "position": [9.048299789428711, 28.642499923706055, 51.125],
+          "rotation": [0.06806660443544388, 0.9733982682228088, 0.015261000953614712, 0.218242809176445],
+          "scale": [1.0284068584442139, 1.0284068584442139, 1.0284068584442139]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "4a6c1a68-1406-51ef-a43f-5fa1dc557f88",
+      "name": "Cover Deadfall relay 20 Top[0]",
+      "parent": "c4f49325-79b8-5b5e-9720-bc3a3acaee6a",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8b419264-c77b-49b5-a369-86ed5441049a",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
       "uuid": "94d67ebf-463b-5814-983c-06c058f77818",
       "name": "Trail Marker 8",
       "components": {

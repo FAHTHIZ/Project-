@@ -35,6 +35,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Bounding overwatch: 3-5 s covered rushes with "Moving!/Covering!/Set!", multi-rush flanks, one man up at a time, pair searches (one checks, one covers) | Done (enemy_tactics 15/15; regressions pass) | log "Bounding overwatch" |
 | Awareness model (gradual noticing by distance, stance, movement, lights, lightning; "huh" pause), squad weapons tight on unaware contractors, team kneels when the player gets low | Done (stealth 5/5; regressions pass) | log "Awareness" |
 | Op01 search line: three contractors sweep east -> west across the trail below the cabin; let it pass low and dark (team holds, kneels, comments) or fight it | Done (op01_line 8/8, op01_line_loud 6/6, story_op01 pass) | log "search line" |
+| Forest cover pockets: 30 seeded boulders and deadfall along the footbridge and cabin-to-relay stretches, one 3-5 s rush apart | Done (built, streamed, inspected in renders; story_op01 pass) | log "cover pockets" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

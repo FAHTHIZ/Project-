@@ -15869,6 +15869,378 @@
       }
     },
     {
+      "uuid": "2a8a600f-f19f-5835-864a-df2f83f5c4e9",
+      "name": "Cover Deadfall line 0",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4.2, 0.75, 0.75],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.37, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Cover"
+        },
+        "Transform": {
+          "position": [8.243599891662598, 21.403600692749023, 214.66299438476562],
+          "rotation": [0, 0.3544099032878876, 0, 0.935090184211731],
+          "scale": [1.0746991634368896, 1.0746991634368896, 1.0746991634368896]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "8d641a75-2800-57ed-85a9-c93c979ba823",
+      "name": "Cover Deadfall line 0[0]",
+      "parent": "2a8a600f-f19f-5835-864a-df2f83f5c4e9",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8b419264-c77b-49b5-a369-86ed5441049a",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "0abefe98-2c23-5736-ac0e-6cb4acd46e78",
+      "name": "Cover Deadfall line 0 Top",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [4, 0.7, 0.7],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.35, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Cover"
+        },
+        "Transform": {
+          "position": [8.243599891662598, 21.833599090576172, 214.66299438476562],
+          "rotation": [0.03462200239300728, 0.49511784315109253, 0.060558103024959564, 0.8660210371017456],
+          "scale": [0.9887232184410095, 0.9887232184410095, 0.9887232184410095]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "369ca36b-a3a2-5400-a702-fd9386e92655",
+      "name": "Cover Deadfall line 0 Top[0]",
+      "parent": "0abefe98-2c23-5736-ac0e-6cb4acd46e78",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "8b419264-c77b-49b5-a369-86ed5441049a",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "9d106e20-e30f-53c7-b9ca-0e9884a1e3a1",
+      "name": "Cover Boulder line 1",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.55, 1.05, 1.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.55, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock Cover"
+        },
+        "Transform": {
+          "position": [20.758899688720703, 20.267000198364258, 211.65359497070312],
+          "rotation": [0, 0.5403265953063965, 0, 0.8414553999900818],
+          "scale": [1.2425013780593872, 1.2425013780593872, 1.2425013780593872]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "f68face4-f31a-55ae-888b-bf71eddf3324",
+      "name": "Cover Boulder line 1[0]",
+      "parent": "9d106e20-e30f-53c7-b9ca-0e9884a1e3a1",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "51b40244-5dc0-4b28-a8c8-7dbfafb61515",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "e30cad6e-9ecf-5e36-99c6-7cc7582b1aea",
+      "name": "Cover Boulder line 1 Side",
+      "components": {
+        "Collider": {
+          "shape": "sphere",
+          "size": [1, 1, 1],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.25, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock"
+        },
+        "Transform": {
+          "position": [21.430999755859375, 20.38479995727539, 210.18479919433594],
+          "rotation": [0, 0.9252486824989319, 0, 0.37936124205589294],
+          "scale": [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "41404d90-4d66-504c-b395-6e7c4816d822",
+      "name": "Cover Boulder line 1 Side[0]",
+      "parent": "e30cad6e-9ecf-5e36-99c6-7cc7582b1aea",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "d97770cf-04bd-42d7-9176-5946664e849d",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "570cd6ff-1008-5503-b221-9e9d10cd7c06",
+      "name": "Cover Boulder line 4",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.55, 1.05, 1.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.55, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock Cover"
+        },
+        "Transform": {
+          "position": [30.267499923706055, 21.698200225830078, 197.2803955078125],
+          "rotation": [0, 0.356187105178833, 0, 0.9344146847724915],
+          "scale": [1.4279582500457764, 1.4279582500457764, 1.4279582500457764]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "0173283e-5a73-5d4c-820b-afbc78469720",
+      "name": "Cover Boulder line 4[0]",
+      "parent": "570cd6ff-1008-5503-b221-9e9d10cd7c06",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "51b40244-5dc0-4b28-a8c8-7dbfafb61515",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "fedcea3a-fe9e-5a9f-a50b-2243435dcc8f",
+      "name": "Cover Boulder line 4 Side",
+      "components": {
+        "Collider": {
+          "shape": "sphere",
+          "size": [1, 1, 1],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.25, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock"
+        },
+        "Transform": {
+          "position": [31.652799606323242, 21.507999420166016, 196.04469299316406],
+          "rotation": [0, 0.8277296423912048, 0, 0.5611271858215332],
+          "scale": [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "e068c5d3-45cf-54fb-a8e4-aa3227c3936f",
+      "name": "Cover Boulder line 4 Side[0]",
+      "parent": "fedcea3a-fe9e-5a9f-a50b-2243435dcc8f",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "d97770cf-04bd-42d7-9176-5946664e849d",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
       "uuid": "c26409d6-bd64-5c9f-bcad-7fc440d6e46a",
       "name": "Trail Marker 3",
       "components": {

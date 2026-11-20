@@ -57,6 +57,15 @@ only one patrol fight. The plan is to keep the terrain and add authored pockets 
    contractors bounding (see below).
 3. Short calm stretches between pockets, where the squad's chatter and the storm do the work.
 
+Status (2026-11-20):
+
+1. Done. The search line is built at the footbridge, ~120 m from the trailhead, not between the cabin and the relay: the patrol fight already covers that stretch. Autotests op01_line and op01_line_loud.
+2. The ravine already had 14-19 large rocks within 20 m of each trail point, more than any forest stretch, so the cover pass started in the woods. `tools/world/world_scene.py` `COVER_POCKETS` places 30 pieces of seeded cover:
+   - footbridge/line: 7 pieces (5 boulders, 2 deadfall);
+   - cabin -> relay: 23 pieces (6 boulders, 17 deadfall).
+
+   The pieces are photoscanned rock_b boulders at x1.2-1.45 (1.5-1.8 m) and deadfall (two log_a crossed, ~1.1 m). They sit every 9-12 m on alternating sides, 3-7 m and 11-16 m off the path, and are kept 4.5 m clear of every patrol leg, 2.6 m from the trail and clear of the creek. Before this pass, those stretches had 2-5 logs and at most one large rock within 20 m.
+
 ## Real-world infantry behaviour the AI follows
 
 - Rushes of 3-5 s from cover to cover ("I'm up, he sees me, I'm down")
