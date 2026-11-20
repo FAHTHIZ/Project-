@@ -767,3 +767,12 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - `tools/world/night_grade.py` GRADE v3 (also `tools/scenes/common.py` night_storm): fog `[0.044, 0.054, 0.064]`, sky zenith/horizon cool blue-grey, volumetric albedo `[0.76, 0.8, 0.86]`, saturation 0.92 to 0.86, contrast 1.07 to 1.12, rain brightness 1.6 to 1.1 (thinner streaks), moon 0.32 to 0.42 (`tools/world/night.py`, `build_menu.py`). Applied to 12 scenes (menu, credits, prologue, Op01-Op03 and their test copies).
 - Before/after (top prologue, bottom Op01; left old, right new): `docs/media/night_grade_v3.png`.
 - `victus check game`: 262 scenes, 0 problems. stealth, op01_line: PASS.
+
+## 2026-11-20 — Hands v2: MakeHuman CC0 first-person hands with real fingers
+
+- Problem: the Rocketbox forearm used for `hand_r.glb`/`hand_l.glb` has 757 triangles; up close in the viewmodel the hands read as mittens (no separate fingers), and the glove/sleeve boundary was a texture mask.
+- New source: the MakeHuman base mesh (CC0), with its default skeleton and skin weights. `tools/assets/blender_mh_hand.py` trims the right arm, poses it to the same grip contract as the old worker (wrist, elbow, palm -X), curls each finger per phalanx, puts the firing index finger on the trigger and lays the thumb forward along the frame; subdivision x1 then decimate 0.55 (~9k triangles per hand). Glove and sleeve are bisected on two planes across the forearm, so both edges are clean rings; the sleeve overlaps the glove gauntlet with a rolled cuff. Leather/fabric surfaces from `retexture.py`.
+- Iterations seen in renders: first bake had thumbs curled over the backstrap, crossing the two hands (fixed with thumbs-forward); sleeve edge had saw teeth from triangles straddling the cut (fixed with bisect_plane).
+- Before/after: `docs/media/hands_v2.png`. Checked visually in vm_sidearm, vm_reload, vm_ads_breacher, vm_scan, armory.
+- `victus check game`: 262 scenes, 0 problems. Autotests weapons 26/26, reload_feel 22/22, vm_ads 1/1, armory 20/20, vm_sidearm (capture scene) 0 script errors.
+- Not measured: phone frame cost of the extra ~16k viewmodel triangles (no device).
