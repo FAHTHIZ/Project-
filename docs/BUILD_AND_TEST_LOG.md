@@ -987,3 +987,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Windows chosen by lowest crest factor in each source. Beds keep the RMS the synthetic files had (table `LEVEL`), with a 2 ms look-ahead limiter on close drops, and loop with a 1.5 s equal-power crossfade; thunders keep the old 0.85 peak, 0.12 s fade-in, 2 s fade-out. Mono 44.1 kHz 16-bit as before. build_sfx.py no longer writes these eight files.
 - Speech check with faster-whisper base.en (VAD on) over all eight: no speech (one "You" on roof_rain at no_speech 0.89, a known hallucination on noise). Spectra before/after: docs/media/field_ambience_spectra.png.
 - VICTUS e9ce2ea: `victus import game` 0 failed (wav is not cooked), `victus check game` 263 scenes 0 problems; autotests squad 19/0, reactions 10/0. Not listened to by a person on this machine.
+
+## Checkpoint resume fix + campaign tour tool (2026-11-20)
+- Bug found by playing the campaign: resuming any checkpoint threw `kestrel.luau:37: attempt to index vector with '1'` (VICTUS returns saved three-number arrays as vectors; `vec()` in kestrel.luau and facility.luau only accepted tables), so continue/restart-from-checkpoint was broken for every chapter.
+- Fix: `vec()` passes vectors through. New `tools/test/tour.py` (play / restore / shoot / sheet).
+- Verified: `tour.py play` produced 35 checkpoint saves across all chapters (story autotests, 20000 frames); `tour.py restore` resumed each one for 240 headless frames: 35/35 ok, 0 script errors (before the fix: script error on op01 cp00).

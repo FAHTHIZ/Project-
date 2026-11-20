@@ -247,3 +247,5 @@ Maintain `docs/BUILD_AND_TEST_LOG.md` with:
 ## First useful playable milestone
 
 The earliest worthwhile milestone is not a full forest. It is a small Android-exported first-person landscape scene with the first-person player moving/look-aiming with independent multitouch, a working fictional weapon viewmodel and action loop, an interactable object, a working pause modal and sound. This tests the highest-risk mobile assumptions before the asset-heavy route is built.
+
+- [x] Checkpoint resume fixed for all chapters (vector save data); campaign tour tool tools/test/tour.py.

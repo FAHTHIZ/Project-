@@ -34,7 +34,8 @@ end
 local function ppos() return Game.player and Game.player.position or V(0, 0, 0) end
 local function near(p, r) return flat(ppos(), p) < r end
 local function mule() return Game.vehicles and Game.vehicles["Mule"] end
-local function vec(t) return V(t[1], t[2], t[3]) end
+-- saved data: VICTUS turns three-number arrays back into vectors when a save is read
+local function vec(t) if type(t) == "vector" then return t end return V(t[1], t[2], t[3]) end
 local function tab(v) return { v.x, v.y, v.z } end
 
 -- Contractors in a named group (enemy.luau `group`).
