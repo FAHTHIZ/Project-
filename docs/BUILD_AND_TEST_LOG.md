@@ -907,3 +907,12 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Capture at 1312x576 medium, left-handed at 115 %, settings forced via the lib/game.luau defaults (reverted): docs/media/touch_left_handed_115.png.
 - `victus check game` 263 scenes, 0 problems. Autotests hud 13/0, pause_ui, menu_flow, movement, weapons, squad PASS.
 - Not done: touch feel of the mirrored layout on the physical phone.
+
+## 2026-11-20 Controller disconnect pauses the game
+
+- lib/controls.luau: poll tracks `input.gamepad_connected()` (overridable as `Controls.virtual.pad` / `pad_used` for autotests); losing the pad while `gamepad_used` raises a one-shot `take_pad_lost()`. `pad_connected()` exposes the polled state.
+- hud.luau opens the pause menu on pad loss (Game.pause_reason = "pad"); pause_menu.luau shows CONTROLLER DISCONNECTED in the amber op line and switches to CONTROLLER RECONNECTED when the pad returns, staying paused until the player resumes.
+- Known limit: `gamepad_used` is the existing heuristic (move input while a pad is connected, or right-stick look), so a keyboard player with a connected pad who unplugs it after moving also gets the pause. Harmless, but noted.
+- Suspend/resume: VICTUS has no script lifecycle hook; the player's LifecycleGate already stops simulation and mutes audio in the background (engine STATUS). Not changed.
+- Autotests: pause_ui 9/0 (new pad_resumed_play, pad_lost_pauses, pad_back_stays_paused, idle_pad_unplug_ignored), hud 13/0, menu_flow, movement, weapons, squad, vehicle PASS. `victus check game` 0 problems.
+- Not done: a real Bluetooth pad disconnect on the phone.

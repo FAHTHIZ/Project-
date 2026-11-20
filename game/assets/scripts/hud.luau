@@ -280,6 +280,11 @@ function Hud:update(dt)
     local playing = Game.playing()
     Controls.poll()
     if Controls.pressed("pause") and not Game.paused then Game.emit("open_pause") end
+    -- The controller in use dropped: pause at once (and say why) rather than let Rook walk on.
+    if Controls.take_pad_lost() and not Game.paused and Game.pause_menu then
+        Game.pause_reason = "pad"
+        Game.emit("open_pause")
+    end
     if Controls.pressed("diagnostics") then s.diagnostics = not s.diagnostics end
     if Controls.pressed("objectives") and playing then self.show_log = not self.show_log end
 
