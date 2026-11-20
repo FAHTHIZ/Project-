@@ -699,3 +699,14 @@ Op04–Op07 interiors were bare procedural rooms. Now they are dressed with phot
 - Generic barks that also play indoors no longer mention the forest. Lines changed: react_light_1, react_waste_2, react_waste_4, con_up_echo_2, react_stare_1, grey_contact_1, grey_contact_3, grey_down_2 and grey_huh_2. The fix came from an Op06 render where Echo said "In this fog they'll see it from the fence". `python3 tools/audio/build_voices.py --model /tmp/kok` re-rendered those 9 lines; the total is still 517.
 - `python3 tools/levels/build_facility.py --scenes`, `victus check game`: 0 problems.
 - Regression: stealth, movement, weapons, hud, squad, squad_combat, squad_cover, enemy_fire, reactions, chatter, hud_look, footsteps, enemy_tactics, world_forest, world_trail_walk, op01_line and op01_line_loud. All 17 PASS.
+
+## 2026-11-20 PC-7 open reflex sight (ADS sight pictures, part 1)
+
+Baseline for this session: game `c7fd75c`, VICTUS `f40fb3a` (Release build, gcc 15.2.0, Ubuntu 26.04.1, lavapipe, 2 vCPU). Baseline regression movement, weapons, hud, squad, squad_combat, enemy_fire and reactions: all PASS before any change.
+
+- Problem: aiming the PC-7 put the closed tube optic's opaque lens discs in front of the eye, so the ADS picture was a black disc over the target (render of `vm_ads`).
+- `tools/assets/blender_pc7.py`: the tube optic is replaced by an open rectangular reflex hood (36 x 30 mm window, low base, clamp, buttons, emitter, thin lens frame) with an emissive red `pc7_Dot` on the sight line (0.1135 m). The base was lowered so it does not cut into the window. Rebuilt with Blender 4.2.3 (`blender -b --factory-startup --python tools/assets/blender_pc7.py -- <out>`, PC7_OK body 12 588 tris, world 13 744), then `python3 tools/assets/retexture.py` on the three GLBs. The body has 9 primitives (was 8): `python3 tools/scenes/sync_model_prims.py` added the child in 67 scenes.
+- New ADS plans for the other guns: `vm_ads_pdw`, `vm_ads_breacher`, `vm_ads_dmr` (`plans.luau`, scenes from `tools/scenes/build_dev_range.py`).
+- `victus import game` (0 failed), `victus check game`: 261 scenes, 0 problems.
+- Render `docs/media/ads_pc7.png`: target seen through the window with the dot on it.
+- Regression: weapons, armory, sniper, movement, hud, vm_ads, vm_ads_pdw, vm_ads_breacher, vm_ads_dmr: all PASS.

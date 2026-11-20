@@ -226,7 +226,17 @@ Plans.vm_sidearm = { { at = 0.4, press = "weapon2" }, { at = 0.45, release = "we
 Plans.vm_scan = { { at = 0.6, press = "tool" }, { at = 0.65, release = "tool" },
                   { at = 0.9, run = function() Game.weapons.scan_anim = 0.6; Game.weapons.scan_hold = true end } }
 -- Screenshot plans keep their held input until the capture: the driver releases everything at END.
-for _, n in { "vm_ads", "vm_reload", "vm_sidearm", "vm_scan" } do table.insert(Plans[n], { at = 25 }) end
+-- Sight pictures of the other primaries (scenes/tests/vm_ads_<id>.vscene): give, equip, aim.
+local Inventory = require("scripts/lib/inventory")
+for _, id in { "pdw", "breacher", "dmr" } do
+    Plans["vm_ads_" .. id] = {
+        { at = 0.3, run = function() Inventory.reset(); Game.weapons:give(id) end },
+        { at = 2.2, press = "aim" },
+        { at = 3.4, run = function(c) c.check("ads", ps().zoom > 0.9 and Game.weapons.current == id,
+            string.format("%s zoom %.2f", tostring(Game.weapons.current), ps().zoom)) end },
+    }
+end
+for _, n in { "vm_ads", "vm_reload", "vm_sidearm", "vm_scan", "vm_ads_pdw", "vm_ads_breacher", "vm_ads_dmr" } do table.insert(Plans[n], { at = 25 }) end
 
 -- Footsteps: one footfall per head-bob half cycle, surface detection, AI hearing reach by gait
 -- (walk short, sprint far, crouch silent) and a landing thump after a jump.
