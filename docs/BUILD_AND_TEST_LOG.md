@@ -333,3 +333,9 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - `tools/assets/blender_pc7.py` (Blender 4.2): new original PC-7 body/cell/world with chamfered extruded profiles, shroud vent slots, toothed rail, hooded optic, seams and screws. It has the same bounds, pivot and muzzle (z = -0.5) as before. Tris: body 12.6k, cell 1.2k, world 13.8k.
 - Rebuild order: `build_weapons.py --out <tmp>` -> copy -> `blender_pc7.py` -> `retexture.py weapons` (detail now uses a fixed relative std, which removed the streaks from the near-black plastic scan).
 - Ran: `victus import game` (25 imported, 0 failed), `victus check game` (246 scenes, 0 problems), `shot.sh scenes/tests/armory.vscene` (inspected).
+
+## 2026-11-20 Mobile pacing and memory settings
+
+- `game/victus.project`: mobile target 60 FPS. With VICTUS 590ffef (ADR-0124) the player sleeps out each frame period instead of rendering at the 90 Hz vsync rate, and dynamic resolution has a 0.55 floor. The asset cache is capped at 1024 MB with texture mip streaming on, so the cache evicts instead of growing until Android kills the app.
+- Ran: `victus check game` (0 problems), `shot.sh scenes/tests/world_trailhead.vscene 20 ... low` (Low tier, inspected).
+- Not measured: Hot 10S frame time, memory, thermals, or whether 60 holds. If 60 does not hold, set `mobile_target_fps` to 45, which paces evenly on a 90 Hz panel.
