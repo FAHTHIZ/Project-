@@ -244,6 +244,92 @@ Plans.weapons = {
     end },
 }
 
+-- Body-cam handling: calm tactical reload stows the cell, stress builds from incoming fire, a
+-- stressed empty reload fumbles at the well and retries, held RELOAD checks the cell, a long burst
+-- ends with a re-grip.
+Plans.reload_feel = {
+    { at = 0.5, run = function(c)
+        c.check("calm_start", wp().state == "idle" and wp().stress < 0.01, string.format("%s stress %.2f", wp().state, wp().stress))
+        wp().w.carbine.st.ammo = 10
+    end },
+    { at = 0.6, press = "reload" },
+    { at = 0.65, release = "reload", run = function(c)
+        c.check("tactical_reload", wp().state == "reload" and not wp().reload_empty and not wp().fumble,
+                string.format("%s empty %s fumble %s", wp().state, tostring(wp().reload_empty), tostring(wp().fumble)))
+    end },
+    { at = 1.38, run = function(c)
+        local r = wp().w.carbine
+        local d = r.cell.position - r.cell_home
+        c.check("tactical_cell_stowed", d.x < -0.05 and d.z > 0.05, string.format("cell offset %.3f %.3f %.3f", d.x, d.y, d.z))
+    end },
+    { at = 2.7, run = function(c)
+        local r = wp().w.carbine
+        c.check("tactical_fills", wp().state == "idle" and r.st.ammo == 30, string.format("%s ammo %d", wp().state, r.st.ammo))
+        c.check("rest_varies", vector.magnitude(wp().rest_target) > 0, "new resting hold")
+        Game.emit("near_miss", pos() + V(3, 1.5, -6))
+        c.check("near_miss_stress", wp().stress >= 0.2, string.format("stress %.2f", wp().stress))
+        wp():add_stress(1)
+        wp().fumble_from = 0       -- make the fumble certain for the check
+        r.st.ammo = 0
+    end },
+    { at = 2.8, press = "reload" },
+    { at = 2.85, release = "reload", run = function(c)
+        local w = wp()
+        c.check("stressed_reload", w.state == "reload" and w.reload_empty and w.fumble and w.reload_base < 2.25 * 0.92,
+                string.format("fumble %s base %.2f len %.2f", tostring(w.fumble), w.reload_base or -1, w.reload_len or -1))
+    end },
+    { at = 4.15, run = function(c)
+        local u, fu = wp():reload_phase()
+        c.check("fumble_holds_at_well", wp().state == "reload" and fu ~= nil and math.abs(u - 0.555) < 1e-3,
+                string.format("phase %.3f fumble %s", u, tostring(fu)))
+    end },
+    { at = 5.6, run = function(c)
+        local r = wp().w.carbine
+        c.check("fumble_recovers", wp().state == "idle" and r.st.ammo == 30 and wp().fumbles == 1
+                and vector.magnitude(r.cell.position - r.cell_home) < 1e-3,
+                string.format("%s ammo %d fumbles %d", wp().state, r.st.ammo, wp().fumbles))
+        c.check("stress_holds", wp().stress > 0.8, string.format("stress %.2f", wp().stress))
+        wp().fumble_from = 0.55
+        wp().stress = 0
+    end },
+    { at = 5.8, press = "reload" },
+    { at = 5.85, release = "reload", run = function(c)
+        c.check("full_cell_checks", wp().state == "check", tostring(wp().state))
+    end },
+    { at = 6.5, run = function(c)
+        c.check("check_reads_cell", wp().check_text == "Cell full", tostring(wp().check_text))
+    end },
+    { at = 7.3, run = function(c)
+        c.check("check_ends", wp().state == "idle", tostring(wp().state))
+        wp().w.carbine.st.ammo = 14
+        c.data.res = wp().w.carbine.st.reserve
+    end },
+    { at = 7.5, press = "reload" },
+    { at = 7.6, run = function(c) c.check("hold_starts_reload", wp().state == "reload", tostring(wp().state)) end },
+    { at = 8.0, run = function(c)
+        c.check("hold_turns_into_check", wp().state == "check" and wp().w.carbine.st.ammo == 14, tostring(wp().state))
+    end },
+    { at = 8.1, release = "reload" },
+    { at = 9.0, run = function(c)
+        c.check("check_reads_half", wp().check_text == "Cell about half" and wp().w.carbine.st.reserve == c.data.res,
+                tostring(wp().check_text))
+    end },
+    { at = 9.6, run = function(c)
+        c.check("check_done", wp().state == "idle", tostring(wp().state))
+        aim_at("Target 0")
+        wp().w.carbine.st.ammo = 30
+    end },
+    { at = 9.7, press = "fire" },
+    { at = 10.7, release = "fire" },
+    { at = 10.8, run = function(c)
+        c.check("burst_regrip", wp().regrip_t ~= nil, string.format("regrip %s", tostring(wp().regrip_t)))
+    end },
+    { at = 11.6, run = function(c)
+        local r = wp().w.carbine
+        c.check("regrip_done", wp().regrip_t == nil and vector.magnitude(r.hand_l.position - r.hand_home) < 1e-3, "hand home")
+    end },
+}
+
 -- Viewmodel poses for screenshots (no checks beyond reaching the pose).
 Plans.vm_ads = { { at = 0.6, press = "aim" }, { at = 1.6, run = function(c) local p = Game.weapons.pivot.position; c.check("ads", ps().zoom > 0.9, string.format("zoom %.2f pivot %.3f %.3f %.3f t %.2f", ps().zoom, p.x, p.y, p.z, time.now())) end } }
 Plans.vm_reload = { { at = 0.5, run = function() Game.weapons.w.carbine.st.ammo = 20 end }, { at = 0.6, press = "reload" }, { at = 0.62, release = "reload" },

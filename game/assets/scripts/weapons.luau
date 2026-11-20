@@ -10,6 +10,12 @@
 --
 -- The weapons are fictional stun-pulse emitters with invented, abstract values. All motion is
 -- procedural (springs and easing curves), so it costs a few transforms per frame.
+-- Handling follows body-cam reference (Bodycam's calm and stressed reloads): a stress value rises
+-- when the player is hit, shot at or nearly missed and decays when things go quiet. Every reload
+-- draws its own small variations (roll, dip, hand placement, timing); stressed reloads are quicker
+-- and shakier and can fumble the cell at the well and retry. Partial-cell (tactical) reloads stow
+-- the old cell towards the vest, empty ones let it fall away. RELOAD with a full cell does a cell
+-- check, and a long burst ends with the support hand re-taking its grip.
 -- Writes Game.weapon_hud { name, ammo, reserve, state, spread }, Game.tool_hud, and the
 -- player's zoom / zoom_fov (read by fp_player.luau for FOV, speed and look sensitivity).
 local Game = require("scripts/lib/game")
@@ -83,6 +89,7 @@ function W:start()
             r.hand_home = r.hand_l and r.hand_l.position or V(0, 0, 0)
             r.hand_rot = r.hand_l and r.hand_l.rotation or V(0, 0, 0)
             r.slide_home = r.slide and r.slide.position or V(0, 0, 0)
+            r.cell_rot = r.cell and r.cell.rotation or V(0, 0, 0)
             setvis(root, false)
             self.w[id] = r
         end
@@ -136,6 +143,18 @@ function W:start()
     self.last_scan = 0
     self.shots = 0
     self.hits = 0
+    self.stress = 0         -- 0 calm .. 1 under fire (decays after stress_hold seconds of quiet)
+    self.stress_t = 99
+    self.burst = 0          -- shots in the current trigger hold
+    self.regrip_t = nil
+    self.reloads = 0
+    self.fumbles = 0
+    self.checks = 0
+    self.rest = V(0, 0, 0); self.rest_target = V(0, 0, 0)
+    self.rest_rot = V(0, 0, 0); self.rest_rot_target = V(0, 0, 0)
+    Game.on("player_hurt", function() self:add_stress(0.35) end)
+    Game.on("near_miss", function() self:add_stress(0.22) end)
+    Game.on("player_shot_at", function() self:add_stress(0.15) end)
     if self.pending then self:begin_equip(self.pending) end
 end
 
@@ -251,21 +270,84 @@ function W:begin_switch(id)
     return true
 end
 
+W.stress_hold = 2.5         -- seconds of quiet before stress starts to fall
+W.stress_decay = 0.1        -- per second after that (full stress settles in about 12 s)
+W.fumble_from = 0.55        -- stress above which a reload can miss the well
+W.fumble_time = 0.5         -- seconds a fumble adds
+
+function W:add_stress(x)
+    self.stress = math.min(1, self.stress + x)
+    self.stress_t = 0
+end
+
+local function jitter(a) return (math.random() * 2 - 1) * a end
+
+-- A new resting hold after a reload or re-grip: the weapon never returns to the exact same spot.
+function W:new_rest()
+    self.rest_target = V(jitter(0.0035), jitter(0.0025), jitter(0.003))
+    self.rest_rot_target = V(jitter(1.2), jitter(1.0), jitter(1.6))
+end
+
 function W:begin_reload()
     local r = self:weapon()
     if not r or self.state ~= "idle" then return false end
-    if r.st.ammo >= r.def.mag or r.st.reserve <= 0 then return false end
+    if r.st.ammo >= r.def.mag then return self:begin_check() end
+    if r.st.reserve <= 0 then return false end
+    local d, s = r.def, self.stress
     self.state = "reload"
     self.st = 0
-    self.reload_len = r.st.ammo == 0 and r.def.reload_empty or r.def.reload
     self.reload_empty = r.st.ammo == 0
+    -- Stress hurries the hands (up to 12 % quicker); every reload varies its timing a little.
+    local base = (self.reload_empty and d.reload_empty or d.reload) * (1 - 0.12 * s) * (0.97 + math.random() * 0.06)
+    self.reload_base = base
+    self.fumble = s > self.fumble_from and math.random() < 0.25 + (s - self.fumble_from) * 1.6
+    self.reload_len = base + (self.fumble and self.fumble_time or 0)
+    self.rv = { roll = 24 + jitter(7) + 8 * s, dip = 0.85 + math.random() * 0.3, yaw = jitter(3),
+                hand = V(jitter(0.008), jitter(0.006), jitter(0.006)), shake = s, seed = math.random() * 100 }
     self.reload_sfx = 0
-    Game.emit("reload_started", r.def.id, self.reload_empty)
+    self.fumble_sfx = false
+    self.reloads += 1
+    if self.fumble then self.fumbles += 1 end
+    Game.emit("reload_started", d.id, self.reload_empty)
     return true
 end
 
+-- Reload phase 0..1 on the calm timeline. A fumble holds the phase at the well for fumble_time
+-- and returns the extra 0..1 fumble progress.
+function W:reload_phase()
+    local t, base = self.st, self.reload_base or self.reload_len
+    if self.fumble then
+        local f0 = 0.555 * base
+        if t >= f0 then
+            if t < f0 + self.fumble_time then return 0.555, (t - f0) / self.fumble_time end
+            t -= self.fumble_time
+        end
+    end
+    return Game.clamp(t / base, 0, 1), nil
+end
+
+-- Cell check: tilt the weapon in, thumb the cell out a little, read the charge window, seat it.
+W.check_time = 1.25
+function W:begin_check()
+    local r = self:weapon()
+    if not r or self.state ~= "idle" or not r.cell then return false end
+    self.state = "check"
+    self.st = 0
+    self.check_said = false
+    self.checks += 1
+    return true
+end
+
+local function cell_words(ammo, mag)
+    local f = ammo / math.max(1, mag)
+    if f >= 0.99 then return "full" elseif f >= 0.7 then return "nearly full"
+    elseif f >= 0.4 then return "about half" elseif f > 0.15 then return "low" end
+    return "almost dry"
+end
+W.cell_words = cell_words
+
 function W:reset_parts(r)
-    if r.cell then r.cell.position = r.cell_home; setvis(r.cell, true) end
+    if r.cell then r.cell.position = r.cell_home; r.cell.rotation = r.cell_rot; setvis(r.cell, true) end
     if r.hand_l then r.hand_l.position = r.hand_home; r.hand_l.rotation = r.hand_rot end
     if r.slide then r.slide.position = r.slide_home end
     if r.flash then setvis(r.flash, false) end
@@ -310,6 +392,8 @@ function W:fire(ps)
     r.st.ammo -= 1
     self.cooldown = d.interval
     self.shots += 1
+    self.burst += 1
+    if self.stress < 0.3 then self.stress = math.min(0.3, self.stress + 0.012) end
     Combat.stats.shots += 1
     local origin, dir = ps:aim_ray()
     -- Random cone spread (degrees). Spread emitters (d.pellets) cast several sub-pulses inside an
@@ -553,7 +637,27 @@ function W:update(dt)
         end
         if Controls.pressed("weapon1") and Inventory.in_slot("primary") then self:begin_switch(Inventory.in_slot("primary")) end
         if Controls.pressed("weapon2") and Inventory.in_slot("secondary") then self:begin_switch(Inventory.in_slot("secondary")) end
-        if Controls.pressed("reload") then self:begin_reload() end
+        -- Tap RELOAD to reload; hold it to check the cell instead (the reload turns into a check
+        -- before the hand reaches the cell). With a full cell a tap checks too.
+        if Controls.pressed("reload") then self:begin_reload(); self.reload_hold = 0 end
+        if self.reload_hold then
+            if Controls.down("reload") then
+                self.reload_hold += dt
+                if self.reload_hold >= 0.28 then
+                    self.reload_hold = nil
+                    if self.state == "reload" and self.st < 0.12 * (self.reload_base or 1) + 0.28 then
+                        self.state = "idle"
+                        self.reloads -= 1
+                        if self.fumble then self.fumbles -= 1 end
+                        self:begin_check()
+                        self:reset_parts(r)
+                        self.xfade = { t = 0, pos = self.pivot.position, rot = self.pivot.rotation }
+                    end
+                end
+            else
+                self.reload_hold = nil
+            end
+        end
         if Controls.pressed("tool") then
             if self.scoped then self:cycle_scope() else self:scan() end
         end
@@ -592,8 +696,27 @@ function W:update(dt)
         end
     elseif self.state == "kit" then
         self:update_kit(dt, ps, d)
+    elseif self.state == "check" then
+        local u = self.st / self.check_time
+        if not self.check_said and u > 0.45 then
+            self.check_said = true
+            play(d.cell_out, 0.35, 1.15)
+            local text = "Cell " .. cell_words(r.st.ammo, d.mag)
+            if Game.toast then Game.toast(text, 1.4) end
+            self.check_text = text
+        end
+        if u >= 1 then
+            play(d.cell_in, 0.4, 1.1)
+            self.state = "idle"
+            self:reset_parts(r)
+            self:new_rest()
+        end
     elseif self.state == "reload" then
-        local u = self.st / self.reload_len
+        local u, fu = self:reload_phase()
+        if fu and not self.fumble_sfx then
+            self.fumble_sfx = true
+            play(d.cell_in, 0.5, 1.3)      -- the cell's edge knocks the well
+        end
         if self.reload_sfx == 0 and u > 0.18 then play(d.cell_out, 0.8); self.reload_sfx = 1 end
         if self.reload_sfx == 1 and u > 0.58 then play(d.cell_in, 0.85); self.reload_sfx = 2 end
         if self.reload_sfx == 2 and u > 0.7 then play(d.charge, 0.6); self.reload_sfx = 3 end
@@ -604,6 +727,7 @@ function W:update(dt)
             r.st.reserve -= take
             self.state = "idle"
             self:reset_parts(r)
+            self:new_rest()
             Game.emit("reloaded", d.id)
         end
     end
@@ -618,7 +742,12 @@ function W:update(dt)
     if trig and can_fire and self.sprint < 0.4 then
         if d.auto or not self.trigger_held then self:fire(ps) end
     end
+    if not trig and self.trigger_held and self.burst >= 8 and self.state == "idle" then self.regrip_t = 0 end
+    if not trig then self.burst = 0 end
     self.trigger_held = trig
+    self.stress_t += dt
+    if self.stress_t > self.stress_hold then self.stress = math.max(0, self.stress - self.stress_decay * dt) end
+    Game.stress = self.stress
 
     -- Aim blend.
     self.zoom = Game.damp(self.zoom, aiming and 1 or 0, aiming and 14 or 11, dt)
@@ -702,7 +831,7 @@ function W:update(dt)
     self.kick += self.kick_v * dt
     self.kick_rot = Game.damp(self.kick_rot, 0, 16, dt)
     -- Sprint and wall retract.
-    self.sprint = Game.damp(self.sprint, (ps.sprinting and self.state ~= "reload") and 1 or 0, 9, dt)
+    self.sprint = Game.damp(self.sprint, (ps.sprinting and self.state ~= "reload" and self.state ~= "check") and 1 or 0, 9, dt)
     local cp, adir = ps:aim_ray()
     local wall = physics.raycast(cp, adir, 0.75, nil, Game.player)
     local rt = 0
@@ -736,23 +865,81 @@ function W:update(dt)
     local lw = self.lower_amt
     pos += V(0.02 * lw, -0.26 * lw, 0.05 * lw)
     rot += V(-40 * lw, 8 * lw, 0)
+    -- Resting hold drifts to the last re-grip's offset.
+    self.rest = Game.damp(self.rest, self.rest_target, 3, dt)
+    self.rest_rot = Game.damp(self.rest_rot, self.rest_rot_target, 3, dt)
+    pos += self.rest * (1 - zoom)
+    rot += self.rest_rot * (1 - zoom)
+    -- Re-grip after a long burst: the support hand lets go, slides and clamps again.
+    if self.regrip_t and r.hand_l then
+        self.regrip_t += dt
+        local g = bump(self.regrip_t / 0.55, 0.0, 1.0)
+        r.hand_l.position = r.hand_home + V(0.004, -0.012, 0.018) * g
+        r.hand_l.rotation = r.hand_rot + V(0, 0, -9 * g)
+        pos += V(0.002, -0.004, 0) * g
+        rot += V(-1.5, 0, 2.5) * g
+        if self.regrip_t >= 0.55 then
+            self.regrip_t = nil
+            r.hand_l.position = r.hand_home; r.hand_l.rotation = r.hand_rot
+            self:new_rest()
+        end
+    end
+    -- Stress tremor: a small irregular shake that grows with stress (hip only, faded in ADS).
+    if self.stress > 0.05 then
+        local tr = self.stress * self.stress * (1 - zoom * 0.75)
+        pos += V(math.sin(tn * 13.1) + math.sin(tn * 21.7) * 0.6, math.sin(tn * 17.3 + 1.1) * 0.8, 0) * 0.0009 * tr
+        rot += V(math.sin(tn * 11.3 + 2) * 0.35, math.sin(tn * 9.7) * 0.3, math.sin(tn * 15.1) * 0.4) * tr
+    end
+    -- Cell check: roll the weapon in and up, thumb the cell 2 cm out, read it, push it home.
+    if self.state == "check" and r.cell then
+        local u = Game.clamp(self.st / self.check_time, 0, 1)
+        local tilt = smooth(u / 0.25) * (1 - smooth((u - 0.78) / 0.22))
+        pos += V(-0.035 * tilt, 0.012 * tilt, 0.025 * tilt)
+        rot += V(10 * tilt, 14 * tilt, 38 * tilt)
+        local pull = smooth((u - 0.22) / 0.16) * (1 - smooth((u - 0.66) / 0.14))
+        r.cell.position = r.cell_home + V(-0.004, -0.022, 0.002) * pull
+        if r.hand_l then
+            local h = smooth((u - 0.1) / 0.15) * (1 - smooth((u - 0.74) / 0.18))
+            r.hand_l.position = r.hand_home + (r.cell_home + V(-0.025, -0.07, 0) - r.hand_home) * h + V(0, -0.022, 0) * pull
+            r.hand_l.rotation = r.hand_rot + V(0, 0, -25 * h)
+        end
+    end
     -- Reload choreography: dip and roll the weapon, the support hand pulls and seats the cell.
     if self.state == "reload" then
-        local u = Game.clamp(self.st / self.reload_len, 0, 1)
-        local dip = smooth(u / 0.18) * (1 - smooth((u - 0.82) / 0.18))
+        local u, fu = self:reload_phase()
+        local rv = self.rv or { roll = 24, dip = 1, yaw = 0, hand = V(0, 0, 0), shake = 0, seed = 0 }
+        local dip = smooth(u / 0.18) * (1 - smooth((u - 0.82) / 0.18)) * rv.dip
         pos += V(-0.02 * dip, -0.04 * dip, 0.02 * dip)
-        rot += V(8 * dip, 6 * dip, 24 * dip)
+        rot += V(8 * dip, (6 + rv.yaw) * dip, rv.roll * dip)
+        if rv.shake > 0.05 then
+            local k = rv.shake * dip
+            rot += V(math.sin(tn * 19 + rv.seed) * 0.8, 0, math.sin(tn * 23 + rv.seed) * 1.1) * k
+        end
         if r.cell and r.hand_l then
             -- 0.15..0.30 hand to cell, 0.30..0.45 cell out and away, 0.45..0.58 new cell up,
             -- 0.58..0.68 seat, 0.68..0.85 hand back (charge whine), empty reloads add a tap.
+            -- Partial cells are stowed (down and back to the vest); empty ones drop and tumble.
             local out = smooth((u - 0.30) / 0.15) * (1 - smooth((u - 0.45) / 0.13))
             local seat = smooth((u - 0.45) / 0.13)
             local hand_to = smooth((u - 0.12) / 0.18) * (1 - smooth((u - 0.68) / 0.17))
-            local drop = V(-0.03, -0.22, 0.06) * out
-            r.cell.position = r.cell_home + drop * (1 - seat) + V(0, -0.012, 0) * bump(u, 0.56, 0.62)
+            local away = self.reload_empty and V(-0.02, -0.30, 0.05) or V(-0.09, -0.24, 0.11)
+            local drop = away * out
+            local miss = V(0, 0, 0)
+            if fu then
+                -- Fumble: the cell's nose catches the well's lip, the hand pulls it back and re-aims.
+                local f = math.sin(fu * math.pi)
+                miss = V(0.007 * f, -0.028 * f, 0.004 * f) + V(math.sin(fu * 31) * 0.0015, 0, 0) * f
+                rot += V(1.5 * f, 0, -3 * f)
+            end
+            r.cell.position = r.cell_home + drop * (1 - seat) + V(0, -0.012, 0) * bump(u, 0.56, 0.62) + miss
+            if self.reload_empty then
+                r.cell.rotation = r.cell_rot + V(55 * out, 0, 30 * out) * (1 - seat)
+            else
+                r.cell.rotation = r.cell_rot + V(-20 * out, 15 * out, 0) * (1 - seat)
+            end
             setvis(r.cell, not (u > 0.43 and u < 0.47))
-            local grip = r.cell_home + V(-0.025, -0.07, 0.0)
-            r.hand_l.position = r.hand_home + (grip + drop * (1 - seat) - r.hand_home) * hand_to
+            local grip = r.cell_home + V(-0.025, -0.07, 0.0) + rv.hand
+            r.hand_l.position = r.hand_home + (grip + drop * (1 - seat) + miss - r.hand_home) * hand_to
             r.hand_l.rotation = r.hand_rot + V(0, 0, -25 * hand_to)
         end
         if self.reload_empty and r.slide then
@@ -794,12 +981,21 @@ function W:update(dt)
             self.kit_model.rotation = V(28 - 20 * (1 - ka), 18, -6)
         end
     end
+    if self.xfade then
+        -- Blend out of an interrupted pose (reload turned into a cell check) instead of snapping.
+        self.xfade.t += dt
+        local k = smooth(self.xfade.t / 0.22)
+        pos = self.xfade.pos + (pos - self.xfade.pos) * k
+        rot = self.xfade.rot + (rot - self.xfade.rot) * k
+        if k >= 1 then self.xfade = nil end
+    end
     self.pivot.position = pos
     self.pivot.rotation = rot
 
     -- HUD.
     local st = ""
     if self.state == "reload" then st = "RELOADING"
+    elseif self.state == "check" then st = "CHECKING"
     elseif self.state == "equip" or self.state == "lower" then st = ""
     elseif r.st.ammo == 0 then st = r.st.reserve > 0 and "RELOAD" or "NO CELLS"
     elseif r.st.ammo <= math.floor(d.mag * 0.25) then st = "LOW" end
