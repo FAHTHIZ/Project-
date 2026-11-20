@@ -538,3 +538,23 @@ Doctrine followed (cited in docs/world/SCALE_AND_PACING.md): individual rushes l
 - Ran: `python3 tools/world/chapters.py`, `victus import game`, `victus check game` (254 scenes: 0 problems), `run_autotests.py op01_line op01_line_loud` (9700/6700 frames), and story_op01 with SOPS_TEST_FRAMES=19800: PASS.
 - Note: regenerating the chapters also renumbered some Mule cargo entity UUIDs in every chapter scene. Names and transforms are unchanged.
 - Not tested: a player who stands still with the light off (only the crouched case), and walking alongside the line.
+
+## 2026-11-20 Forest cover pockets
+
+- `tools/world/world_scene.py` `COVER_POCKETS` / `place_cover_pockets` (seed 907) adds 30 pieces of cover:
+  - 7 on the footbridge / search-line stretch (TRAIL 4-8): 5 boulders, 2 deadfall;
+  - 23 between the cabin and the relay (TRAIL 10-15): 6 boulders, 17 deadfall.
+- Piece types:
+  - boulder: photoscanned rock_b at x1.2-1.45 with a box collider just inside the scan, plus a rock_a beside it;
+  - deadfall: two crossed log_a trunks, ~1.1 m high, with box colliders.
+- Placement rules:
+  - every 9-12 m along the path, on alternating sides; rows at 3-7 m and 11-16 m off the path;
+  - long axis along the trail;
+  - ≥ 2.6 m from the trail centreline and clear of the creek;
+  - ≥ 1.6 m from trunks;
+  - ≥ 4.5 m from every patrol leg in `chapters.GROUPS`, so the line and patrol contractors never walk into one.
+- Measured before the pass (r = 20 m around trail points, streamed cells): footbridge 2 logs and 1 large rock, line crossing 3 logs and 0 rocks, patrol 5 logs and 0 rocks. The ravine already had 14-19 large rocks.
+- Ran: `python3 tools/world/worldgen.py scene` (194 cells; only the cells of the two pockets changed in content), `python3 tools/world/chapters.py`, `victus import game`, `victus check game` (254 scenes, 0 problems).
+- Renders: `tools/test/shot.sh` at 960x540 medium from (22,196) and (28,84) (temporary scenes, removed). Boulders and deadfall sit on the ground, read as natural forest cover, and are clear of the trail.
+- op01_line PASS, op01_line_loud PASS, story_op01 PASS (19 800 frames).
+- Limitation found: `victus simulate` does not stream world cells, so no headless test has seen trees, rocks or this cover. The world_* view plans (world_forest, world_relay, world_creek, world_trail_walk) fail on "streamed" for that reason, as they did before this change. Next: stream cells in `victus simulate` (engine).

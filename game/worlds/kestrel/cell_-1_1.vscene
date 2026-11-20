@@ -20070,6 +20070,68 @@
           "scale": [1, 1, 1]
         }
       }
+    },
+    {
+      "uuid": "b3b8471f-1130-5159-8727-0287b47ddc2f",
+      "name": "Cover Boulder relay 22",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.55, 1.05, 1.15],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0.55, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Rock Cover"
+        },
+        "Transform": {
+          "position": [-14.377599716186523, 26.462099075317383, 64.96939849853516],
+          "rotation": [0, 0.937502920627594, 0, 0.3479773998260498],
+          "scale": [1.442825436592102, 1.442825436592102, 1.442825436592102]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "36cd0167-4383-5c23-aa4d-f2c4381a3f2c",
+      "name": "Cover Boulder relay 22[0]",
+      "parent": "b3b8471f-1130-5159-8727-0287b47ddc2f",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "51b40244-5dc0-4b28-a8c8-7dbfafb61515",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
     }
   ]
 }

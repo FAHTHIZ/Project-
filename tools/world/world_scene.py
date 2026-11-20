@@ -112,6 +112,132 @@ def add_vegetation(sc, H, masks, cover, trees):
     return n
 
 
+# Authored cover pockets ("cover jungle"). The procedural scatter gives the forest trunks and the
+# odd log, but almost nothing that covers a crouched chest, so a firefight in the woods had nowhere
+# to bound to. Along the trail stretches where Op01 fights happen, boulders and deadfall are placed
+# every ~9-12 m on alternating sides, 3-7 m off the path (where the squad fights) with an outer row
+# 11-16 m out (where contractors take cover): one 3-5 s rush (FM 3-21.8) always ends behind
+# something. Seeded, so rebuilding gives the same layout. See docs/world/SCALE_AND_PACING.md.
+COVER_POCKETS = [
+    # (name, first TRAIL index, last TRAIL index): the search line and footbridge, cabin -> relay
+    ('line', 4, 8),
+    ('relay', 10, 15),
+]
+
+
+def _trail_dist(x, z):
+    best = 1e9
+    for (ax, az), (bx, bz) in zip(M.TRAIL[:-1], M.TRAIL[1:]):
+        dx, dz = bx - ax, bz - az
+        L2 = dx * dx + dz * dz
+        t = max(0.0, min(1.0, ((x - ax) * dx + (z - az) * dz) / L2)) if L2 > 0 else 0.0
+        best = min(best, math.hypot(x - (ax + t * dx), z - (az + t * dz)))
+    return best
+
+
+def _creek_dist(x, z):
+    best = 1e9
+    for (ax, az), (bx, bz) in zip(M.CREEK[:-1], M.CREEK[1:]):
+        dx, dz = bx - ax, bz - az
+        L2 = dx * dx + dz * dz
+        t = max(0.0, min(1.0, ((x - ax) * dx + (z - az) * dz) / L2)) if L2 > 0 else 0.0
+        best = min(best, math.hypot(x - (ax + t * dx), z - (az + t * dz)))
+    return best
+
+
+def _patrol_segments():
+    """Patrol legs of the authored contractor groups (tools/world/chapters.py): kept clear so a
+    walking contractor never runs into a placed log."""
+    import chapters
+    segs = []
+    for _, (_, members) in chapters.GROUPS.items():
+        for m in members:
+            route = m[5].get('patrol') if len(m) > 5 else None
+            if not route:
+                continue
+            pts = [tuple(float(v) for v in q.split(',')) for q in route.split(';')]
+            segs += list(zip(pts[:-1], pts[1:]))
+    return segs
+
+
+def _seg_dist(x, z, segs):
+    best = 1e9
+    for (ax, az), (bx, bz) in segs:
+        dx, dz = bx - ax, bz - az
+        L2 = dx * dx + dz * dz
+        t = max(0.0, min(1.0, ((x - ax) * dx + (z - az) * dz) / L2)) if L2 > 0 else 0.0
+        best = min(best, math.hypot(x - (ax + t * dx), z - (az + t * dz)))
+    return best
+
+
+def place_cover_pockets(H, trees):
+    rng = np.random.default_rng(907)
+    patrols = _patrol_segments()
+    tree_xz = np.array([[t['x'], t['z']] for t in trees]) if trees else np.zeros((0, 2))
+    out = []
+
+    def clear(x, z, r):
+        if _trail_dist(x, z) < 2.6 or _creek_dist(x, z) < M.CREEK_WIDTH + 1.5:
+            return False
+        if _seg_dist(x, z, patrols) < 4.5:
+            return False
+        if len(tree_xz) and np.min(np.hypot(tree_xz[:, 0] - x, tree_xz[:, 1] - z)) < r:
+            return False
+        for o in out:
+            if math.hypot(o['x'] - x, o['z'] - z) < 4.0:
+                return False
+        return True
+
+    for name, i0, i1 in COVER_POCKETS:
+        pts = M.TRAIL[i0:i1 + 1]
+        k = 0
+        for (ax, az), (bx, bz) in zip(pts[:-1], pts[1:]):
+            L = math.hypot(bx - ax, bz - az)
+            tx, tz = (bx - ax) / L, (bz - az) / L
+            nx, nz = -tz, tx
+            s = 4.0
+            while s < L:
+                for ring, (lo, hi) in enumerate(((3.2, 7.0), (11.0, 16.0))):
+                    side = 1 if (k + ring) % 2 == 0 else -1
+                    for _ in range(8):
+                        off = rng.uniform(lo, hi) * side
+                        along = s + rng.uniform(-2.0, 2.0)
+                        x, z = ax + tx * along + nx * off, az + tz * along + nz * off
+                        if clear(x, z, 1.6):
+                            kind = 'boulder' if rng.random() < 0.55 else 'deadfall'
+                            # long axis roughly along the trail, so it shields from the side (where ambushes come from)
+                            yaw = math.degrees(math.atan2(-tz, tx)) + rng.uniform(-35, 35)   # model +X along the trail
+                            out.append(dict(pocket=name, kind=kind, x=x, z=z, yaw=yaw,
+                                            scale=float(rng.uniform(1.2, 1.45)) if kind == 'boulder' else float(rng.uniform(1.0, 1.15)),
+                                            y=ground(H, x, z)))
+                            break
+                k += 1
+                s += rng.uniform(9.0, 12.0)
+    return out
+
+
+def add_cover_pockets(sc, H, trees):
+    pieces = place_cover_pockets(H, trees)
+    for i, c in enumerate(pieces):
+        x, y, z, yaw, sc_ = c['x'], c['y'], c['z'], c['yaw'], c['scale']
+        if c['kind'] == 'boulder':
+            # rock_b is 1.9 x 1.25 x 1.5 m at scale 1; the box sits just inside the scan
+            sc.prop(f'Cover Boulder {c["pocket"]} {i}', ENV + 'rock_b.glb', (x, y - 0.12 * sc_, z), yaw, sc_,
+                    col=collider('box', (1.55, 1.05, 1.15), offset=(0, 0.55, 0)), tags='Rock Cover')
+            r = math.radians(yaw)
+            ox, oz = math.cos(r) * 1.3 * sc_, -math.sin(r) * 1.3 * sc_
+            sc.prop(f'Cover Boulder {c["pocket"]} {i} Side', ENV + 'rock_a.glb', (x + ox, ground(H, x + ox, z + oz) - 0.05, z + oz),
+                    yaw + 70, 0.9, col=collider('sphere', radius=0.5, offset=(0, 0.25, 0)), tags='Rock')
+        else:
+            # deadfall: a windthrown trunk with a second one fallen across it, ~1.1 m high
+            sc.prop(f'Cover Deadfall {c["pocket"]} {i}', ENV + 'log_a.glb', (x, y - 0.05, z), yaw, sc_,
+                    col=collider('box', (4.2, 0.75, 0.75), offset=(0, 0.37, 0)), tags='Cover')
+            rot = quat_euler(0.0, yaw + 18.0, 8.0)
+            sc.prop(f'Cover Deadfall {c["pocket"]} {i} Top', ENV + 'log_a.glb', (x, y + 0.38, z), rot=rot, scale=sc_ * 0.92,
+                    col=collider('box', (4.0, 0.7, 0.7), offset=(0, 0.35, 0)), tags='Cover')
+    return pieces
+
+
 def add_canopy(sc):
     """Canopy proxies stay resident (the root holds a Script, which keeps the subtree out of the
     streamed cells). Near blocks are tagged with their streaming cell; canopy.luau hides a near
@@ -402,6 +528,7 @@ def build_main(H, masks, cover, trees):
     add_terrain(sc, H)
     add_canopy(sc)
     n_trees = add_vegetation(sc, H, masks, cover, trees)
+    add_cover_pockets(sc, H, trees)
     add_routes(sc, H, masks)
     add_creek(sc, H, masks)
     add_trailhead(sc, H)
