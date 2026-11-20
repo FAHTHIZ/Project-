@@ -304,3 +304,15 @@ sh tools/test/shot.sh scenes/menu.vscene 240 docs/evidence/menu_night.png 960 43
 
 Implemented, simulated headless and visually inspected on lavapipe. Not tested on a phone; the
 five-operator squad, rain, volumetric fog and shadowed weapon light are unprofiled on the Hot 10S.
+
+## Photoreal pass 1: mobile texture budget, photoscanned terrain, props and grass (2026-11-20)
+
+- Game `fa7cc56` (texture budget) and the following commit; VICTUS `4213be3` (ADR-0121 terrain height blending, `VICTUS_NO_COMPRESSED_TEXTURES`).
+- Machine: Linux x86-64, 2 cores, Mesa lavapipe (software Vulkan). No phone.
+- Commands: `python3 tools/assets/mobile_budget.py`, `python3 tools/assets/build_photoreal_terrain.py`,
+  `BLENDER=.../blender python3 tools/assets/build_photoreal_props.py`, `python3 tools/assets/build_photoreal_grass.py`,
+  `victus import game` (332 imported, 0 failed), `victus check game` (246 scenes, 0 problems),
+  `tools/test/shot.sh scenes/tests/world_trailhead.vscene 20 /tmp/trailhead.png 960 432` and `world_forest` (visually inspected).
+- Triangle budgets per instance (LOD0): grass 12 (photo cards; was 12), fern 360-420 (was 252-336), hero fern 1800, shrubs 1500-2200, rocks 500-1400, log 1600, stump 1000.
+- Finding: lavapipe decodes BC7/ASTC per sample, so a capture of the compressed project took more than 10 minutes; `shot.sh` now sets `VICTUS_NO_COMPRESSED_TEXTURES=1` (about 5 minutes for 20 frames at 960x432).
+- Not measured: frame time, memory and thermals on the Hot 10S.
