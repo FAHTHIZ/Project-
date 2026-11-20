@@ -14,6 +14,7 @@ PAUSE_SETTINGS = [
     ("fov", "Field of view"),
     ("invert_y", "Invert look"),
     ("camera_shake", "Camera shake"),
+    ("lens_effects", "Body-cam lens"),
     ("reticle_size", "Reticle size"),
     ("reticle_opacity", "Reticle opacity"),
     ("subtitles", "Subtitles"),

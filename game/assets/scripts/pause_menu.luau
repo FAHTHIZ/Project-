@@ -11,6 +11,7 @@ local RANGES = {
     aim_sensitivity = { 0.2, 1.0, 0.05 },
     fov = { 60, 95, 1 },
     camera_shake = { 0, 1, 0.25 },
+    lens_effects = { 0, 1, 0.25 },
     reticle_size = { 0.5, 2.0, 0.1 },
     reticle_opacity = { 0.2, 1.0, 0.1 },
     subtitle_size = { 18, 40, 2 },
@@ -77,7 +78,7 @@ local function fmt(k, v)
     if type(v) == "boolean" then return v and "On" or "Off" end
     if type(v) == "string" then return string.upper(string.sub(v, 1, 1)) .. string.sub(v, 2) end
     if k == "fov" or k == "subtitle_size" then return string.format("%d", v) end
-    if string.find(k, "volume") or k == "camera_shake" or k == "reticle_opacity" then
+    if string.find(k, "volume") or k == "camera_shake" or k == "lens_effects" or k == "reticle_opacity" then
         return string.format("%d%%", math.floor(v * 100 + 0.5))
     end
     return string.format("%.2f", v)
@@ -104,6 +105,7 @@ function M:change(key, dir)
         s[key] = math.floor(Game.clamp(nv, r[1], r[2]) / r[3] + 0.5) * r[3]
     end
     Game.apply_audio()
+    if key == "lens_effects" then Game.apply_lens() end
     self:refresh()
 end
 

@@ -127,6 +127,19 @@ Plans.pause_ui = {
     { at = 0.8, run = function(c)
         local m = Game.pause_menu
         c.check("settings_open", m ~= nil and m.settings_panel ~= nil and m.settings_panel:visible(), "settings panel visible")
+        -- body-cam lens setting drives the Environment (VICTUS ADR-0146)
+        local env = scene.find("Environment"):get("Environment")
+        c.check("lens_on_by_default", math.abs(env.film_grain - Game.LENS.film_grain) < 1e-3,
+            string.format("film_grain %.3f", env.film_grain))
+        for _ = 1, 4 do m:change("lens_effects", "-") end
+        env = scene.find("Environment"):get("Environment")
+        c.check("lens_off", Game.settings.lens_effects == 0 and env.film_grain == 0 and env.chromatic_aberration == 0
+            and env.lens_distortion == 0, string.format("setting %.2f grain %.3f", Game.settings.lens_effects, env.film_grain))
+        m:change("lens_effects", "+"); m:change("lens_effects", "+")
+        env = scene.find("Environment"):get("Environment")
+        c.check("lens_half", math.abs(env.chromatic_aberration - Game.LENS.chromatic_aberration * 0.5) < 1e-3,
+            string.format("ca %.3f", env.chromatic_aberration))
+        Game.settings.lens_effects = 1.0; Game.apply_lens()
     end },
 }
 
