@@ -134,6 +134,20 @@ function Hud:start()
     self.e["Diagnostics"]:set_visible(false)
 end
 
+-- Estimated wrapped line count of a subtitle in the 740-unit text box (Inter Medium averages about
+-- 0.4 em per glyph in sentence case, measured on a 1312x576 capture); words never split, so a long word pushes to the next line as the renderer does.
+function Hud.subtitle_lines(text, size)
+    local per = math.max(10, math.floor(740 / (size * 0.43)))
+    local lines, cur = 1, 0
+    for word in string.gmatch(text, "%S+") do
+        local n = utf8.len(word) or #word
+        if cur == 0 then cur = n
+        elseif cur + 1 + n <= per then cur += 1 + n
+        else lines += 1; cur = n end
+    end
+    return math.min(lines, 4)
+end
+
 -- Bearing of a world point relative to the view, degrees clockwise (0 ahead, 90 right).
 function Hud.bearing(p)
     local ps = Game.player_state
@@ -269,10 +283,15 @@ function Hud:update(dt)
     if Controls.pressed("diagnostics") then s.diagnostics = not s.diagnostics end
     if Controls.pressed("objectives") and playing then self.show_log = not self.show_log end
 
+    -- A chapter card or a fade owns the centre of the screen: the reticle, compass, waypoint and
+    -- roster step aside until it has gone, so nothing draws through the title.
+    local card = pres.title ~= nil or pres.subtitle_title ~= nil or pres.fade > 0.3
+    local framed = playing and not card
+
     -- Reticle.
     local ws = Game.weapon_hud
     local zoom = Game.player_state and Game.player_state.zoom or 0
-    local show_ret = playing and ws ~= nil and zoom < 0.75
+    local show_ret = framed and ws ~= nil and zoom < 0.75
     self:vis("Reticle", show_ret)
     if show_ret then
         local spread = (ws.spread or 1) * 8 * s.reticle_size
@@ -373,7 +392,7 @@ function Hud:update(dt)
 
     -- Heading compass.
     local cps = Game.player_state
-    local show_comp = playing and cps ~= nil and not self.show_log
+    local show_comp = framed and cps ~= nil and not self.show_log
     self:vis("Compass", show_comp)
     self:vis("Compass Notch", show_comp)
     self:vis("Compass Heading", show_comp)
@@ -386,7 +405,7 @@ function Hud:update(dt)
 
     -- Waypoint (Game.waypoint = { pos = vector, label = string }).
     local wpt = Game.waypoint
-    local show_wp = wpt ~= nil and playing and not self.show_log and s.waypoints ~= false
+    local show_wp = wpt ~= nil and framed and not self.show_log and s.waypoints ~= false
     self:vis("Waypoint", show_wp)
     self:vis("Waypoint Tick", show_wp)
     local wps = Game.player_state
@@ -408,13 +427,13 @@ function Hud:update(dt)
 
     -- Interaction prompt.
     local f = Game.focus
-    self:vis("Prompt", f ~= nil and playing)
+    self:vis("Prompt", f ~= nil and framed)
     if f then
         local key = Controls.state.touch_used and "USE" or (Controls.state.gamepad_used and "X" or "E")
         self:text("Prompt Key", key)
         self:text("Prompt Label", f.prompt or "Interact")
     end
-    self:vis("Prompt Detail", f ~= nil and playing and f.detail ~= nil)
+    self:vis("Prompt Detail", f ~= nil and framed and f.detail ~= nil)
     if f and f.detail then self:text("Prompt Detail", f.detail) end
 
     -- Weapon panel.
@@ -509,7 +528,7 @@ function Hud:update(dt)
         local m = Squad.member(who)
         if m and m.entity and m.entity.valid then table.insert(rows, m) end
     end
-    local show_sq = #rows > 0 and playing and not self.show_log
+    local show_sq = #rows > 0 and framed and not self.show_log
     self:vis("Squad", show_sq)
     if show_sq then
         local pp = Game.player and Game.player.world_position
@@ -590,6 +609,13 @@ function Hud:update(dt)
             p.color[4] = s.subtitle_background
             self.e["Subtitle"]:set("UiPanel", p)
         end
+        -- The plate grows with the line count, so a two-line radio line stays on its backing
+        -- instead of spilling under it onto the gun.
+        local lines = Hud.subtitle_lines(sub.text or "", s.subtitle_size)
+        local lh = math.floor(s.subtitle_size * 1.28 + 0.5)
+        local th = lines * lh
+        self:rect(self.e["Subtitle Text"], "subt:r", function(r) r.size = { 740, th } end)
+        self:rect(self.e["Subtitle"], "sub:r", function(r) r.size = { 760, th + 40 } end)
     end
 
     -- Cinematic presentation.
