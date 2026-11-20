@@ -958,3 +958,11 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Look-dev check in Blender 4.2.3 Cycles (orthographic, three area lights) before and after: docs/media/cast_weather_patch.jpg. In the night prologue capture the change is subtle (the lantern and the grade dominate), which is the intent.
 - VICTUS e9ce2ea Release: `victus import game` 9 imported, 403 up to date, 0 failed; `victus check game` 263 scenes, 0 problems. Autotests: squad 19/0, reactions 10/0 (v1); squad 19/0 again after v3, import 9 / 0 failed, check 0 problems. docs/media/cast_weather_patch.jpg: Patch before, Patch after, Tally after (three-quarter).
 
+
+## 2026-11-20 Android APK
+
+- Toolchain on the build machine: Temurin JDK 17.0.21, Gradle 9.9.1, Android SDK platform 36, build-tools 36.0.0, CMake 3.31.6, NDK 29.0.14206865. Engine VICTUS e9ce2ea, its own `platforms/android` Gradle project, `assembleRelease` (arm64-v8a, `-DCMAKE_BUILD_TYPE=Release`): BUILD SUCCESSFUL.
+- Phone pack: `tools/android/mobile_pack.py` (new) strips `bc7+` from every `.meta` for one import/export and restores them byte for byte. 332 imported, 80 up to date, 0 failed; 1394 files, 412 cooked assets, pack 1 971 126 979 bytes (desktop export of the same tree: 2 293 172 243 bytes). The size matters: a GitHub release asset must be under 2 GiB.
+- `tools/android/inject_pack.py` (new) streams the pack into the engine shell APK as a stored entry instead of letting Gradle copy it twice; native libraries 16 KiB aligned, everything else stored 4-byte aligned. Signed with `apksigner` (v3, `--alignment-preserved`; without that flag apksigner moved the .so data off the 16 KiB boundary by 8 bytes, which `zipalign -c -P 16` caught). `tools/android/build_apk.sh` runs the whole chain.
+- Result `SpecialOps.apk`, 2 001 536 373 bytes, package `com.fahthiz.specialops`, minSdk 28, targetSdk 36. Engine `tools/android/check_apk.sh`: OK (3 native libraries, game.vpak, classes.dex, SDL_main and JNI_OnLoad exported, 16 KB ELF alignment). `zipalign -c -P 16 -v 4`: Verification successful. `apksigner verify`: Verifies (v3).
+- Not done: install or run on a phone or emulator (none available here). Hot 10S frame time, memory, thermals and touch still unmeasured.

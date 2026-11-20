@@ -25,7 +25,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Five-operator squad (Brick added) and extra firearms (KV-5 Hornet, BR-9 Ram, MR-6 Kestrel, camp arms case) | Done (armory 20/20) | `8d6a7b6` |
 | Night menu/credits, README rewrite | Done | `35172db`, `26c532e`, docs/evidence/menu_night.png |
 | Desktop export | Done (export builds and boots to the menu under xvfb) | log "Story revision 2" |
-| Android APK | Attempted on the build machine; see log for the result. Device install/run not done (no phone) | log |
+| Android APK | Built: signed arm64 APK (2.0 GB, phone pack ASTC-only) from `tools/android/build_apk.sh`, attached to GitHub release; passes engine check_apk.sh, zipalign -c -P 16, apksigner verify. Device install/run not done (no phone) | docs/ANDROID_INSTALL.md, log "Android APK" |
 | HUD v2 (compass, squad roster, mag pips, reload bar, damage wedges, vignette, hit/takedown marker, feed, calm fade) | Done (desktop/headless, lavapipe-inspected; not device-tested) | log "HUD v2 and reactive squad voice", docs/evidence/hud_v2.png |
 | Reactive squad voice (128 new lines: aimed-at, friendly fire, stare, bump, thunder, flank callouts, waste, torch/sprint near guards, idle, low hp, reload cover) and spatial Greyline barks with real reloads | Done (reactions 10/10; not device-tested) | same log entry |
 | story_op01 time-budget error fixed (engine VICTUS cd59c05: background navmesh builds) | Done (story_op01 PASS 19 800 frames, 0 script errors) | log "story_op01 watchdog fixed" |
