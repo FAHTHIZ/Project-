@@ -840,3 +840,11 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - tools/ui/build_touch_icons.py draws 12 icons + stick ring/knob + two button discs (192 px, 4x supersampled, faint dark halo for bright skies). rig.py touch buttons are now UiImage discs with an icon child; hud.luau tints the disc and icon on press instead of recolouring a panel.
 - controls.luau layout: FIRE r80 at (205, 440) from the right; AIM, JUMP on the right edge; RELOAD/CROUCH below-left; SWITCH/TOOL above; USE and KIT inboard. Pairwise hit circles (1.15 r) checked to not overlap. The previous JUMP sat on top of the ammo panel.
 - patch_hud re-emitted 64 scenes (kestrel.vscene is now written in the same indent=1 format as the others). `victus check game`: 0 problems. Capture at 1312x576 (the Hot 10S 20.5:9 aspect): docs/media/touch_v2.png.
+
+## 2026-11-20 Front end v2: boot sequence, title screen, menu
+
+- Layout follows the "corner-anchored over key art" pattern (art carries the screen, list bottom-left over a soft gradient, disciplined contrast) rather than the earlier boxed web-style list.
+- build_menu.py: Barlow Condensed Bold/SemiBold/Medium (SIL OFL 1.1, game/assets/fonts) on every front-end text; shade_left/shade_bottom gradients from tools/ui/build_menu_art.py; numbered rows (amber 01..05, caps label, hairline rule, transparent until hovered/pressed); boot cards and full-screen Boot / Menu Press buttons inside the menu canvas so clicks reach menu.luau. Menu ground now collides so the three operators (hold order, engage off) stand under the lamp.
+- menu.luau: phases boot -> title -> main; cards fade 0.6-2.9 / 3.2-5.7 / 6.0-8.4 s, black lifts 8.6-10.2 s, heading fades in from 9.6 s, prompt at 11 s. skip_boot jumps to 8.6 s. Game.front_end_booted makes later visits go straight to the list. Rows slide 36 units from the left, 60 ms stagger. Camera dolly is now a cosine (the old `-t*0.05 % 6` jumped back 6 m every 120 s). set_label upper-cases runtime labels.
+- Storm's first lightning moved to 10.6 s (it used to flash during the boot cards, unseen).
+- Captures at 1312x576 with menu.luau temporarily started at t = 3.6, 11.5 and booted (reverted after). New autotest scenes/tests/menu_flow.vscene: 11/11 PASS, 0 script errors. `victus check game`: 263 scenes, 0 problems.

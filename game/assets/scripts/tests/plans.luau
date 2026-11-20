@@ -117,6 +117,41 @@ Plans.hud = {
 }
 
 -- Pause and settings modal (screenshots and a basic open/close check).
+-- Front end: boot cards play, a tap skips to the reveal, the title waits for "start", the list
+-- slides in fully opaque, and returning to the menu (booted) goes straight to the list.
+Plans.menu_flow = {
+    { at = 0.3, run = function(c)
+        local m = Game.menu
+        c.check("menu_up", m ~= nil, "Game.menu")
+        c.check("boot_first", m.phase == "boot" and m.el["Boot"]:visible(), "phase " .. tostring(m.phase))
+        c.check("list_hidden_in_boot", not m.main:visible(), "list hidden")
+    end },
+    { at = 1.6, run = function(c)
+        local m = Game.menu
+        local op = m.el["Boot Studio"]:get("UiRect").opacity
+        c.check("studio_card_fades_in", op > 0.5, string.format("opacity %.2f", op))
+        m:on_click(nil, "skip_boot")
+        c.check("skip_jumps_to_reveal", m.t >= 8.6, string.format("t %.2f", m.t))
+    end },
+    { at = 5.0, run = function(c)
+        local m = Game.menu
+        c.check("title_phase", m.phase == "title" and m.el["Menu Press"]:visible(), "phase " .. tostring(m.phase))
+        c.check("boot_gone", not m.el["Boot"]:visible(), "boot hidden")
+        m:on_click(nil, "start")
+    end },
+    { at = 6.5, run = function(c)
+        local m = Game.menu
+        c.check("main_phase", m.phase == "main" and m.main:visible(), "phase " .. tostring(m.phase))
+        local r = m.rows[5]:get("UiRect")
+        c.check("rows_settled", r.opacity > 0.99 and math.abs(r.position[1]) < 0.5,
+                string.format("row5 opacity %.2f x %.2f", r.opacity, r.position[1]))
+        c.check("booted_flag", Game.front_end_booted == true, "front_end_booted")
+        local l = scene.find("Menu Continue Label")
+        local txt = l and l:get("UiText").text or ""
+        c.check("caps_labels", txt == string.upper(txt) and #txt > 0, txt)
+    end },
+}
+
 Plans.pause_ui = {
     { at = 0.3, press = "pause" },
     { at = 0.35, release = "pause" },
