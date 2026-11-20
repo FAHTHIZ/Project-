@@ -1020,3 +1020,9 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Found in the campaign tour: the prologue briefing lantern (unshadowed point, intensity 10) shone through the table top and burned the table and the grass under it white.
 - Fix: tools/world/night.py `_point(..., shadows=)`; the lantern is now shadowed at intensity 6 (prologue.vscene and tests/story_prologue.vscene patched in place).
 - Verified: fresh prologue, 90 frames, 768x336 medium, lavapipe: docs/media/camp_lantern_shadowed.jpg (top before, bottom after) — table top no longer clipped, table casts its shadow; 0 script errors. The cool pool left of the table is the camp floodlight, unchanged.
+
+## Forest triangle budget: card LODs for tree canopies (2026-11-20)
+- Found: per-draw attribution of op01_forest at Low (410x180, lavapipe) put about 850 k of 1.14 M main-view triangles in the alpha-tested canopies of tree_broadleaf_a/b/c and tree_conifer_a/b, all at LOD 0 up to 150 m. Each canopy is 454-738 disconnected two-triangle cards; the importer's simplifier built no levels for them. `lod_error_pixels` 2 to 4 changed the total by under 2 %.
+- Fix (VICTUS f2102a4, ADR-0151): card LODs (nested subsets of cards grown to keep the canopy's area) and `foliage_lod_bias` 1 on Low. Model importer version 7, so caches re-import once.
+- Verified: op01_forest, Low, 60 frames: main-view triangles 1 138 829 to 608 499, shadow triangles 514 162 to 156 728. Low 1640x720 opening view with and without the bias: only the nearest canopy is slightly thinner. VICTUS `victus_gpu_tests` 200/200, `victus_render_tests` 66/66, `victus_robustness_tests` 15/15. Phone frame time not measured.
+- Rejected in the same pass: geometric specular AA. It measured worse against a supersampled reference at every strength, so it was not shipped.
