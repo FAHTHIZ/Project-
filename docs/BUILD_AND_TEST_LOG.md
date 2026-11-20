@@ -659,3 +659,12 @@ Operators now move low when the player is crouched (out of contact), instead of 
 - New plan `squad_crouch_look`: PASS 2/2 (4/4 operators in Crouch while moving, 4 kneeling on arrival). Render: `docs/media/crouch_gait.png`.
 - Regression `python3 tools/test/run_autotests.py stealth movement weapons hud squad squad_combat squad_cover enemy_fire reactions chatter hud_look footsteps enemy_tactics world_forest world_relay world_creek world_ravine world_trail_walk op01_line op01_line_loud`: all 20 PASS.
 - `SOPS_TEST_FRAMES=19800 ... story_op01`: PASS.
+
+## 2026-11-20 Post-contact sound-off
+
+Modelled on the real post-contact consolidation (ACE/LACE report: status, casualties, ammunition). `lib/squad.luau` `consolidate()`: after `squad_contact`, once `Squad.active_enemies()` is empty, no operator is engaged and no cinematic is playing for 3 s and no line is playing, Anchor calls a sound-off (`con_call_1..3`), two present operators answer `con_up_<key>_1/2` (every operator hit in that fight answers with `con_hurt_<key>_1`), Anchor closes (`con_done_1/2`). Priority 1, so story lines still win. Event `squad_sound_off`.
+
+- `tools/dialogue/lines.py`: 17 lines; `python3 tools/audio/build_voices.py --model /tmp/kok` -> 517 lines.
+- New check `sound_off` in squad_cover: PASS ("call true, 2 answers"); squad_combat PASS.
+- Regression: stealth movement weapons hud squad enemy_fire reactions chatter hud_look footsteps enemy_tactics world_forest world_trail_walk op01_line op01_line_loud: all PASS.
+- `SOPS_TEST_FRAMES=19800 python3 tools/test/run_autotests.py story_op01`: PASS.

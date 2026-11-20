@@ -429,6 +429,12 @@ end })
 table.insert(P.squad_cover, { at = 59.95, run = function(c)
     c.check("kneeling_rifle_low", (c.data.kneel_samples or 0) >= 3 and (c.data.kneel_carry or 9) < -0.15,
         string.format("%d kneeling samples, rifle at most %.2f m vs the standing pose", c.data.kneel_samples or 0, c.data.kneel_carry or 9))
+    local called, answers = false, 0
+    for _, l in Dialogue.state().log do
+        if string.find(l.id, "con_call_") then called = true end
+        if string.find(l.id, "con_up_") or string.find(l.id, "con_hurt_") then answers += 1 end
+    end
+    c.check("sound_off", called and answers >= 2, string.format("call %s, %d answers", tostring(called), answers))
     c.check("npc_impacts", (Squad.state().npc_impacts or 0) >= 5,
         string.format("%d NPC shot impacts shown near the camera", Squad.state().npc_impacts or 0))
     c.check("faces_show_the_fight", (c.data.brow_max or 0) > 0.45 and (c.data.flinches or 0) >= 1,
