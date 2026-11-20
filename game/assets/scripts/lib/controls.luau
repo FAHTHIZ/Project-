@@ -208,10 +208,11 @@ function Controls.poll()
         look = look + vector.create(gx * curve * 165, gy * curve * 120, 0) * (s.look_sensitivity * dt)
         state.gamepad_used = true
     end
-    -- Touch: degrees per canvas unit.
+    -- Touch: degrees per canvas unit. 0.12 turns about 200 degrees across a 1640-wide landscape
+    -- canvas; 0.16 (260 degrees) made quick thumb swipes on a 6.8" phone whip the view around.
     local tmove, tlook = poll_touch(down)
     if tmove then move = tmove end
-    look = look + tlook * (0.16 * s.look_sensitivity)
+    look = look + tlook * (0.12 * s.look_sensitivity)
     -- Injected input (autotests and cinematic handoff tests).
     local v = Controls.virtual
     if v.move then move = v.move end
