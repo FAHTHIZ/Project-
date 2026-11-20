@@ -31,6 +31,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | story_op01 time-budget error fixed (engine VICTUS cd59c05: background navmesh builds) | Done (story_op01 PASS 19 800 frames, 0 script errors) | log "story_op01 watchdog fixed" |
 | Surface-aware footsteps, gear foley, landing, footstep noise heard by AI | Done (footsteps 8/8; regressions pass) | log "Surface footsteps" |
 | Contractor tactics: real cover from colliders, peek/duck, one-at-a-time flank, suppress last known, search sweeps | Done (enemy_tactics 10/10; regressions pass) | log "Greyline contractor tactics" |
+| Squad takes real cover in follow-mode firefights; contractors relocate instead of shooting their own cover | Done (squad_cover 6/6; regressions pass) | log "Squad cover in firefights" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

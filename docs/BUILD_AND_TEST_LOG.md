@@ -438,6 +438,8 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 
 ## 2026-11-20 Greyline contractor tactics: real cover, peeking, flanking, suppression, sweeps
 
+- Commit: ed61743 (game main).
+
 - New `game/assets/scripts/lib/tactics.luau`. Kestrel has no authored cover nodes, so cover is whatever stops a pulse: terrain folds, tree trunks, rocks, logs, vehicles and walls (the colliders the shots use).
   - `find_cover` samples 18 points within 9 m and snaps them to the ground (terrain height or a ray down) and the navmesh. It keeps points where a ray from the threat's eye to a crouched chest (0.95 m) hits a non-character collider.
   - Scoring favours peek spots (standing at 1.55 m clears the obstacle) and short, sideways rather than forward moves. It penalises open midpoints on the run and points another fighter has claimed.
@@ -464,3 +466,22 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - Ran (engine VICTUS cd59c05, Release): `victus import game` (0 failed), `victus check game` (250 scenes, 43 scripts: 0 problems).
 - Regressions PASS: squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, squad, and story_op01 (19 800 frames, 0 script errors).
 - Not tested: the squad `eflank` warning (no plan has operators and a flanker together). Also untested: cover choice among the streamed trees and rocks of the open world, and the cost of the ~70 rays per cover search on device. The search runs at most every 0.45-0.75 s per engaged contractor, and only while it is in the open.
+
+## 2026-11-20 Squad cover in firefights; contractors stop shooting into their own cover
+
+- `operator.luau` (`Op:combat_move`): in follow mode, engaged and within 12 m of the player, an operator no longer just stops. It uses `Tactics.find_cover` (7 m radius, 5 m minimum from the threat) against its last target and keeps clear of other operators' spots and the player's. It runs there at 1.4× speed, barks `bark_cover_*` (its own voice), crouches between bursts and when staggered, and re-checks the cover every 1.1-1.8 s. The cover only counts if it stays within 14 m of the player; when the fight ends or the player moves away, it returns to formation. New event `squad_in_cover`.
+- `enemy.luau`: before each shot, `Tactics.clear_shot` checks the first min(6 m, half the range) of the line. A shot blocked by the contractor's own rock or step is not fired.
+  - After 3 blocked attempts the contractor relocates to cover where standing clears the obstacle (`Tactics.can_peek`), or sidesteps 2.5 m.
+  - Holding the current spot as cover now also requires being able to peek.
+  - Found by the new plan: one contractor squatted behind the range's Step 2 for 40 s, firing 25 bursts into it while the squad could not see it (asymmetric 1.6 m eye vs 1.45 m target point).
+  - Blocks further out (the cover the target ducked behind) still take suppressing fire.
+- `reactions.luau`: the `eflank` warning gets a 3 s queue ttl so it is not dropped behind combat barks.
+- 4 new voiced lines: `bark_cover_1..4` (Kokoro; 439 lines total).
+- New autotest `squad_cover`: four operators, two alerted contractors and four crates; the player is unhittable. Scene `tests/squad_cover.vscene`; 3620 frames by default in `run_autotests.py`, and `enemy_tactics` defaults to 1620. Result: PASS 6/6.
+  - all 4 operators reached cover;
+  - 5 arrivals were hidden from their target;
+  - the 1 flank was warned about by the squad (`react_eflank`);
+  - 4 operators crouched in cover;
+  - both contractors were down by 45 s (before the clear-shot fix: 1 of 2 by 60 s).
+- Regressions PASS: enemy_tactics 10/10, squad_combat, enemy_fire, reactions, chatter, squad, hud_look, story_op01 (19 800 frames, 0 script errors). `victus check game`: 251 scenes, 43 scripts, 0 problems.
+- Not tested: operators in hold/move orders (unchanged: they stay put), and cover choice among open-world trees.

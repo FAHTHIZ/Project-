@@ -8,6 +8,8 @@
 --
 --   Tactics.ground(p, ignore)              ground point under x,z (terrain height or a ray down)
 --   Tactics.exposed(threat_eye, p, ignore) true if a crouched chest at p is in the open
+--   Tactics.can_peek(threat_eye, p, ignore) true if standing at p clears the cover
+--   Tactics.clear_shot(from, to, ignore, near) true if nothing solid is near the muzzle on the line
 --   Tactics.find_cover(me, threat, opts)   best cover point near me against threat, or nil
 --   Tactics.flank_point(me, threat, side)  a point off to one side of the threat (side = 1/-1)
 --   Tactics.search_points(center, n, r)    walkable points around center for a sweep
@@ -55,6 +57,23 @@ end
 
 function Tactics.exposed(eye, p, ignore)
     return not blocked(eye, p, CROUCH, ignore)
+end
+
+-- Can someone standing at p see (and so shoot) the threat over whatever covers them?
+function Tactics.can_peek(eye, p, ignore)
+    return not blocked(eye, p, STAND, ignore)
+end
+
+-- Is the straight line from a muzzle to an aim point clear of world geometry?
+-- near: only count obstacles within this many metres of the muzzle (your own rock, not the cover
+-- the target is hiding behind).
+function Tactics.clear_shot(from, to, ignore, near)
+    local d = to - from
+    local dist = vector.magnitude(d)
+    if dist < 1 then return true end
+    local hit = physics.raycast(from, d / dist, math.min(dist - 0.6, near or math.huge), nil, ignore)
+    if not hit then return true end
+    return hit.entity and hit.entity.valid and hit.entity:has("CharacterController") or false
 end
 
 local function snap(p, ignore)
