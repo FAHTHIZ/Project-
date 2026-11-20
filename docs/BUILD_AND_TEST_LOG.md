@@ -759,3 +759,11 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - `weapons.luau`: hip sway spring softened (k 140 to 95, damping 16 to 12.5) with a larger swing limit, so the weapon lags the view a little longer.
 - `reload_feel` plan: new checks strafe_roll (-1.91 deg), sprint_footfall_jolt (lowest -0.007 m) and lens_settles (all springs back under 0.1 deg / 2 mm after 2 s): 22/22 PASS.
 - Regression: movement, weapons, hud_look, vm_ads, sniper, squad: all PASS.
+
+## 2026-11-20 Storm-night grade v3: blue-grey rain mist instead of green
+
+- Problem: in-game captures of the prologue camp and the Op01 forest (Medium, 960x432) read as one green haze: the fog colour, sky horizon and volumetric albedo were all green, so trunks, tents and squad shared one tint and the frame looked filtered rather than photographed.
+- Tried first a darker grade (ambient 0.5, thinner fog): the camp went near-black, because the lit mist carries most of the frame's light. Kept the mist density and brightness and changed its colour instead.
+- `tools/world/night_grade.py` GRADE v3 (also `tools/scenes/common.py` night_storm): fog `[0.044, 0.054, 0.064]`, sky zenith/horizon cool blue-grey, volumetric albedo `[0.76, 0.8, 0.86]`, saturation 0.92 to 0.86, contrast 1.07 to 1.12, rain brightness 1.6 to 1.1 (thinner streaks), moon 0.32 to 0.42 (`tools/world/night.py`, `build_menu.py`). Applied to 12 scenes (menu, credits, prologue, Op01-Op03 and their test copies).
+- Before/after (top prologue, bottom Op01; left old, right new): `docs/media/night_grade_v3.png`.
+- `victus check game`: 262 scenes, 0 problems. stealth, op01_line: PASS.

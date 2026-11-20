@@ -37,21 +37,21 @@ def environment(sc: Scene, preset="forest", **over):
         # Kestrel Valley, 02:40-05:30: overcast storm night. Moonlight leaks through the cloud
         # deck as a weak blue key; the sky glows faintly at the horizon (town light under the
         # cloud). Rain, wet ground with puddles, low ground fog lit by lamps and searchlights.
-        # green mist tuned toward the misty-forest reference (tools/world/night_grade.py)
+        # neutral blue-grey rain mist (grade v3, tools/world/night_grade.py)
         "night_storm": {
-            "sky_zenith": [0.012, 0.016, 0.018, 1], "sky_horizon": [0.05, 0.064, 0.058, 1],
-            "ground": [0.02, 0.028, 0.02, 1], "ambient_intensity": 0.68,
+            "sky_zenith": [0.011, 0.014, 0.02, 1], "sky_horizon": [0.045, 0.054, 0.066, 1],
+            "ground": [0.02, 0.024, 0.021, 1], "ambient_intensity": 0.68,
             "clear_color": [0.01, 0.012, 0.016, 1], "exposure": 1.0, "exposure_compensation": 1.75,
-            "auto_exposure": False, "saturation": 0.92, "contrast": 1.07, "vignette": 0.3,
+            "auto_exposure": False, "saturation": 0.86, "contrast": 1.12, "vignette": 0.3,
             "bloom_intensity": 0.06, "bloom_threshold": 0.9, "shadow_distance": 40,
-            "fog": "exponential", "fog_color": [0.045, 0.064, 0.052, 1], "fog_start": 2, "fog_end": 260,
+            "fog": "exponential", "fog_color": [0.044, 0.054, 0.064, 1], "fog_start": 2, "fog_end": 260,
             "fog_density": 0.018, "fog_max_opacity": 0.96,
             "precipitation": "rain", "precipitation_intensity": 0.85, "precipitation_wind": [2.2, 0.0, 1.1],
-            "precipitation_radius": 15.0, "precipitation_brightness": 1.6, "precipitation_opacity": 0.0,
+            "precipitation_radius": 15.0, "precipitation_brightness": 1.1, "precipitation_opacity": 0.0,
             "wetness": 0.8, "puddles": 0.42, "puddle_size": 2.6, "precipitation_ripples": 1.0,
             "precipitation_splashes": 0.8,
             "volumetric_fog": True, "volumetric_density": 0.022, "volumetric_height": 4.0,
-            "volumetric_falloff": 0.08, "volumetric_albedo": [0.7, 0.82, 0.74, 1], "volumetric_anisotropy": 0.62,
+            "volumetric_falloff": 0.08, "volumetric_albedo": [0.76, 0.8, 0.86, 1], "volumetric_anisotropy": 0.62,
             "volumetric_distance": 140.0, "volumetric_sun": 0.6, "volumetric_ambient": 0.85,
             "volumetric_local_lights": 1.4, "volumetric_temporal": 0.9,
         },

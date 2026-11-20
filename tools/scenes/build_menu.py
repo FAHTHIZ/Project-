@@ -52,7 +52,7 @@ def backdrop(sc: Scene, seed=3):
     # sweeping through the fog far behind the trees, and the storm's lightning (scripts/world/storm.luau).
     environment(sc, "night_storm", precipitation_radius=12.0)
     sc.add("Moon", {"Transform": transform((0, 30, 0), quat_euler(-55, 125, 0)), "Light": {
-        "type": "directional", "color": [0.56, 0.66, 0.88, 1], "intensity": 0.32, "range": 10, "shadows": True}})
+        "type": "directional", "color": [0.56, 0.66, 0.88, 1], "intensity": 0.42, "range": 10, "shadows": True}})
     sc.prop("Menu Lamp Post", "models/structures/light_pole.glb", (2.6, 0, -7.0), 200.0)
     sc.add("Menu Lamp", {"Transform": transform((2.0, 6.2, -6.6), quat_euler(-82, 200, 0)), "Light": {
         "type": "spot", "color": [1.0, 0.66, 0.32, 1], "intensity": 55.0, "range": 24.0, "shadows": True,

@@ -53,7 +53,7 @@ def moon(chapter):
     if chapter == 'epilogue':
         # low sun behind thinning cloud in the east-north-east, cool and soft
         return {'type': 'directional', 'color': [1.0, 0.84, 0.7, 1], 'intensity': 1.6, 'range': 10, 'shadows': True}
-    return {'type': 'directional', 'color': [0.56, 0.66, 0.88, 1], 'intensity': 0.32, 'range': 10, 'shadows': True}
+    return {'type': 'directional', 'color': [0.56, 0.66, 0.88, 1], 'intensity': 0.42, 'range': 10, 'shadows': True}
 
 
 def _spot(sc, name, pos, pitch, yaw, color, intensity, rng, inner, outer, shadows=False, extra=None):
