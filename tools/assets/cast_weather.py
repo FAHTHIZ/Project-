@@ -21,6 +21,7 @@ rasterised from the body primitive's triangles into UV space):
 - gloves: near-white low-saturation texels on the hands are re-dyed coyote leather.
 - damp:   all cloth is rain-darkened (rain falls from above: tops of shoulders, helmet, pack
           and thighs darkest) and loses roughness; soaked below the knee.
+- insignia: real-world unit tabs and patches on the sleeves are painted out (colour + normal).
 - mud:    splash and ground mud from the soles up to the shins, plus kneeling patches on the
           front of the knees, broken up with a fixed-seed fBm so no two characters match.
 
@@ -44,11 +45,24 @@ from gltf_util import read_glb, accessor  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 CHARS = os.path.join(ROOT, 'game', 'assets', 'models', 'characters')
-VERSION = 2
+VERSION = 3
 # Halyard Team (dyed camo); everyone else gets damp and mud only
 CAMO = {'sops_anchor', 'sops_brick', 'sops_tally', 'sops_patch', 'sops_echo', 'sops_explorer'}
 # how long each has been out in it: Hollis lives here and Greyline stand watch under cover
 EXPOSURE = {'sops_ranger': 0.7, 'sops_greyline_a': 0.6, 'sops_greyline_b': 0.6, 'sops_explorer': 0.8}
+# Real-world unit insignia left on the Rocketbox sleeves (US Army tabs and division patches:
+# AIRBORNE with a crossed-bayonet crest, 1st Cavalry, RANGER with 25th Infantry). Halyard is
+# fictional and wears no unit patch, so the tab and crest are painted out to the blank loop-velcro
+# field of the sleeve pocket; generic rank chevrons stay. Pixel rects (x0, y0, x1, y1) in the
+# original atlas, located by normalised cross-correlation against the Patch crop and checked by eye.
+INSIGNIA = {
+    'sops_patch': [(810, 578, 876, 644)],
+    'sops_echo': [(810, 578, 876, 644)],
+    'sops_brick': [(810, 578, 876, 644)],
+    'sops_anchor': [(815, 577, 881, 637)],
+    'sops_explorer': [(810, 578, 876, 644)],
+    'sops_tally': [(818, 544, 872, 604)],
+}
 COYOTE = np.array([0.42, 0.35, 0.26], np.float32)
 MUD = np.array([0.24, 0.19, 0.14], np.float32)
 
@@ -109,6 +123,40 @@ def to_hsv(rgb):
     return hsv[..., 0], hsv[..., 1], hsv[..., 2]
 
 
+def paint_out(stem, rgb, nor):
+    """Inpaint the insignia rects in colour and normal, then restore the loop-field grain."""
+    import cv2
+    rects = INSIGNIA.get(stem)
+    if not rects:
+        return rgb, nor
+    m = np.zeros(rgb.shape[:2], np.uint8)
+    for x0, y0, x1, y1 in rects:
+        m[y0:y1, x0:x1] = 255
+    rng = np.random.default_rng(3)
+    outs = []
+    for img in (rgb, nor):
+        u8 = (np.clip(img, 0, 1) * 255 + 0.5).astype(np.uint8)
+        f = cv2.inpaint(u8, m, 9, cv2.INPAINT_TELEA).astype(np.float32) / 255
+        outs.append(f)
+    c, n = outs
+    # colour: the loop-velcro field is one flat dyed nylon; take its colour from the strip of
+    # field just above the tab, add a fine grain, and feather 4 px into the surroundings
+    for x0, y0, x1, y1 in rects:
+        field = rgb[max(y0 - 6, 0):y0, x0 + 6:x1 - 6].reshape(-1, 3)
+        col = np.median(field, 0)
+        sd = float(np.median(np.abs(field - col))) * 0.8
+        hh, ww = y1 - y0, x1 - x0
+        g = cv2.GaussianBlur(rng.normal(0, 1, (hh, ww)).astype(np.float32), (0, 0), 0.7)
+        g = g / max(g.std(), 1e-6) * sd
+        fill = np.clip(col[None, None, :] * (1 + g[..., None] / max(col.mean(), 1e-3)), 0, 1)
+        wy = np.minimum(np.arange(hh), np.arange(hh)[::-1])[:, None]
+        wx = np.minimum(np.arange(ww), np.arange(ww)[::-1])[None, :]
+        w = np.clip(np.minimum(wy, wx) / 4.0, 0, 1)[..., None]
+        c[y0:y1, x0:x1] = rgb[y0:y1, x0:x1] * (1 - w) + fill * w
+        n[y0:y1, x0:x1] = cv2.GaussianBlur(n[y0:y1, x0:x1], (0, 0), 4)
+    return c, n
+
+
 def weather(stem, rgb, mr, h, ny, nz, ax, height_m):
     n = rgb.shape[:2]
     seed = int(hashlib.sha1(stem.encode()).hexdigest()[:8], 16)
@@ -133,7 +181,8 @@ def weather(stem, rgb, mr, h, ny, nz, ax, height_m):
     # gloves: white leather on the hands -> coyote, keeping the leather's own shading
     hands = smooth(ax, 0.40, 0.45)        # past the wrists in the A-pose
     white = (sat < 0.16) & (val > 0.62)
-    gm = blur((white * (hands > 0.3)).astype(np.float32), 1.2)
+    from scipy.ndimage import binary_dilation as _dil
+    gm = blur(_dil(white & (hands > 0.3), iterations=2).astype(np.float32), 1.0)   # no white fringe
     rel = (lum / max(float(np.median(lum[white])) if white.any() else 0.7, 1e-3))[..., None]
     lin = lin * (1 - gm[..., None]) + np.clip(COYOTE ** 2.2 * rel, 0, 1) * gm[..., None]
     ex = EXPOSURE.get(stem, 1.0)
@@ -151,7 +200,10 @@ def weather(stem, rgb, mr, h, ny, nz, ax, height_m):
     knee = np.exp(-((hy - 0.5) / 0.07) ** 2) * smooth(nz, 0.35, 0.8) * smooth(noise, 0.35, 0.65)
     mud = np.clip(ex * (splash + 0.8 * knee), 0, 1) * cloth
     mud = mud * (0.75 + 0.25 * fine)
-    mud_col = MUD ** 2.2 * (0.8 + 0.4 * fine[..., None])
+    # mud takes the surface's own relief (laces, seams, tread) so it reads as a coat, not paint
+    lm = np.maximum(blur(lum, 6), 1e-4)
+    relief = np.clip(lum / lm, 0.5, 1.6)[..., None] ** 0.7
+    mud_col = MUD ** 2.2 * (0.8 + 0.4 * fine[..., None]) * relief
     lin = lin * (1 - mud[..., None]) + mud_col * mud[..., None]
     # drying mud is rougher, fresh splashes are wet
     rough = rough * (1 - mud) + (0.55 + 0.3 * smooth(hy, 0.0, 0.3)) * mud
@@ -225,6 +277,9 @@ def main(argv):
         ci = j['textures'][mat['baseColorTexture']['index']]['source']
         ri = j['textures'][mat['metallicRoughnessTexture']['index']]['source']
         rgb = load(binc, j, ci); mr = load(binc, j, ri)
+        ni = j['textures'][j['materials'][mi]['normalTexture']['index']]['source']
+        nor = load(binc, j, ni)
+        rgb, nor2 = paint_out(stem, rgb, nor)
         n = rgb.shape[:2]
         h, ny, nz, ax, hm = surface_maps(j, binc, prim, n)
         mr0 = mr.shape[:2]
@@ -239,7 +294,10 @@ def main(argv):
         if mr2.shape[:2] != mr0:
             mr2 = np.asarray(Image.fromarray((mr2 * 255).astype(np.uint8)).resize((mr0[1], mr0[0]), Image.LANCZOS), np.float32) / 255
         extras['sops_weather'] = VERSION
-        rewrite(path, j, binc, {ci: jpeg(out), ri: jpeg(mr2)})
+        rep = {ci: jpeg(out), ri: jpeg(mr2)}
+        if stem in INSIGNIA:
+            rep[ni] = jpeg(nor2)
+        rewrite(path, j, binc, rep)
 
 
 if __name__ == '__main__':
