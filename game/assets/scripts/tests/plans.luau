@@ -250,6 +250,39 @@ Plans.pause_ui = {
         c.check("lens_half", math.abs(env.chromatic_aberration - Game.LENS.chromatic_aberration * 0.5) < 1e-3,
             string.format("ca %.3f", env.chromatic_aberration))
         Game.settings.lens_effects = 1.0; Game.apply_lens()
+        -- controller disconnect: close the menu, then play "with a pad" and pull it
+        m:set_open(false)
+        local Controls = require("scripts/lib/controls")
+        Controls.virtual.pad, Controls.virtual.pad_used = true, true
+    end },
+    { at = 1.0, run = function(c)
+        local Controls = require("scripts/lib/controls")
+        c.check("pad_resumed_play", Game.paused ~= true, "menu closed before the disconnect")
+        Controls.virtual.pad_used = nil
+        Controls.virtual.pad = false
+    end },
+    { at = 1.2, run = function(c)
+        local Controls = require("scripts/lib/controls")
+        local m = Game.pause_menu
+        c.check("pad_lost_pauses", Game.paused == true and m.op_label:text() == "CONTROLLER DISCONNECTED",
+            string.format("paused %s, label %q", tostring(Game.paused), m.op_label:text()))
+        Controls.virtual.pad = true
+    end },
+    { at = 1.4, run = function(c)
+        local Controls = require("scripts/lib/controls")
+        local m = Game.pause_menu
+        c.check("pad_back_stays_paused", Game.paused == true and m.op_label:text() == "CONTROLLER RECONNECTED",
+            string.format("paused %s, label %q", tostring(Game.paused), m.op_label:text()))
+        m:set_open(false)
+    end },
+    { at = 1.6, run = function(c)
+        local Controls = require("scripts/lib/controls")
+        Controls.virtual.pad = false -- connected but never used (keyboard player): no pause
+    end },
+    { at = 1.8, run = function(c)
+        local Controls = require("scripts/lib/controls")
+        c.check("idle_pad_unplug_ignored", Game.paused ~= true, "paused " .. tostring(Game.paused))
+        Controls.virtual.pad = nil
     end },
 }
 

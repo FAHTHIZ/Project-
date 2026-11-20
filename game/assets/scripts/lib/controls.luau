@@ -173,10 +173,20 @@ function Controls.poll()
     for _, a in ACTIONS do
         if input.action(a) then down[a] = true end
     end
+    -- Controller presence (Controls.virtual.pad overrides it in autotests). Losing the pad that
+    -- was driving the game raises a one-shot pad_lost so the HUD can pause.
+    local pad = Controls.virtual.pad
+    if pad == nil then pad = input.gamepad_connected() end
+    if state.pad_on and not pad and state.gamepad_used then
+        state.pad_lost = true
+        state.gamepad_used = false
+    end
+    state.pad_on = pad
     local move = input.vector("move_x", "move_y")
     if vector.magnitude(move) > 0.05 then
-        if input.gamepad_connected() then state.gamepad_used = true end
+        if pad then state.gamepad_used = true end
     end
+    if pad and Controls.virtual.pad_used then state.gamepad_used = true end
     local s = Game.settings
     local dt = time.delta()
     local look = vector.create(0, 0, 0)
@@ -226,6 +236,15 @@ function Controls.released(a)
 end
 function Controls.move() return Controls.poll().move end
 function Controls.look() return Controls.poll().look end
+
+-- Controller presence: pad_connected() is the last polled state; take_pad_lost() returns true
+-- once after the controller in use disconnects.
+function Controls.pad_connected() return state.pad_on == true end
+function Controls.take_pad_lost()
+    local v = state.pad_lost == true
+    state.pad_lost = false
+    return v
+end
 
 -- Whether to draw the touch overlay.
 function Controls.show_touch()

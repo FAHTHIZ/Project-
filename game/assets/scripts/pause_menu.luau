@@ -68,7 +68,10 @@ function M:set_open(open)
     self.main:set_visible(true)
     self.settings_panel:set_visible(false)
     if open then
-        self.op_label:set_text(Game.objective and Game.objective.op or "")
+        self.pad_reason = Game.pause_reason == "pad"
+        Game.pause_reason = nil
+        self.op_label:set_text(self.pad_reason and "CONTROLLER DISCONNECTED"
+            or (Game.objective and Game.objective.op or ""))
         self:refresh()
         Game.emit("paused", true)
     else
@@ -146,6 +149,12 @@ function M:on_click(button, action)
 end
 
 function M:update(dt)
+    -- After a controller disconnect, say so when it comes back (the game stays paused until the
+    -- player resumes, so nobody is dropped back into a firefight mid-reconnect).
+    if self.open and self.pad_reason and Controls.pad_connected() then
+        self.pad_reason = false
+        self.op_label:set_text("CONTROLLER RECONNECTED")
+    end
     if self.open and time.frame() > (self.opened_frame or 0) then
         -- Close with the same pause action (or gamepad East / Escape).
         if input.action_pressed("pause") then
