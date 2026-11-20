@@ -677,4 +677,18 @@ Plans.story_op02 = story_plan("op02", 300)
 Plans.story_op03 = story_plan("op03", 240)
 Plans.story_epilogue = story_plan("epilogue", 160)
 
+
+-- View gallery (render captures): turns the player view by the yaw/pitch offsets in
+-- VIEW_YAW / VIEW_PITCH set below by the capture scene's plan name "view_<yaw>_<pitch>".
+for _, yaw in { 0, 60, 90, 120, 180, 240, 270, 300 } do
+    for _, pitch in { 0, -35, 25 } do
+        Plans["view_" .. yaw .. "_" .. pitch] = {
+            { at = 0.1, run = function()
+                local s = Game.player_state
+                if s then s.yaw = (s.yaw or 0) + yaw; s.pitch = pitch end
+            end },
+        }
+    end
+end
+
 return Plans

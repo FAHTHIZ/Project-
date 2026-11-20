@@ -58,7 +58,7 @@ RAVINE = [(-26, -30), (-16, -48), (-6, -68), (2, -88), (8, -106)]
 
 # Points of interest: name -> (x, z, flatten radius, extra)
 POIS = {
-    'camp':       dict(x=-20, z=486, r=16, note='Prologue: Halyard staging camp beside the ranger road'),
+    'camp':       dict(x=-20, z=486, r=16, fall=16, grade=0.7, note='Prologue: Halyard staging camp beside the ranger road'),
     'trailhead':  dict(x=-60, z=302, r=15, note='Turnout where the Mule parks; trunk scene; trail sign'),
     'cabin':      dict(x=62, z=124, r=15, note="Ranger Hollis's cabin, woodpile, water tank"),
     'relay':      dict(x=-42, z=16, r=8, raise_=13.0, raise_r=38, note='Relay mast on the knoll'),

@@ -249,6 +249,14 @@ def generate():
         d = np.hypot(X - p['x'], Z - p['z'])
         h0 = p.get('h', float(sample_grid(H, [p['x']], [p['z']])[0]))
         w = 1 - smoothstep(p['r'], p['r'] + p.get('fall', 9), d)
+        if p.get('grade'):
+            # slope-limited shoulder: around a pad dug into a hillside the ground may rise or fall at
+            # most `grade` (rise over run) away from the pad edge, so the cut grades out as a bank
+            # instead of a cliff wall; the correction is blurred so the bank has no crease
+            lim = p['grade'] * np.maximum(d - p['r'], 0.0)
+            delta = np.clip(H, h0 - lim, h0 + lim) - H
+            delta = ndimage.gaussian_filter(delta, 2.0)
+            H = H + delta * (1 - w)
         H = H * (1 - w) + h0 * w
         pads = np.maximum(pads, w)
 
