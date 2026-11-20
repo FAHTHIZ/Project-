@@ -17,6 +17,7 @@ Game.settings = {
     invert_y = false,
     fov = 70,
     camera_shake = 1.0,     -- 0 disables shake and head bob
+    lens_effects = 1.0,     -- body-cam lens: sensor grain, colour fringing, slight barrel (0 = clean image)
     head_bob = true,
     reticle_size = 1.0,
     reticle_opacity = 0.9,
@@ -47,6 +48,20 @@ function Game.load_settings()
     end
     Game.apply_audio()
     return Game.settings
+end
+
+-- Body-cam lens (VICTUS ADR-0146) at lens_effects = 1. Grain is the low-light sensor noise of a
+-- chest camera, fringing the cheap wide lens, barrel kept mild for comfort. Applied to the scene's
+-- Environment by fp_player at start and whenever the setting changes.
+Game.LENS = { film_grain = 0.42, chromatic_aberration = 0.4, lens_distortion = 0.1 }
+function Game.apply_lens()
+    local e = scene.find("Environment")
+    if not e then return end
+    local env = e:get("Environment")
+    if not env then return end
+    local k = Game.settings.lens_effects or 0
+    for f, v in Game.LENS do env[f] = v * k end
+    e:set("Environment", env)
 end
 
 function Game.save_settings()

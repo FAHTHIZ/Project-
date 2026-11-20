@@ -776,3 +776,10 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Before/after: `docs/media/hands_v2.png`. Checked visually in vm_sidearm, vm_reload, vm_ads_breacher, vm_scan, armory.
 - `victus check game`: 262 scenes, 0 problems. Autotests weapons 26/26, reload_feel 22/22, vm_ads 1/1, armory 20/20, vm_sidearm (capture scene) 0 script errors.
 - Not measured: phone frame cost of the extra ~16k viewmodel triangles (no device).
+
+## 2026-11-20 — Body-cam lens: sensor grain, colour fringing, slight barrel (VICTUS ADR-0146)
+
+- Engine eca0e18 adds `lens_distortion`, `chromatic_aberration` and `film_grain` to the Environment (tonemap pass, off by default). The game sets them from `Game.LENS` (grain 0.42, fringing 0.4, barrel 0.1) scaled by the new setting `lens_effects` ("Body-cam lens", 0-100 %, step 25 %, default 100 %), applied by `fp_player` at start and by the pause menu on change. HUD/pause canvases re-emitted in 64 scenes with `tools/scenes/patch_hud.py`, the menu with `build_menu.py`.
+- First look (prologue, Medium 960x432): grain added in linear light buried the night in noise; the engine now adds it in square-root space at a fifth of the strength. Second look reads as a chest camera at night without hiding detail. Capture: `docs/media/bodycam_lens.png` (right: 2x crop).
+- `victus check game`: 262 scenes, 0 problems. Autotests pause_ui 5/5 (new checks: lens on by default, off at 0 %, half at 50 %), movement 13/13.
+- Not measured: phone cost (two extra texture reads with fringing on, a few ALU for grain) — no device.

@@ -33,6 +33,7 @@ local interactables = Game.interactables
 
 function P:start()
     Game.load_settings()
+    Game.apply_lens()
     Game.player = self.entity
     self.head = self.entity:find_child("Head")
     self.cam = self.head and self.head:find_child("Main Camera")

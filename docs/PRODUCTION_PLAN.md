@@ -53,6 +53,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Body-cam lens motion (roll, acceleration tip, sprint jolt, weapon inertia) | Done — reload_feel 22/22, movement/weapons PASS | |
 | Storm-night grade v3 (blue-grey mist, more contrast, thinner rain) | Done — 12 scenes regraded | docs/media/night_grade_v3.png |
 | Hands v2: first-person hands with real fingers (MakeHuman CC0 mesh, posed per finger, trigger finger, thumbs forward, clean glove/sleeve cuffs) | Done — `docs/media/hands_v2.png` | `tools/assets/build_vm_arms.py` |
+| Body-cam lens: animated sensor grain, chromatic fringing, mild barrel (engine ADR-0146), "Body-cam lens" setting 0-100 % | Done — `docs/media/bodycam_lens.png` | `game/assets/scripts/lib/game.luau` |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof
