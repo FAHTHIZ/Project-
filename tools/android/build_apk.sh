@@ -1,9 +1,10 @@
 #!/bin/sh
 # Builds the installable Android APK of Special Ops (arm64, Android 9+), e.g. for the Infinix Hot 10S.
 #
-# Needs: the VICTUS engine checkout (desktop build with `victus` on PATH), JDK 17, Gradle 9.6+,
-# Android SDK platform 36 / build-tools 36.0.0 / CMake 3.31.6 and NDK 29.0.14206865
-# (see VICTUS docs/ANDROID.md). Peak disk use is about 3x the pack size (~6 GB).
+# Needs: the VICTUS engine checkout at 991b188 or newer (desktop build with `victus` on PATH),
+# JDK 17, Gradle 9.6+, Android SDK platform 36 / build-tools 36.0.0 / CMake 3.31.6 and
+# NDK 29.0.14206865 (see VICTUS docs/ANDROID.md). Peak disk use is about 2x the pack (~1.2 GB)
+# plus the native build.
 #
 # usage: sh tools/android/build_apk.sh /path/to/VICTUS [OUT.apk]
 set -eu
@@ -16,8 +17,9 @@ WORK=${TMPDIR:-/tmp}/sops_apk
 rm -rf "$WORK"; mkdir -p "$WORK/dummy" "$(dirname "$OUT")"
 echo dummy > "$WORK/dummy/game.vpak"
 
-# 1. Phone pack: ASTC-only textures (desktop .meta files are restored afterwards).
-python3 "$GAME/tools/android/mobile_pack.py" "$WORK/export"
+# 1. Phone pack: VICTUS android texture profile (ADR-0149): ASTC only above 64 px, 1024 px cap,
+#    no BC variants. The desktop import cache and .meta files are not touched.
+victus export "$GAME/game" --out "$WORK/export" --name specialops --pack-only --target android
 cp "$WORK/export/THIRD_PARTY_NOTICES.txt" "$WORK/dummy/"
 
 # 2. Engine shell APK (native engine for arm64-v8a + SDL glue) around a dummy pack.
@@ -36,4 +38,5 @@ BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
     --alignment-preserved true --out "$OUT" "$WORK/unsigned.apk"
 rm -f "$WORK/unsigned.apk"
 "$BT/apksigner" verify --print-certs "$OUT" | head -3
+"$ENGINE/tools/android/check_apk.sh" "$OUT"
 ls -l "$OUT"; sha256sum "$OUT"
