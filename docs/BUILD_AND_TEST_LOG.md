@@ -978,3 +978,12 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - `tools/android/build_apk.sh` now exports with `--target android` instead of `mobile_pack.py` (removed: it re-imported the whole project twice and kept the RGBA8 chains). The shell build, `inject_pack.py` and the sideload signing are unchanged.
 - Not verified: the APK has not been installed or run on any device or emulator. Frame rate, memory, thermals and touch on the Hot 10S are unmeasured. First launch copies the 590 MB pack to internal storage (about 1.2 GB used in total).
 - Release build through `build_apk.sh` steps (assembleRelease shell, `inject_pack.py`, apksigner with the sideload key): `SpecialOps-1.0.0-067b086.apk`, 620 004 723 bytes, versionCode 146, versionName 1.0.0-067b086, signer CN=Special Ops sideload (same as 1.0.0). check_apk.sh OK, apksigner verify OK. SHA-256 3b4d473649ccfb656b6093efdd33ab89802b0719c0c30f1f022d247b5091ee5e. Published as pre-release android-v1.0.1.
+
+
+
+## 2026-11-20 Field-recorded outdoor ambience
+
+- The storm beds and thunder were synthesised noise (build_sfx.py) and sounded like it. `tools/audio/build_field_ambience.py` (new) replaces eight files with real CC0 Freesound recordings, same paths and .meta UUIDs: forest.wav (AlanCat forest rain shower, from 209 s), camp.wav (thadzo rain on plastic tarp + 1.5x forest rain), roof_rain.wav (KaleidacousticsAudio heavy rain, low-passed 1.3 kHz for the concrete slab), creek.wav (fionablau beech-forest stream), forest_day.wav (sertuser 5AM dawn chorus, epilogue), thunder_0/1/2 (three strikes from Nimlos "THREE MIGHTY THUNDERS", near to far, 4 kHz / 1.8 kHz low-pass on the far two). Licence CC0 1.0 checked on every sound page; links in docs/ASSET_PROVENANCE.md.
+- Windows chosen by lowest crest factor in each source. Beds keep the RMS the synthetic files had (table `LEVEL`), with a 2 ms look-ahead limiter on close drops, and loop with a 1.5 s equal-power crossfade; thunders keep the old 0.85 peak, 0.12 s fade-in, 2 s fade-out. Mono 44.1 kHz 16-bit as before. build_sfx.py no longer writes these eight files.
+- Speech check with faster-whisper base.en (VAD on) over all eight: no speech (one "You" on roof_rain at no_speech 0.89, a known hallucination on noise). Spectra before/after: docs/media/field_ambience_spectra.png.
+- VICTUS e9ce2ea: `victus import game` 0 failed (wav is not cooked), `victus check game` 263 scenes 0 problems; autotests squad 19/0, reactions 10/0. Not listened to by a person on this machine.
