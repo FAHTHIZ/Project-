@@ -417,3 +417,19 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - Fix in VICTUS cd59c05 (engine main, see its docs/STATUS.md "Background navmesh builds and script budget accounting"): large navmeshes cook on a worker thread. `nav.available()` returns false until the mesh is installed, and `operator.luau`/`enemy.luau` already fall back to the raw slot or noise point. Navmesh builds and first-use model loads are no longer charged to the script budget. No game script change was needed.
 - Ran: `SOPS_TEST_FRAMES=2400 python3 tools/test/run_autotests.py story_op01` before the fix: script error at the first operator update. After the fix: `SOPS_TEST_FRAMES=19800 ... story_op01` PASS, 19 800 frames, 0 script errors, all 15 stages (trail through enter_facility), completed=op03.
 
+
+## 2026-11-20 Surface footsteps, gear foley and footstep noise for AI
+
+- New `game/assets/scripts/lib/footsteps.luau`.
+  - It detects the surface under a foot with a downward ray. On terrain, the splat layer picks dirt, gravel or grass. Off terrain, keywords in the entity name and up to 5 parent names pick metal or wood, and anything else is concrete. Results are cached per entity per scene.
+  - It reads the scene's `Weather` component. In rain, outdoor soft ground becomes mud and puddles add splashes.
+  - It plays a step, a gear rattle when moving fast, and a soft or hard landing.
+- `fp_player.luau`: one footfall per head-bob half cycle.
+  - Each footfall emits `player_step` and an AI noise through `Combat.noise`. Reach is 7.5 m sprinting and 1.8 m walking; crouching is silent. Reach is scaled by surface loudness, halved in rain, and throttled to one noise per 0.55 s.
+  - Landings make a sound and a noise (9 or 5 m × loudness). A hard landing (fall speed > 6.5 m/s) shakes the camera.
+- Operators, NPCs and Greyline contractors (`lib/actor.luau`) default to `surface = "auto"` with gear rattle. The surface is re-detected every 4 steps.
+- `tools/audio/build_sfx.py` adds 4 variants each of gravel, grass, mud, wood and splash steps, plus `gear_0..2`, `land_soft` and `land_hard`. All are synthesised and deterministic; existing outputs are byte-identical.
+- Ran (engine VICTUS cd59c05, Release): `victus import game` (0 failed), `victus check game` (249 scenes, 42 scripts: 0 problems).
+- Autotests PASS: footsteps 8/8 (new: surface = concrete on the range, walk 2.67 steps/s with 1.8 m reach, sprint 3.50 steps/s with 7.5 m reach, crouch 5 steps with 0 noises, landing noise), movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter.
+- `SOPS_TEST_FRAMES=19800 ... story_op01` PASS: 19 800 frames, 0 script errors.
+- Not tested: whether the rain/mud and terrain-layer branches pick the right surface in the outdoor worlds. The new plan only covers the dev-range ground. The sounds have not been listened to on a device.

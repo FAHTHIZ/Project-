@@ -13,7 +13,7 @@ Op.who = "Anchor"
 Op.role = "lead"
 Op.order = "follow"     -- initial order: follow | hold
 Op.engage = true        -- fires at visible enemies
-Op.surface = "dirt"     -- footstep set
+Op.surface = "auto"     -- footstep set: auto (ray down) or dirt/grass/gravel/mud/concrete/metal/wood
 Op.ride = ""            -- vehicle name to start seated in (with `seat`)
 Op.seat = ""
 
