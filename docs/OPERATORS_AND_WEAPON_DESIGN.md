@@ -143,16 +143,16 @@ Pulse bolts stun; they never wound. Targets fold back and reset. Shapes are hexa
 
 ## 10. Implemented cast (Halyard Team and Greyline)
 
-| Callsign | Role | Look | Voice (Kokoro) | Gameplay |
+| Callsign | Role | Look | Voice (Gemini TTS, voice pass v3; was Kokoro) | Gameplay |
 |---|---|---|---|---|
-| Rook (player) | new team member | first-person gloves | am_michael (radio/player lines) | player |
-| Anchor | team lead | beard, cap, buzz cut, plate vest, backpack | bm_george | closest formation slot, accurate, kneels in fights, gives orders |
-| Patch | medic | red bun, teal armband, medic pack, white gloves | af_sarah | calls out when the player is hurt, slower cadence |
-| Echo | scout | hood, slim build | af_nicole | widest slot, fastest, most accurate, deadpan |
-| Tally | comms | headset and mic, radio pack with antenna, big build | am_puck | trails the team, jokes, relays HQ |
-| Brick | breacher | heavy build, BR-9 Ram | am_adam | heavy doors and cranks; stays with Venn from Op05, rejoins at dawn |
-| Lamplight | HQ (radio only) | — | bf_isabella | briefings |
-| Hollis | park ranger (civilian) | ranger jacket, grey hair | bm_lewis | guide in Op01 |
-| Greyline contractors | hired recovery crew (opposing) | grey/charcoal, helmet, orange visor, face mask | am_onyx, am_eric | patrol, hear, alert each other, burst fire, surrender when stunned |
+| Rook (player) | new team member | first-person gloves | silent | player |
+| Anchor | team lead | beard, cap, buzz cut, plate vest, backpack | charon | closest formation slot, accurate, kneels in fights, gives orders |
+| Patch | medic | red bun, teal armband, medic pack, white gloves | kore | calls out when the player is hurt, slower cadence |
+| Echo | scout | hood, slim build | aoede | widest slot, fastest, most accurate, deadpan |
+| Tally | comms | headset and mic, radio pack with antenna, big build | puck | trails the team, jokes, relays HQ |
+| Brick | breacher | heavy build, BR-9 Ram | algenib | heavy doors and cranks; stays with Venn from Op05, rejoins at dawn |
+| Lamplight | HQ (radio only) | — | erinome | briefings |
+| Hollis | park ranger (civilian) | ranger jacket, grey hair | achird | guide in Op01 |
+| Greyline contractors | hired recovery crew (opposing) | grey/charcoal, helmet, orange visor, face mask | alnilam, zubenelgenubi | patrol, hear, alert each other, burst fire, surrender when stunned |
 
 Pulse rounds are non-lethal: a stunned contractor kneels with hands raised; companions are never taken out (hits make them stagger).

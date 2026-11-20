@@ -1,6 +1,22 @@
 # SPDX-License-Identifier: Apache-2.0
 """Render every line in tools/dialogue/lines.py to speech offline and write lip-sync data.
 
+Voice pass v3 (current): human-performance takes. Casting and delivery direction live in
+tools/dialogue/performance.py; each line is performed by Gemini 3.8 Flash TTS at authoring time
+(one prebuilt voice per character, see CAST) and the takes are edited here:
+
+    python3 tools/audio/build_voices.py --jobs /tmp/vo_jobs     # list lines whose take is missing/stale
+    (perform each /tmp/vo_jobs/<id>.txt with the voice in jobs.json -> <id>.wav; keep each
+     <id>.txt beside its <id>.wav in the takes directory: a take is only ingested for the exact
+     script it was performed from)
+    python3 tools/audio/build_voices.py --takes /tmp/vo_takes   # edit, level, radio-filter, lip, encode
+
+Editing per take: silence trimmed to a 40 ms lead and a natural 160 ms tail with a 60 ms fade,
+active-speech loudness levelled to -16 dBFS RMS (the level the game mix was balanced on), peaks
+soft-limited at 0.89, then the radio chain for radio/PA/recording speakers. A line whose take is
+missing or stale is never silently re-rendered with Kokoro; it keeps its previous audio and is
+listed by --jobs. The Kokoro path below stays available with --engine kokoro.
+
     pip install kokoro-onnx soundfile scipy numpy
     python3 tools/audio/build_voices.py --model <dir with kokoro-v1.0.int8.onnx and voices-v1.0.bin>
 
@@ -25,6 +41,7 @@ from scipy import signal
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'tools', 'dialogue'))
 from lines import LINES, VOICES  # noqa: E402
+from performance import CAST, DELIVERY  # noqa: E402
 
 OUT = os.path.join(ROOT, 'game', 'assets', 'audio', 'voice')
 LUAU = os.path.join(ROOT, 'game', 'assets', 'scripts', 'lib', 'voice_data.luau')
@@ -65,8 +82,93 @@ def lip(x, sr):
     return jaw, shape
 
 
+TAKE_ENGINE = 'gemini-3.8-flash-tts'
+
+
+def take_hash(lid, spk, text):
+    script = DELIVERY.get(lid, text)
+    return 'g' + hashlib.sha1(f'{TAKE_ENGINE}|{CAST[spk]}|{VOICES[spk][2]}|{script}|v3'.encode()).hexdigest()[:15]
+
+
+def read_audio(path):
+    raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', path, '-f', 'f64le', '-ac', '1', '-ar', '24000', '-'],
+                         capture_output=True, check=True).stdout
+    return np.frombuffer(raw, np.float64).copy(), 24000
+
+
+def edit_take(x, sr):
+    """Trim, level and limit one performed take."""
+    hop = sr // 100
+    fr = x[: len(x) // hop * hop].reshape(-1, hop)
+    rms = np.sqrt((fr ** 2).mean(1) + 1e-12)
+    on = np.nonzero(rms > max(rms.max() * 0.03, 1e-4))[0]
+    if len(on):
+        a, b = max(0, on[0] * hop - int(0.02 * sr)), min(len(x), (on[-1] + 1) * hop + int(0.10 * sr))
+        x = x[a:b]
+    fade = int(0.06 * sr)
+    x = np.concatenate([x, np.zeros(int(0.06 * sr))])
+    x[-fade:] *= np.linspace(1, 0, fade) ** 2
+    x[: int(0.005 * sr)] *= np.linspace(0, 1, int(0.005 * sr))
+    fr = x[: len(x) // hop * hop].reshape(-1, hop)
+    r = np.sqrt((fr ** 2).mean(1))
+    act = r[r > r.max() * 0.1]
+    level = np.sqrt((act ** 2).mean()) if len(act) else 1e-3
+    x = x * (10 ** (-16 / 20) / level)
+    knee = 0.7
+    big = np.abs(x) > knee
+    x[big] = np.sign(x[big]) * (knee + (0.89 - knee) * np.tanh((np.abs(x[big]) - knee) / (0.89 - knee)))
+    return np.concatenate([np.zeros(int(0.04 * sr)), x, np.zeros(int(0.10 * sr))])
+
+
+def write_ogg(x, sr, ogg):
+    import soundfile as sf
+    with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as f:
+        sf.write(f.name, (np.clip(x, -1, 1) * 32767).astype(np.int16), sr, subtype='PCM_16')
+        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', f.name, '-ac', '1', '-c:a', 'libvorbis', '-q:a', '4', ogg],
+                       check=True)
+        os.unlink(f.name)
+
+
+def takes_pass(a, man):
+    """List (--jobs) or ingest (--takes) human-performance takes."""
+    jobs = []
+    for lid, spk, text, *rest in LINES:
+        h = take_hash(lid, spk, text)
+        ogg = os.path.join(OUT, lid + '.ogg')
+        if man.get(lid, {}).get('hash') == h and os.path.exists(ogg):
+            continue
+        wav = os.path.join(a.takes, lid + '.wav') if a.takes else None
+        script = os.path.join(a.takes, lid + '.txt') if a.takes else None
+        # a take is only valid for the script it was performed from (<id>.txt next to <id>.wav)
+        fresh = wav and os.path.exists(wav) and os.path.exists(script) and \
+            open(script).read().strip() == DELIVERY.get(lid, text).strip()
+        if fresh:
+            x, sr = read_audio(wav)
+            x = edit_take(x, sr)
+            jaw, shape = lip(x, sr)
+            if VOICES[spk][2]:
+                x = radio(x, sr, int(h[1:7], 16)); x = x / (np.max(np.abs(x)) + 1e-9) * 0.8
+                pad = int(0.05 * FPS)
+                jaw, shape = '0' * pad + jaw + '0' * pad, '-' * pad + shape + '-' * pad
+            write_ogg(x, sr, ogg)
+            man[lid] = {'hash': h, 'dur': round(len(x) / sr, 3), 'jaw': jaw, 'shape': shape, 'src': TAKE_ENGINE}
+            print(f'{lid}: {man[lid]["dur"]:.2f}s {spk} ({CAST[spk]})', flush=True)
+            continue
+        jobs.append({'id': lid, 'voice': CAST[spk], 'text': DELIVERY.get(lid, text)})
+    if a.jobs:
+        os.makedirs(a.jobs, exist_ok=True)
+        for j in jobs:
+            open(os.path.join(a.jobs, j['id'] + '.txt'), 'w').write(j['text'])
+        json.dump(jobs, open(os.path.join(a.jobs, 'jobs.json'), 'w'), indent=1)
+    print(f'{len(jobs)} line(s) still need a performed take', flush=True)
+    return jobs
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument('--engine', choices=['takes', 'kokoro'], default='takes')
+    ap.add_argument('--jobs', help='write the missing/stale takes to perform into this directory')
+    ap.add_argument('--takes', help='directory of performed <id>.wav takes to edit and ingest')
     ap.add_argument('--model', default='/tmp/kok')
     ap.add_argument('--force', action='store_true')
     ap.add_argument('--relip', action='store_true', help='recompute lip data from the existing ogg files')
@@ -74,7 +176,9 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     man = json.load(open(MANIFEST)) if os.path.exists(MANIFEST) else {}
     kok = None
-    for lid, spk, text, *rest in LINES:
+    if a.engine == 'takes':
+        takes_pass(a, man)
+    for lid, spk, text, *rest in (LINES if a.engine == 'kokoro' else []):
         voice, speed, is_radio, _ = VOICES[spk]
         if lid.startswith(('react_', 'grey_')):   # reactive barks (story lines keep their reviewed takes)
             speed = round(speed * EMOTION_PACE.get(rest[0] if rest else 'neutral', 1.0), 3)
@@ -125,7 +229,9 @@ def main():
     def q(s): return json.dumps(s)
     for lid, spk, text, *rest in LINES:
         voice, speed, is_radio, name = VOICES[spk]
-        m = man[lid]
+        m = man.get(lid)
+        if m is None:
+            print(f'warning: {lid} has no audio yet', flush=True); continue
         out.append(f'V[{q(lid)}] = {{ s = {q(spk)}, n = {q(name)}, t = {q(text)}, e = {q(rest[0] if rest else "neutral")}, '
                    f'd = {m["dur"]}, r = {str(is_radio).lower()}, j = {q(m["jaw"])}, m = {q(m["shape"])} }}')
     out.append('return V')
