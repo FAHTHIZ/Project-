@@ -120,7 +120,8 @@ function Dialogue.bark(kind, opts)
     end
     if not best then return false end
     s.last_kind[kind] = s.clock
-    return Dialogue.say(best, { priority = opts.priority or 0, ttl = opts.ttl or 1.5, cooldown = 0, to = opts.to })
+    return Dialogue.say(best, { priority = opts.priority or 0, ttl = opts.ttl or 1.5, cooldown = 0, to = opts.to,
+        interrupt = opts.interrupt })
 end
 
 function Dialogue.busy()

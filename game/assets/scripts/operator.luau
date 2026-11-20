@@ -13,6 +13,30 @@ local Tactics = require("scripts/lib/tactics")
 local Items = require("scripts/lib/items")
 
 local Op = {}
+
+-- Fall-out recovery. Recent spots the player stood on (one every half second); if an operator
+-- ever drops out of the level (navmesh walking never loses 6 m in a second), it is put back on
+-- the newest such spot that is 1.5-10 m from the player, i.e. somewhere the squad just walked.
+local trail, trail_f = {}, -1000
+local function sample_trail()
+    local f = time.frame()
+    if f - trail_f < 30 then return end
+    local p = Game.player
+    if not (p and p.valid) then return end
+    trail_f = f
+    table.insert(trail, p.world_position)
+    if #trail > 16 then table.remove(trail, 1) end
+end
+function Op.safe_spot()
+    local p = Game.player
+    local pp = p and p.valid and p.world_position
+    if not pp then return nil end
+    for i = #trail, 1, -1 do
+        local d = vector.magnitude(trail[i] - pp)
+        if d >= 1.5 and d <= 10 then return trail[i] end
+    end
+    return trail[1] or pp
+end
 Op.who = "Anchor"
 Op.role = "lead"
 Op.order = "follow"     -- initial order: follow | hold
@@ -71,6 +95,31 @@ function Op:place(pos, yaw)
     self.actor:place(pos, yaw)
     self.goal = nil
     self.hold_point = pos
+end
+
+-- A drop of more than 6 m within a second without a teleport (a single-frame jump of over 1.5 m
+-- is a scripted place) means the operator fell through the level.
+function Op:check_fall(dt)
+    local y = self.entity.world_position
+    local last = self.fall_last
+    self.fall_last = y
+    if last and vector.magnitude(y - last) > 1.5 then self.fall_ref = nil end
+    local ref = self.fall_ref
+    if not ref then self.fall_ref = { y = y.y, t = 0 }; return end
+    ref.t += dt
+    if ref.y - y.y > 6 then
+        local spot = Op.safe_spot()
+        self.fall_ref, self.fall_last = nil, nil
+        if spot then
+            local hold = self.hold_point
+            self:place(spot + vector.create(0, 0.3, 0))
+            if self.mode == "hold" then self.hold_point = hold end
+            self.recovered = (self.recovered or 0) + 1
+            Game.emit("operator_recovered", self.who)
+        end
+    elseif ref.t >= 1.0 then
+        self.fall_ref = { y = y.y, t = 0 }
+    end
 end
 
 -- Vehicle occupancy -----------------------------------------------------------------------------
@@ -246,7 +295,9 @@ function Op:update(dt)
         local v = Game.vehicles and Game.vehicles[self.ride]
         if v and v.seats and v.entity.valid and v.started_frame then self.boarded = true; self:board(v, self.seat) end
     end
-    if self.mode == "vehicle" then return self:update_vehicle(dt) end
+    if self.mode == "vehicle" then self.fall_ref = nil; return self:update_vehicle(dt) end
+    sample_trail()
+    self:check_fall(dt)
     -- combat awareness
     local target, per = nil, nil
     if self.engage and not Game.cinematic then target, per = self:visible_enemy() end

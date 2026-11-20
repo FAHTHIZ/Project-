@@ -211,9 +211,10 @@ function R.start()
     Game.on("enemy_flanking", function(e)
         local p = player_pos()
         if not p or not (e and e.valid) or vector.magnitude(e.world_position - p) > 50 then return end
-        -- somebody on the team saw him go: a warning, not a radar
+        -- somebody on the team saw him go: a warning, not a radar. It matters more than a routine
+        -- bark or squad chatter, so it cuts those (priority 1.5) but never a story line.
         after(1.0 + math.random() * 0.8, function()
-            if e.valid then bark("eflank", { cooldown = 25, ttl = 3.0 }) end
+            if e.valid then bark("eflank", { cooldown = 25, ttl = 3.0, priority = 1.5, interrupt = true }) end
         end)
     end)
     Game.on("player_shot_at", on_shot_from)

@@ -48,6 +48,7 @@ import common  # noqa: E402
 import rig  # noqa: E402
 import actors  # noqa: E402
 import dress_interiors  # noqa: E402
+import squad_slots  # noqa: E402
 
 GAME = ROOT / 'game'
 ASSETS = GAME / 'assets'
@@ -1024,6 +1025,9 @@ def build_scene(key):
     for i, who in enumerate(squad):
         x, z = pos[0] + (i - (len(squad) - 1) / 2) * 1.3, pos[2] + 2.2 + (i % 2) * 0.8
         actors.add_operator(sc, who, (x, 0.05, z), 180.0, surface='concrete')
+    # the fixed line above overlaps the tunnel walls in narrow starts; move anyone blocked to the
+    # nearest clear slot (Op04: Patch spawned inside the end wall and fell through the floor)
+    squad_slots.place(sc.entities, tuple(pos), squad)
     for name, x, z, yaw, group, extra in ENEMIES[key]:
         extra = dict(extra)
         variant = extra.pop('variant', sum(map(ord, name)) % 2)

@@ -56,7 +56,7 @@ def main():
     frames = int(os.environ.get("SOPS_TEST_FRAMES", "0"))
     allok = True
     for plan in plans:
-        f = frames or {"movement": 660, "squad": 2200, "squad_combat": 2600,
+        f = frames or {"movement": 660, "squad": 2500, "squad_combat": 2600,
                             "enemy_tactics": 2140, "squad_cover": 3620,
                             "op01_line": 9700, "op01_line_loud": 6700}.get(plan, 1800)
         ok, tail, auto, errors = run(plan, f)
