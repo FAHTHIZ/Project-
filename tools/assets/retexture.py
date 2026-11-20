@@ -41,12 +41,12 @@ SIZE = 512
 
 # preset: scan id, tile size in metres, detail contrast, wear amount, normal strength
 PRESETS = {
-    'polymer': dict(src='Plastic006', tile=0.22, contrast=0.55, wear=0.35, nor=0.8),
-    'metal':   dict(src='Metal032', tile=0.30, contrast=0.6, wear=0.5, nor=0.6),
+    'polymer': dict(src='Plastic006', tile=0.22, contrast=0.5, wear=0.1, nor=0.8),
+    'metal':   dict(src='Metal032', tile=0.30, contrast=0.5, wear=0.22, nor=0.6),
     'rubber':  dict(src='Rubber004', tile=0.12, contrast=0.7, wear=0.0, nor=1.0),
     'leather': dict(src='Leather037', tile=0.10, contrast=0.6, wear=0.15, nor=1.0),
     'fabric':  dict(src='Fabric030', tile=0.08, contrast=0.7, wear=0.0, nor=1.0),
-    'paint':   dict(src='PaintedMetal004', tile=0.8, contrast=0.35, wear=0.6, nor=0.7),
+    'paint':   dict(src='PaintedMetal004', tile=0.8, contrast=0.35, wear=0.35, nor=0.7),
 }
 
 # material-name rules, first match wins; None = leave untouched
@@ -57,6 +57,7 @@ RULES = [
     (r'sleeve|cuff|cloth|web|foam|strap|canvas|fabric|seat', 'fabric'),
     (r'metal|steel|barrel|rail|hinge|bolt', 'metal'),
     (r'shell|frame|slide|body|cell|case|trim|plate', 'polymer'),
+    (r'accent|paint', 'paint'),
 ]
 
 WEAPON_FILES = [os.path.join(MODELS, 'weapons', f) for f in sorted(os.listdir(os.path.join(MODELS, 'weapons')))
@@ -99,12 +100,12 @@ def surface(pre):
         return _cache[pre]
     p = PRESETS[pre]; m = acg.material(p['src'])
     lum = _img(m['diff']) @ np.array([0.3, 0.59, 0.11], np.float32)
-    lum = lum / max(lum.mean(), 1e-3)
-    det = 1.0 + (lum - 1.0) * p['contrast']
+    z = (lum - lum.mean()) / max(float(lum.std()), 1e-3)
+    det = 1.0 + np.clip(z, -3, 3) * 0.12 * p['contrast']   # 'contrast' = relative std of the detail
     rough = _img(m['rough'], 'L') if 'rough' in m else np.full((SIZE, SIZE), 0.6, np.float32)
     if p['wear']:
         w = wear_mask() * p['wear']
-        det = det * (1 - w) + 1.9 * w           # scuffs lighten toward bare substrate
+        det = det * (1 - w) + 1.45 * w           # scuffs lighten toward bare substrate
         rough = rough * (1 - w * 0.6)            # and polish smoother
     det = np.clip(det / 1.6, 0, 1)               # stored /1.6, baseColorFactor *1.6 below
     mean_r = float(rough.mean())

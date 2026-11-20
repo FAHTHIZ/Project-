@@ -327,3 +327,9 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 
 - `tools/assets/retexture.py weapons`: box-projected UVs plus scanned detail, normal and roughness maps (ambientCG CC0) on 25 weapon, hand and kit GLBs. Glow, lens and emissive materials are untouched.
 - Ran: `victus import game` (25 imported, 0 failed), `victus check game` (246 scenes, 0 problems). Not yet visually inspected on device.
+
+## 2026-11-20 PC-7 hard-surface rebuild
+
+- `tools/assets/blender_pc7.py` (Blender 4.2): new original PC-7 body/cell/world with chamfered extruded profiles, shroud vent slots, toothed rail, hooded optic, seams and screws. It has the same bounds, pivot and muzzle (z = -0.5) as before. Tris: body 12.6k, cell 1.2k, world 13.8k.
+- Rebuild order: `build_weapons.py --out <tmp>` -> copy -> `blender_pc7.py` -> `retexture.py weapons` (detail now uses a fixed relative std, which removed the streaks from the near-black plastic scan).
+- Ran: `victus import game` (25 imported, 0 failed), `victus check game` (246 scenes, 0 problems), `shot.sh scenes/tests/armory.vscene` (inspected).
