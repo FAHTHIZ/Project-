@@ -341,7 +341,9 @@ def forest_cover(H, masks):
 
 def splat(H, masks, cover):
     s = slope_deg(H)
-    rock = smoothstep(27, 40, s)
+    # Steep ground is bare rock only where nothing grows on it: under forest, slopes up to about
+    # 40 degrees keep their litter and undergrowth (a wooded valley side, not a scree face).
+    rock = smoothstep(27, 40, s) * (1 - cover) + smoothstep(38, 52, s) * cover
     rock = np.maximum(rock, masks['ravine'] * smoothstep(5, 9, masks['ravine_dist']) * 0.9)
     outcrop = smoothstep(0.55, 0.75, value_noise(61, 1 / 30, 3) * 0.5 + 0.5) * smoothstep(60, 95, H) * \
         (1 - cover)

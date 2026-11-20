@@ -17183,6 +17183,90 @@
           "scale": [1, 1, 1]
         }
       }
+    },
+    {
+      "uuid": "8f6d764c-4d11-5041-bb0e-6d313ed947b8",
+      "name": "Hillside Tree 18",
+      "components": {
+        "Collider": {
+          "shape": "capsule",
+          "size": [1, 1, 1],
+          "radius": 0.32,
+          "height": 3.2,
+          "offset": [0, 1.6, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 20,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Tags": {
+          "tags": "Tree"
+        },
+        "Transform": {
+          "position": [-125.3325, 45.437, 436.3303],
+          "rotation": [0, 0.9988866, 0, 0.0471766],
+          "scale": [1.08724, 1.08724, 1.08724]
+        }
+      },
+      "next": null
+    },
+    {
+      "uuid": "2a9df849-e0db-5a2c-8a23-d2c8cb435c0b",
+      "name": "Hillside Tree 18[0]",
+      "parent": "8f6d764c-4d11-5041-bb0e-6d313ed947b8",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "49aad981-75c0-4e80-98c0-3e84eac1da05",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "7ee64089-d3ce-56d0-85ef-28a87deb7c1c"
+    },
+    {
+      "uuid": "7ee64089-d3ce-56d0-85ef-28a87deb7c1c",
+      "name": "Hillside Tree 18[1]",
+      "parent": "8f6d764c-4d11-5041-bb0e-6d313ed947b8",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "49aad981-75c0-4e80-98c0-3e84eac1da05",
+          "mesh_index": 1,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
     }
   ]
 }
