@@ -70,7 +70,7 @@ function Hud:start()
     for _, n in { "Reticle", "R Up", "R Down", "R Left", "R Right", "R Dot", "Hit Marker", "Objective", "Objective Op",
                   "Objective Text", "Objective Accent", "Toast", "Awareness", "Prompt", "Weapon Panel", "Weapon Name", "Ammo", "Weapon State",
                   "Status Panel", "Health Bar", "Tool Text", "Subtitle", "Subtitle Speaker", "Subtitle Text", "Skip Hint",
-                  "Skip Button", "Fade", "Title Card", "Title Sub", "Touch", "Stick Base", "Stick Knob", "Diagnostics", "Diagnostics Text",
+                  "Skip Button", "Fade", "Title Card", "Title Sub", "Title Kicker", "Title Rule", "Touch", "Stick Base", "Stick Knob", "Diagnostics", "Diagnostics Text",
                   "Objectives Log", "Letterbox Top", "Letterbox Bottom", "Damage", "Scope", "Scope Zoom", "Prompt Detail",
                   "Kit Text", "Waypoint", "Waypoint Tick", "Compass", "Compass Strip", "Compass Heading",
                   "Compass Notch", "Squad", "Feed", "Prompt Key", "Prompt Label", "Reserve", "Mag Pips",
@@ -217,6 +217,36 @@ function Hud:rect(e, key, fn)
         e:set("UiRect", r)
     end
 end
+-- Chapter card: "Operation 01: Green Silence" -> kicker OPERATION 01 / title GREEN SILENCE; the rule
+-- grows over 0.5 s, the title rises 14 units and fades in, the place line follows 0.35 s later.
+function Hud:title_card(pres)
+    local title = pres.title
+    if title ~= self.title_shown then
+        self.title_shown = title
+        self.title_t0 = time.now()
+        if title then
+            local kick, main = string.match(title, "^(.-):%s*(.+)$")
+            if not kick then kick, main = "", title end
+            self:text("Title Kicker", string.upper(kick))
+            self:text("Title Card", string.upper(main))
+        end
+    end
+    local on = title ~= nil
+    self:vis("Title Card", on)
+    self:vis("Title Kicker", on)
+    self:vis("Title Rule", on)
+    self:vis("Title Sub", on and pres.subtitle_title ~= nil)
+    if pres.subtitle_title then self:text("Title Sub", string.upper((string.gsub(pres.subtitle_title, ",%s*", "  \u{00B7}  ")))) end
+    if not on then return end
+    local t = (time.now()) - self.title_t0
+    local function ease(x) x = math.clamp(x, 0, 1); return 1 - (1 - x) * (1 - x) * (1 - x) end
+    local a = ease(t / 0.6)
+    self:rect(self.e["Title Rule"], "trule", function(r) r.size = { math.floor(160 * ease((t - 0.15) / 0.5) + 0.5), 3 } end)
+    self:rect(self.e["Title Card"], "tcard", function(r) r.opacity = a; r.position[2] = math.floor(-20 + 14 * (1 - a) + 0.5) end)
+    self:rect(self.e["Title Kicker"], "tkick", function(r) r.opacity = ease((t - 0.1) / 0.5) end)
+    self:rect(self.e["Title Sub"], "tsub", function(r) r.opacity = ease((t - 0.45) / 0.5) end)
+end
+
 function Hud:panel_alpha(name, a, border_a)
     local key = name .. ":a"
     local sig = string.format("%.2f %.2f", a, border_a or -1)
@@ -573,10 +603,7 @@ function Hud:update(dt)
     end
     self:vis("Fade", pres.fade > 0.005)
     if pres.fade > 0.005 then self:panel_alpha("Fade", pres.fade) end
-    self:vis("Title Card", pres.title ~= nil)
-    self:vis("Title Sub", pres.subtitle_title ~= nil)
-    if pres.title then self:text("Title Card", pres.title) end
-    if pres.subtitle_title then self:text("Title Sub", pres.subtitle_title) end
+    self:title_card(pres)
     self:vis("Skip Hint", pres.skip_hint == true)
     self:vis("Skip Button", pres.skip_hint == true and Controls.show_touch())
     if pres.skip_hint then

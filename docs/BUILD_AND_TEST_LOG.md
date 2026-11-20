@@ -866,3 +866,9 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - rig.add_pause_menu rewritten (front-end style, Barlow Condensed); patch_hud re-emitted 64 scenes, build_menu.py rebuilt the menu scenes. Barlow has U+2212 (used on the - stepper) but no arrows, so BACK has no glyph.
 - Captures at 1312x576 with pause_menu.luau temporarily opening itself in start() (reverted): docs/media/pause_v2.png. A first pass with a 0.5 dim let the HUD subtitle box read through; the dim is now 0.7.
 - `victus check game`: 263 scenes, 0 problems. Autotests pause_ui 5/0, menu_flow 11/0, hud 6/0.
+
+## 2026-11-20 Chapter card v2
+
+- rig.py: Title Kicker, Title Card, Title Rule and Title Sub (explicit Barlow fonts, so _hud_type leaves them). hud.luau Hud:title_card replaces the two-line text card; the campaign titles and subtitles in lib/campaign.luau are unchanged (only displayed in caps).
+- Capture at 1312x576 with hud.luau temporarily forcing the op01 title (reverted): docs/media/chapter_card_v2.png.
+- patch_hud re-emitted 64 scenes; `victus check game` 0 problems; autotests hud 6/0 (includes the toast-waits-for-title check), pause_ui 5/0.

@@ -323,10 +323,17 @@ def add_hud(sc: Scene):
     # Fade (above everything else but the modal).
     ui(sc, "Fade", canvas, ui_rect((0, 0), (0, 0), (0, 0), (0.5, 0.5), anchor_max=(1, 1), visible=False),
        panel=ui_panel((0, 0, 0, 1), 0, (0, 0, 0, 0), 0))
-    ui(sc, "Title Card", canvas, ui_rect((0.5, 0.5), (0, 20), (1000, 160), (0.5, 0.5), visible=False),
-       text=ui_text("", 46, (1, 1, 1, 1), "center", "middle", True, True))
-    ui(sc, "Title Sub", canvas, ui_rect((0.5, 0.5), (0, -60), (1000, 40), (0.5, 0.5), visible=False),
-       text=ui_text("", 22, (0.75, 0.9, 1, 1), "center", "middle", False))
+    # Chapter card v2: amber kicker ("OPERATION 01"), big condensed title, growing amber rule,
+    # place/time line in caps. hud.luau splits "Operation 01: Green Silence" at the colon and
+    # animates the reveal (rule grows, title rises and fades in).
+    ui(sc, "Title Kicker", canvas, ui_rect((0.5, 0.5), (0, 78), (1000, 30), (0.5, 0.5), visible=False),
+       text=_pt("", 22, PM_AMBER, "center", font=PM_M, shadow=0.7))
+    ui(sc, "Title Card", canvas, ui_rect((0.5, 0.5), (0, 20), (1100, 100), (0.5, 0.5), visible=False),
+       text=_pt("", 92, (1, 1, 1, 1), "center", font=PM_B, shadow=0.75))
+    ui(sc, "Title Rule", canvas, ui_rect((0.5, 0.5), (0, -38), (0, 3), (0.5, 0.5), visible=False),
+       panel=ui_panel(PM_AMBER, 0, (0, 0, 0, 0), 0))
+    ui(sc, "Title Sub", canvas, ui_rect((0.5, 0.5), (0, -66), (1000, 32), (0.5, 0.5), visible=False),
+       text=_pt("", 22, (0.85, 0.9, 0.93, 0.9), "center", font=PM_M, shadow=0.7))
     # Touch controls: stick base/knob and buttons (positions set by hud.luau from controls.luau).
     touch = ui(sc, "Touch", canvas, ui_rect((0, 0), (0, 0), (0, 0), (0, 0), anchor_max=(1, 1), visible=False))
     # Touch v2: original line-art icons (tools/ui/build_touch_icons.py) on dark glass discs; the
