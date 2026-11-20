@@ -73,7 +73,7 @@ Items.defs = {
         spread_hip = 0.6, spread_ads = 0.2, spread_move = 0.6, bloom = 0.0, bloom_max = 0.0,
         kick_pitch = 2.4, kick_yaw = 0.5, ads_kick = 0.75, kick_back = 0.06, kick_rot = 6.5,
         reload = 2.4, reload_empty = 2.9, equip = 0.5, lower = 0.26,
-        hip = V(0.15, -0.17, -0.40), ads = V(0, -0.0945, -0.30), hip_rot = V(1.8, 3.5, 0), zoom_fov = 0.85,
+        hip = V(0.15, -0.17, -0.40), ads = V(0, -0.0945, -0.25), hip_rot = V(1.8, 3.5, 0), zoom_fov = 0.85,
         muzzle = V(0, 0.058, -0.565), cell = V(0, 0, 0),
         -- pump: the "Slide" part racks back `slide_travel` m, `slide_delay` s after the shot
         slide_travel = 0.07, slide_time = 0.42, slide_delay = 0.16,
