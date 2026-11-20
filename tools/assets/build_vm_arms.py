@@ -117,33 +117,99 @@ def fetch_mh():
             urllib.request.urlretrieve(MH_URL + rel, os.path.join(MH_DIR, f))
 
 
+def _contour_split(P, F, T, level):
+    """Split triangles T (vertex ids into P) along the iso-line F == level so that every triangle
+    lies on one side. P and F (n x k fields, column 0 is split) gain the edge points; returns
+    (P, F, T). Edge points are shared, so the cut is watertight."""
+    P, F = list(P), list(F)
+    cache = {}
+
+    def mid(a, b):
+        key = (min(a, b), max(a, b))
+        if key not in cache:
+            fa, fb = F[a][0] - level, F[b][0] - level
+            t = fa / (fa - fb)
+            P.append(P[a] + (P[b] - P[a]) * t); F.append(F[a] + (F[b] - F[a]) * t)
+            cache[key] = len(P) - 1
+        return cache[key]
+
+    out = []
+    for tri in T:
+        s = [F[v][0] >= level for v in tri]
+        if all(s) or not any(s):
+            out.append(tuple(tri)); continue
+        # rotate so tri[0] is the lone vertex
+        lone = [i for i in range(3) if s.count(s[i]) == 1][0]
+        a, b, c = tri[lone], tri[(lone + 1) % 3], tri[(lone + 2) % 3]
+        ab, ac = mid(a, b), mid(a, c)
+        out += [(a, ab, ac), (ab, b, c), (ab, c, ac)]
+    return np.array(P), np.array(F), np.array(out)
+
+
 def write_mh(D, side, path):
-    """MakeHuman source: flat leather glove + olive sleeve; retexture.py adds the scanned surfaces."""
+    """MakeHuman source, tactical-glove panels; retexture.py adds the scanned surfaces.
+
+    Primitive order (viewmodel entities "<name>[i]" follow it): 0 Glove = synthetic-leather palm
+    and finger fronts, 1 Sleeve, 2 BackFabric = stretch-fabric back of hand, 3 KnucklePad = raised
+    moulded rubber guards over the MCP and PIP rows (the vertices are pushed out by up to 2.6 mm
+    so the guards catch light as real ridges)."""
     P, N, LV, TL, TP = D['P'].astype(np.float64), D['N'], D['LV'], D['tri_loops'], D['tri_part']
+    Z = D['Z'] if 'Z' in D else np.zeros((len(LV), 2), np.float32)
+    nvert = int(LV.max()) + 1
+    # per-vertex zone values (mean over the loops of each vertex)
+    cnt = np.bincount(LV, minlength=nvert).astype(np.float64) + 1e-9
+    dors = np.bincount(LV, Z[:, 0], minlength=nvert) / cnt
+    knk = np.bincount(LV, Z[:, 1], minlength=nvert) / cnt
+    vn = np.zeros((nvert, 3)); np.add.at(vn, LV, N)
+    vn /= np.maximum(np.linalg.norm(vn, axis=1, keepdims=True), 1e-9)
+    # glove panels: cut the welded glove surface exactly on the palm/back and knuckle iso-lines
+    gT = LV[TL[TP == 0]]
+    sT = LV[TL[TP == 1]]
+    fields = np.stack([dors, knk, *vn.T], 1)
+    Pg, Fg, gT = _contour_split(P, fields, gT, 0.1)
+    Fg = Fg[:, [1, 0, 2, 3, 4]]
+    Pg, Fg, gT = _contour_split(Pg, Fg, gT, 0.45)
+    Fg = Fg[:, [1, 0, 2, 3, 4]]                      # back to (dors, knk, normal)
+    dors, knk = Fg[:, 0], Fg[:, 1]
+    vn = Fg[:, 2:]; vn /= np.maximum(np.linalg.norm(vn, axis=1, keepdims=True), 1e-9)
+    nvert = len(Pg)
+    glove_v = np.zeros(nvert, bool); glove_v[gT.reshape(-1)] = True
+    bump = np.where(glove_v, 0.0026 * np.clip((knk - 0.3) / 0.25, 0, 1) ** 0.6, 0.0)
+    P = Pg + vn * bump[:, None]
+    tri_v = np.concatenate([gT, sT])
+    part = np.concatenate([np.zeros(len(gT), np.int64), np.ones(len(sT), np.int64)])
+    td, tk = dors[gT].mean(1), knk[gT].mean(1)
+    part[:len(gT)][td > 0.1] = 2
+    part[:len(gT)][tk > 0.45] = 3
     if side == 'l':
-        P = P * (-1, 1, 1); N = N * (-1, 1, 1); TL = TL[:, ::-1]
+        P = P * (-1, 1, 1); tri_v = tri_v[:, ::-1]
+    # smooth normals from the displaced geometry (shared across panels so seams stay soft)
+    A, B, C = P[tri_v[:, 0]], P[tri_v[:, 1]], P[tri_v[:, 2]]
+    fn = np.cross(B - A, C - A)
+    Nn = np.zeros((nvert, 3))
+    for k in range(3):
+        np.add.at(Nn, tri_v[:, k], fn)
+    Nn /= np.maximum(np.linalg.norm(Nn, axis=1, keepdims=True), 1e-9)
     j = {'asset': {'version': '2.0', 'generator': 'SPECIAL OPS build_vm_arms.py (MakeHuman base mesh, CC0)'},
          'scene': 0, 'scenes': [{'nodes': [0]}], 'nodes': [{'name': f'hand_{side}', 'mesh': 0}],
          'materials': [], 'meshes': [{'name': f'hand_{side}', 'primitives': []}]}
     w = Writer(j)
-    looks = {0: ('Glove', [0.052, 0.050, 0.044, 1], 0.62), 1: ('Sleeve', [0.115, 0.125, 0.078, 1], 0.9)}
-    for pid in (0, 1):
+    looks = {0: ('Glove', [0.105, 0.099, 0.088, 1], 0.72), 1: ('Sleeve', [0.115, 0.125, 0.078, 1], 0.9),
+             2: ('BackFabric', [0.042, 0.045, 0.038, 1], 0.88), 3: ('KnucklePad', [0.03, 0.03, 0.03, 1], 0.5)}
+    for pid in (0, 1, 2, 3):
         label, col, rough = looks[pid]
         j['materials'].append({'name': f'hand{side}_{label}',
                                'pbrMetallicRoughness': {'baseColorFactor': col, 'metallicFactor': 0.0,
                                                         'roughnessFactor': rough}})
-        T = TL[TP == pid]
-        loops, local = np.unique(T.reshape(-1), return_inverse=True)
-        # weld by vertex so normals stay smooth across UV seams
-        vid, vlocal = np.unique(LV[loops], return_inverse=True)
-        idx = vlocal[local.reshape(-1)]
+        vid, idx = np.unique(tri_v[part == pid].reshape(-1), return_inverse=True)
         j['meshes'][0]['primitives'].append({
             'attributes': {'POSITION': w.add(P[vid].astype(np.float32), 'VEC3', target=34962, minmax=True),
-                           'NORMAL': w.add(_vnorm(N, LV, loops, vid, vlocal), 'VEC3', target=34962)},
+                           'NORMAL': w.add(Nn[vid].astype(np.float32), 'VEC3', target=34962)},
             'indices': w.add(idx.astype(np.uint32), 'SCALAR', target=34963),
             'material': pid})
     w.save(path)
-    print(f'VM_ARM {os.path.basename(path)}: {len(TL)} tris, {os.path.getsize(path) // 1024} KiB')
+    print(f'VM_ARM {os.path.basename(path)}: {len(tri_v)} tris ' +
+          ' '.join(f'{looks[k][0]}={int((part == k).sum())}' for k in looks) + f', {os.path.getsize(path) // 1024} KiB')
 
 
 def _vnorm(N, LV, loops, vid, vlocal):

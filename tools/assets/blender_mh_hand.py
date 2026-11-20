@@ -69,6 +69,48 @@ for poly, ft in zip(me.polygons, FT):
         uvl.data[li].uv = VT[t]
 me.update()
 body = bpy.data.objects.new('body', me)
+
+# ---- glove zones (rest pose): second UV layer Z = (dorsal, knuckle) per loop -------------------
+# dorsal: +1 on the back of the hand, -1 on the palm; knuckle: 1 over the MCP row (and 0.7 over
+# the PIP row) on the back. UVs survive subdivision, decimation and the bisect cuts, so the posed,
+# evaluated mesh still knows which glove panel each face belongs to.
+_sk = json.load(open(os.path.join(MH, 'default.mhskel')))
+_J = {n: V[np.array(ix)].mean(0) for n, ix in _sk['joints'].items()}
+
+
+def _head(b):
+    return _J[_sk['bones'][b + SIDE]['head']]
+
+
+_mcp = np.array([_head(f'finger{i}-1') for i in (2, 3, 4, 5)])
+_pip = np.array([_head(f'finger{i}-2') for i in (2, 3, 4, 5)])
+_wr = _head('wrist')
+_Lr = _mcp.mean(0) - _wr; _Lr /= np.linalg.norm(_Lr)
+_Wr = _mcp[3] - _mcp[0]; _Wr -= _Lr * _Wr.dot(_Lr); _Wr /= np.linalg.norm(_Wr)
+_Nr = np.cross(_Lr, _Wr)
+if (_head('finger1-1') - _wr).dot(_Nr) > 0:   # thumb base is on the palm side
+    _Nr = -_Nr                                   # _Nr now points out of the back of the hand
+
+
+def _seg_dist(P, A):
+    d = np.full(len(P), 1e9)
+    for a, b in zip(A[:-1], A[1:]):
+        ab = b - a; t = np.clip(((P - a) @ ab) / ab.dot(ab), 0, 1)
+        d = np.minimum(d, np.linalg.norm(P - (a + t[:, None] * ab), axis=1))
+    return d
+
+
+_vn = np.array([v.normal[:] for v in me.vertices])
+_dors = _vn @ _Nr
+_km = np.clip(1.0 - _seg_dist(V, _mcp) / 0.019, 0, 1)
+_kp = 0.7 * np.clip(1.0 - _seg_dist(V, _pip) / 0.013, 0, 1)
+_kn = np.maximum(_km, _kp) * np.clip((_dors - 0.2) / 0.3, 0, 1)
+zl = me.uv_layers.new(name='Z')
+for poly in me.polygons:
+    for li in poly.loop_indices:
+        vi = me.loops[li].vertex_index
+        zl.data[li].uv = (float(_dors[vi]), float(_kn[vi]))
+me.uv_layers.active = uvl
 bpy.context.scene.collection.objects.link(body)
 
 # ---- skeleton -------------------------------------------------------------------------------
@@ -230,15 +272,17 @@ bm.normal_update()
 bm.verts.ensure_lookup_table()
 P = np.array([b2g(v.co) for v in bm.verts])
 Nv = np.array([b2g(v.normal) for v in bm.verts])
-uvk = bm.loops.layers.uv.active
-UVl, LV, tri_loops = [], [], []
+uvk = bm.loops.layers.uv['UV']
+zk = bm.loops.layers.uv.get('Z')
+UVl, Zl, LV, tri_loops = [], [], [], []
 for f in bm.faces:
     tl = []
     for l in f.loops:
         tl.append(len(LV)); LV.append(l.vert.index)
         uv = l[uvk].uv; UVl.append([uv[0], 1.0 - uv[1]])
+        Zl.append(l[zk].uv[:] if zk is not None else (0.0, 0.0))
     tri_loops.append(tl)
-UVl = np.array(UVl, np.float32); LV = np.array(LV); tri_loops = np.array(tri_loops)
+UVl = np.array(UVl, np.float32); Zl = np.array(Zl, np.float32); LV = np.array(LV); tri_loops = np.array(tri_loops)
 
 t = (P - wrist_g) @ ax            # >0: hand side of the wrist joint, <0: up the forearm
 tv = LV[tri_loops]
@@ -262,12 +306,13 @@ Nv2 = np.concatenate([Nv, Nv])
 LV = np.concatenate([LV, LV + nv])
 nl = len(UVl)
 UVl = np.concatenate([UVl, UVl])
+Zl = np.concatenate([Zl, Zl * 0])
 tri_loops = np.concatenate([tri_loops[glove_t], tri_loops[sleeve_t] + nl])
 tri_part = np.concatenate([np.zeros(glove_t.sum(), np.int8), np.ones(sleeve_t.sum(), np.int8)])
 Nv = Nv2
 P = P + (WRIST - wrist_g)
 Nl = Nv[LV]
-np.savez_compressed(job['out'], P=P.astype(np.float32), N=Nl.astype(np.float32), UV=UVl, LV=LV,
+np.savez_compressed(job['out'], P=P.astype(np.float32), N=Nl.astype(np.float32), UV=UVl, Z=Zl, LV=LV,
                     tri_loops=tri_loops.astype(np.int32), tri_part=tri_part.astype(np.int8),
                     mats=np.array(['mh_skin']), tri_mat=np.zeros(len(tri_loops), np.int32))
 print('VM_OK', len(tri_loops), 'glove tris', int((tri_part == 0).sum()), 'palm', np.round(b2g(palm), 2))

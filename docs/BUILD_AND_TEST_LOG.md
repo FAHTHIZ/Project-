@@ -813,3 +813,10 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Bakes: op04 30.1 MB, op05 15.6 MB, op06 42 renderers, 956x930 atlas at 3 texels/m, 12.1 MB (was 26.7 MB at 1.5 t/m).
 - In-archive capture updated (docs/media/op06_archive_baked.png): individual boxes, labels and two board tones are visible.
 - Autotests: story_op04 PASS (14500), story_op06 PASS (14500), story_op05 PASS at its documented 15700 frames (14500 is too short for its escort, not a regression).
+
+## 2026-11-20 Gloves v3: tactical glove panels
+
+- blender_mh_hand.py: before posing, each MakeHuman loop gets a second UV layer Z = (dorsal, knuckle), from the rest-pose vertex normal against the hand's back direction (wrist/MCP joints, thumb side = palm) and the distance to the MCP row (19 mm falloff) and PIP row (13 mm, 0.7 weight). UVs survive subsurf, decimate and the bisect cuts; exported as `Z` in the npz.
+- build_vm_arms.py write_mh: the welded glove surface is split exactly on the iso-lines dorsal = 0.1 and knuckle = 0.45 (`_contour_split`, shared edge points), knuckle vertices are pushed out along the normal by up to 2.6 mm, normals recomputed from the displaced geometry. Primitives: 0 Glove (palm, #1b1a17-ish, rough 0.72, leather scan), 1 Sleeve, 2 BackFabric (fabric scan), 3 KnucklePad (rubber scan, rough 0.5). hand_r 10350 tris, hand_l 10341.
+- First try classified whole triangles, which gave a saw-tooth seam in the pistol view; the contour split fixed it (compare docs/media/gloves_v3.png, old left, new right).
+- sync_model_prims.py: 896 prop groups in 68 scenes grew 2 -> 4 children. `victus check game`: 262 scenes, 0 problems. Autotests weapons, reload_feel, vm_ads, armory: PASS.
