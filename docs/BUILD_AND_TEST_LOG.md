@@ -805,3 +805,11 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Bake: 116 lightmapped renderers, 92 lights, 1438x1398 atlas at 1.50 texels/m, 3 bounces x 64 samples, 67 s; 16384 probes. scenes/op06_basement.vlightmap 26.7 MB.
 - Captured a view inside the archive (temporary copy with the player moved to (6, 0, 26)): shelving, floor light pools and a Greyline silhouette are readable; previously near-black.
 - `SOPS_TEST_FRAMES=14500 run_autotests.py story_op06`: PASS (0 script errors).
+
+## 2026-11-20 Shelf boxes and probe-lit shelving
+
+- build_facility.py k_shelf: 35% of boxes use a paler archive board stock (tex_cardboard base #bdb39c), 60% carry a paper index label (2 mm thin box) on both aisle faces; labelled boxes are not yawed so labels sit flush; box depth jittered by up to 4 cm. New parts BoxB/Label in archive_shelf/store_shelf/shelf_unit.glb.
+- bake_interiors.py: `Shelf` added to SKIP (shelving and boxes take probe light like other clutter); the throwaway mark-static pass uses --max-size 8192 since it sees every mesh before filtering; op06 density 3.0 (MAX_SIZE override removed).
+- Bakes: op04 30.1 MB, op05 15.6 MB, op06 42 renderers, 956x930 atlas at 3 texels/m, 12.1 MB (was 26.7 MB at 1.5 t/m).
+- In-archive capture updated (docs/media/op06_archive_baked.png): individual boxes, labels and two board tones are visible.
+- Autotests: story_op04 PASS (14500), story_op06 PASS (14500), story_op05 PASS at its documented 15700 frames (14500 is too short for its escort, not a regression).

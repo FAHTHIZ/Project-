@@ -57,6 +57,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Weapon-light spill: gun and gloves catch bounced torch light at night | Done — `docs/media/weapon_spill.png` | `game/assets/scripts/fp_player.luau` |
 | Voice intelligibility pass | Done | All 517 Kokoro lines transcribed with faster-whisper small.en plus a 20 ms sibilant-onset check; 8 short barks/lines whose initial s/f was dropped or misread (e.g. "Set.", "Mm." spoken as letters) reworded to longer carrier phrases and re-rendered; ASR now matches all 8. |
 | Op06 archive lighting + bake | Done | New `archive` light style (cool cage work lights, realtime lights on a 3x3 grid, rest bake-only) and Op06 joins the bounce-lightmap set (1.5 texels/m, 4096 ceiling because each repeated shelving unit needs its own padded rect; 1438x1398 atlas, 26.7 MB). Archive now reads as a dim lit hall (docs/media/op06_archive_baked.png); story_op06 autotest passes. |
+| Shelf boxes + probe-lit shelving | Done | Shelf kits (archive/store/office) get a paler second board stock and paper index labels on both aisle faces, so rows read as individual boxes. Shelving is now probe-lit instead of atlas-lit (SKIP filter), which cut Op06 lightmap from 26.7 to 12 MB and let it bake at 3 texels/m inside 2048. Story Op04/05/06 autotests pass. |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

@@ -28,12 +28,12 @@ sys.path.insert(0, str(HERE))
 from build_facility import SCENE_PATH  # noqa: E402
 
 
-# Small fittings and clutter take their indirect light from the baked probes instead of atlas space,
+# Small fittings and clutter (shelving and its boxes included) take their indirect light from the baked probes instead of atlas space,
 # and anything a mission script moves (doors, the lift car, V-01, the tracer rig) stays realtime.
 SKIP = re.compile(r'Fitting|Emergency|Extinguisher|Light|Lamp|CCTV|Clock|Fire Alarm|Sign|Plant|Bin\b|Clipboard|'
                   r'Binder|Notes|Monitor|Laptop|Screen|Board|Jerrycan|Wet Floor|Box [AB]|Boxes|Stool|Chair|Door|'
                   r'Lift|V-0|Tracer|power_box|utility_box|Utility Box|Power Box|Clutter|Drawer|Hand Truck|'
-                  r'Container|Barrel|Tool Chest|Ladder|Cart')
+                  r'Container|Barrel|Tool Chest|Ladder|Cart|Shelf')
 
 
 def marked_uuids(scene_json):
@@ -66,10 +66,10 @@ def mark(scene_json, ids, lightmap):
 # carry no realtime light for the mobile light budget, so big rooms do not fall to black between
 # lit fittings. The deep levels get more bounce: their rooms read black on a phone otherwise.
 INDIRECT = {'op04': 1.0, 'op05': 1.4, 'op06': 2.2, 'op07': 1.0}
-# The lower archive's many repeated shelving units each need their own padded atlas rectangle, so at
-# 2048 the padding alone overflows; it gets a 4096 ceiling and a lower density (atlas ~2.1k at 1 t/m).
-MAX_SIZE = {'op06': 4096}
-DENSITY = {'op06': 1.5}
+# Per-key overrides. Op06's 60 x 44 m archive bakes at a lower density than the default so its
+# atlas stays inside 2048 (shelving is probe-lit, see SKIP).
+MAX_SIZE = {}
+DENSITY = {'op06': 3.0}
 FITTING = re.compile(r'^(.*) Light (\d+) Fitting$')
 
 
@@ -130,7 +130,7 @@ def main():
         try:
             # 1. let VICTUS decide what cannot move (a 1-sample throwaway bake), then filter it
             victus_bake(rel, '--mark-static', '--density', '1', '--samples', '1', '--no-probes',
-                        '--max-size', str(MAX_SIZE.get(key, 2048)))
+                        '--max-size', '8192')  # throwaway pass: every mesh, before the SKIP filter
             data = json.loads(path.read_text())
             ids = marked_uuids(data)
             # 2. the real bake with only the kept receivers

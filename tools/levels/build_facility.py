@@ -116,9 +116,9 @@ def tex_wallpanel(seed, base='#d6d3c8', stripe='#5d7b86', band=0.18):
     return _png(img)
 
 
-def tex_cardboard(seed):
+def tex_cardboard(seed, base='#a2814f'):
     s = BS.TEX
-    img = np.ones((s, s, 3)) * np.array(BS._rgb('#a2814f'), float)
+    img = np.ones((s, s, 3)) * np.array(BS._rgb(base), float)
     img *= (0.9 + 0.12 * periodic_noise(s, seed, beta=1.8))[..., None]
     rng = np.random.default_rng(seed)
     for _ in range(6):
@@ -330,6 +330,10 @@ def k_shelf(out, name='shelf_unit', w=2.0, d=0.5, h=2.2, boxes=True, seed=250):
     k = Kit(name)
     steel = k.part('Steel', tex_paint(seed, '#6c7377', 0.15, False), tile=1.0, rough=0.5, metal=0.6)
     card = k.part('Box', tex_cardboard(seed + 1), tile=0.6, rough=0.9)
+    # archive storage boxes: a second, paler board stock and paper index labels on the aisle faces so
+    # rows of boxes read as individual boxes instead of one continuous cardboard slab
+    card_b = k.part('BoxB', tex_cardboard(seed + 2, '#bdb39c'), tile=0.6, rough=0.85)
+    label = k.part('Label', tex_paint(seed + 3, '#ebe6d8', 0.04, False), tile=0.3, rough=0.75)
     for x in (-w / 2, w / 2):
         for z in (-d / 2, d / 2):
             steel.box((x - 0.025, 0, z - 0.025), (x + 0.025, h, z + 0.025))
@@ -343,7 +347,15 @@ def k_shelf(out, name='shelf_unit', w=2.0, d=0.5, h=2.2, boxes=True, seed=250):
                 bw = rng.uniform(0.3, 0.45)
                 bh = rng.uniform(0.22, min(0.36, (h - 0.1) / 5 - 0.06))
                 if rng.random() < 0.88:
-                    card.box((x, y, -d / 2 + 0.03), (x + bw, y + bh, d / 2 - 0.03), yaw=float(rng.uniform(-3, 3)))
+                    z0, z1 = -d / 2 + 0.03 + rng.uniform(0, 0.04), d / 2 - 0.03 - rng.uniform(0, 0.04)
+                    labelled = rng.random() < 0.6
+                    (card_b if rng.random() < 0.35 else card).box(
+                        (x, y, z0), (x + bw, y + bh, z1), yaw=0.0 if labelled else float(rng.uniform(-3, 3)))
+                    if labelled:
+                        lw, lh, ly = bw * rng.uniform(0.35, 0.55), bh * 0.28, y + bh * rng.uniform(0.5, 0.62)
+                        lx = x + bw * 0.5 + rng.uniform(-0.04, 0.04)
+                        for za, zb in ((z0 - 0.002, z0), (z1, z1 + 0.002)):
+                            label.box((lx - lw / 2, ly, za), (lx + lw / 2, ly + lh, zb))
                 x += bw + rng.uniform(0.02, 0.06)
     k.lay.col((-w / 2, 0, -d / 2), (w / 2, h, d / 2))
     k.save(out)
