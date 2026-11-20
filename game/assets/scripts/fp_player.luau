@@ -43,6 +43,9 @@ function P:start()
     if self.torch and self.torch.valid then
         local l = self.torch:get("Light")
         self.torch_power = l and l.intensity or 0
+        -- Mount the torch on the rail ahead of the support hand. At the scenes' old 0.25 m mount
+        -- the beam started behind the left glove and blew it out to a white blob from 20 cm away.
+        self.torch.position = vector.create(0.11, -0.12, -0.8)
         -- Spill: a weapon light at night throws some of its light back off whatever is ahead
         -- onto the gun and gloves. Without it the viewmodel is a black cut-out against the lit
         -- ground. A small unshadowed point just ahead of the muzzle, on with the torch.
