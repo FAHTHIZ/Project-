@@ -728,3 +728,13 @@ Follows `7816b18` (PC-7 reflex sight). Code and models in `d71a94c`.
 - Objective panel: when the objective changes it slides in from 36 px to the left and the accent bar flares from 3 to 8 px, settling over 1.6 s (`docs/media/hud_objective_flare.png`).
 - `plans.luau` hud plan: new checks hud_toast_queue, hud_toast_waits_for_title, hud_toast_resumes and hud_stale_objective_toast. hud: 6/6 PASS.
 - Regression: hud_look, pause_ui, movement and weapons: PASS. `SOPS_TEST_FRAMES=20000 story_prologue`: PASS (prologue_complete, all nine stages).
+
+## 2026-11-20 Baked bounce lighting for Op04, Op05 and Op07
+
+- Problem: the facility chapters lit everything outside the realtime light pools with one flat ambient term, so walls, ceilings and floors between fittings looked evenly grey and rooms had no light falloff or colour bleed.
+- New `tools/levels/bake_interiors.py`: a throwaway `victus bake-lighting --mark-static` pass finds receivers, small props / fittings / doors / lift / dummies / chairs are filtered out (they keep the probe grid), then the real bake runs at density 4, 64 samples, 3 bounces (indirect only; the realtime lights still give direct light). Fittings without a realtime light get a bake-only fill light; carried, muzzle and weapon lights are removed from the bake copy. The scene is restored afterwards and the receiver list is written to `tools/levels/<op>_static.json`.
+- `tools/levels/build_facility.py` `apply_static_lighting()` re-applies the static marks and `Environment.lightmap` when the scenes are regenerated (chapter scene and `tests/story_<op>` copy).
+- Output: `op04_interior.vlightmap` (150 receivers, 30 MB), `op05_bunker.vlightmap` (65, 18 MB), `op07_chamber.vlightmap` (17, 3.9 MB). Before/after: `docs/media/bake_interiors_before_after.png`.
+- Op06 is not baked: the lower archive is a 60 x 44 m hall with sparse work lights and, with the flat ambient replaced, it rendered near-black even with bounce raised 2.2x. It keeps the ambient look until the room gets a lighting pass.
+- Baked with a VICTUS working tree that also takes the bounce colour from the mean of each model material's albedo texture (ADR-0143, committed to the engine separately); the `.vlightmap` files load with any VICTUS that reads lightmaps.
+- `victus import game`, `victus check game`: 261 scenes, 0 problems. `SOPS_TEST_FRAMES=12100 story_op04`, `15700 story_op05`, `13300 story_op07`: all PASS, 0 script errors.

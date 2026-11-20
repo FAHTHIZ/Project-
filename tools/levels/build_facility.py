@@ -949,6 +949,25 @@ MARKS = {
 }
 
 
+def apply_static_lighting(sc, key):
+    """Marks the renderers VICTUS baked (tools/levels/bake_interiors.py) as Static Lighting and points
+    the Environment at the chapter's lightmap. Without a bake the scene keeps realtime ambient."""
+    marks = HERE / f'{key}_static.json'
+    lm = SCENE_PATH[key].replace('.vscene', '.vlightmap')
+    if not marks.exists() or not (ASSETS.parent / lm).exists():
+        return
+    ids = set(json.loads(marks.read_text()))
+    n = 0
+    for e in sc.entities:
+        c = e['components']
+        if 'Environment' in c:
+            c['Environment']['lightmap'] = lm
+        if e['uuid'] in ids and 'MeshRenderer' in c:
+            c['MeshRenderer']['lightmapped'] = True
+            n += 1
+    print(key, n, 'of', len(ids), 'static lighting marks applied')
+
+
 def build_scene(key):
     lv = LEVELS[key]()
     cols = json.loads((HERE / f'{key}_cols.json').read_text())
@@ -1014,6 +1033,7 @@ def build_scene(key):
         sc.add('Storm', {'Transform': transform(), 'Script': script(
             'scripts/world/storm.luau', min_gap=45.0, max_gap=120.0, first=30.0, volume=above * 0.9)})
     sc.add('Mission', {'Transform': transform(), 'Script': script('scripts/missions/facility.luau', chapter=key)})
+    apply_static_lighting(sc, key)
     sc.save(SCENE_PATH[key])
     # the same chapter with an Autotest driver (tools/test/run_autotests.py story_<key>)
     common.autotest(sc, f'story_{key}')
