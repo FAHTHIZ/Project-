@@ -833,3 +833,10 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - build_structures.py camp_tent: the roof slopes and side walls (previously flat 3 cm hexa slabs) are generated as grids (9 or 7 x 25) that sag between the pole frames at z = -D, 0, D and are pinned at eave, ridge and ground; low-amplitude wrinkles; per-vertex colour darkens the bottom 40 cm (mud splash) and adds streaks near the ridge. Both faces emitted (outer 12 mm out). Canvas primitive 1696 vertices.
 - First version kept 35% of the sag at the eave, which opened light gaps between roof and wall top (gallery capture); sag is now zero at both edges.
 - Captures: gallery_camp daylight (sag readable only at grazing angles) and prologue camp at night (gable and roof read, sag barely visible under torch). `victus check game`: 0 problems. Colliders unchanged.
+
+## 2026-11-20 Touch controls v2
+
+- Reference points: Apple HIG game controls (floating stick on the left, direct-touch camera on the right, 44 pt minimum, primary actions near the thumb) and Arena Breakout layout guides (fire under the right thumb, aim/lean on the right edge for the index finger, action cluster to the right).
+- tools/ui/build_touch_icons.py draws 12 icons + stick ring/knob + two button discs (192 px, 4x supersampled, faint dark halo for bright skies). rig.py touch buttons are now UiImage discs with an icon child; hud.luau tints the disc and icon on press instead of recolouring a panel.
+- controls.luau layout: FIRE r80 at (205, 440) from the right; AIM, JUMP on the right edge; RELOAD/CROUCH below-left; SWITCH/TOOL above; USE and KIT inboard. Pairwise hit circles (1.15 r) checked to not overlap. The previous JUMP sat on top of the ammo panel.
+- patch_hud re-emitted 64 scenes (kestrel.vscene is now written in the same indent=1 format as the others). `victus check game`: 0 problems. Capture at 1312x576 (the Hot 10S 20.5:9 aspect): docs/media/touch_v2.png.

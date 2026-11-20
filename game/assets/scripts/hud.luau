@@ -81,6 +81,8 @@ function Hud:start()
     self.touch_buttons = {}
     for _, b in Controls.buttons do
         self.touch_buttons[b.name] = find(r, "Touch " .. b.name)
+        self.touch_icons = self.touch_icons or {}
+        self.touch_icons[b.name] = find(r, "Touch " .. b.name .. " Icon")
     end
     self.pips, self.dirs, self.rows = {}, {}, {}
     for i = 0, MAG_PIPS - 1 do self.pips[i] = find(r, "Pip " .. i) end
@@ -606,9 +608,18 @@ function Hud:update(dt)
                 local key = "tbp:" .. b.name
                 if self.cache[key] ~= held then
                     self.cache[key] = held
-                    local p = e:get("UiPanel")
-                    p.color = held and { 0.55, 0.8, 0.95, 0.45 } or { 0.05, 0.07, 0.08, 0.35 }
-                    e:set("UiPanel", p)
+                    -- pressed: the disc brightens and the icon picks up the HUD amber
+                    local im = e:get("UiImage")
+                    if im then
+                        im.tint = held and { 1, 0.86, 0.62, 1 } or { 1, 1, 1, 0.92 }
+                        e:set("UiImage", im)
+                    end
+                    local ic = self.touch_icons[b.name]
+                    if ic then
+                        local ii = ic:get("UiImage")
+                        ii.tint = held and { 1, 0.78, 0.42, 1 } or { 1, 1, 1, 0.95 }
+                        ic:set("UiImage", ii)
+                    end
                 end
             end
         end
