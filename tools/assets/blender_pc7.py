@@ -249,8 +249,32 @@ def joined(obs, name):
     return ob
 
 
-b = joined(body, 'pc7_body'); export([b], 'pc7_body')
-cc = joined(cell, 'pc7_cell'); export([cc], 'pc7_cell')
+b = joined(body, 'pc7_body')
+cc = joined(cell, 'pc7_cell')
+# Hero texture bake (tools/assets/blender_bake.py): one textured PBR material for every painted /
+# polymer / metal part, emissive parts kept. Colours are the design colours above (linear).
+if os.environ.get('PC7_NO_BAKE') != '1':
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import blender_bake as bk
+    POLY = dict(scan='Plastic006', tile=0.22, contrast=0.45, nor=0.5)
+    PRE = {
+        'pc7_Shell': dict(POLY, color=SHELL, rough=0.44, metal=0.0, wear=0.55),
+        'pc7_ShellDark': dict(POLY, color=DARK, rough=0.52, metal=0.0, wear=0.45),
+        'pc7_Metal': dict(scan='Metal032', tile=0.3, contrast=0.35, nor=0.4, color=srgb('#4a4e52'), rough=0.34,
+                          metal=0.9, wear=0.6),
+        'pc7_Grip': dict(scan='Rubber004', tile=0.1, contrast=0.6, nor=0.9, color=DARK, rough=0.82, metal=0.0, wear=0.08),
+        'pc7_Trim': dict(scan='PaintedMetal004', tile=0.5, contrast=0.3, nor=0.4, color=TRIM, rough=0.4, metal=0.3,
+                         wear=0.7, paint=True),
+        'pc7_Accent': dict(scan='PaintedMetal004', tile=0.5, contrast=0.3, nor=0.4, color=ACCENT, rough=0.46, metal=0.0,
+                           wear=0.75, paint=True),
+        'pc7cell_Shell': dict(scan='PaintedMetal004', tile=0.4, contrast=0.3, nor=0.4, color=TRIM, rough=0.5, metal=0.2,
+                              wear=0.6, paint=True),
+    }
+    dbg = os.environ.get('PC7_BAKE_DEBUG')
+    bk.bake_hero(b, int(os.environ.get('PC7_BAKE_SIZE', '1024')), PRE, {'pc7_Glow', 'pc7_Dot', 'pc7_Lens'}, 'pc7_body', dbg)
+    bk.bake_hero(cc, 512, PRE, {'pc7cell_Glow'}, 'pc7_cell', dbg)
+export([b], 'pc7_body')
+export([cc], 'pc7_cell')
 # world variant: both parts merged, laid on the left side (glTF rot_z(90), then x += 0.035)
 w = b.copy(); w.data = b.data.copy(); bpy.context.collection.objects.link(w)
 wc = cc.copy(); wc.data = cc.data.copy(); bpy.context.collection.objects.link(wc)
