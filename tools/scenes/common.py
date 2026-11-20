@@ -40,11 +40,11 @@ def environment(sc: Scene, preset="forest", **over):
         # green mist tuned toward the misty-forest reference (tools/world/night_grade.py)
         "night_storm": {
             "sky_zenith": [0.012, 0.016, 0.018, 1], "sky_horizon": [0.05, 0.064, 0.058, 1],
-            "ground": [0.02, 0.028, 0.02, 1], "ambient_intensity": 0.75,
-            "clear_color": [0.01, 0.012, 0.016, 1], "exposure": 1.0, "exposure_compensation": 1.9,
-            "auto_exposure": False, "saturation": 0.92, "contrast": 1.0, "vignette": 0.3,
+            "ground": [0.02, 0.028, 0.02, 1], "ambient_intensity": 0.68,
+            "clear_color": [0.01, 0.012, 0.016, 1], "exposure": 1.0, "exposure_compensation": 1.75,
+            "auto_exposure": False, "saturation": 0.92, "contrast": 1.07, "vignette": 0.3,
             "bloom_intensity": 0.06, "bloom_threshold": 0.9, "shadow_distance": 40,
-            "fog": "exponential", "fog_color": [0.05, 0.07, 0.058, 1], "fog_start": 2, "fog_end": 260,
+            "fog": "exponential", "fog_color": [0.045, 0.064, 0.052, 1], "fog_start": 2, "fog_end": 260,
             "fog_density": 0.018, "fog_max_opacity": 0.96,
             "precipitation": "rain", "precipitation_intensity": 0.85, "precipitation_wind": [2.2, 0.0, 1.1],
             "precipitation_radius": 15.0, "precipitation_brightness": 1.6, "precipitation_opacity": 0.0,

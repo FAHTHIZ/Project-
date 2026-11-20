@@ -354,5 +354,5 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 
 ## 2026-11-20 Storm-night grade toward the misty-forest reference
 
-- `tools/world/night_grade.py` applies a new storm-night grade to the 10 night scenes; the `common.py` `night_storm` preset uses the same values. Fog and volumetric albedo are a deep green, shadows are lifted (ambient 0.75, exposure +1.9 EV) and contrast is 1.0, so trunks read as silhouettes in luminous mist instead of crushed black.
+- `tools/world/night_grade.py` applies a new storm-night grade to the 10 night scenes; the `common.py` `night_storm` preset uses the same values. Fog and volumetric albedo are a deep green, shadows are lifted (ambient 0.68, exposure +1.75 EV) with contrast 1.07, so trunks read as silhouettes in luminous mist instead of crushed black.
 - Ran: `shot.sh scenes/tests/story_op01.vscene` before and after (inspected; before it was near-black).
