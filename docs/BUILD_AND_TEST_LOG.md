@@ -1026,3 +1026,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Fix (VICTUS f2102a4, ADR-0151): card LODs (nested subsets of cards grown to keep the canopy's area) and `foliage_lod_bias` 1 on Low. Model importer version 7, so caches re-import once.
 - Verified: op01_forest, Low, 60 frames: main-view triangles 1 138 829 to 608 499, shadow triangles 514 162 to 156 728. Low 1640x720 opening view with and without the bias: only the nearest canopy is slightly thinner. VICTUS `victus_gpu_tests` 200/200, `victus_render_tests` 66/66, `victus_robustness_tests` 15/15. Phone frame time not measured.
 - Rejected in the same pass: geometric specular AA. It measured worse against a supersampled reference at every strength, so it was not shipped.
+
+## Android APK v4 (2026-11-20)
+- Built with tools/android/build_apk.sh from game 57f2c3f and VICTUS f2102a4: export of 1 394 files (412 cooked assets, models re-imported at importer v7), pack 593 284 035 bytes; APK 623 706 626 bytes, versionCode 157; check_apk OK; apksigner verified with the sideload key.
+- Released as pre-release android-v1.0.3, SHA-256 f4f8ef5cdd80894599165cfb190cb9af77d3281dd7d27c72999106dbbd43153e.
+- Not device-tested.
