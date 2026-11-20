@@ -303,16 +303,26 @@ local function story_plan(chapter, seconds)
         c.data.stages = {}
         c.data.real_complete = Campaign.complete
         Campaign.complete = function(id) c.data.completed = id end
-        Game.on("mission_stage", function(name) table.insert(c.data.stages, name) end)
+        c.data.now, c.data.walk, c.data.times = 0, 0, {}
+        Game.on("mission_stage", function(name)
+            table.insert(c.data.stages, name)
+            table.insert(c.data.times, string.format("%s@%.0f", name, c.data.now))
+        end)
     end })
     local t = 1.0
     while t < seconds do
+        local at_t = t
         table.insert(steps, { at = t, run = function(c)
             if c.data.completed then return end
+            c.data.now = at_t
             local m = Game.mission
             if not m or not m.stage_name then return end
             local wp = Game.waypoint
             if wp and wp.pos and Game.player then
+                -- distance a player would have walked (the driver teleports), for the playtime estimate
+                local d = Game.player.position - (wp.pos + V(0.6, 0.15, 0.6))
+                local flat_d = math.sqrt(d.x * d.x + d.z * d.z)
+                if flat_d > 1.5 then c.data.walk += flat_d end
                 Game.player.position = wp.pos + V(0.6, 0.15, 0.6)
             end
             if not m.talking then
@@ -351,6 +361,8 @@ local function story_plan(chapter, seconds)
                 "completed=" .. tostring(c.data.completed) .. " stages=" .. table.concat(c.data.stages, ",")
                 .. " talking=" .. tostring(Game.mission and Game.mission.talking)
                 .. " wp=" .. tostring(Game.waypoint and Game.waypoint.pos))
+        print(string.format("STORY_TIMING %s scripted=%.0fs walked=%.0fm stages=%s", chapter, c.data.now,
+                            c.data.walk, table.concat(c.data.times, ",")))
     end })
     return steps
 end
