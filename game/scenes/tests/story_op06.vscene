@@ -57,7 +57,8 @@
      "fog_end": 200,
      "fog_density": 0.004,
      "fog_max_opacity": 0.4,
-     "physical_sky": false
+     "physical_sky": false,
+     "lightmap": "scenes/op06_basement.vlightmap"
     },
     "Transform": {
      "position": [
@@ -122,7 +123,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -161,7 +163,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -200,7 +203,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 2
+     "mesh_index": 2,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -239,7 +243,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 3
+     "mesh_index": 3,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -278,7 +283,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 4
+     "mesh_index": 4,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -317,7 +323,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 5
+     "mesh_index": 5,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -356,7 +363,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 6
+     "mesh_index": 6,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -395,7 +403,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 7
+     "mesh_index": 7,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -434,7 +443,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "c948c055-2c84-4562-9aac-0a51ef2dd269",
-     "mesh_index": 8
+     "mesh_index": 8,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -3214,9 +3224,9 @@
    "components": {
     "Transform": {
      "position": [
-      -25.0,
+      -27.0,
       5.98,
-      -4.5
+      -6.8571
      ],
      "rotation": [
       0.0,
@@ -3311,51 +3321,14 @@
    "parent": "20e484fe-fc75-5a8e-9433-4e602c29f0fe"
   },
   {
-   "uuid": "44eb67af-b40f-50c2-91ad-88e171e371ff",
-   "name": "Archive Light 00",
-   "components": {
-    "Transform": {
-     "position": [
-      -25.0,
-      5.65,
-      -4.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "e69955ec-0b16-51d3-a902-b2b7477d7e7b",
    "name": "Archive Light 01 Fitting",
    "components": {
     "Transform": {
      "position": [
-      -25.0,
+      -27.0,
       5.98,
-      6.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -3455,9 +3428,9 @@
    "components": {
     "Transform": {
      "position": [
-      -25.0,
+      -27.0,
       5.98,
-      17.5
+      5.7143
      ],
      "rotation": [
       0.0,
@@ -3552,51 +3525,14 @@
    "parent": "1b7f5c1b-33a0-57bc-8f7d-7055e7a37523"
   },
   {
-   "uuid": "9d37118f-c858-5e56-b37b-338292f00cf7",
-   "name": "Archive Light 02",
-   "components": {
-    "Transform": {
-     "position": [
-      -25.0,
-      5.65,
-      17.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "83660748-aa90-5985-9b7b-78394a9f840e",
    "name": "Archive Light 03 Fitting",
    "components": {
     "Transform": {
      "position": [
-      -25.0,
+      -27.0,
       5.98,
-      28.5
+      12.0
      ],
      "rotation": [
       0.0,
@@ -3691,14 +3627,320 @@
    "parent": "83660748-aa90-5985-9b7b-78394a9f840e"
   },
   {
+   "uuid": "3e903e96-2478-5a21-a811-0c614f0609c0",
+   "name": "Archive Light 04 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -27.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "27e6be7f-01a7-5105-9599-acb15cd43f9b",
+   "name": "Archive Light 04 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3e903e96-2478-5a21-a811-0c614f0609c0"
+  },
+  {
+   "uuid": "a3256106-aeef-5aab-9f19-aaa2701b641a",
+   "name": "Archive Light 04 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3e903e96-2478-5a21-a811-0c614f0609c0"
+  },
+  {
+   "uuid": "c438c8fd-034e-5cd2-8329-71f924297dbe",
+   "name": "Archive Light 05 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -27.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "487163b4-58d7-5df2-a54f-c3a64905f454",
+   "name": "Archive Light 05 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c438c8fd-034e-5cd2-8329-71f924297dbe"
+  },
+  {
+   "uuid": "bf4cf491-3414-51ff-b545-f40a45915e1c",
+   "name": "Archive Light 05 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c438c8fd-034e-5cd2-8329-71f924297dbe"
+  },
+  {
+   "uuid": "9b43ff5f-63c4-5dda-b265-31a304245865",
+   "name": "Archive Light 06 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -27.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "196a706f-8eaf-52a0-ba03-7c15416219d3",
+   "name": "Archive Light 06 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9b43ff5f-63c4-5dda-b265-31a304245865"
+  },
+  {
+   "uuid": "d46d22e3-841f-5e6c-93a8-4a19713aefa4",
+   "name": "Archive Light 06 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9b43ff5f-63c4-5dda-b265-31a304245865"
+  },
+  {
    "uuid": "7c1603a1-1c92-511a-9e58-eca180b43853",
    "name": "Archive Light 10 Fitting",
    "components": {
     "Transform": {
      "position": [
-      -15.0,
+      -21.0,
       5.98,
-      -4.5
+      -6.8571
      ],
      "rotation": [
       0.0,
@@ -3798,9 +4040,9 @@
    "components": {
     "Transform": {
      "position": [
-      -15.0,
+      -21.0,
       5.98,
-      6.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -3900,9 +4142,9 @@
    "components": {
     "Transform": {
      "position": [
-      -15.0,
+      -21.0,
       5.65,
-      6.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -3919,13 +4161,13 @@
     "Light": {
      "type": "point",
      "color": [
-      0.86,
-      0.93,
+      0.9,
+      0.94,
       1.0,
       1
      ],
-     "intensity": 8.0,
-     "range": 13.0,
+     "intensity": 6.5,
+     "range": 10.0,
      "shadows": false
     }
    },
@@ -3937,9 +4179,9 @@
    "components": {
     "Transform": {
      "position": [
-      -15.0,
+      -21.0,
       5.98,
-      17.5
+      5.7143
      ],
      "rotation": [
       0.0,
@@ -4039,9 +4281,9 @@
    "components": {
     "Transform": {
      "position": [
-      -15.0,
+      -21.0,
       5.98,
-      28.5
+      12.0
      ],
      "rotation": [
       0.0,
@@ -4136,14 +4378,116 @@
    "parent": "37bd7202-6f91-55c2-a0f6-578864158d5d"
   },
   {
-   "uuid": "98978a87-4586-5b91-b305-472350bbff6b",
-   "name": "Archive Light 13",
+   "uuid": "2da7ccf5-875d-5d9b-a5a4-7d506d49fb82",
+   "name": "Archive Light 14 Fitting",
    "components": {
     "Transform": {
      "position": [
-      -15.0,
+      -21.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "8e1ff457-9dea-5a53-9ac6-f4f27331b94d",
+   "name": "Archive Light 14 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2da7ccf5-875d-5d9b-a5a4-7d506d49fb82"
+  },
+  {
+   "uuid": "81888e3e-846e-5e95-8065-d5625520a179",
+   "name": "Archive Light 14 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2da7ccf5-875d-5d9b-a5a4-7d506d49fb82"
+  },
+  {
+   "uuid": "6787283d-767c-5431-b9d0-4fb375aa3a98",
+   "name": "Archive Light 14",
+   "components": {
+    "Transform": {
+     "position": [
+      -21.0,
       5.65,
-      28.5
+      18.2857
      ],
      "rotation": [
       0.0,
@@ -4160,17 +4504,221 @@
     "Light": {
      "type": "point",
      "color": [
-      0.86,
-      0.93,
+      0.9,
+      0.94,
       1.0,
       1
      ],
-     "intensity": 8.0,
-     "range": 13.0,
+     "intensity": 6.5,
+     "range": 10.0,
      "shadows": false
     }
    },
    "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
+  },
+  {
+   "uuid": "bc694635-9ac3-546d-945c-60e41779f2c3",
+   "name": "Archive Light 15 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -21.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "fd4e4525-3420-5fd6-af9a-234aa81a6534",
+   "name": "Archive Light 15 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bc694635-9ac3-546d-945c-60e41779f2c3"
+  },
+  {
+   "uuid": "050c95a4-0bb0-5d24-a0ea-c93dd7f877b7",
+   "name": "Archive Light 15 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bc694635-9ac3-546d-945c-60e41779f2c3"
+  },
+  {
+   "uuid": "177ac2b7-2fdc-5f8b-9d44-dd63dbebf280",
+   "name": "Archive Light 16 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -21.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "8ae22e75-3b16-500c-b67b-51aa02b234fa",
+   "name": "Archive Light 16 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "177ac2b7-2fdc-5f8b-9d44-dd63dbebf280"
+  },
+  {
+   "uuid": "b01726e2-3024-5dae-8652-3a6ed57840e6",
+   "name": "Archive Light 16 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "177ac2b7-2fdc-5f8b-9d44-dd63dbebf280"
   },
   {
    "uuid": "e50e8cde-d61f-536d-b90c-86f342911b0c",
@@ -4178,9 +4726,9 @@
    "components": {
     "Transform": {
      "position": [
-      -5.0,
+      -15.0,
       5.98,
-      -4.5
+      -6.8571
      ],
      "rotation": [
       0.0,
@@ -4275,51 +4823,14 @@
    "parent": "e50e8cde-d61f-536d-b90c-86f342911b0c"
   },
   {
-   "uuid": "959f8478-77a8-5f06-8445-5580eee36a58",
-   "name": "Archive Light 20",
-   "components": {
-    "Transform": {
-     "position": [
-      -5.0,
-      5.65,
-      -4.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "19cc7a10-b478-5222-9b22-545f2bb10453",
    "name": "Archive Light 21 Fitting",
    "components": {
     "Transform": {
      "position": [
-      -5.0,
+      -15.0,
       5.98,
-      6.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -4419,9 +4930,9 @@
    "components": {
     "Transform": {
      "position": [
-      -5.0,
+      -15.0,
       5.98,
-      17.5
+      5.7143
      ],
      "rotation": [
       0.0,
@@ -4516,51 +5027,14 @@
    "parent": "247df284-f13a-50f7-a322-404ff76650bb"
   },
   {
-   "uuid": "acefe745-cfe0-59d9-a632-179ad5077077",
-   "name": "Archive Light 22",
-   "components": {
-    "Transform": {
-     "position": [
-      -5.0,
-      5.65,
-      17.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "6501abec-ea39-532d-a7f8-e449ce509ae2",
    "name": "Archive Light 23 Fitting",
    "components": {
     "Transform": {
      "position": [
-      -5.0,
+      -15.0,
       5.98,
-      28.5
+      12.0
      ],
      "rotation": [
       0.0,
@@ -4655,14 +5129,320 @@
    "parent": "6501abec-ea39-532d-a7f8-e449ce509ae2"
   },
   {
+   "uuid": "65fc3c96-127a-5782-b33f-4ceceb0dbde5",
+   "name": "Archive Light 24 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -15.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1d54becf-c513-5443-88c7-dfbfb2f0865e",
+   "name": "Archive Light 24 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "65fc3c96-127a-5782-b33f-4ceceb0dbde5"
+  },
+  {
+   "uuid": "4513578f-8f1c-580e-82bb-735e06220b97",
+   "name": "Archive Light 24 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "65fc3c96-127a-5782-b33f-4ceceb0dbde5"
+  },
+  {
+   "uuid": "e836d172-2ce3-56ac-ab64-7fc6337bfa97",
+   "name": "Archive Light 25 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -15.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "a6e64e9b-5cc4-55c1-bb1c-02a42cefc978",
+   "name": "Archive Light 25 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e836d172-2ce3-56ac-ab64-7fc6337bfa97"
+  },
+  {
+   "uuid": "25b5d8c5-9e10-5fdb-9bb8-64a4c6c8b753",
+   "name": "Archive Light 25 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e836d172-2ce3-56ac-ab64-7fc6337bfa97"
+  },
+  {
+   "uuid": "59b8f77f-6e4b-50e6-a28e-a0ffa70c66be",
+   "name": "Archive Light 26 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -15.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "0e067c79-6198-5117-a07f-9f16ff9958f5",
+   "name": "Archive Light 26 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "59b8f77f-6e4b-50e6-a28e-a0ffa70c66be"
+  },
+  {
+   "uuid": "e156cba3-3147-5619-8981-8aad9b45e133",
+   "name": "Archive Light 26 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "59b8f77f-6e4b-50e6-a28e-a0ffa70c66be"
+  },
+  {
    "uuid": "7b01f5af-bf95-5b1f-a6d1-5a3ea1f6cfa4",
    "name": "Archive Light 30 Fitting",
    "components": {
     "Transform": {
      "position": [
-      5.0,
+      -9.0,
       5.98,
-      -4.5
+      -6.8571
      ],
      "rotation": [
       0.0,
@@ -4762,9 +5542,9 @@
    "components": {
     "Transform": {
      "position": [
-      5.0,
+      -9.0,
       5.98,
-      6.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -4859,51 +5639,14 @@
    "parent": "8dcb165a-a99a-50ca-a691-6d2b50bbec14"
   },
   {
-   "uuid": "edd75136-8823-591b-bda2-fa5bec51cbbd",
-   "name": "Archive Light 31",
-   "components": {
-    "Transform": {
-     "position": [
-      5.0,
-      5.65,
-      6.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "b48e9ffb-73af-537e-93c3-28a5680c9f98",
    "name": "Archive Light 32 Fitting",
    "components": {
     "Transform": {
      "position": [
-      5.0,
+      -9.0,
       5.98,
-      17.5
+      5.7143
      ],
      "rotation": [
       0.0,
@@ -5003,9 +5746,9 @@
    "components": {
     "Transform": {
      "position": [
-      5.0,
+      -9.0,
       5.98,
-      28.5
+      12.0
      ],
      "rotation": [
       0.0,
@@ -5100,14 +5843,14 @@
    "parent": "6cff6347-f26b-5c3f-bb14-0cf0c2b425a4"
   },
   {
-   "uuid": "42297ba3-6213-5162-a67b-1ea05b53ff0c",
-   "name": "Archive Light 33",
+   "uuid": "0cc61a67-d832-5501-9ad1-15042fe92dd2",
+   "name": "Archive Light 34 Fitting",
    "components": {
     "Transform": {
      "position": [
-      5.0,
-      5.65,
-      28.5
+      -9.0,
+      5.98,
+      18.2857
      ],
      "rotation": [
       0.0,
@@ -5120,21 +5863,290 @@
       1.0,
       1.0
      ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
+    }
+   }
+  },
+  {
+   "uuid": "5eb4733d-c438-5d3e-8077-d97a6f8bcba8",
+   "name": "Archive Light 34 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
       1
      ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
     }
    },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
+   "parent": "0cc61a67-d832-5501-9ad1-15042fe92dd2"
+  },
+  {
+   "uuid": "f8bb5122-bbbb-5189-bcc0-d206dab432f2",
+   "name": "Archive Light 34 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0cc61a67-d832-5501-9ad1-15042fe92dd2"
+  },
+  {
+   "uuid": "8ded997d-f469-5165-91f8-7e7fc640b6d3",
+   "name": "Archive Light 35 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -9.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "0d2c0f31-1434-5e6a-af23-511313b14c48",
+   "name": "Archive Light 35 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8ded997d-f469-5165-91f8-7e7fc640b6d3"
+  },
+  {
+   "uuid": "bb719631-7f74-5de2-9f03-711fece09ae0",
+   "name": "Archive Light 35 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8ded997d-f469-5165-91f8-7e7fc640b6d3"
+  },
+  {
+   "uuid": "4fbf1c49-d39e-56b3-8ab3-185a1f551c64",
+   "name": "Archive Light 36 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -9.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "56cbd047-b3df-55de-bf30-3fa0a950630e",
+   "name": "Archive Light 36 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4fbf1c49-d39e-56b3-8ab3-185a1f551c64"
+  },
+  {
+   "uuid": "4ad88171-36cc-5d9d-8bc4-6e1cdbaea410",
+   "name": "Archive Light 36 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4fbf1c49-d39e-56b3-8ab3-185a1f551c64"
   },
   {
    "uuid": "e80df157-d572-5a11-8cf5-e9610cfdee93",
@@ -5142,9 +6154,9 @@
    "components": {
     "Transform": {
      "position": [
-      15.0,
+      -3.0,
       5.98,
-      -4.5
+      -6.8571
      ],
      "rotation": [
       0.0,
@@ -5239,51 +6251,14 @@
    "parent": "e80df157-d572-5a11-8cf5-e9610cfdee93"
   },
   {
-   "uuid": "19d9562d-76e3-53d7-ae7c-1bde98e0d894",
-   "name": "Archive Light 40",
-   "components": {
-    "Transform": {
-     "position": [
-      15.0,
-      5.65,
-      -4.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "b00dbdf2-7aee-5473-a3e3-d77fd8916060",
    "name": "Archive Light 41 Fitting",
    "components": {
     "Transform": {
      "position": [
-      15.0,
+      -3.0,
       5.98,
-      6.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -5378,14 +6353,51 @@
    "parent": "b00dbdf2-7aee-5473-a3e3-d77fd8916060"
   },
   {
+   "uuid": "1e974ea8-98f6-540f-bdf6-cafabd5a82f2",
+   "name": "Archive Light 41",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.0,
+      5.65,
+      -0.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 6.5,
+     "range": 10.0,
+     "shadows": false
+    }
+   },
+   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
+  },
+  {
    "uuid": "bdcecc57-fbfb-5c73-9590-827850fb2e15",
    "name": "Archive Light 42 Fitting",
    "components": {
     "Transform": {
      "position": [
-      15.0,
+      -3.0,
       5.98,
-      17.5
+      5.7143
      ],
      "rotation": [
       0.0,
@@ -5480,51 +6492,14 @@
    "parent": "bdcecc57-fbfb-5c73-9590-827850fb2e15"
   },
   {
-   "uuid": "e2e437bd-a362-51b2-8400-e111ef553f08",
-   "name": "Archive Light 42",
-   "components": {
-    "Transform": {
-     "position": [
-      15.0,
-      5.65,
-      17.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "c12bf86b-91ea-5371-8a2d-4c34338bc916",
    "name": "Archive Light 43 Fitting",
    "components": {
     "Transform": {
      "position": [
-      15.0,
+      -3.0,
       5.98,
-      28.5
+      12.0
      ],
      "rotation": [
       0.0,
@@ -5619,14 +6594,357 @@
    "parent": "c12bf86b-91ea-5371-8a2d-4c34338bc916"
   },
   {
+   "uuid": "9647d89f-5aed-5fb2-a4c4-5f256687529f",
+   "name": "Archive Light 44 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "23b4c066-31cf-5e74-9945-4bedd913c53a",
+   "name": "Archive Light 44 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9647d89f-5aed-5fb2-a4c4-5f256687529f"
+  },
+  {
+   "uuid": "ac422a4d-c12f-5aa5-9035-96622a4ddf09",
+   "name": "Archive Light 44 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9647d89f-5aed-5fb2-a4c4-5f256687529f"
+  },
+  {
+   "uuid": "7070f171-cad9-5224-aa41-e1827836a8c1",
+   "name": "Archive Light 44",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.0,
+      5.65,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 6.5,
+     "range": 10.0,
+     "shadows": false
+    }
+   },
+   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
+  },
+  {
+   "uuid": "ce80bba2-a5ba-57fa-b16d-ee56a9f4717d",
+   "name": "Archive Light 45 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "40625c1d-a39c-5c59-a596-ef40985e5d73",
+   "name": "Archive Light 45 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ce80bba2-a5ba-57fa-b16d-ee56a9f4717d"
+  },
+  {
+   "uuid": "5a098105-48e5-524c-843d-189b2cac4179",
+   "name": "Archive Light 45 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ce80bba2-a5ba-57fa-b16d-ee56a9f4717d"
+  },
+  {
+   "uuid": "635843be-fbd0-5334-91d5-f6ba8f1dbffe",
+   "name": "Archive Light 46 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1e45e5a9-4f70-585f-9a40-67db1c520732",
+   "name": "Archive Light 46 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "635843be-fbd0-5334-91d5-f6ba8f1dbffe"
+  },
+  {
+   "uuid": "3b9f1136-bf50-5f12-a084-7aa31b5e3ec2",
+   "name": "Archive Light 46 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "635843be-fbd0-5334-91d5-f6ba8f1dbffe"
+  },
+  {
    "uuid": "02877677-8893-5b2c-9369-44a8b2b24700",
    "name": "Archive Light 50 Fitting",
    "components": {
     "Transform": {
      "position": [
-      25.0,
+      3.0,
       5.98,
-      -4.5
+      -6.8571
      ],
      "rotation": [
       0.0,
@@ -5726,9 +7044,9 @@
    "components": {
     "Transform": {
      "position": [
-      25.0,
+      3.0,
       5.98,
-      6.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -5823,51 +7141,14 @@
    "parent": "30f8b740-1377-5dea-9398-af893aba6358"
   },
   {
-   "uuid": "4cce476e-8809-54f3-9b64-9e37ab74b444",
-   "name": "Archive Light 51",
-   "components": {
-    "Transform": {
-     "position": [
-      25.0,
-      5.65,
-      6.5
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    },
-    "Light": {
-     "type": "point",
-     "color": [
-      0.86,
-      0.93,
-      1.0,
-      1
-     ],
-     "intensity": 8.0,
-     "range": 13.0,
-     "shadows": false
-    }
-   },
-   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
-  },
-  {
    "uuid": "00ac9f2c-ecc0-532a-89c2-c210d568fc83",
    "name": "Archive Light 52 Fitting",
    "components": {
     "Transform": {
      "position": [
-      25.0,
+      3.0,
       5.98,
-      17.5
+      5.7143
      ],
      "rotation": [
       0.0,
@@ -5967,9 +7248,9 @@
    "components": {
     "Transform": {
      "position": [
-      25.0,
+      3.0,
       5.98,
-      28.5
+      12.0
      ],
      "rotation": [
       0.0,
@@ -6064,14 +7345,1238 @@
    "parent": "7da049b3-2c08-52a6-883f-bd361ab0a03f"
   },
   {
-   "uuid": "16f71650-e0f0-5f7a-a3b0-607694bdb738",
-   "name": "Archive Light 53",
+   "uuid": "aaaf48f7-b8c0-5e82-9792-d6c766cff5e7",
+   "name": "Archive Light 54 Fitting",
    "components": {
     "Transform": {
      "position": [
-      25.0,
+      3.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "f0c04ab6-4d4d-53ff-9c25-dfb2d1042be4",
+   "name": "Archive Light 54 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "aaaf48f7-b8c0-5e82-9792-d6c766cff5e7"
+  },
+  {
+   "uuid": "f85c75c8-0de9-5efa-97e3-3bc3aa6dd1b6",
+   "name": "Archive Light 54 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "aaaf48f7-b8c0-5e82-9792-d6c766cff5e7"
+  },
+  {
+   "uuid": "38143e70-6c22-58e6-91ff-59c616985e7f",
+   "name": "Archive Light 55 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      3.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1b3302af-ee95-5ed9-b72f-327b4841a780",
+   "name": "Archive Light 55 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "38143e70-6c22-58e6-91ff-59c616985e7f"
+  },
+  {
+   "uuid": "3c2c5ffc-4b8a-5079-b985-1bfd18eae71d",
+   "name": "Archive Light 55 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "38143e70-6c22-58e6-91ff-59c616985e7f"
+  },
+  {
+   "uuid": "3593057b-e5ea-5e3a-8659-2bc6399a4124",
+   "name": "Archive Light 56 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      3.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "256ce23f-d115-59f4-8f6d-207778ee30cc",
+   "name": "Archive Light 56 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3593057b-e5ea-5e3a-8659-2bc6399a4124"
+  },
+  {
+   "uuid": "ef3b9b51-3366-5224-8816-56b631f2007b",
+   "name": "Archive Light 56 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "3593057b-e5ea-5e3a-8659-2bc6399a4124"
+  },
+  {
+   "uuid": "f85dd0cb-1f66-51c8-a7f2-5b7f9891028b",
+   "name": "Archive Light 60 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      5.98,
+      -6.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "e88724a5-aba1-554c-8b1f-747932cea8b8",
+   "name": "Archive Light 60 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f85dd0cb-1f66-51c8-a7f2-5b7f9891028b"
+  },
+  {
+   "uuid": "1b93a9a8-5509-50c2-9370-8732aecbccff",
+   "name": "Archive Light 60 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f85dd0cb-1f66-51c8-a7f2-5b7f9891028b"
+  },
+  {
+   "uuid": "b5cf3121-6e6a-5a24-91f2-8c4ea82dc692",
+   "name": "Archive Light 61 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      5.98,
+      -0.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d9301c66-15db-5788-b3f1-9989089e4fa2",
+   "name": "Archive Light 61 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "b5cf3121-6e6a-5a24-91f2-8c4ea82dc692"
+  },
+  {
+   "uuid": "69418753-79de-5802-9d32-6c347dcabc4a",
+   "name": "Archive Light 61 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "b5cf3121-6e6a-5a24-91f2-8c4ea82dc692"
+  },
+  {
+   "uuid": "e7f87be2-a1d2-56d9-b38e-0bc1c16c51fc",
+   "name": "Archive Light 62 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      5.98,
+      5.7143
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7d72b846-470a-5775-b502-475166e3380c",
+   "name": "Archive Light 62 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e7f87be2-a1d2-56d9-b38e-0bc1c16c51fc"
+  },
+  {
+   "uuid": "063f169c-32aa-5235-80f3-840f87b27c4e",
+   "name": "Archive Light 62 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e7f87be2-a1d2-56d9-b38e-0bc1c16c51fc"
+  },
+  {
+   "uuid": "d0494387-c1af-5feb-8924-45d6e1d0dc99",
+   "name": "Archive Light 63 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      5.98,
+      12.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "f05df6a9-55c0-506b-81d1-b2acb875b1d8",
+   "name": "Archive Light 63 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d0494387-c1af-5feb-8924-45d6e1d0dc99"
+  },
+  {
+   "uuid": "85d5a13f-838e-5f5c-acef-c1cd060f44d6",
+   "name": "Archive Light 63 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d0494387-c1af-5feb-8924-45d6e1d0dc99"
+  },
+  {
+   "uuid": "7f495337-4ca1-5bc1-b08c-a5eddf6e7ed4",
+   "name": "Archive Light 64 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "c57f9315-edc2-5c53-b1e1-3e66e08ecea6",
+   "name": "Archive Light 64 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7f495337-4ca1-5bc1-b08c-a5eddf6e7ed4"
+  },
+  {
+   "uuid": "44f76bd0-d7ea-5365-9e61-8a8f857783e9",
+   "name": "Archive Light 64 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7f495337-4ca1-5bc1-b08c-a5eddf6e7ed4"
+  },
+  {
+   "uuid": "174b07d6-35f0-56a2-8ecb-65b23e01bb28",
+   "name": "Archive Light 65 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "03e24cda-24c5-574a-9f25-36e736469cf7",
+   "name": "Archive Light 65 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "174b07d6-35f0-56a2-8ecb-65b23e01bb28"
+  },
+  {
+   "uuid": "4322dcae-ea2d-5816-bb28-caf7f7eefc7c",
+   "name": "Archive Light 65 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "174b07d6-35f0-56a2-8ecb-65b23e01bb28"
+  },
+  {
+   "uuid": "55fde786-ef66-53e6-9d26-4034fd10cae1",
+   "name": "Archive Light 66 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      9.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "74a044be-915c-529d-adeb-d165c39cb6fa",
+   "name": "Archive Light 66 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "55fde786-ef66-53e6-9d26-4034fd10cae1"
+  },
+  {
+   "uuid": "13359592-0130-5cd7-acff-8cdd9f5b9b86",
+   "name": "Archive Light 66 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "55fde786-ef66-53e6-9d26-4034fd10cae1"
+  },
+  {
+   "uuid": "9af7e509-5706-58bf-8dcd-127505ccce99",
+   "name": "Archive Light 70 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.98,
+      -6.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "cacaadc7-17f2-51f5-8cff-935a49efec61",
+   "name": "Archive Light 70 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9af7e509-5706-58bf-8dcd-127505ccce99"
+  },
+  {
+   "uuid": "7eb84ea3-70f7-50cf-b14d-d7e50a98b9b3",
+   "name": "Archive Light 70 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9af7e509-5706-58bf-8dcd-127505ccce99"
+  },
+  {
+   "uuid": "f634f1da-dddc-5510-8fbc-bfe44ad34ad8",
+   "name": "Archive Light 71 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.98,
+      -0.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d17e9eda-da96-54d3-8bdd-18b54758f6c5",
+   "name": "Archive Light 71 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f634f1da-dddc-5510-8fbc-bfe44ad34ad8"
+  },
+  {
+   "uuid": "8da32fcd-f52c-5ebd-bd09-9d8dafdc84c5",
+   "name": "Archive Light 71 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f634f1da-dddc-5510-8fbc-bfe44ad34ad8"
+  },
+  {
+   "uuid": "7a8ed24e-37e1-5298-b8aa-13a83d959091",
+   "name": "Archive Light 71",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
       5.65,
-      28.5
+      -0.5714
      ],
      "rotation": [
       0.0,
@@ -6088,17 +8593,1992 @@
     "Light": {
      "type": "point",
      "color": [
-      0.86,
-      0.93,
+      0.9,
+      0.94,
       1.0,
       1
      ],
-     "intensity": 8.0,
-     "range": 13.0,
+     "intensity": 6.5,
+     "range": 10.0,
      "shadows": false
     }
    },
    "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
+  },
+  {
+   "uuid": "d72066dd-bdb6-5efa-94f2-8c3244ed207a",
+   "name": "Archive Light 72 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.98,
+      5.7143
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "005ae21a-990d-5185-a2a5-f7320e91e04d",
+   "name": "Archive Light 72 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d72066dd-bdb6-5efa-94f2-8c3244ed207a"
+  },
+  {
+   "uuid": "e34e901d-6016-542b-abab-1395aa817eae",
+   "name": "Archive Light 72 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d72066dd-bdb6-5efa-94f2-8c3244ed207a"
+  },
+  {
+   "uuid": "88cb9e53-3476-53cf-951a-0e525efe2bd4",
+   "name": "Archive Light 73 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.98,
+      12.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "804e5d14-2100-53e0-aa89-8266cfa1383f",
+   "name": "Archive Light 73 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "88cb9e53-3476-53cf-951a-0e525efe2bd4"
+  },
+  {
+   "uuid": "a6b5bc4a-840a-51b5-934a-ac10a335fd85",
+   "name": "Archive Light 73 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "88cb9e53-3476-53cf-951a-0e525efe2bd4"
+  },
+  {
+   "uuid": "c588907f-62e8-5c8a-9d7e-bedc81ba7d1d",
+   "name": "Archive Light 74 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "729e3c1d-d5b6-5e21-afdc-419dddb54b5f",
+   "name": "Archive Light 74 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c588907f-62e8-5c8a-9d7e-bedc81ba7d1d"
+  },
+  {
+   "uuid": "3bed317c-35e3-5ae0-9bb8-c61474efd799",
+   "name": "Archive Light 74 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c588907f-62e8-5c8a-9d7e-bedc81ba7d1d"
+  },
+  {
+   "uuid": "49a2909b-1527-5b08-9945-f7fea3b5db06",
+   "name": "Archive Light 74",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.65,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 6.5,
+     "range": 10.0,
+     "shadows": false
+    }
+   },
+   "parent": "30f27921-89ee-5e89-930f-c3d443e040e5"
+  },
+  {
+   "uuid": "358c3c12-5f0d-5baf-a0b3-b2015487ef43",
+   "name": "Archive Light 75 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "64239911-c235-57cd-a9e4-6a843f2998ff",
+   "name": "Archive Light 75 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "358c3c12-5f0d-5baf-a0b3-b2015487ef43"
+  },
+  {
+   "uuid": "7b0bea00-b439-5f33-818b-a73e50a94670",
+   "name": "Archive Light 75 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "358c3c12-5f0d-5baf-a0b3-b2015487ef43"
+  },
+  {
+   "uuid": "0695a671-a7c5-525f-b3f1-8f3465b3e763",
+   "name": "Archive Light 76 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      15.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "4a4ee71b-584d-5068-bb59-b3811dab6e8f",
+   "name": "Archive Light 76 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0695a671-a7c5-525f-b3f1-8f3465b3e763"
+  },
+  {
+   "uuid": "cae763fb-0719-58f6-b94c-b055f223c670",
+   "name": "Archive Light 76 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0695a671-a7c5-525f-b3f1-8f3465b3e763"
+  },
+  {
+   "uuid": "0185757d-7e52-5f9d-bfab-14618172b089",
+   "name": "Archive Light 80 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      21.0,
+      5.98,
+      -6.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7cb88076-a344-584c-bb33-b36f17a18299",
+   "name": "Archive Light 80 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0185757d-7e52-5f9d-bfab-14618172b089"
+  },
+  {
+   "uuid": "d5470ccd-fcce-516e-b44f-678193ab9a9f",
+   "name": "Archive Light 80 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0185757d-7e52-5f9d-bfab-14618172b089"
+  },
+  {
+   "uuid": "9b4f8454-e835-5bd3-93fe-eb6dab92c92f",
+   "name": "Archive Light 81 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      21.0,
+      5.98,
+      -0.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "3f12a938-af7b-5626-8296-26f52bce2a11",
+   "name": "Archive Light 81 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9b4f8454-e835-5bd3-93fe-eb6dab92c92f"
+  },
+  {
+   "uuid": "aadc1640-0e9b-523c-849d-8676d50b887f",
+   "name": "Archive Light 81 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9b4f8454-e835-5bd3-93fe-eb6dab92c92f"
+  },
+  {
+   "uuid": "6f279368-4913-5a5e-9653-8cec11d645a9",
+   "name": "Archive Light 82 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      21.0,
+      5.98,
+      5.7143
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "73171be4-a7d5-5d56-b675-5cc860a76fc8",
+   "name": "Archive Light 82 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6f279368-4913-5a5e-9653-8cec11d645a9"
+  },
+  {
+   "uuid": "f350eee7-2e72-512b-8c88-fbeed5eee322",
+   "name": "Archive Light 82 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6f279368-4913-5a5e-9653-8cec11d645a9"
+  },
+  {
+   "uuid": "16c5b621-abc7-56b2-84e8-00b3ba64a2db",
+   "name": "Archive Light 83 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      21.0,
+      5.98,
+      12.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "0840a0dc-882f-5be0-b766-39db07c7ec55",
+   "name": "Archive Light 83 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "16c5b621-abc7-56b2-84e8-00b3ba64a2db"
+  },
+  {
+   "uuid": "be3b17cb-838f-558d-a177-7172843ca848",
+   "name": "Archive Light 83 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "16c5b621-abc7-56b2-84e8-00b3ba64a2db"
+  },
+  {
+   "uuid": "67af1566-f309-5484-99d7-42d70952c8d1",
+   "name": "Archive Light 84 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      21.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "1711a5d2-bba9-5943-a7a0-48699d751c9d",
+   "name": "Archive Light 84 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "67af1566-f309-5484-99d7-42d70952c8d1"
+  },
+  {
+   "uuid": "8935bc1d-332d-5395-9900-4823da0d7e0a",
+   "name": "Archive Light 84 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "67af1566-f309-5484-99d7-42d70952c8d1"
+  },
+  {
+   "uuid": "f963010d-2823-5034-a0af-34bb35cce5ad",
+   "name": "Archive Light 85 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      21.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "3a514404-060d-5998-bf82-5a229cdccf6d",
+   "name": "Archive Light 85 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f963010d-2823-5034-a0af-34bb35cce5ad"
+  },
+  {
+   "uuid": "6d648745-f041-5596-b4ee-d0b882e67879",
+   "name": "Archive Light 85 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f963010d-2823-5034-a0af-34bb35cce5ad"
+  },
+  {
+   "uuid": "ca95eff9-f3f7-583f-8d4c-461586b0b75a",
+   "name": "Archive Light 86 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      21.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "07cee1e9-a513-5a68-b1f7-1c9cf1331fc1",
+   "name": "Archive Light 86 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ca95eff9-f3f7-583f-8d4c-461586b0b75a"
+  },
+  {
+   "uuid": "5582f304-2e15-5009-a990-21b9f22645d6",
+   "name": "Archive Light 86 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ca95eff9-f3f7-583f-8d4c-461586b0b75a"
+  },
+  {
+   "uuid": "2d972796-06e6-5d76-ac39-a21fdda40dea",
+   "name": "Archive Light 90 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      27.0,
+      5.98,
+      -6.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "d9d9b3ed-75c1-56fb-bc10-5b6faae8249a",
+   "name": "Archive Light 90 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2d972796-06e6-5d76-ac39-a21fdda40dea"
+  },
+  {
+   "uuid": "8383cafc-d010-5ba5-93ad-b09d0f5ac9f7",
+   "name": "Archive Light 90 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2d972796-06e6-5d76-ac39-a21fdda40dea"
+  },
+  {
+   "uuid": "d5616312-0043-5298-9f1f-bf12afa01dcc",
+   "name": "Archive Light 91 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      27.0,
+      5.98,
+      -0.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "59ea6681-83a1-5f71-b440-51f566e3af35",
+   "name": "Archive Light 91 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d5616312-0043-5298-9f1f-bf12afa01dcc"
+  },
+  {
+   "uuid": "49d16ba3-0fe7-5bf4-bfcd-295dfca34711",
+   "name": "Archive Light 91 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d5616312-0043-5298-9f1f-bf12afa01dcc"
+  },
+  {
+   "uuid": "637a5344-8de3-5706-accb-0fcb3f2ba5aa",
+   "name": "Archive Light 92 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      27.0,
+      5.98,
+      5.7143
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "7ac27c81-f02b-5df6-945c-31924e5f6313",
+   "name": "Archive Light 92 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "637a5344-8de3-5706-accb-0fcb3f2ba5aa"
+  },
+  {
+   "uuid": "b4a321ec-2cb8-5fc4-a10e-98726ddfa329",
+   "name": "Archive Light 92 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "637a5344-8de3-5706-accb-0fcb3f2ba5aa"
+  },
+  {
+   "uuid": "9065e64c-629e-540b-885b-4377ab62380d",
+   "name": "Archive Light 93 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      27.0,
+      5.98,
+      12.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "52b08334-b2ec-57b6-a155-b1d49ecd7b45",
+   "name": "Archive Light 93 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9065e64c-629e-540b-885b-4377ab62380d"
+  },
+  {
+   "uuid": "44d096e6-6032-5e93-822a-b1e3945543a8",
+   "name": "Archive Light 93 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9065e64c-629e-540b-885b-4377ab62380d"
+  },
+  {
+   "uuid": "5b0e459c-4b88-5485-9d96-1cded7bf3d06",
+   "name": "Archive Light 94 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      27.0,
+      5.98,
+      18.2857
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "b1813c4c-d4fa-5008-8c85-ed895c50e31c",
+   "name": "Archive Light 94 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5b0e459c-4b88-5485-9d96-1cded7bf3d06"
+  },
+  {
+   "uuid": "9cee20ad-d49e-5207-a14b-20f49571a02f",
+   "name": "Archive Light 94 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5b0e459c-4b88-5485-9d96-1cded7bf3d06"
+  },
+  {
+   "uuid": "ba7b818d-b7c7-5c25-a003-e84d0638d656",
+   "name": "Archive Light 95 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      27.0,
+      5.98,
+      24.5714
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "74fa521f-0938-5a68-9c73-a6e1d6c3a16c",
+   "name": "Archive Light 95 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ba7b818d-b7c7-5c25-a003-e84d0638d656"
+  },
+  {
+   "uuid": "96eb5e5d-2492-53dc-92cb-8cb3cf1afd0e",
+   "name": "Archive Light 95 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ba7b818d-b7c7-5c25-a003-e84d0638d656"
+  },
+  {
+   "uuid": "5d865fdc-07f1-5c05-ac03-8a6a4aa8150d",
+   "name": "Archive Light 96 Fitting",
+   "components": {
+    "Transform": {
+     "position": [
+      27.0,
+      5.98,
+      30.8571
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "uuid": "5eb9e6d2-8174-5039-8d54-bd2cbae1258f",
+   "name": "Archive Light 96 Fitting[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5d865fdc-07f1-5c05-ac03-8a6a4aa8150d"
+  },
+  {
+   "uuid": "e927e82f-ee2a-502e-b5f1-f3020a361fc3",
+   "name": "Archive Light 96 Fitting[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "7dbed3ab-676a-4272-a6e4-ee010b664813",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5d865fdc-07f1-5c05-ac03-8a6a4aa8150d"
   },
   {
    "uuid": "178012de-d72b-5391-8492-173cb70c2cb1",
@@ -9490,7 +13970,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -9529,7 +14010,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -9659,7 +14141,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -9698,7 +14181,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -9828,7 +14312,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -9867,7 +14352,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -9997,7 +14483,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10036,7 +14523,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10166,7 +14654,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10205,7 +14694,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10335,7 +14825,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10374,7 +14865,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10504,7 +14996,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10543,7 +15036,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10673,7 +15167,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10712,7 +15207,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10842,7 +15338,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -10881,7 +15378,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11011,7 +15509,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11050,7 +15549,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11180,7 +15680,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11219,7 +15720,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11349,7 +15851,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11388,7 +15891,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11518,7 +16022,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11557,7 +16062,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11687,7 +16193,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11726,7 +16233,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11856,7 +16364,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -11895,7 +16404,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12025,7 +16535,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12064,7 +16575,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12194,7 +16706,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12233,7 +16746,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12363,7 +16877,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12402,7 +16917,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12532,7 +17048,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12571,7 +17088,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12701,7 +17219,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12740,7 +17259,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12870,7 +17390,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -12909,7 +17430,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13039,7 +17561,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13078,7 +17601,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13208,7 +17732,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13247,7 +17772,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13377,7 +17903,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13416,7 +17943,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13546,7 +18074,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13585,7 +18114,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13715,7 +18245,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13754,7 +18285,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13884,7 +18416,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -13923,7 +18456,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14053,7 +18587,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14092,7 +18627,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14222,7 +18758,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14261,7 +18798,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14391,7 +18929,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14430,7 +18969,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14560,7 +19100,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14599,7 +19140,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14729,7 +19271,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14768,7 +19311,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14898,7 +19442,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -14937,7 +19482,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15067,7 +19613,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15106,7 +19653,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15236,7 +19784,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15275,7 +19824,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15405,7 +19955,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15444,7 +19995,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "6e571fce-835d-4112-b8ef-68e72c052d5a",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15574,7 +20126,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "f853ce84-5b26-43c6-bf6b-03bc5e23282c",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15613,7 +20166,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "f853ce84-5b26-43c6-bf6b-03bc5e23282c",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15743,7 +20297,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "f853ce84-5b26-43c6-bf6b-03bc5e23282c",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15782,7 +20337,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "f853ce84-5b26-43c6-bf6b-03bc5e23282c",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15912,7 +20468,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "af0c3d7e-1351-460c-8537-7ef8718235fd",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -15951,7 +20508,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "af0c3d7e-1351-460c-8537-7ef8718235fd",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16017,7 +20575,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ea48096e-b684-4c23-b83b-a263ba976e4c",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16056,7 +20615,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ea48096e-b684-4c23-b83b-a263ba976e4c",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16095,7 +20655,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ea48096e-b684-4c23-b83b-a263ba976e4c",
-     "mesh_index": 2
+     "mesh_index": 2,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16134,7 +20695,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ea48096e-b684-4c23-b83b-a263ba976e4c",
-     "mesh_index": 3
+     "mesh_index": 3,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16173,7 +20735,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ea48096e-b684-4c23-b83b-a263ba976e4c",
-     "mesh_index": 4
+     "mesh_index": 4,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16212,7 +20775,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ea48096e-b684-4c23-b83b-a263ba976e4c",
-     "mesh_index": 5
+     "mesh_index": 5,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16511,7 +21075,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ca24f741-6ee1-4bf2-8071-c7b6ec408d82",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16550,7 +21115,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "ca24f741-6ee1-4bf2-8071-c7b6ec408d82",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16680,7 +21246,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "2a10a77f-66f8-4ee8-b74d-64c3d5e2e529",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16810,7 +21377,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "2a10a77f-66f8-4ee8-b74d-64c3d5e2e529",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -16940,7 +21508,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "2a10a77f-66f8-4ee8-b74d-64c3d5e2e529",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -17070,7 +21639,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "2a10a77f-66f8-4ee8-b74d-64c3d5e2e529",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18380,7 +22950,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18419,7 +22990,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18458,7 +23030,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 2
+     "mesh_index": 2,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18588,7 +23161,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18627,7 +23201,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18666,7 +23241,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 2
+     "mesh_index": 2,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18796,7 +23372,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18835,7 +23412,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -18874,7 +23452,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 2
+     "mesh_index": 2,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -20174,7 +24753,8 @@
      "cast_shadows": false,
      "visible": true,
      "mesh": "efdec795-496b-43ef-a1f5-acac2df433a9",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -20237,7 +24817,8 @@
      "cast_shadows": false,
      "visible": true,
      "mesh": "efdec795-496b-43ef-a1f5-acac2df433a9",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -20300,7 +24881,8 @@
      "cast_shadows": false,
      "visible": true,
      "mesh": "efdec795-496b-43ef-a1f5-acac2df433a9",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -20363,7 +24945,8 @@
      "cast_shadows": false,
      "visible": true,
      "mesh": "efdec795-496b-43ef-a1f5-acac2df433a9",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -20426,7 +25009,8 @@
      "cast_shadows": false,
      "visible": true,
      "mesh": "efdec795-496b-43ef-a1f5-acac2df433a9",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -22369,7 +26953,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 0
+     "mesh_index": 0,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -22408,7 +26993,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 1
+     "mesh_index": 1,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
@@ -22447,7 +27033,8 @@
      "cast_shadows": true,
      "visible": true,
      "mesh": "cbe36738-ad70-45a8-9168-34cbce3d67a3",
-     "mesh_index": 2
+     "mesh_index": 2,
+     "lightmapped": true
     },
     "Transform": {
      "position": [
