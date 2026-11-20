@@ -295,7 +295,7 @@ function P:update(dt)
     self.entity:move_character(self.vel)
     if playing and Controls.pressed("jump") and cc_state then
         if self.crouched then self.crouched = false
-        else self.entity:jump(self.jump_speed) end
+        else self.entity:jump(self.jump_speed); Game.emit("player_jumped") end
     end
     -- Landing dip.
     if cc_state and self.air > 0.25 then self.land = math.min(1, self.air * 0.6) end

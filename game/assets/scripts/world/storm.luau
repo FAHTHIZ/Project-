@@ -21,7 +21,7 @@ function S:start()
     self.next = self.first
     self.flash = nil
     self.thunder = {}
-    Game.storm = { strike = function(km) self:strike(km) end, strikes = 0 }
+    Game.storm = { strike = function(km) self:strike(km) end, strikes = 0, outdoor = self.volume >= 0.9 }
 end
 
 function S:strike(km)
@@ -70,6 +70,7 @@ function S:update(dt)
             table.remove(self.thunder, i)
             local vol = math.clamp(1.15 - th.km * 0.2, 0.3, 1.0)
             audio.play(THUNDER[math.random(1, #THUNDER)], { bus = "ambient", volume = vol * self.volume, pitch = 0.9 + math.random() * 0.2 })
+            Game.emit("thunder", th.km, self.volume)
         end
     end
 end

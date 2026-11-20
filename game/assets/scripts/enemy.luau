@@ -79,17 +79,26 @@ function E:start()
     end
     if self.voice ~= "" then
         local a = self.actor
-        Dialogue.register(self.voice, {
+        self.dlg = {
             entity = self.entity, voice = a.voice, face = nil,
             look_at = function(p) a:look_at(p, 0.6) end,
             can_speak = function() return (not self.down) or self.surrendered end,
-        })
+        }
+        Dialogue.register(self.voice, self.dlg)
     end
+    self.mag_left = 18 + math.random(0, 12)   -- rounds before this contractor has to change cells
 end
 
-function E:say(kind)
-    if self.voice == "" or self.down then return end
-    Dialogue.bark(kind, { prefix = "grey_", speaker = self.voice, cooldown = 7 })
+-- Voices are shared by several contractors (greyline1/greyline2), so the speaker claims the voice
+-- key before barking: the line then plays from this contractor's head, not a colleague's. Barks
+-- beyond earshot are skipped instead of falling back to the radio bus.
+function E:say(kind, chance)
+    if self.voice == "" or self.down or not self.dlg then return false end
+    if chance and math.random() > chance then return false end
+    local cam = Game.camera
+    if cam and vector.magnitude(self.entity.world_position - cam.world_position) > 40 then return false end
+    Dialogue.register(self.voice, self.dlg)
+    return Dialogue.bark(kind, { prefix = "grey_", speaker = self.voice, cooldown = 7 })
 end
 
 function E:alert_group(pos)
@@ -103,6 +112,7 @@ end
 
 function E:investigate(pos, delay)
     if self.down or self.state == "engage" then return end
+    if self.state == "patrol" and not self.dormant then self:say("alert", 0.7) end
     self.state = "alert"
     self.st = -(delay or 0)
     self.noise_pos = pos
@@ -135,6 +145,7 @@ function E:on_hit(info)
         self:go_down(info)
     else
         self.flinch = 0.25
+        self:say("hit", 0.55)
     end
     return true
 end
@@ -269,7 +280,7 @@ function E:update(dt)
                 a:go(p)
             end
             if self.st > 9 then
-                self:say("search")
+                self:say("calm", 0.6)
                 self.state = "patrol"
                 a:halt()
                 self.actor:set_speed(1.6)
@@ -292,7 +303,7 @@ function E:update(dt)
         else
             self.lost_t = (self.lost_t or 0) + dt
             if self.lost_t > 1.5 and self.last_seen then
-                self:say("search")
+                if not self:say("lost", 0.5) then self:say("search") end
                 self.state = "alert"
                 self.st = 0.5
                 self.noise_pos = self.last_seen
@@ -307,6 +318,16 @@ function E:fire(dt, tgt, tp)
     if self.flinch and self.flinch > 0 then return end
     self.fire_t -= dt
     if self.fire_t > 0 then return end
+    if self.mag_left <= 0 then
+        -- changing cells: a real pause in the fire the squad (and the player) can use
+        self.mag_left = 24 + math.random(0, 8)
+        self.fire_t = 2.4 + math.random() * 0.8
+        self.burst = 0
+        self:say("reload", 0.7)
+        Game.emit("enemy_reloading", self.entity)
+        return
+    end
+    self.mag_left -= 1
     local dist = vector.magnitude(tp - self.entity.position)
     local moving = vector.magnitude(tgt.velocity or vector.create(0, 0, 0)) > 1.5
     local is_player = Game.player and tgt.id == Game.player.id
@@ -319,6 +340,7 @@ function E:fire(dt, tgt, tp)
     if self.burst >= 3 then
         self.burst = 0
         self.bursts = (self.bursts or 0) + 1
+        if self.bursts == 2 or self.bursts % 5 == 0 then self:say("suppress", 0.45) end
         self.fire_t = 1.2 + math.random() * 0.8
     else
         self.fire_t = 0.14
