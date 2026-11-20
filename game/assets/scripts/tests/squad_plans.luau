@@ -155,6 +155,9 @@ P.enemy_tactics = {
         Game.on("enemy_flanking", function(e) table.insert(c.data.flank, { id = e.id, pos = e.position }) end)
         c.data.sweeps = 0
         Game.on("enemy_sweep", function(e, n) if n > 0 then c.data.sweeps += 1 end end)
+        c.data.bounds, c.data.both_moving, c.data.sweep_cover = {}, 0, 0
+        Game.on("enemy_bound", function(e, kind, i) table.insert(c.data.bounds, { kind = kind, dur = i.dur, cov = i.by ~= nil }) end)
+        Game.on("enemy_sweep_cover", function() c.data.sweep_cover += 1 end)
         Combat.on_noise(function(pos, r, src)
             if c.data.hidden_t and src and src.valid and Squad.state().enemies[src.id] and r >= 20 then
                 if time.now() - c.data.hidden_t < 3.0 then c.data.shots_after += 1 end
@@ -192,6 +195,26 @@ P.enemy_tactics = {
                 if string.find(l.id, "grey_" .. k) then barks[k] = true end
             end
         end
+        -- bounding overwatch: short rushes, covered by a mate, one man up at a time
+        local longest, covered_n, rushes = 0, 0, 0
+        for _, b in c.data.bounds do
+            if b.kind ~= "sidestep" then
+                rushes += 1
+                longest = math.max(longest, b.dur)
+                if b.cov then covered_n += 1 end
+            end
+        end
+        c.check("short_rushes", rushes >= 1 and longest <= 5.3, string.format("%d rushes, longest %.1f s", rushes, longest))
+        c.check("rush_overwatched", covered_n >= 1, string.format("%d of %d rushes covered by a mate", covered_n, rushes))
+        c.check("one_up_at_a_time", c.data.both_moving <= 2, string.format("%d samples with both rushing", c.data.both_moving))
+        local pair = {}
+        for _, l in log do
+            for _, k in { "moving", "covering", "set" } do
+                if string.find(l.id, "grey_" .. k .. "_") then pair[k] = true end
+            end
+        end
+        c.check("bound_callouts", pair.moving and (pair.covering or pair.set),
+            string.format("moving %s covering %s set %s", tostring(pair.moving), tostring(pair.covering), tostring(pair.set)))
         c.check("tactical_barks", barks.contact and (barks.cover or barks.flank),
             string.format("contact %s cover %s flank %s", tostring(barks.contact), tostring(barks.cover), tostring(barks.flank)))
         -- now break line of sight: behind the north wall
@@ -207,14 +230,23 @@ P.enemy_tactics = {
         c.check("lost_then_search", searching == 2, string.format("%d searching", searching))
         -- the walk round the range walls to the hiding place is long; check the sweep on a nearby
         -- noise instead: reaching the spot starts a multi-point sweep
+        -- both search the same spot near the first one, so they can cover each other's moves
         c.data.sweeps = 0
+        local spot
         for _, r in Squad.state().enemies do
-            r.ctl:investigate(r.entity.position + V(2.5, 0, 2.5), 0)
-            break
+            spot = spot or (r.entity.position + V(2.5, 0, 2.5))
+            r.ctl:investigate(spot, 0)
         end
     end },
     { at = 26.0, run = function(c)
         c.check("search_sweep", c.data.sweeps >= 1, string.format("%d sweeps started", c.data.sweeps))
+    end },
+    { at = 34.0, run = function(c)
+        local st = ""
+        for _, r in Squad.state().enemies do
+            st ..= string.format(" [%s sweep %s i %s at %.0f,%.0f]", r.ctl.state, tostring(r.ctl.sweep ~= nil), tostring(r.ctl.sweep_i), r.entity.position.x, r.entity.position.z)
+        end
+        c.check("search_in_pairs", c.data.sweep_cover >= 1, string.format("%d holds covering a searching mate%s", c.data.sweep_cover, st))
         Game.hurt_player = c.data.hurt
     end },
 }
@@ -263,6 +295,9 @@ for i = 0, 62 do
         for _, r in Squad.state().enemies do
             if r.ctl.in_cover and r.ctl.crouching then c.data.crouched[r.entity.id] = true end
         end
+        local up = 0
+        for _, r in Squad.state().enemies do if r.ctl.tac_goal and r.ctl.tac_kind ~= "sidestep" then up += 1 end end
+        if up >= 2 then c.data.both_moving += 1 end
     end })
 end
 

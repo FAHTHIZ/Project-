@@ -112,6 +112,26 @@ function E:say(kind, chance, ttl)
     return Dialogue.bark(kind, { prefix = "grey_", speaker = self.voice, cooldown = 7, ttl = ttl })
 end
 
+-- A group mate already sweeping the spot this contractor is heading for.
+function E:spot_lead()
+    if self.group == "" or not self.noise_pos then return nil end
+    for _, o in group_of(self.group) do
+        if o ~= self and not o.down and o.state == "alert" and o.sweep and o.noise_pos
+            and flat_dist(o.noise_pos, self.noise_pos) < 6 then return o end
+    end
+    return nil
+end
+
+-- A group mate currently walking to a search point nearby (the one this contractor covers).
+function E:sweep_mate()
+    if self.group == "" then return nil end
+    for _, o in group_of(self.group) do
+        if o ~= self and not o.down and o.state == "alert" and o.sweep_moving and o.sweep
+            and flat_dist(o.entity.position, self.entity.position) < 18 then return o end
+    end
+    return nil
+end
+
 function E:alert_group(pos)
     if self.group == "" then return end
     for _, o in group_of(self.group) do
@@ -123,6 +143,7 @@ end
 
 function E:investigate(pos, delay)
     if self.down or self.state == "engage" then return end
+    self.sweep_moving, self.held, self.hold_t = nil, nil, 0
     -- more of the same noise (footsteps, a burst) refines the spot instead of restarting the search
     if self.state == "alert" and self.noise_pos and flat_dist(pos, self.noise_pos) < 5 then
         self.noise_pos = pos
@@ -296,7 +317,27 @@ function E:update(dt)
         if self.st >= 0 and self.noise_pos then
             a.aim_want = 0.7
             a.focus = self.noise_pos
-            if self.st > 0.8 and not a.goal and not self.sweep and flat_dist(e.position, self.noise_pos) > 3 then
+            -- a mate is already checking this spot: hold short of it and cover him instead of
+            -- walking into the same bushes (one searches, one covers)
+            local lead = not self.sweep and self:spot_lead()
+            if lead then
+                if flat_dist(e.position, self.noise_pos) < 11 then
+                    if a.goal then a:halt() end
+                    a.focus = lead.sweep[math.max(1, lead.sweep_i)] or lead.entity.position
+                    if not self.held then
+                        self.held = true
+                        self:say("covering", 0.5, 1.4)
+                        Game.emit("enemy_sweep_cover", e, lead.entity)
+                    end
+                end
+            elseif self.held and not self.sweep then
+                -- the mate finished (or went down): done here too
+                self.held = nil
+                self.st = 100
+            end
+            if lead and flat_dist(e.position, self.noise_pos) < 11 then
+                -- covering: nothing else to do this frame
+            elseif self.st > 0.8 and not a.goal and not self.sweep and flat_dist(e.position, self.noise_pos) > 3 then
                 local p = nav.available() and nav.nearest(self.noise_pos, vector.create(3, 4, 3)) or self.noise_pos
                 self.actor:set_speed(2.2)
                 a:go(p)
@@ -308,17 +349,31 @@ function E:update(dt)
                 Game.emit("enemy_sweep", e, #self.sweep)
             end
             if self.sweep then
-                local g = self.sweep[self.sweep_i]
-                if g and (a:arrived() or flat_dist(e.position, g) < 1.0) then
+                local g = self.sweep_moving and self.sweep[self.sweep_i] or nil
+                self.leg_t = (self.leg_t or 0) + dt
+                if g and (a:arrived() or flat_dist(e.position, g) < 1.0 or self.leg_t > 6) then
                     g = nil
                     self.sweep_wait = 1.0 + math.random() * 1.5
+                    self.sweep_moving = nil
                     a:halt()
                 end
                 if not g then
                     self.sweep_wait -= dt
                     -- look around while paused
                     a.focus = e.position + vector.create(math.sin(self.st * 0.9 + self.actor.seed), 0, math.cos(self.st * 0.9 + self.actor.seed)) * 6
-                    if self.sweep_wait <= 0 and self.sweep_i < #self.sweep then
+                    -- searching in pairs: while a mate walks to his next point, hold and watch over him
+                    -- (one moves, one covers), for up to 6 s
+                    local mate = self:sweep_mate()
+                    if mate and self.sweep_wait <= 0 and (self.hold_t or 0) < 6 then
+                        self.hold_t = (self.hold_t or 0) + dt
+                        a.focus = mate.sweep[mate.sweep_i] or mate.entity.position
+                        if not self.held then
+                            self.held = true
+                            Game.emit("enemy_sweep_cover", e, mate.entity)
+                        end
+                    elseif self.sweep_wait <= 0 and self.sweep_i < #self.sweep then
+                        self.hold_t, self.leg_t = 0, 0
+                        self.sweep_moving = true
                         self.sweep_i += 1
                         self.actor:set_speed(1.8)
                         a:go(self.sweep[self.sweep_i])
@@ -328,9 +383,10 @@ function E:update(dt)
                     a.focus = g
                 end
             end
-            local give_up = self.sweep and (self.sweep_i >= #self.sweep and self.sweep_wait <= 0 or self.st > 26) or (not self.sweep and self.st > 9)
+            local give_up = self.sweep and (self.sweep_i >= #self.sweep and self.sweep_wait <= 0 or self.st > 30)
+                or (not self.sweep and not lead and self.st > (a.goal and 20 or 9))
             if give_up then
-                self.sweep = nil
+                self.sweep, self.sweep_moving = nil, nil
                 self:say("calm", 0.6)
                 self.state = "patrol"
                 a:halt()
@@ -412,8 +468,28 @@ function E:think(dt, tgt)
             self.tac_goal, self.tac_kind = nil, nil
             self.actor:set_speed(3.0)
             self.check_t = now + 1.5
+            local cov = self.covered_by
+            if cov then cov.overwatch_for, cov.overwatch_until = nil, 0 end
+            self.covered_by = nil
             Game.emit("enemy_in_cover", e, kind)
+            Game.emit("enemy_bound", e, kind, { dur = now - (self.tac_t0 or now), by = cov and cov.entity or nil })
+            if kind ~= "sidestep" then self:say("set", 0.45, 1.5) end
+            -- a flank is several short rushes, not one long run in the open
+            if kind == "flank" and self.flank_goal then
+                self.flank_n = (self.flank_n or 0) + 1
+                if flat_dist(e.position, self.flank_goal) < 3 or self.flank_n >= 4 then
+                    self.flank_goal = nil
+                else
+                    self.flank_next = now + 1.0 + math.random() * 1.0
+                end
+            end
         end
+        return
+    end
+    -- next rush of a flank, after a breath (and a burst) in cover
+    if self.flank_goal and now >= (self.flank_next or 0) and tgt then
+        if self:mate_moving() and now - self.hit_t > 1.5 then self.flank_next = now + 0.8; return end
+        self:bound_to(self.flank_goal, tgt.position, "flank")
         return
     end
     self.think_t -= dt
@@ -432,7 +508,8 @@ function E:think(dt, tgt)
         local fp = Tactics.flank_point(e.position, threat, side)
         if fp then
             local c = Tactics.find_cover(fp, threat, { radius = 6, samples = 12, min_threat = 7, ignore = e })
-            self:move_tactical(c or fp, "flank", 9)
+            self.flank_goal, self.flank_n = c or fp, 0
+            self:bound_to(self.flank_goal, threat, "flank")
             self:say("flank", 0.9, 3.5)
             Game.emit("enemy_flanking", e, threat)
             return
@@ -458,6 +535,11 @@ function E:think(dt, tgt)
         self.check_t = now + 1.5
         return
     end
+    -- one moves while the other covers: wait for a mate's rush to finish unless rounds are landing
+    if not hit_recent and self:mate_moving() then
+        self.cover_t = now + 0.7
+        return
+    end
     local avoid = {}
     for _, o in group or {} do
         if o ~= self and (o.in_cover or o.tac_goal) then table.insert(avoid, o.tac_goal or o.in_cover) end
@@ -466,7 +548,7 @@ function E:think(dt, tgt)
     local c = Tactics.find_cover(e.position, threat, { radius = 9, ignore = e, avoid = avoid })
     self.blocked_n = 0
     if c then
-        self:move_tactical(c, "cover", 5)
+        self:move_tactical(c, "cover", 4.5)
         self:say("cover", hit_recent and 0.7 or 0.4, 3.0)
     elseif self.sidestep then
         -- no cover around, but the shot is blocked: step out sideways
@@ -478,9 +560,53 @@ function E:think(dt, tgt)
     end
 end
 
+-- A group mate in the middle of a rush.
+function E:mate_moving()
+    if self.group == "" then return false end
+    for _, o in group_of(self.group) do
+        if o ~= self and not o.down and o.tac_goal then return true end
+    end
+    return false
+end
+
+-- One rush of a flank: at most ~14 m (3-5 s at a run), ending behind cover where there is some.
+function E:bound_to(goal, threat, kind)
+    local pos = self.entity.position
+    local d = goal - pos
+    local len = math.sqrt(d.x * d.x + d.z * d.z)
+    local p = goal
+    if len > 14 then
+        local mid = Tactics.ground(pos + vector.create(d.x, 0, d.z) * (12 / len), self.entity) or goal
+        p = Tactics.find_cover(mid, threat, { radius = 4, samples = 8, ignore = self.entity }) or mid
+    end
+    self:move_tactical(p, kind, 5)
+end
+
+-- Rushes are covered (FM 3-21.8 bounding overwatch, "I'm up, he sees me, I'm down"): a set mate who
+-- can shoot steps up his fire on the threat while this one moves, and the two call it.
 function E:move_tactical(p, kind, limit)
     self.tac_goal, self.tac_kind = p, kind
-    self.tac_until = time.now() + (limit or 6)
+    self.tac_t0 = time.now()
+    self.tac_until = time.now() + (limit or 5)
+    self.covered_by = nil
+    if self.group ~= "" and kind ~= "sidestep" then
+        local best, bd = nil, 30
+        for _, o in group_of(self.group) do
+            if o ~= self and not o.down and o.state == "engage" and not o.tac_goal and not o.overwatch_for then
+                local dd = flat_dist(o.entity.position, self.entity.position)
+                if dd < bd then best, bd = o, dd end
+            end
+        end
+        if best then
+            best.overwatch_for, best.overwatch_until = self, time.now() + (limit or 5) + 0.5
+            best.cover_t = math.max(best.cover_t or 0, time.now() + (limit or 5))
+            best.fire_t = math.min(best.fire_t, 0.3)
+            self.covered_by = best
+            Game.emit("enemy_overwatch", best.entity, self.entity)
+            self:say("moving", 0.8, 1.4)
+            best.say_cover_t = time.now() + 0.9
+        end
+    end
     self.in_cover = nil
     self.burst = 0
     self.actor:set_speed(kind == "flank" and 3.4 or 3.8)
@@ -530,8 +656,13 @@ function E:fire(dt, tgt, tp)
     if self.burst >= 3 then
         self.burst = 0
         self.bursts = (self.bursts or 0) + 1
-        if self.bursts == 2 or self.bursts % 5 == 0 or (tgt == nil and self.bursts % 2 == 0) then self:say("suppress", 0.45) end
-        self.fire_t = 1.2 + math.random() * 0.8
+        local covering = self.overwatch_for and time.now() < (self.overwatch_until or 0)
+        if self.say_cover_t and time.now() >= self.say_cover_t then
+            self.say_cover_t = nil
+            if covering then self:say("covering", 0.8, 1.4) end
+        elseif self.bursts == 2 or self.bursts % 5 == 0 or (tgt == nil and self.bursts % 2 == 0) then self:say("suppress", 0.45) end
+        -- covering a mate's rush: short pauses, keep the threat's head down
+        self.fire_t = covering and (0.45 + math.random() * 0.3) or (1.2 + math.random() * 0.8)
     else
         self.fire_t = 0.14
     end

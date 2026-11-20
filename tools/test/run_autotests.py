@@ -43,7 +43,9 @@ def run(plan, frames):
     script_errors = int(m.group(1)) if m else -1
     ended = any("AUTOTEST END" in l for l in auto)
     fails = [l for l in auto if "AUTOTEST FAIL" in l]
-    ok = ended and not fails and script_errors == 0 and p.returncode == 0
+    # runtime script errors (a script disabled mid-run) are only in the log, not the engine's count
+    runtime = [l for l in errors if "[script]" in l]
+    ok = ended and not fails and script_errors == 0 and not runtime and p.returncode == 0
     return ok, out.strip().splitlines()[-1:] , auto, errors[:10]
 
 
@@ -53,7 +55,7 @@ def main():
     allok = True
     for plan in plans:
         f = frames or {"movement": 660, "squad": 2200, "squad_combat": 2600,
-                            "enemy_tactics": 1620, "squad_cover": 3620}.get(plan, 1800)
+                            "enemy_tactics": 2140, "squad_cover": 3620}.get(plan, 1800)
         ok, tail, auto, errors = run(plan, f)
         allok &= ok
         print(f"== {plan}: {'PASS' if ok else 'FAIL'}  ({f} frames)")
