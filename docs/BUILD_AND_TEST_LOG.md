@@ -897,3 +897,13 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - hud.luau: a `card` state (title card, place line or fade > 0.3) hides reticle, compass, waypoint, prompt and roster until the card has gone. `Hud.subtitle_lines` estimates the wrapped line count (0.43 em per glyph, calibrated on the capture: 66 characters per 740-unit line at size 26) and the plate is resized to lines x 1.28 x size + 40.
 - New hud checks: hud_card_clears_centre, hud_reticle_back, hud_subtitle_plate_fits (106 units for the two-line prologue line). Before/after: docs/media/hud_card_subtitle_fit.png.
 - Autotests: hud 9/0, pause_ui, movement, weapons, reactions, squad PASS.
+
+## 2026-11-20 Comfort settings: left-handed touch, touch size, HUD opacity, subtitle background
+
+- lib/game.luau settings: `touch_scale` 1.0, `left_handed` false, `hud_opacity` 1.0 (defaults keep the shipped look). pause_menu.luau ranges: subtitle_background 0-0.9, hud_opacity 0.3-1, touch_scale 0.8-1.25, shown as percentages. rig.py PAUSE_SETTINGS rows added; patch_hud re-emitted 64 scenes, build_menu rebuilt menu.vscene.
+- lib/controls.luau: radii and positions scale with touch_scale (thumb cluster about the bottom corner, top buttons about the top corner); left-handed mirrors every button and the stick zone. The pause button now shares the objectives button geometry (x 56, r 30) so in either layout it clears the objective panel at 125 %.
+- hud.luau: button discs, icons and the stick follow the scale; idle stick home mirrors. In the left-handed touch layout the squad roster moves to the right under the objectives / light column and the takedown feed moves left of that column (first capture showed the switch button over the roster and the pause button over the objective panel). hud_opacity scales the calm alpha of the weapon, status and squad blocks and the compass / objective opacity; prompts, subtitles and cards stay full strength.
+- New hud checks: touch_left_handed, touch_scale_no_overlap (closest pair gap 11.6 units at 125 %, hit test still lands on fire), hud_opacity_setting (compass 0.50 at 50 %), touch_left_handed_hud_clear (no button over the objective panel, roster or feed at 125 % left-handed; confirmed it fails with the roster move disabled: aim/switch/tool over the roster, light over the feed).
+- Capture at 1312x576 medium, left-handed at 115 %, settings forced via the lib/game.luau defaults (reverted): docs/media/touch_left_handed_115.png.
+- `victus check game` 263 scenes, 0 problems. Autotests hud 13/0, pause_ui, menu_flow, movement, weapons, squad PASS.
+- Not done: touch feel of the mirrored layout on the physical phone.

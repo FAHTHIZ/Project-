@@ -15,6 +15,9 @@ local RANGES = {
     reticle_size = { 0.5, 2.0, 0.1 },
     reticle_opacity = { 0.2, 1.0, 0.1 },
     subtitle_size = { 18, 40, 2 },
+    subtitle_background = { 0, 0.9, 0.15 },
+    hud_opacity = { 0.3, 1.0, 0.1 },
+    touch_scale = { 0.8, 1.25, 0.05 },
     master_volume = { 0, 1, 0.1 },
     music_volume = { 0, 1, 0.1 },
     voice_volume = { 0, 1, 0.1 },
@@ -78,7 +81,8 @@ local function fmt(k, v)
     if type(v) == "boolean" then return v and "On" or "Off" end
     if type(v) == "string" then return string.upper(string.sub(v, 1, 1)) .. string.sub(v, 2) end
     if k == "fov" or k == "subtitle_size" then return string.format("%d", v) end
-    if string.find(k, "volume") or k == "camera_shake" or k == "lens_effects" or k == "reticle_opacity" then
+    if string.find(k, "volume") or k == "camera_shake" or k == "lens_effects" or k == "reticle_opacity"
+        or k == "subtitle_background" or k == "hud_opacity" or k == "touch_scale" then
         return string.format("%d%%", math.floor(v * 100 + 0.5))
     end
     return string.format("%.2f", v)

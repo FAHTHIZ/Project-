@@ -529,6 +529,25 @@ function Hud:update(dt)
         if m and m.entity and m.entity.valid then table.insert(rows, m) end
     end
     local show_sq = #rows > 0 and framed and not self.show_log
+    -- Left-handed touch: the roster moves under the objectives / light column on the right and the
+    -- feed steps left of that column (both follow the touch size setting).
+    local swap, ts = Controls.hud_swap(), Controls.touch_scale()
+    if self.e["Squad"] then
+        self:rect(self.e["Squad"], "sqpos", function(r)
+            if swap then
+                r.anchor_min, r.anchor_max, r.pivot = { 1, 0 }, { 1, 0 }, { 0, 0 }
+                r.position = { -240, math.floor((132 + 28) * ts + 12 + 0.5) }
+            else
+                r.anchor_min, r.anchor_max, r.pivot = { 0, 0 }, { 0, 0 }, { 0, 0 }
+                r.position = { 110, 102 }
+            end
+        end)
+    end
+    if self.e["Feed"] then
+        self:rect(self.e["Feed"], "feedpos", function(r)
+            r.position = { swap and -math.floor((56 + 30) * ts + 18 + 0.5) or -28, 110 }
+        end)
+    end
     self:vis("Squad", show_sq)
     if show_sq then
         local pp = Game.player and Game.player.world_position
@@ -584,10 +603,18 @@ function Hud:update(dt)
     local want = self.calm_t > 8 and 0.4 or 1
     self.hud_alpha = want > self.hud_alpha and math.min(want, self.hud_alpha + dt * 4) or
         math.max(want, self.hud_alpha - dt * 0.5)
-    local ha = math.floor(self.hud_alpha * 50 + 0.5) / 50
+    -- HUD opacity setting scales the ambient blocks; prompts, subtitles, cards and the reticle
+    -- (it has its own opacity setting) stay at full strength.
+    local hop = Game.clamp(s.hud_opacity or 1, 0.3, 1)
+    local ha = math.floor(self.hud_alpha * hop * 50 + 0.5) / 50
     for _, n in { "Weapon Panel", "Status Panel", "Squad" } do
         local e = self.e[n]
         if e then self:rect(e, n .. ":o", function(r) r.opacity = ha end) end
+    end
+    local hq = math.floor(hop * 50 + 0.5) / 50
+    for _, n in { "Compass", "Objective" } do
+        local e = self.e[n]
+        if e then self:rect(e, n .. ":ho", function(r) r.opacity = hq end) end
     end
 
     -- Subtitles.
@@ -651,12 +678,20 @@ function Hud:update(dt)
             end
             if e and en then
                 local bx, by = Controls.button_center(b, cw)
+                local d = math.floor(2 * Controls.radius(b) + 0.5)
                 self:rect(e, "tb:" .. b.name, function(r)
                     r.anchor_min = { 0, 0 }; r.anchor_max = { 0, 0 }
                     r.position = { math.floor(bx), math.floor(by) }
+                    r.size = { d, d }
                     local hidden = (b.name == "interact" and Game.focus == nil)
                     r.opacity = hidden and 0.25 or 1
                 end)
+                local ic = self.touch_icons[b.name]
+                if ic then
+                    local f = b.name == "fire" and 0.6 or 0.62
+                    local di = math.floor(d * f + 0.5)
+                    self:rect(ic, "tbi:" .. b.name, function(r) r.size = { di, di } end)
+                end
                 local held = Controls.state.down[b.name] == true
                 local key = "tbp:" .. b.name
                 if self.cache[key] ~= held then
@@ -677,14 +712,19 @@ function Hud:update(dt)
             end
         end
         local st = Controls.stick
-        local base = st and st.origin or vector.create(220, 470, 0)
+        local hx, hy = Controls.stick_home(cw)
+        local base = st and st.origin or vector.create(hx, hy, 0)
         local knob = st and st.knob or base
+        local ts = Controls.touch_scale()
+        local bs, ks = math.floor(200 * ts + 0.5), math.floor(84 * ts + 0.5)
         self:rect(self.e["Stick Base"], "sb", function(r)
             r.position = { math.floor(base.x), math.floor(base.y) }
+            r.size = { bs, bs }
             r.opacity = st and 1 or 0.55
         end)
         self:rect(self.e["Stick Knob"], "sk", function(r)
             r.position = { math.floor(knob.x), math.floor(knob.y) }
+            r.size = { ks, ks }
             r.opacity = st and 1 or 0.55
         end)
     end

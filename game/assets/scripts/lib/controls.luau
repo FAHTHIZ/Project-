@@ -22,7 +22,7 @@ Controls.buttons = {
     { name = "tool",     ax = 1, x = 330, y = 330, r = 38, label = "TOOL" },
     { name = "interact", ax = 1, x = 480, y = 440, r = 50, label = "USE" },
     { name = "utility",  ax = 1, x = 470, y = 590, r = 38, label = "KIT", needs = "utility" },
-    { name = "pause",    ax = 1, x = 60,  y = 56,  r = 32, label = "II" },
+    { name = "pause",    ax = 1, x = 56,  y = 56,  r = 30, label = "II" },
     { name = "objectives", ax = 0, x = 56, y = 56, r = 30, label = "OBJ" },
     { name = "light",    ax = 0, x = 56,  y = 132, r = 28, label = "LIGHT" },
 }
@@ -52,9 +52,35 @@ local function canvas_size()
 end
 Controls.canvas_size = canvas_size
 
+-- Comfort settings: the touch layout scales about its own corner (so a bigger layout never makes
+-- two buttons overlap) and mirrors left to right for left-handed play.
+local function tscale() return Game.clamp(Game.settings.touch_scale or 1, 0.8, 1.25) end
+Controls.touch_scale = tscale
+function Controls.mirrored() return Game.settings.left_handed == true end
+function Controls.radius(b) return b.r * tscale() end
+function Controls.stick_r() return Controls.stick_radius * tscale() end
+
 function Controls.button_center(b, cw)
-    local x = b.ax == 1 and (cw - b.x) or b.x
-    return x, b.y
+    local s = tscale()
+    local x, y = b.x * s, b.y
+    if y > 200 then
+        y = 720 - (720 - y) * s -- thumb cluster: scale about the bottom corner
+    else
+        y = y * s               -- pause / objectives / light: scale about the top corner
+    end
+    local ax = b.ax
+    if Controls.mirrored() then ax = 1 - ax end
+    return ax == 1 and (cw - x) or x, y
+end
+
+-- Left-handed touch puts the thumb cluster under the squad roster and the objectives / light
+-- column over the takedown feed, so the HUD moves those two blocks to the free side.
+function Controls.hud_swap() return Controls.mirrored() and Controls.show_touch() end
+
+-- Idle stick position (where the base rests until a thumb lands in the stick zone).
+function Controls.stick_home(cw)
+    local x = 220 * tscale()
+    return Controls.mirrored() and (cw - x) or x, 720 - 250 * tscale()
 end
 
 -- Buttons tied to an inventory slot (KIT) only exist while that slot holds something.
@@ -69,10 +95,11 @@ local function hit_button(cx, cy, cw)
         if not Controls.button_enabled(b) then continue end
         local bx, by = Controls.button_center(b, cw)
         local dx, dy = cx - bx, cy - by
-        if dx * dx + dy * dy <= (b.r * 1.15) ^ 2 then return b end
+        if dx * dx + dy * dy <= (Controls.radius(b) * 1.15) ^ 2 then return b end
     end
     return nil
 end
+Controls.hit_button = hit_button
 
 local function poll_touch(down)
     local n = input.touch_count()
@@ -92,7 +119,8 @@ local function poll_touch(down)
                 local b = hit_button(cx, cy, cw)
                 if b then
                     f = { role = "button", button = b.name, start = p, last = p }
-                elseif t.x < Controls.stick_zone and not Controls.stick then
+                elseif not Controls.stick and ((not Controls.mirrored() and t.x < Controls.stick_zone)
+                        or (Controls.mirrored() and t.x > 1 - Controls.stick_zone)) then
                     f = { role = "stick", start = p, last = p }
                     Controls.stick = { origin = p, knob = p }
                 else
@@ -103,7 +131,7 @@ local function poll_touch(down)
             if f.role == "stick" then
                 local d = p - f.start
                 local len = vector.magnitude(d)
-                local r = Controls.stick_radius
+                local r = Controls.stick_r()
                 if len > r then
                     -- Drag the origin along so reversing direction is immediate.
                     f.start = f.start + d * ((len - r) / len)

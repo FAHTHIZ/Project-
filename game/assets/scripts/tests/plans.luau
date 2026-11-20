@@ -123,6 +123,71 @@ Plans.hud = {
         local sub = scene.find("Subtitle")
         local h = sub and sub:get("UiRect").size[2] or 0
         c.check("hud_subtitle_plate_fits", h >= 2 * 30 + 40, string.format("plate height %d for a two-line line", h))
+        -- comfort: left-handed mirrors the cluster, a larger layout scales about its corner
+        local Controls = require("scripts/lib/controls")
+        local cw = select(1, Controls.canvas_size())
+        local fire
+        for _, b in Controls.buttons do if b.name == "fire" then fire = b end end
+        local rx = Controls.button_center(fire, cw)
+        Game.settings.left_handed = true
+        local lx = Controls.button_center(fire, cw)
+        local hx = Controls.stick_home(cw)
+        c.check("touch_left_handed", rx > cw / 2 and lx < cw / 2 and hx > cw / 2,
+            string.format("fire x %.0f -> %.0f, stick home x %.0f of %.0f", rx, lx, hx, cw))
+        Game.settings.touch_scale = 1.25
+        local worst = 99
+        for i, a in Controls.buttons do
+            for j, b in Controls.buttons do
+                if j > i then
+                    local ax, ay = Controls.button_center(a, cw)
+                    local bx, by = Controls.button_center(b, cw)
+                    local gap = math.sqrt((ax - bx) ^ 2 + (ay - by) ^ 2) - 1.15 * (Controls.radius(a) + Controls.radius(b))
+                    worst = math.min(worst, gap)
+                end
+            end
+        end
+        local fx, fy = Controls.button_center(fire, cw)
+        local hit = Controls.hit_button(fx, fy, cw)
+        c.check("touch_scale_no_overlap", worst >= 0 and hit == fire,
+            string.format("closest pair gap %.1f units at 125%%, fire hit at its centre %s", worst, tostring(hit and hit.name)))
+        Game.settings.hud_opacity = 0.5
+        c.data.tc = Game.settings.touch_controls
+        Game.settings.touch_controls = "on"
+        c.data.ts = true
+    end },
+    { at = 3.4, run = function(c)
+        local comp = scene.find("Compass")
+        local op = comp and comp:get("UiRect").opacity or -1
+        c.check("hud_opacity_setting", math.abs(op - 0.5) < 0.03, string.format("compass opacity %.2f at 50%%", op))
+        -- left-handed at 125%: no button may sit on the objective panel, roster or feed
+        local Controls = require("scripts/lib/controls")
+        local cw, chh = Controls.canvas_size()
+        local function box(name)
+            local e = scene.find(name)
+            if not e then return nil end
+            local r = e:get("UiRect")
+            local x = r.anchor_min[1] * cw + r.position[1] - r.pivot[1] * r.size[1]
+            local y = r.anchor_min[2] * chh + r.position[2] - r.pivot[2] * r.size[2]
+            return x, y, x + r.size[1], y + r.size[2]
+        end
+        local bad = {}
+        for _, n in { "Objective", "Squad", "Feed" } do
+            local x0, y0, x1, y1 = box(n)
+            if x0 then
+                for _, b in Controls.buttons do
+                    local bx, by = Controls.button_center(b, cw)
+                    local px, py = Game.clamp(bx, x0, x1), Game.clamp(by, y0, y1)
+                    if math.sqrt((bx - px) ^ 2 + (by - py) ^ 2) < Controls.radius(b) then
+                        table.insert(bad, b.name .. "/" .. n)
+                    end
+                end
+            end
+        end
+        local sx = box("Squad")
+        c.check("touch_left_handed_hud_clear", #bad == 0 and sx ~= nil and sx > cw / 2,
+            string.format("overlaps: %s; roster x %.0f of %.0f", #bad > 0 and table.concat(bad, ", ") or "none", sx or -1, cw))
+        Game.settings.touch_controls = c.data.tc or "auto"
+        Game.settings.left_handed, Game.settings.touch_scale, Game.settings.hud_opacity = false, 1.0, 1.0
     end },
 }
 
