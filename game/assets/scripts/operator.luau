@@ -197,6 +197,7 @@ function Op:on_hit(info)
         return false
     end
     self.hits += 1
+    self.hit_t = time.now()
     Game.emit("operator_hit", self.r.key)
     if self.stagger_t <= 0 then
         self.actor:trigger("stumble")
@@ -260,6 +261,11 @@ function Op:update(dt)
             self.engaged = false
             if #Squad.active_enemies() == 0 then Dialogue.bark("clear", { cooldown = 12 }) end
         end
+    end
+    -- bounding overwatch: answer a mate's "Moving!" a beat later
+    if self.cover_call_t and time.now() >= self.cover_call_t then
+        self.cover_call_t = nil
+        if self.engaged then Dialogue.bark("covering", { speaker = self.key, cooldown = 6, ttl = 2.0 }) end
     end
     -- movement
     if self.mode == "follow" then
@@ -341,6 +347,11 @@ function Op:combat_move(dt)
             self.cover_goal = nil
             self.actor:set_speed(self.r.speed)
             self.cur_speed = self.r.speed
+            if self.overwatch_by then
+                self.overwatch_by.overwatch_until = nil
+                self.overwatch_by = nil
+            end
+            if math.random() < 0.4 then Dialogue.bark("set", { speaker = self.key, cooldown = 8, ttl = 1.5 }) end
             Game.emit("squad_in_cover", self.who)
         end
         return
@@ -366,16 +377,41 @@ function Op:combat_move(dt)
     end)
     local pp = Game.player and Game.player.position or e.position
     table.insert(avoid, pp)   -- not the player's spot
+    -- one man up at a time (FM 3-21.8 bounding overwatch): wait while a mate is mid-rush, unless
+    -- rounds are landing on this one
+    local rushing = false
+    Squad.each(function(_, m) if m ~= self and m.cover_goal then rushing = true end end)
+    if rushing and now - (self.hit_t or -100) > 1.5 then
+        self.cover_check = now + 0.6
+        return
+    end
     local c = Tactics.find_cover(e.position, threat, { radius = 7, ignore = e, avoid = avoid, min_threat = 5 })
     if c and flat_dist(c, pp) < 14 then
         self.cover_goal, self.in_cover = c, nil
-        self.cover_until = now + 5
+        self.cover_until = now + 4.5   -- a 3-5 s rush: "I'm up, he sees me, I'm down"
         self.goal = c
         local sp = self.r.speed * 1.4
         self.actor:set_speed(sp)
         self.cur_speed = sp
         a:go(c)
-        Dialogue.bark("cover", { speaker = self.key, cooldown = 12, ttl = 2.5 })
+        -- the nearest engaged, set mate covers the move with faster fire
+        local by, bd = nil, 22
+        Squad.each(function(_, m)
+            if m ~= self and m.engaged and not m.cover_goal and m.mode ~= "vehicle" then
+                local d = flat_dist(m.entity.position, e.position)
+                if d < bd then by, bd = m, d end
+            end
+        end)
+        if by then
+            by.overwatch_until = now + 4.5
+            by.cover_call_t = now + 0.8
+            self.overwatch_by = by
+            Dialogue.bark("moving", { speaker = self.key, cooldown = 5, ttl = 1.5 })
+            Game.emit("squad_bound", { who = self.who, by = by.who })
+        else
+            Dialogue.bark("cover", { speaker = self.key, cooldown = 12, ttl = 2.5 })
+            Game.emit("squad_bound", { who = self.who })
+        end
     end
 end
 
@@ -391,12 +427,16 @@ function Op:fire(dt, tp, dist)
     self.burst += 1
     if self.burst >= 3 then
         self.burst = 0
-        self.fire_t = (1.0 + math.random() * 0.8) * self.r.cadence
+        if self.overwatch_until and time.now() < self.overwatch_until then
+            self.fire_t = (0.45 + math.random() * 0.3) * self.r.cadence   -- covering a mate's rush
+        else
+            self.fire_t = (1.0 + math.random() * 0.8) * self.r.cadence
+        end
     else
         self.fire_t = 0.16
     end
     if self.shots % 24 == 0 then
-        Dialogue.bark("reload", { cooldown = 10 })
+        Dialogue.bark("reload", { speaker = self.key, cooldown = 10 })
         self.fire_t = 2.2
     end
 end

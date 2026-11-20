@@ -918,7 +918,7 @@ function M:update_line(dt)
     end
     -- the end of the line: out of sight in the west woods, gone again
     for _, e in group("line") do
-        if not e.down and not e.dormant and e.state == "patrol" and e.entity.position.x < -36 then e:stow() end
+        if not e.down and not e.dormant and e.state == "patrol" and e.entity.position.x < -30 then e:stow() end
     end
     local left = 0
     for _, e in group("line") do if not e.down and not e.dormant then left += 1 end end

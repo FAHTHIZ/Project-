@@ -153,6 +153,35 @@ function Actor:steer(dt)
                     dir = vector.normalize(dir + away * (0.9 * k))
                 end
             end
+            -- stuck recovery: whiskers cannot see past a log lying square across the way (both
+            -- blocked, the turns cancel). When the body has barely moved for 0.8 s, step off to
+            -- the clearer side for about a second, then head for the goal again.
+            if self.detour_t and self.detour_t > 0 then
+                self.detour_t -= dt
+                dir = self.detour_dir
+            else
+                local v = e.velocity
+                local got = math.sqrt(v.x * v.x + v.z * v.z)
+                if speed > 0.5 and got < speed * 0.25 then
+                    self.stuck_t = (self.stuck_t or 0) + dt
+                else
+                    self.stuck_t = math.max(0, (self.stuck_t or 0) - dt * 2)
+                end
+                if self.stuck_t > 0.8 then
+                    self.stuck_t = 0
+                    local side = vector.create(-dir.z, 0, dir.x)
+                    local hl = physics.raycast(from, side, 3, nil, e)
+                    local hr = physics.raycast(from, -side, 3, nil, e)
+                    local fl = hl and hl.distance or 3
+                    local fr = hr and hr.distance or 3
+                    local s = fl >= fr and side or -side
+                    if math.abs(fl - fr) < 0.3 and math.random() < 0.5 then s = -s end
+                    self.detour_dir = vector.normalize(s - dir * 0.35)
+                    self.detour_t = 0.9 + math.random() * 0.6
+                    self.unsticks = (self.unsticks or 0) + 1
+                    dir = self.detour_dir
+                end
+            end
             want = dir * speed
         end
     end
