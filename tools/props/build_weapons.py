@@ -371,11 +371,20 @@ def hornet():
     rail(mt, -0.13, -0.21, 0.035, x=0.025, axis='side')
     rail(mt, -0.13, -0.21, 0.035, x=-0.025, axis='side')
     g.add(mk.capsule((0, 0.012, -0.175), (0, -0.07, -0.168), 0.014, 0.013, hint=(1, 0, 0)), POLY)
-    # reflex sight: base, hood, glass and a bright dot on the sight line
-    mt.add(mk.rounded_box((0, 0.085, -0.075), (0.013, 0.005, 0.022), 0.3), POLY)
-    mt.add(zloft(-0.055, -0.095, [(0, 0.017, 0.015), (1, 0.017, 0.015)], 0, 0.103, segs=18, caps=False), POLY)
-    gl.add(zloft(-0.084, -0.086, [(0, 0.0145, 0.0125), (1, 0.0145, 0.0125)], 0, 0.103, segs=18), (0.35, 0.45, 0.4))
-    d.add(mk.ellipsoid((0, 0.103, -0.087), (0.0016, 0.0016, 0.0008)), (1, 1, 1))
+    # reflex sight: low base and an open rectangular hood (no opaque glass in the eye line), a thin
+    # tinted lens rim at the front and a bright dot in the middle of the window on the sight line
+    mt.add(mk.rounded_box((0, 0.084, -0.075), (0.013, 0.004, 0.022), 0.3), POLY)
+    SL, HZ0, HZ1, WX, WY = 0.103, -0.058, -0.092, 0.0135, 0.0115
+    hz, hd = (HZ0 + HZ1) / 2, (HZ0 - HZ1) / 2
+    mt.add(mk.rounded_box((0, SL + WY + 0.002, hz), (WX + 0.004, 0.002, hd), 0.3), POLY)
+    mt.add(mk.rounded_box((0, SL - WY - 0.0015, hz), (WX + 0.004, 0.0015, hd), 0.3), POLY)
+    for sx in (-1, 1):
+        mt.add(mk.rounded_box((sx * (WX + 0.002), SL, hz), (0.002, WY + 0.002, hd), 0.3), POLY)
+    mt.add(mk.rounded_box((WX + 0.0055, SL + 0.004, hz), (0.0015, 0.003, 0.006), 0.4), METAL)
+    for sx in (-1, 1):
+        gl.add(mk.rounded_box((sx * (WX - 0.0005), SL, HZ1 + 0.001), (0.0006, WY, 0.0008), 0.2), (0.35, 0.45, 0.4))
+    gl.add(mk.rounded_box((0, SL + WY - 0.0005, HZ1 + 0.001), (WX, 0.0006, 0.0008), 0.2), (0.35, 0.45, 0.4))
+    d.add(mk.ellipsoid((0, SL, HZ1 + 0.0025), (0.0012, 0.0012, 0.0006)), (1, 1, 1))
     # pistol grip with texture bands, trigger guard
     g.add(mk.capsule((0, 0.004, 0.005), (0, -0.082, 0.03), 0.018, 0.016, squash=0.75, hint=(1, 0, 0)), POLY)
     for k in range(3):
@@ -384,8 +393,9 @@ def hornet():
     # folding wire stock (folded alongside the left of the receiver) and an end-plate
     for y in (0.03, 0.065):
         mt.add(mk.capsule((-0.033, y, 0.06), (-0.033, y, -0.08), 0.0042, 0.0042, segs=6, rings=1), METAL)
-    mt.add(mk.rounded_box((-0.033, 0.047, 0.07), (0.005, 0.03, 0.01), 0.3), METAL)
-    a.add(mk.rounded_box((0, 0.045, 0.075), (0.02, 0.026, 0.02), 0.4), POLY)
+    mt.add(mk.rounded_box((-0.033, 0.047, -0.088), (0.005, 0.026, 0.008), 0.3), METAL)
+    mt.add(mk.rounded_box((-0.03, 0.047, 0.062), (0.006, 0.026, 0.006), 0.3), METAL)
+    a.add(mk.rounded_box((0, 0.038, 0.062), (0.02, 0.02, 0.012), 0.4), POLY)
     tris = (m.solid(a, shell) + m.solid(mt, metal) + m.solid(g, grip) + m.solid(gl, glass) + m.solid(e, glow)
             + m.solid(d, dot))
     return m, tris
@@ -439,9 +449,10 @@ def ram():
     mt.add(mk.rounded_box((0, 0.088, -0.51), (0.0022, 0.009, 0.004), 0.3), METAL)
     e.add(mk.ellipsoid((0, 0.0945, -0.51), (0.0016, 0.0016, 0.001)), (1, 1, 1))
     # stock: straight polymer stock with a thick recoil pad
-    a.add(mk.rounded_box((0, 0.04, 0.15), (0.022, 0.032, 0.08), 0.4), TAN)
-    a.add(mk.rounded_box((0, 0.012, 0.11), (0.018, 0.02, 0.06), 0.4), TAN)
-    p.add(mk.rounded_box((0, 0.035, 0.245), (0.024, 0.05, 0.016), 0.5), hexc('#1c1d1e'))
+    # (comb kept well under the ghost-ring line so the stock sits below the aimed view)
+    a.add(mk.rounded_box((0, 0.024, 0.15), (0.021, 0.03, 0.08), 0.4), TAN)
+    a.add(mk.rounded_box((0, 0.0, 0.11), (0.018, 0.02, 0.06), 0.4), TAN)
+    p.add(mk.rounded_box((0, 0.012, 0.245), (0.023, 0.048, 0.016), 0.5), hexc('#1c1d1e'))
     # pistol grip, trigger guard
     a.add(mk.capsule((0, 0.004, 0.005), (0, -0.084, 0.03), 0.02, 0.018, squash=0.75, hint=(1, 0, 0)), TAN)
     a.add(mk.rounded_box((0, -0.012, -0.035), (0.007, 0.004, 0.03), 0.4), POLY)
