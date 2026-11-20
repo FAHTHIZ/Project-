@@ -676,3 +676,19 @@ Modelled on the real post-contact consolidation (ACE/LACE report: status, casual
 - `weapons.luau` `W:impact`: debris count by surface (none off metal), `W.impact_clip(on_target, surf)` alternates takes by counter (no new `math.random` draws, so NPC fights are unchanged). NPC impacts in `lib/squad.luau` use the same clip.
 - squad_cover `impact_surfaces`: PASS (stone=108, the dev range). op01_line_loud `forest_impacts`: PASS (dirt=35 stone=10 wood=73).
 - Regression: squad_cover weapons footsteps op01_line_loud stealth movement hud squad squad_combat enemy_fire reactions chatter hud_look enemy_tactics world_forest world_trail_walk op01_line: all PASS. `SOPS_TEST_FRAMES=19800` story_op01: PASS.
+
+## 2026-11-20 Interior dressing and playtime
+
+Op04–Op07 interiors were bare procedural rooms. Now they are dressed with photoscanned Poly Haven CC0 props.
+
+- Blender 4.2.3 worker `tools/assets/blender_interior.py` keeps the source materials, decimates to a budget, pivots to the base, back or top, and prints the bounds. `BLENDER=... python3 tools/assets/build_interior_props.py` produces 48 GLBs in `models/interior/ph/` and writes the bounds to `tools/levels/interior_props.json`. Poly Haven sets that contain several objects (trash cans, crates, notepads, stationery, binder) are cut down to one object with the `objects` filter, where a trailing `$` means an exact name. The modular duct, pipe and cable kits came out as short loose pieces, so I dropped them. `victus import game` ran.
+- `tools/levels/dress_interiors.py` is called from `build_facility.build_scene` after `furnish`. It places the props room by room, uses wall placement that skips door openings by a margin of 0.9 m, and puts clutter on desks and benches. It adds Venn's radio desk in the Op05 Stores, the vault paperwork in the Op06 manager office, and Op07 workstations on the east wall, leaving the chair and V-01 untouched. Room totals: Op04 118 props, 115k tris; Op05 60 props, 59k tris; Op06 66 props, 79k tris; Op07 29 props, 35k tris. Large props get static box colliders. `python3 tools/levels/build_facility.py --scenes` is deterministic (two runs give identical hashes) and leaves the shell and kit GLBs unchanged.
+- `victus check game`: 0 problems.
+- Story runs, each PASS with 0 script errors:
+  - `SOPS_TEST_FRAMES=12100 story_op04`
+  - `15700 story_op05`
+  - `14500 story_op06`
+  - `13300 story_op07`
+- Regressions squad, squad_combat and enemy_fire: all PASS.
+- Renders: `docs/media/interior_offices.png` and `docs/media/interior_stores.png`.
+- Playtime: `story_plan` prints `STORY_TIMING` (total seconds, waypoint metres and stage start times). The figures are in `docs/world/PLAYTIME.md`: Op04 139 s, Op05 173 s, Op06 108 s, Op07 118 s, epilogue 76 s, Op01–Op03 about 330 s, prologue about 260 s. That is roughly 20 min of scripted floor, which I estimate at 30–40 min for a first real playthrough.

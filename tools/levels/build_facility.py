@@ -47,6 +47,7 @@ from vscene import Scene, transform, script, collider, body, quat_euler  # noqa:
 import common  # noqa: E402
 import rig  # noqa: E402
 import actors  # noqa: E402
+import dress_interiors  # noqa: E402
 
 GAME = ROOT / 'game'
 ASSETS = GAME / 'assets'
@@ -967,6 +968,7 @@ def build_scene(key):
         light_room(sc, r, lights, group)
         add_room_audio(sc, r)
     furnish(sc, lv)
+    dress_interiors.dress(sc, lv)
     add_doors(sc, lv)
     add_signs(sc, lv)
     for name, spec in MARKS[key].items():
