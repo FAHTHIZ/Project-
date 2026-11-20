@@ -992,3 +992,7 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Bug found by playing the campaign: resuming any checkpoint threw `kestrel.luau:37: attempt to index vector with '1'` (VICTUS returns saved three-number arrays as vectors; `vec()` in kestrel.luau and facility.luau only accepted tables), so continue/restart-from-checkpoint was broken for every chapter.
 - Fix: `vec()` passes vectors through. New `tools/test/tour.py` (play / restore / shoot / sheet).
 - Verified: `tour.py play` produced 35 checkpoint saves across all chapters (story autotests, 20000 frames); `tour.py restore` resumed each one for 240 headless frames: 35/35 ok, 0 script errors (before the fix: script error on op01 cp00).
+
+## Weapon torch mount: no more white support glove (2026-11-20)
+- Found in the campaign tour: the left glove rendered as a blown-out white blob in every night chapter. Cause: the scenes mount `Weapon Light` (spot, intensity 18) at 0.25 m in front of the camera, behind the support hand, so the beam hit the glove from ~20 cm.
+- Fix: fp_player.luau moves the torch to the rail ahead of the hand (0.11, -0.12, -0.8). Before/after (op01 trail checkpoint, 768x336 medium, lavapipe, 60 frames): docs/media/torch_mount_before_after.jpg — glove now dark olive, beam reaches the trail. 0 script errors.
