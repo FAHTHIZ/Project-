@@ -363,7 +363,7 @@
      "properties": {
       "min_gap": 14.0,
       "max_gap": 34.0,
-      "first": 4.0,
+      "first": 10.6,
       "volume": 0.7
      }
     }
@@ -440,6 +440,48 @@
      "cast_shadows": true,
      "visible": true,
      "primitive": "cube"
+    },
+    "Collider": {
+     "shape": "box",
+     "size": [
+      1,
+      1,
+      1
+     ],
+     "radius": 0.5,
+     "height": 1.0,
+     "offset": [
+      0,
+      0,
+      0
+     ],
+     "friction": 0.6,
+     "restitution": 0,
+     "is_trigger": false,
+     "layer": 0,
+     "mask": 65535,
+     "mesh_asset": null,
+     "mesh_index": 0
+    },
+    "RigidBody": {
+     "type": "static",
+     "mass": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.05,
+     "gravity_scale": 1,
+     "continuous": false,
+     "lock_rotation": false,
+     "start_awake": true,
+     "linear_velocity": [
+      0,
+      0,
+      0
+     ],
+     "angular_velocity": [
+      0,
+      0,
+      0
+     ]
     }
    }
   },
@@ -8240,6 +8282,4609 @@
    }
   },
   {
+   "uuid": "d4d61dc6-0403-52c0-86cd-e6ad226ab4a1",
+   "name": "Anchor",
+   "components": {
+    "Transform": {
+     "position": [
+      1.1,
+      0.0,
+      -3.2
+     ],
+     "rotation": [
+      0.0,
+      0.9902681,
+      0.0,
+      -0.1391731
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "CharacterController": {
+     "radius": 0.3,
+     "height": 1.76,
+     "max_slope": 48,
+     "step_height": 0.36,
+     "gravity_scale": 1,
+     "mass": 75,
+     "push_force": 60,
+     "air_control": 0.3,
+     "layer": 0,
+     "mask": 65535
+    },
+    "NavAgent": {
+     "speed": 3.6,
+     "acceleration": 9.0,
+     "radius": 0.35,
+     "height": 1.76,
+     "stopping_distance": 0.35,
+     "avoidance": true,
+     "rotate": false,
+     "turn_speed": 360
+    },
+    "Perceptible": {
+     "team": 1,
+     "height": 1.45,
+     "enabled": true
+    },
+    "Tags": {
+     "tags": "Squad Operator"
+    },
+    "Script": {
+     "script": "scripts/operator.luau",
+     "enabled": true,
+     "properties": {
+      "order": "hold",
+      "engage": false,
+      "who": "Anchor",
+      "role": "lead"
+     }
+    },
+    "Perception": {
+     "sight_range": 30,
+     "fov": 150,
+     "eye_height": 1.6,
+     "hearing_range": 18,
+     "memory": 4,
+     "target_mask": 2,
+     "occlusion_mask": 65535,
+     "line_of_sight": true,
+     "target_key": "target"
+    }
+   }
+  },
+  {
+   "uuid": "de8c22c4-f948-5887-96ba-dcc432691132",
+   "name": "Voice",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "AudioSource": {
+     "clip": "",
+     "bus": "voice",
+     "volume": 1.0,
+     "pitch": 1.0,
+     "loop": false,
+     "play_on_start": false,
+     "stream": false,
+     "spatial": true,
+     "attenuation": "inverse",
+     "min_distance": 2.0,
+     "max_distance": 40.0,
+     "rolloff": 1.0,
+     "priority": 230,
+     "occlusion": false
+    }
+   },
+   "parent": "d4d61dc6-0403-52c0-86cd-e6ad226ab4a1"
+  },
+  {
+   "uuid": "816ac258-a952-52fa-ba2c-8b9c130999b8",
+   "name": "Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Animator": {
+     "model": "c5981b4b-857d-4afa-be3f-13f390b8582e",
+     "clip_source": null,
+     "clip": "Idle",
+     "controller": "anim/characters/human.vanim",
+     "playing": true,
+     "loop": true,
+     "speed": 1,
+     "crossfade": 0.2,
+     "time": 0,
+     "apply_root_motion": false
+    }
+   },
+   "parent": "d4d61dc6-0403-52c0-86cd-e6ad226ab4a1"
+  },
+  {
+   "uuid": "c21dffb3-2e31-5204-9380-ebdaaa0e7a6f",
+   "name": "Anchor",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "816ac258-a952-52fa-ba2c-8b9c130999b8"
+  },
+  {
+   "uuid": "c6820c8f-1cee-543d-905f-f6aa18637886",
+   "name": "Socket.Root",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c21dffb3-2e31-5204-9380-ebdaaa0e7a6f"
+  },
+  {
+   "uuid": "dc332d40-077f-50ec-b385-744c2d107acb",
+   "name": "Anchor_Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "c5981b4b-857d-4afa-be3f-13f390b8582e",
+     "mesh_index": 1
+    },
+    "SkinnedMesh": {
+     "skeleton": "816ac258-a952-52fa-ba2c-8b9c130999b8",
+     "skin": 0
+    }
+   },
+   "parent": "c21dffb3-2e31-5204-9380-ebdaaa0e7a6f"
+  },
+  {
+   "uuid": "0ff05406-b1ed-586b-b981-e4c5d982fb5f",
+   "name": "Anchor_Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "c5981b4b-857d-4afa-be3f-13f390b8582e",
+     "mesh_index": 0
+    },
+    "SkinnedMesh": {
+     "skeleton": "816ac258-a952-52fa-ba2c-8b9c130999b8",
+     "skin": 0
+    }
+   },
+   "parent": "c21dffb3-2e31-5204-9380-ebdaaa0e7a6f"
+  },
+  {
+   "uuid": "60bfa41d-e9fe-513f-80c9-55eba341f5ff",
+   "name": "Hips",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.8491434955511497e-25,
+      0.9098358750343323,
+      -2.7097638022333115e-10
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c21dffb3-2e31-5204-9380-ebdaaa0e7a6f"
+  },
+  {
+   "uuid": "8474bbbe-b394-5896-8b11-1c19b1197950",
+   "name": "Spine",
+   "components": {
+    "Transform": {
+     "position": [
+      1.6451743078960135e-07,
+      0.1202593445777893,
+      -0.001628409101666256
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "60bfa41d-e9fe-513f-80c9-55eba341f5ff"
+  },
+  {
+   "uuid": "c355b526-d3de-59ff-8dc0-0763466f2c91",
+   "name": "Chest",
+   "components": {
+    "Transform": {
+     "position": [
+      3.836930773104541e-13,
+      0.3063160181045532,
+      4.6566128730773926e-09
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8474bbbe-b394-5896-8b11-1c19b1197950"
+  },
+  {
+   "uuid": "a8196273-acbd-5f4c-819a-f7129bb32b39",
+   "name": "Neck",
+   "components": {
+    "Transform": {
+     "position": [
+      1.1368683772161603e-13,
+      0.19975459575653076,
+      2.1187588572502136e-08
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c355b526-d3de-59ff-8dc0-0763466f2c91"
+  },
+  {
+   "uuid": "5e8fa0a1-77b0-5608-966f-2f0872f39800",
+   "name": "Head",
+   "components": {
+    "Transform": {
+     "position": [
+      4.263256414560601e-14,
+      0.06926512718200684,
+      6.51925802230835e-09
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "look_at",
+     "enabled": true,
+     "weight": 0.0,
+     "chain_length": 1,
+     "aim_axis": [
+      0,
+      0,
+      1
+     ],
+     "max_angle": 65,
+     "target_position": [
+      0,
+      1.6,
+      10
+     ]
+    }
+   },
+   "parent": "a8196273-acbd-5f4c-819a-f7129bb32b39"
+  },
+  {
+   "uuid": "cc622bd7-b639-5c34-bfb7-39b53e5921f5",
+   "name": "Socket.Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.1950000524520874,
+      0.0
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5e8fa0a1-77b0-5608-966f-2f0872f39800"
+  },
+  {
+   "uuid": "bba32aaa-2f76-5911-aff7-e683e3de0bac",
+   "name": "Shoulder.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.07282187729174439,
+      0.13768911361694336,
+      0.007088393205776811
+     ],
+     "rotation": [
+      -0.5,
+      -0.5,
+      -0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "c355b526-d3de-59ff-8dc0-0763466f2c91"
+  },
+  {
+   "uuid": "ef300491-af29-5613-8231-35b80ca6a6ea",
+   "name": "UpperArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      8.847564458847046e-09,
+      0.14076732844114304,
+      -0.009384632110595703
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      -0.3830222487449646,
+      0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "bba32aaa-2f76-5911-aff7-e683e3de0bac"
+  },
+  {
+   "uuid": "10309bef-aafc-5e9f-be6b-cedda214fcb9",
+   "name": "LowerArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      7.3114228118237875e-09,
+      0.28580155435227145,
+      4.453077060316283e-08
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      -4.470348358154297e-08,
+      3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ef300491-af29-5613-8231-35b80ca6a6ea"
+  },
+  {
+   "uuid": "aa520b93-9636-53a0-9088-9188c2c6c3bb",
+   "name": "Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.7012999641784137e-08,
+      0.27091973290044363,
+      3.863538211715683e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      4.470348358154297e-08,
+      3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "c1fbc11b-d0f4-52c6-bdff-9a97bcc3fa19",
+     "pole": "004625fc-8f40-53a2-adf8-f30aeb669b40",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "10309bef-aafc-5e9f-be6b-cedda214fcb9"
+  },
+  {
+   "uuid": "4ff3d2e9-0b99-5adc-857b-5bcba5b2edbe",
+   "name": "Socket.Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      0.32139384746551514,
+      0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "aa520b93-9636-53a0-9088-9188c2c6c3bb"
+  },
+  {
+   "uuid": "89327ec7-32ac-57f6-9f20-314a4f12c110",
+   "name": "Shoulder.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.07282187105124649,
+      0.1376892328262329,
+      0.0070885971654206514
+     ],
+     "rotation": [
+      -0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "c355b526-d3de-59ff-8dc0-0763466f2c91"
+  },
+  {
+   "uuid": "d39435d5-f79b-5bbc-ab9b-0acb8a78a447",
+   "name": "UpperArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -1.1641532182693481e-08,
+      0.14076727628707886,
+      -0.009384512901306152
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      0.3830222487449646,
+      -0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "89327ec7-32ac-57f6-9f20-314a4f12c110"
+  },
+  {
+   "uuid": "35d20232-dbf0-5b22-8fe1-7b5749550a0e",
+   "name": "LowerArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      3.856967561430109e-08,
+      0.2858014968825851,
+      -7.341346259709943e-09
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      4.470348358154297e-08,
+      -3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d39435d5-f79b-5bbc-ab9b-0acb8a78a447"
+  },
+  {
+   "uuid": "ed6fc968-9716-5af4-97c5-910d12dc1614",
+   "name": "Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      4.45545296303393e-08,
+      0.2709195649545773,
+      3.668171886396757e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      -4.470348358154297e-08,
+      -3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "da96bec0-685b-57b2-9967-e6aeca169559",
+     "pole": "1a621b9c-aaa0-5189-8269-474146037a08",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "35d20232-dbf0-5b22-8fe1-7b5749550a0e"
+  },
+  {
+   "uuid": "7ef013fd-a12a-5575-9b20-e7ffba8657fa",
+   "name": "Socket.Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      -0.32139384746551514,
+      -0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "ed6fc968-9716-5af4-97c5-910d12dc1614"
+  },
+  {
+   "uuid": "b0a211a1-534e-5f44-9ee7-a6f000ceea4a",
+   "name": "Socket.Back",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.16000008583068848,
+      -0.1599999964237213
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c355b526-d3de-59ff-8dc0-0763466f2c91"
+  },
+  {
+   "uuid": "7ed4b792-fc94-5ce1-9475-0d252671da69",
+   "name": "UpperLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.08836863189935684,
+      0.0001131892204284668,
+      -0.007093069803939506
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "60bfa41d-e9fe-513f-80c9-55eba341f5ff"
+  },
+  {
+   "uuid": "c4f298fc-5490-51ba-9667-66c2f56dcf7d",
+   "name": "LowerLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -1.490116147881342e-08,
+      0.39903551340103166,
+      -3.2596277084532775e-09
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7ed4b792-fc94-5ce1-9475-0d252671da69"
+  },
+  {
+   "uuid": "f4e99f69-0782-52ab-a405-ba70f32218c9",
+   "name": "Foot.L",
+   "components": {
+    "Transform": {
+     "position": [
+      7.450580596923828e-09,
+      0.39668889343738556,
+      2.9336661100387573e-08
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c4f298fc-5490-51ba-9667-66c2f56dcf7d"
+  },
+  {
+   "uuid": "0467b723-6926-5ecf-9142-54f540ae41d2",
+   "name": "Toe.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.17001159432732105,
+      5.4894458340337946e-08
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "f4e99f69-0782-52ab-a405-ba70f32218c9"
+  },
+  {
+   "uuid": "835cd07c-f942-56f9-8f2a-e005596bbff9",
+   "name": "UpperLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.08836832642555237,
+      0.0001131892204284668,
+      -0.007092826728747531
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "60bfa41d-e9fe-513f-80c9-55eba341f5ff"
+  },
+  {
+   "uuid": "a5058e3f-0337-595f-9fcb-9342a9004d44",
+   "name": "LowerLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -7.450581166855438e-09,
+      0.3990354537963869,
+      -6.5192573709578836e-09
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "835cd07c-f942-56f9-8f2a-e005596bbff9"
+  },
+  {
+   "uuid": "b26a50d5-d8a1-5e20-9851-5d2905756a69",
+   "name": "Foot.R",
+   "components": {
+    "Transform": {
+     "position": [
+      1.4901161193847656e-08,
+      0.3966888338327408,
+      4.6100467443466187e-08
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a5058e3f-0337-595f-9fcb-9342a9004d44"
+  },
+  {
+   "uuid": "575284aa-bd4c-5ecc-9b16-c1282475f0b5",
+   "name": "Toe.R",
+   "components": {
+    "Transform": {
+     "position": [
+      2.2351741790771484e-08,
+      0.1700115622568078,
+      4.289696792855465e-09
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "b26a50d5-d8a1-5e20-9851-5d2905756a69"
+  },
+  {
+   "uuid": "8aa46007-d89e-5677-b6ab-6bbf8947426c",
+   "name": "Carry",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.07,
+      1.14,
+      0.27
+     ],
+     "rotation": [
+      0.079843,
+      0.9137288,
+      0.3325701,
+      -0.2193669
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "816ac258-a952-52fa-ba2c-8b9c130999b8"
+  },
+  {
+   "uuid": "a1e5cb63-b41c-51c9-949b-610a51e0f006",
+   "name": "Carry Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8aa46007-d89e-5677-b6ab-6bbf8947426c"
+  },
+  {
+   "uuid": "5f7d7166-747e-567b-aecd-abebf72c39c8",
+   "name": "Carry Body[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "a504589b-b76b-5758-a791-a365f5b7c56a",
+   "name": "Carry Body[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "ae97d4e3-aa9f-5903-8dee-7df07269217e",
+   "name": "Carry Body[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "bd49685c-954f-54f3-bbc6-a7f1fe84ba5f",
+   "name": "Carry Body[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "cdd8d757-4a28-5383-8287-afa70810a9ef",
+   "name": "Carry Body[4]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 4
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "52c74470-32d9-5f20-8db3-9951adc050cf",
+   "name": "Carry Body[5]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 5
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "f4577293-8c1b-57ec-8de2-13294bbc49ca",
+   "name": "Carry Body[6]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 6
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "c1ef01b6-96c2-5177-928c-dad4f83d6365",
+   "name": "Carry Body[7]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 7
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "d1f6057a-fb40-5394-8d82-f9936afc6909",
+   "name": "Carry Body[8]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "9e8fdb38-2a27-4e06-affd-7cf8c48627a3",
+     "mesh_index": 8
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a1e5cb63-b41c-51c9-949b-610a51e0f006"
+  },
+  {
+   "uuid": "9bb4d0ac-417a-5fa8-9f97-794ac595d010",
+   "name": "Carry Part 1",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8aa46007-d89e-5677-b6ab-6bbf8947426c"
+  },
+  {
+   "uuid": "b0e10eea-cb2c-5660-82fb-5d30f562c7fe",
+   "name": "Carry Part 1[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9bb4d0ac-417a-5fa8-9f97-794ac595d010"
+  },
+  {
+   "uuid": "34f6ede7-f303-5c0d-8097-970de87ea342",
+   "name": "Carry Part 1[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9bb4d0ac-417a-5fa8-9f97-794ac595d010"
+  },
+  {
+   "uuid": "3b7692ee-bf3d-5be5-b8c0-1f3ca4ac8d92",
+   "name": "Carry Part 1[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "bb7ae1e3-31a4-41da-bf22-8bdf0d7e8ac7",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9bb4d0ac-417a-5fa8-9f97-794ac595d010"
+  },
+  {
+   "uuid": "da96bec0-685b-57b2-9967-e6aeca169559",
+   "name": "Grip R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -0.035,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8aa46007-d89e-5677-b6ab-6bbf8947426c"
+  },
+  {
+   "uuid": "c1fbc11b-d0f4-52c6-bdff-9a97bcc3fa19",
+   "name": "Grip L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.012,
+      -0.05,
+      -0.12
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8aa46007-d89e-5677-b6ab-6bbf8947426c"
+  },
+  {
+   "uuid": "73de2f74-1789-5fcc-9bbc-f9602e34670d",
+   "name": "Carry Muzzle",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.045,
+      -0.52
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8aa46007-d89e-5677-b6ab-6bbf8947426c"
+  },
+  {
+   "uuid": "a163860e-ae54-5227-aff1-d286597abded",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "8aa46007-d89e-5677-b6ab-6bbf8947426c"
+  },
+  {
+   "uuid": "1a621b9c-aaa0-5189-8269-474146037a08",
+   "name": "Pole R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.45,
+      -0.3,
+      -0.15
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c355b526-d3de-59ff-8dc0-0763466f2c91"
+  },
+  {
+   "uuid": "004625fc-8f40-53a2-adf8-f30aeb669b40",
+   "name": "Pole L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.4,
+      -0.35,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c355b526-d3de-59ff-8dc0-0763466f2c91"
+  },
+  {
+   "uuid": "21c9443f-3913-5dde-ba41-cae4611a7623",
+   "name": "Echo",
+   "components": {
+    "Transform": {
+     "position": [
+      2.5,
+      0.0,
+      -4.4
+     ],
+     "rotation": [
+      0.0,
+      0.9975641,
+      0.0,
+      0.0697565
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "CharacterController": {
+     "radius": 0.3,
+     "height": 1.76,
+     "max_slope": 48,
+     "step_height": 0.36,
+     "gravity_scale": 1,
+     "mass": 75,
+     "push_force": 60,
+     "air_control": 0.3,
+     "layer": 0,
+     "mask": 65535
+    },
+    "NavAgent": {
+     "speed": 3.6,
+     "acceleration": 9.0,
+     "radius": 0.35,
+     "height": 1.76,
+     "stopping_distance": 0.35,
+     "avoidance": true,
+     "rotate": false,
+     "turn_speed": 360
+    },
+    "Perceptible": {
+     "team": 1,
+     "height": 1.45,
+     "enabled": true
+    },
+    "Tags": {
+     "tags": "Squad Operator"
+    },
+    "Script": {
+     "script": "scripts/operator.luau",
+     "enabled": true,
+     "properties": {
+      "order": "hold",
+      "engage": false,
+      "who": "Echo",
+      "role": "scout"
+     }
+    },
+    "Perception": {
+     "sight_range": 30,
+     "fov": 150,
+     "eye_height": 1.6,
+     "hearing_range": 18,
+     "memory": 4,
+     "target_mask": 2,
+     "occlusion_mask": 65535,
+     "line_of_sight": true,
+     "target_key": "target"
+    }
+   }
+  },
+  {
+   "uuid": "465e24c4-1eec-5505-a188-9250f1e164f1",
+   "name": "Voice",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "AudioSource": {
+     "clip": "",
+     "bus": "voice",
+     "volume": 1.0,
+     "pitch": 1.0,
+     "loop": false,
+     "play_on_start": false,
+     "stream": false,
+     "spatial": true,
+     "attenuation": "inverse",
+     "min_distance": 2.0,
+     "max_distance": 40.0,
+     "rolloff": 1.0,
+     "priority": 230,
+     "occlusion": false
+    }
+   },
+   "parent": "21c9443f-3913-5dde-ba41-cae4611a7623"
+  },
+  {
+   "uuid": "65126a0b-2b84-5876-b529-e79787e078be",
+   "name": "Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Animator": {
+     "model": "726c7b3c-db18-43a1-8513-aeb39b0cd493",
+     "clip_source": null,
+     "clip": "Idle",
+     "controller": "anim/characters/human.vanim",
+     "playing": true,
+     "loop": true,
+     "speed": 1,
+     "crossfade": 0.2,
+     "time": 0,
+     "apply_root_motion": false
+    }
+   },
+   "parent": "21c9443f-3913-5dde-ba41-cae4611a7623"
+  },
+  {
+   "uuid": "680c5ce4-cc47-5bc1-8ae4-9b3a072cc95e",
+   "name": "Echo",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "65126a0b-2b84-5876-b529-e79787e078be"
+  },
+  {
+   "uuid": "0893fa2c-ebae-5eea-b000-245eb326df51",
+   "name": "Socket.Root",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "680c5ce4-cc47-5bc1-8ae4-9b3a072cc95e"
+  },
+  {
+   "uuid": "ce200e51-ea16-530c-a8cc-d6499307c754",
+   "name": "Echo_Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "726c7b3c-db18-43a1-8513-aeb39b0cd493",
+     "mesh_index": 1
+    },
+    "SkinnedMesh": {
+     "skeleton": "65126a0b-2b84-5876-b529-e79787e078be",
+     "skin": 0
+    }
+   },
+   "parent": "680c5ce4-cc47-5bc1-8ae4-9b3a072cc95e"
+  },
+  {
+   "uuid": "3d6e9add-dca6-5b7a-b07b-086d211916a7",
+   "name": "Echo_Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "726c7b3c-db18-43a1-8513-aeb39b0cd493",
+     "mesh_index": 0
+    },
+    "SkinnedMesh": {
+     "skeleton": "65126a0b-2b84-5876-b529-e79787e078be",
+     "skin": 0
+    }
+   },
+   "parent": "680c5ce4-cc47-5bc1-8ae4-9b3a072cc95e"
+  },
+  {
+   "uuid": "5bd20562-8888-5c97-ac22-7ead56ea4acc",
+   "name": "Hips",
+   "components": {
+    "Transform": {
+     "position": [
+      -6.93900942484965e-20,
+      0.9391892552375793,
+      -8.326671464597271e-19
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "680c5ce4-cc47-5bc1-8ae4-9b3a072cc95e"
+  },
+  {
+   "uuid": "928fb25a-5670-5465-903b-bd9073625930",
+   "name": "Spine",
+   "components": {
+    "Transform": {
+     "position": [
+      1.6455371110175864e-07,
+      0.12026280164718628,
+      -0.0016053592553362242
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5bd20562-8888-5c97-ac22-7ead56ea4acc"
+  },
+  {
+   "uuid": "45918d70-918f-58f5-aefd-5222f8f07ad3",
+   "name": "Chest",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.842170943040401e-14,
+      0.24577593803405762,
+      -4.656612873077393e-10
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "928fb25a-5670-5465-903b-bd9073625930"
+  },
+  {
+   "uuid": "5387149e-cf5c-5b41-a371-bb388947c393",
+   "name": "Neck",
+   "components": {
+    "Transform": {
+     "position": [
+      -4.263256414560601e-14,
+      0.17366361618041992,
+      5.634501576423645e-08
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "45918d70-918f-58f5-aefd-5222f8f07ad3"
+  },
+  {
+   "uuid": "74dedcc9-2793-5427-9731-898efb12cc16",
+   "name": "Head",
+   "components": {
+    "Transform": {
+     "position": [
+      1.4210854715202004e-14,
+      0.07030057907104492,
+      4.6566128730773926e-09
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "look_at",
+     "enabled": true,
+     "weight": 0.0,
+     "chain_length": 1,
+     "aim_axis": [
+      0,
+      0,
+      1
+     ],
+     "max_angle": 65,
+     "target_position": [
+      0,
+      1.6,
+      10
+     ]
+    }
+   },
+   "parent": "5387149e-cf5c-5b41-a371-bb388947c393"
+  },
+  {
+   "uuid": "43f6d90d-8586-5c00-87b8-3840a2d364ba",
+   "name": "Socket.Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.1950000524520874,
+      0.0
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "74dedcc9-2793-5427-9731-898efb12cc16"
+  },
+  {
+   "uuid": "cc106773-1232-5876-89ed-11df46ab1685",
+   "name": "Shoulder.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.07650486315770877,
+      0.12735283374786377,
+      0.02646205748897046
+     ],
+     "rotation": [
+      -0.5,
+      -0.5,
+      -0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "45918d70-918f-58f5-aefd-5222f8f07ad3"
+  },
+  {
+   "uuid": "1014652e-2f3d-5c2f-a503-81daefea3740",
+   "name": "UpperArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -1.862645149230957e-09,
+      0.09816794842481613,
+      -0.00654447078704834
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      -0.3830222487449646,
+      0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "cc106773-1232-5876-89ed-11df46ab1685"
+  },
+  {
+   "uuid": "436c40a6-ee66-58d2-93b0-fd2a4284ee0e",
+   "name": "LowerArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      2.8823395865544998e-08,
+      0.252676998183873,
+      3.315424067903288e-08
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      -4.470348358154297e-08,
+      3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "1014652e-2f3d-5c2f-a503-81daefea3740"
+  },
+  {
+   "uuid": "d1bd460a-a201-5cf1-ba9b-c16d59467c41",
+   "name": "Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.4805699983298167e-09,
+      0.2401579296432063,
+      6.616726418281274e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      4.470348358154297e-08,
+      3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "067d38d7-1702-5fb8-bcb1-91ad5a05871f",
+     "pole": "9ecd8eab-8126-57ba-b100-12c10030f8ac",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "436c40a6-ee66-58d2-93b0-fd2a4284ee0e"
+  },
+  {
+   "uuid": "f8567b9b-4bc6-5c3e-b30e-1c4f49d7b7fa",
+   "name": "Socket.Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      0.32139384746551514,
+      0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d1bd460a-a201-5cf1-ba9b-c16d59467c41"
+  },
+  {
+   "uuid": "fe1572e7-3b13-586c-9b2f-179931ac107e",
+   "name": "Shoulder.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.0765050209017204,
+      0.12735295295715332,
+      0.02646224934142083
+     ],
+     "rotation": [
+      -0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "45918d70-918f-58f5-aefd-5222f8f07ad3"
+  },
+  {
+   "uuid": "dadce6f2-49c9-59f7-a067-a4ab63070cd3",
+   "name": "UpperArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.2351741790771484e-08,
+      0.09816791117191315,
+      -0.006544589996337891
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      0.3830222487449646,
+      -0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "fe1572e7-3b13-586c-9b2f-179931ac107e"
+  },
+  {
+   "uuid": "d521862c-bd0e-5961-beb9-8e62aef9dc01",
+   "name": "LowerArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      6.197838801621754e-08,
+      0.25267721913623414,
+      -2.6016914515775742e-08
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      4.470348358154297e-08,
+      -3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dadce6f2-49c9-59f7-a067-a4ab63070cd3"
+  },
+  {
+   "uuid": "e477ab12-6ee5-5e78-b2da-1fdcd69e8bf8",
+   "name": "Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      6.072425024140908e-09,
+      0.24015792964320617,
+      7.044787162114881e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      -4.470348358154297e-08,
+      -3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "7a50366f-ec39-504f-8ac4-059ae95d8946",
+     "pole": "eeab89e2-4741-5a83-868d-422b3504043c",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "d521862c-bd0e-5961-beb9-8e62aef9dc01"
+  },
+  {
+   "uuid": "c7db0f42-5041-501a-8910-117165655164",
+   "name": "Socket.Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      -0.32139384746551514,
+      -0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e477ab12-6ee5-5e78-b2da-1fdcd69e8bf8"
+  },
+  {
+   "uuid": "3c630000-f500-5ad7-b850-22613795e748",
+   "name": "Socket.Back",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.16000008583068848,
+      -0.1599999964237213
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "45918d70-918f-58f5-aefd-5222f8f07ad3"
+  },
+  {
+   "uuid": "2c4ca28e-740f-51a0-87ed-462ed62dcb2c",
+   "name": "UpperLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.08836860954761505,
+      0.0001512765884399414,
+      -0.007845097221434116
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5bd20562-8888-5c97-ac22-7ead56ea4acc"
+  },
+  {
+   "uuid": "655d2543-d267-57aa-918c-c9c0d4d52b9b",
+   "name": "LowerLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -1.490116314789893e-08,
+      0.42605984210968034,
+      -2.235174048807052e-08
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2c4ca28e-740f-51a0-87ed-462ed62dcb2c"
+  },
+  {
+   "uuid": "59b9dac9-b576-56b7-9153-2c4590b9d5d4",
+   "name": "Foot.L",
+   "components": {
+    "Transform": {
+     "position": [
+      2.2351741790771484e-08,
+      0.4004541039466858,
+      -1.0244548320770264e-08
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "655d2543-d267-57aa-918c-c9c0d4d52b9b"
+  },
+  {
+   "uuid": "260b7048-25db-5b30-aac2-f957dab579c3",
+   "name": "Toe.L",
+   "components": {
+    "Transform": {
+     "position": [
+      7.450580596923828e-09,
+      0.16678421488743378,
+      -9.809151300315037e-09
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "59b9dac9-b576-56b7-9153-2c4590b9d5d4"
+  },
+  {
+   "uuid": "5fd532be-e1c0-5349-bdb9-d07bcf0ad2a7",
+   "name": "UpperLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.08836830407381058,
+      0.0001512765884399414,
+      -0.007844854146242142
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5bd20562-8888-5c97-ac22-7ead56ea4acc"
+  },
+  {
+   "uuid": "e86c3768-5d4b-53e0-9711-0932244bd165",
+   "name": "LowerLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      7.45057937564172e-09,
+      0.4260599017143251,
+      -1.3969839270582571e-08
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5fd532be-e1c0-5349-bdb9-d07bcf0ad2a7"
+  },
+  {
+   "uuid": "00ac4239-46bd-5d7e-8700-948a36f36a8c",
+   "name": "Foot.R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.4004543423652649,
+      0.0
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e86c3768-5d4b-53e0-9711-0932244bd165"
+  },
+  {
+   "uuid": "06da8dfc-67f3-5d11-9b2b-35d9e72e0041",
+   "name": "Toe.R",
+   "components": {
+    "Transform": {
+     "position": [
+      7.450580596923828e-09,
+      0.1667843073504559,
+      -5.60406720526168e-08
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "00ac4239-46bd-5d7e-8700-948a36f36a8c"
+  },
+  {
+   "uuid": "c2c85171-9d61-5071-980f-fb5819866fdc",
+   "name": "Carry",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.07,
+      1.14,
+      0.27
+     ],
+     "rotation": [
+      0.079843,
+      0.9137288,
+      0.3325701,
+      -0.2193669
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "65126a0b-2b84-5876-b529-e79787e078be"
+  },
+  {
+   "uuid": "644c1ea1-5d41-5e03-8b03-ef773d26b1a4",
+   "name": "Carry Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c2c85171-9d61-5071-980f-fb5819866fdc"
+  },
+  {
+   "uuid": "b7709863-057f-5c13-bd5f-d2f6d2e7eda9",
+   "name": "Carry Body[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "644c1ea1-5d41-5e03-8b03-ef773d26b1a4"
+  },
+  {
+   "uuid": "bcd708e6-6be5-530e-883a-d30cd26ae4d1",
+   "name": "Carry Body[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "644c1ea1-5d41-5e03-8b03-ef773d26b1a4"
+  },
+  {
+   "uuid": "3e279ab0-3edd-55df-9f13-0e3c7af43969",
+   "name": "Carry Body[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "644c1ea1-5d41-5e03-8b03-ef773d26b1a4"
+  },
+  {
+   "uuid": "68be9b20-f34b-53e1-a9d5-746b1a3982b3",
+   "name": "Carry Body[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "644c1ea1-5d41-5e03-8b03-ef773d26b1a4"
+  },
+  {
+   "uuid": "b2ec570b-e020-5e24-bca7-60e87e69e8a1",
+   "name": "Carry Body[4]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "2b5914b1-a57e-48b2-946e-01f3beeac870",
+     "mesh_index": 4
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "644c1ea1-5d41-5e03-8b03-ef773d26b1a4"
+  },
+  {
+   "uuid": "889a3f05-fe8d-5204-978a-5399794f110a",
+   "name": "Carry Part 1",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c2c85171-9d61-5071-980f-fb5819866fdc"
+  },
+  {
+   "uuid": "85a93ef9-95fa-566e-b6f2-b2fab52de369",
+   "name": "Carry Part 1[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "2d5d0b10-373e-4868-8d31-822051e50b18",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a3f05-fe8d-5204-978a-5399794f110a"
+  },
+  {
+   "uuid": "18b4e096-73b2-50ed-a477-31226b84e716",
+   "name": "Carry Part 1[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "2d5d0b10-373e-4868-8d31-822051e50b18",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "889a3f05-fe8d-5204-978a-5399794f110a"
+  },
+  {
+   "uuid": "7a50366f-ec39-504f-8ac4-059ae95d8946",
+   "name": "Grip R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -0.035,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c2c85171-9d61-5071-980f-fb5819866fdc"
+  },
+  {
+   "uuid": "067d38d7-1702-5fb8-bcb1-91ad5a05871f",
+   "name": "Grip L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.012,
+      -0.05,
+      -0.2
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c2c85171-9d61-5071-980f-fb5819866fdc"
+  },
+  {
+   "uuid": "9394aca2-63af-54ea-8384-e35b98e7ab15",
+   "name": "Carry Muzzle",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.045,
+      -0.67
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c2c85171-9d61-5071-980f-fb5819866fdc"
+  },
+  {
+   "uuid": "e87e429e-fdc8-5b01-ab9d-be8546dc81f4",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "c2c85171-9d61-5071-980f-fb5819866fdc"
+  },
+  {
+   "uuid": "eeab89e2-4741-5a83-868d-422b3504043c",
+   "name": "Pole R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.45,
+      -0.3,
+      -0.15
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "45918d70-918f-58f5-aefd-5222f8f07ad3"
+  },
+  {
+   "uuid": "9ecd8eab-8126-57ba-b100-12c10030f8ac",
+   "name": "Pole L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.4,
+      -0.35,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "45918d70-918f-58f5-aefd-5222f8f07ad3"
+  },
+  {
+   "uuid": "c2cff0f8-9519-541d-bb95-93cbca312db4",
+   "name": "Brick",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.1,
+      0.0,
+      -5.2
+     ],
+     "rotation": [
+      0.0,
+      0.9781476,
+      0.0,
+      -0.2079117
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "CharacterController": {
+     "radius": 0.3,
+     "height": 1.76,
+     "max_slope": 48,
+     "step_height": 0.36,
+     "gravity_scale": 1,
+     "mass": 75,
+     "push_force": 60,
+     "air_control": 0.3,
+     "layer": 0,
+     "mask": 65535
+    },
+    "NavAgent": {
+     "speed": 3.6,
+     "acceleration": 9.0,
+     "radius": 0.35,
+     "height": 1.76,
+     "stopping_distance": 0.35,
+     "avoidance": true,
+     "rotate": false,
+     "turn_speed": 360
+    },
+    "Perceptible": {
+     "team": 1,
+     "height": 1.45,
+     "enabled": true
+    },
+    "Tags": {
+     "tags": "Squad Operator"
+    },
+    "Script": {
+     "script": "scripts/operator.luau",
+     "enabled": true,
+     "properties": {
+      "order": "hold",
+      "engage": false,
+      "who": "Brick",
+      "role": "breacher"
+     }
+    },
+    "Perception": {
+     "sight_range": 30,
+     "fov": 150,
+     "eye_height": 1.6,
+     "hearing_range": 18,
+     "memory": 4,
+     "target_mask": 2,
+     "occlusion_mask": 65535,
+     "line_of_sight": true,
+     "target_key": "target"
+    }
+   }
+  },
+  {
+   "uuid": "b15f979f-3ddb-5bf0-b584-ebb69532c15d",
+   "name": "Voice",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "AudioSource": {
+     "clip": "",
+     "bus": "voice",
+     "volume": 1.0,
+     "pitch": 1.0,
+     "loop": false,
+     "play_on_start": false,
+     "stream": false,
+     "spatial": true,
+     "attenuation": "inverse",
+     "min_distance": 2.0,
+     "max_distance": 40.0,
+     "rolloff": 1.0,
+     "priority": 230,
+     "occlusion": false
+    }
+   },
+   "parent": "c2cff0f8-9519-541d-bb95-93cbca312db4"
+  },
+  {
+   "uuid": "6bf95e4f-6625-5331-a910-e87bd6fd2dbb",
+   "name": "Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Animator": {
+     "model": "e109d7f1-270b-4179-8cb9-4631e2d319bf",
+     "clip_source": null,
+     "clip": "Idle",
+     "controller": "anim/characters/human.vanim",
+     "playing": true,
+     "loop": true,
+     "speed": 1,
+     "crossfade": 0.2,
+     "time": 0,
+     "apply_root_motion": false
+    }
+   },
+   "parent": "c2cff0f8-9519-541d-bb95-93cbca312db4"
+  },
+  {
+   "uuid": "357da627-d1a6-5332-af38-06c798b3bfa1",
+   "name": "Brick",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6bf95e4f-6625-5331-a910-e87bd6fd2dbb"
+  },
+  {
+   "uuid": "7e6cfd44-61bc-52fd-951b-0ccf3eb80af8",
+   "name": "Socket.Root",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "357da627-d1a6-5332-af38-06c798b3bfa1"
+  },
+  {
+   "uuid": "eebc37f2-8b0f-59da-bda5-f4543628628f",
+   "name": "Brick_Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e109d7f1-270b-4179-8cb9-4631e2d319bf",
+     "mesh_index": 1
+    },
+    "SkinnedMesh": {
+     "skeleton": "6bf95e4f-6625-5331-a910-e87bd6fd2dbb",
+     "skin": 0
+    }
+   },
+   "parent": "357da627-d1a6-5332-af38-06c798b3bfa1"
+  },
+  {
+   "uuid": "fe101788-bb4e-520a-b65f-1fdc5f0e66eb",
+   "name": "Brick_Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.6,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "e109d7f1-270b-4179-8cb9-4631e2d319bf",
+     "mesh_index": 0
+    },
+    "SkinnedMesh": {
+     "skeleton": "6bf95e4f-6625-5331-a910-e87bd6fd2dbb",
+     "skin": 0
+    }
+   },
+   "parent": "357da627-d1a6-5332-af38-06c798b3bfa1"
+  },
+  {
+   "uuid": "278cf11f-54b3-5772-b8c2-9b83e7b77373",
+   "name": "Hips",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.8491434955511497e-25,
+      0.9098358750343323,
+      -2.7097638022333115e-10
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "357da627-d1a6-5332-af38-06c798b3bfa1"
+  },
+  {
+   "uuid": "0faf7894-b34a-532d-ad53-23d2b8acbf85",
+   "name": "Spine",
+   "components": {
+    "Transform": {
+     "position": [
+      1.6451735973532777e-07,
+      0.1202593445777893,
+      -0.0016284020003316246
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "278cf11f-54b3-5772-b8c2-9b83e7b77373"
+  },
+  {
+   "uuid": "92b88458-d458-5022-92e9-81e039649a6b",
+   "name": "Chest",
+   "components": {
+    "Transform": {
+     "position": [
+      3.268496584496461e-13,
+      0.3063160181045532,
+      1.5133991837501526e-09
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "0faf7894-b34a-532d-ad53-23d2b8acbf85"
+  },
+  {
+   "uuid": "4ca2656c-a06b-523a-afee-419739266e9a",
+   "name": "Neck",
+   "components": {
+    "Transform": {
+     "position": [
+      7.105427357601002e-14,
+      0.1997547149658203,
+      3.096647560596466e-08
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "92b88458-d458-5022-92e9-81e039649a6b"
+  },
+  {
+   "uuid": "b36501ba-6992-50e6-b835-276395535cb4",
+   "name": "Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.06926500797271729,
+      -8.149072527885437e-10
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "look_at",
+     "enabled": true,
+     "weight": 0.0,
+     "chain_length": 1,
+     "aim_axis": [
+      0,
+      0,
+      1
+     ],
+     "max_angle": 65,
+     "target_position": [
+      0,
+      1.6,
+      10
+     ]
+    }
+   },
+   "parent": "4ca2656c-a06b-523a-afee-419739266e9a"
+  },
+  {
+   "uuid": "e464818c-e772-5967-8a76-b6c4bde56dba",
+   "name": "Socket.Head",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.1950000524520874,
+      0.0
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "b36501ba-6992-50e6-b835-276395535cb4"
+  },
+  {
+   "uuid": "8d9f1f23-dd1a-5e56-b2e6-1bdd7a18085d",
+   "name": "Shoulder.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.07282186984129169,
+      0.1376892328262329,
+      0.0070883785374462605
+     ],
+     "rotation": [
+      -0.5,
+      -0.5,
+      -0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "92b88458-d458-5022-92e9-81e039649a6b"
+  },
+  {
+   "uuid": "68584d1b-5057-5c5d-b379-84cfc3be8bc4",
+   "name": "UpperArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      1.5832483768463135e-08,
+      0.14076733589172363,
+      -0.009384512901306152
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      -0.3830222487449646,
+      0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "8d9f1f23-dd1a-5e56-b2e6-1bdd7a18085d"
+  },
+  {
+   "uuid": "2ca89b16-6786-55e2-861e-5e40070c8df6",
+   "name": "LowerArm.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -3.4550411161995756e-08,
+      0.2858015160391469,
+      2.338570948837476e-08
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      -4.470348358154297e-08,
+      3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "68584d1b-5057-5c5d-b379-84cfc3be8bc4"
+  },
+  {
+   "uuid": "2b473a27-1d15-5370-bcaf-456d6b6b90fe",
+   "name": "Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -4.0064710848075435e-08,
+      0.2709195649545775,
+      3.133095956604748e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      4.470348358154297e-08,
+      3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "f44e85b4-3fcc-5941-b3e4-f5dab136d49c",
+     "pole": "314a4fd7-ccbf-5246-8be9-23a97f1314e7",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "2ca89b16-6786-55e2-861e-5e40070c8df6"
+  },
+  {
+   "uuid": "7cd2d9c2-9c29-5ab7-8281-4cc1bd5f8c90",
+   "name": "Socket.Hand.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      0.32139384746551514,
+      0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2b473a27-1d15-5370-bcaf-456d6b6b90fe"
+  },
+  {
+   "uuid": "c151615d-a33f-5223-8309-7aa44c3bf47c",
+   "name": "Shoulder.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.072821863600538,
+      0.1376892328262329,
+      0.007088624872267246
+     ],
+     "rotation": [
+      -0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "scale": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   "parent": "92b88458-d458-5022-92e9-81e039649a6b"
+  },
+  {
+   "uuid": "d4e18f15-b399-5915-a164-139f6711b072",
+   "name": "UpperArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -1.7695128917694092e-08,
+      0.14076731353998184,
+      -0.009384512901306152
+     ],
+     "rotation": [
+      -0.3830222487449646,
+      0.3830222487449646,
+      -0.17860621213912964,
+      0.8213937878608704
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "c151615d-a33f-5223-8309-7aa44c3bf47c"
+  },
+  {
+   "uuid": "4d44df5f-b9f3-5ced-93a6-8aa92e20174f",
+   "name": "LowerArm.R",
+   "components": {
+    "Transform": {
+     "position": [
+      6.6116885416294e-08,
+      0.2858013097801557,
+      -3.288771225041825e-08
+     ],
+     "rotation": [
+      -2.7922581580241967e-08,
+      4.470348358154297e-08,
+      -3.0180810739466324e-08,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d4e18f15-b399-5915-a164-139f6711b072"
+  },
+  {
+   "uuid": "7400f1e5-5d29-5ab2-80db-b870d290430a",
+   "name": "Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      4.742931826349916e-08,
+      0.27091939700871165,
+      1.7248908557028234e-08
+     ],
+     "rotation": [
+      5.094579869080462e-09,
+      -4.470348358154297e-08,
+      -3.0760585190137135e-09,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "IKConstraint": {
+     "solver": "two_bone",
+     "enabled": true,
+     "weight": 1.0,
+     "target": "a7e131cf-53cc-57b8-a834-0302d8d100a1",
+     "pole": "3cf72030-38fa-5261-bbd9-f9bd22addbe1",
+     "match_rotation": false,
+     "max_extension": 0.995
+    }
+   },
+   "parent": "4d44df5f-b9f3-5ced-93a6-8aa92e20174f"
+  },
+  {
+   "uuid": "277c7b78-c68e-5797-9b8d-9e50a813891e",
+   "name": "Socket.Hand.R",
+   "components": {
+    "Transform": {
+     "position": [
+      2.5897526256812853e-07,
+      0.07500019669532776,
+      1.3104956053666683e-07
+     ],
+     "rotation": [
+      0.8830221891403198,
+      -0.32139384746551514,
+      -0.32139381766319275,
+      0.11697777360677719
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "7400f1e5-5d29-5ab2-80db-b870d290430a"
+  },
+  {
+   "uuid": "7a9c86f3-ef28-52c3-92bb-5eb7c68e8226",
+   "name": "Socket.Back",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.16000008583068848,
+      -0.1599999964237213
+     ],
+     "rotation": [
+      3.774895063202166e-08,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "92b88458-d458-5022-92e9-81e039649a6b"
+  },
+  {
+   "uuid": "79528041-b1fa-530d-8bc4-c8f3101b955d",
+   "name": "UpperLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.08836864680051804,
+      0.0001131892204284668,
+      -0.00709306561298792
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "278cf11f-54b3-5772-b8c2-9b83e7b77373"
+  },
+  {
+   "uuid": "fd8956ae-0245-5238-a2ff-56628256dcd2",
+   "name": "LowerLeg.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -1.490116180448864e-08,
+      0.39903551340103166,
+      -6.984918006915178e-09
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "79528041-b1fa-530d-8bc4-c8f3101b955d"
+  },
+  {
+   "uuid": "57a9e8be-3921-5612-aa66-3a9488b63196",
+   "name": "Foot.L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.39668895304203033,
+      3.5390257835388184e-08
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "fd8956ae-0245-5238-a2ff-56628256dcd2"
+  },
+  {
+   "uuid": "b1541d53-aae7-5e8a-a46d-60002feaf592",
+   "name": "Toe.L",
+   "components": {
+    "Transform": {
+     "position": [
+      -7.450580596923828e-09,
+      0.1700116726293398,
+      1.5743440766316635e-08
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "57a9e8be-3921-5612-aa66-3a9488b63196"
+  },
+  {
+   "uuid": "d48182c7-c435-5fe1-bb2e-b8066a3803da",
+   "name": "UpperLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.08836830407381058,
+      0.0001131892204284668,
+      -0.007092820209489509
+     ],
+     "rotation": [
+      1.0,
+      0.0,
+      -4.371138828673793e-08,
+      0.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "278cf11f-54b3-5772-b8c2-9b83e7b77373"
+  },
+  {
+   "uuid": "f9bfd94a-c203-5c00-9c18-310b7030c090",
+   "name": "LowerLeg.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -1.490116180448864e-08,
+      0.39903551340103166,
+      -6.984918006915178e-09
+     ],
+     "rotation": [
+      0.0,
+      4.371138828673793e-08,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d48182c7-c435-5fe1-bb2e-b8066a3803da"
+  },
+  {
+   "uuid": "473b9209-972d-507f-85af-772aba48a1c6",
+   "name": "Foot.R",
+   "components": {
+    "Transform": {
+     "position": [
+      -7.450580596923828e-09,
+      0.39668871462345123,
+      3.725290298461914e-09
+     ],
+     "rotation": [
+      -0.525731086730957,
+      0.0,
+      0.0,
+      0.8506508469581604
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f9bfd94a-c203-5c00-9c18-310b7030c090"
+  },
+  {
+   "uuid": "117613f3-ad54-5202-8745-b69435aefebf",
+   "name": "Toe.R",
+   "components": {
+    "Transform": {
+     "position": [
+      7.450580596923828e-09,
+      0.17001153143580042,
+      1.9700203710289384e-08
+     ],
+     "rotation": [
+      -1.0042820797195873e-08,
+      0.9732490181922913,
+      -0.22975295782089233,
+      4.2542065870065926e-08
+     ],
+     "scale": [
+      1.0,
+      0.9999997019767761,
+      1.0
+     ]
+    }
+   },
+   "parent": "473b9209-972d-507f-85af-772aba48a1c6"
+  },
+  {
+   "uuid": "2244bcb9-01af-5c8b-a4d2-83951c487e0c",
+   "name": "Carry",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.07,
+      1.14,
+      0.27
+     ],
+     "rotation": [
+      0.079843,
+      0.9137288,
+      0.3325701,
+      -0.2193669
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6bf95e4f-6625-5331-a910-e87bd6fd2dbb"
+  },
+  {
+   "uuid": "4be6d58e-9088-5fea-a704-149b8d086e7b",
+   "name": "Carry Body",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2244bcb9-01af-5c8b-a4d2-83951c487e0c"
+  },
+  {
+   "uuid": "7f09aa69-7721-546d-8d5e-c796acddae31",
+   "name": "Carry Body[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4be6d58e-9088-5fea-a704-149b8d086e7b"
+  },
+  {
+   "uuid": "b040a2c0-d235-515e-9194-01d2a65a0a88",
+   "name": "Carry Body[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4be6d58e-9088-5fea-a704-149b8d086e7b"
+  },
+  {
+   "uuid": "81565eb6-f2ff-5d3d-a5d7-6179e0bd48a7",
+   "name": "Carry Body[2]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 2
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4be6d58e-9088-5fea-a704-149b8d086e7b"
+  },
+  {
+   "uuid": "df179f6d-e8c0-5705-80a7-54b64ed51fad",
+   "name": "Carry Body[3]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": true,
+     "visible": true,
+     "mesh": "1e91059e-5273-41a3-b30f-d61c65a387e7",
+     "mesh_index": 3
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4be6d58e-9088-5fea-a704-149b8d086e7b"
+  },
+  {
+   "uuid": "9fe85688-8a4c-58ed-b60e-6936aa391944",
+   "name": "Carry Part 1",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2244bcb9-01af-5c8b-a4d2-83951c487e0c"
+  },
+  {
+   "uuid": "0bbb16b3-b485-5bb0-ba80-23457e4decf5",
+   "name": "Carry Part 1[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "782167eb-8031-49ef-a9bf-64d5f1ce4d16",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9fe85688-8a4c-58ed-b60e-6936aa391944"
+  },
+  {
+   "uuid": "b99ae6fb-73b3-52c7-9fd1-7e91aa922f25",
+   "name": "Carry Part 2",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2244bcb9-01af-5c8b-a4d2-83951c487e0c"
+  },
+  {
+   "uuid": "9c9ff44f-2497-50da-a4ee-2378bcc68199",
+   "name": "Carry Part 2[0]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4647a0e-2486-4519-91a5-1b93a0dcca26",
+     "mesh_index": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "b99ae6fb-73b3-52c7-9fd1-7e91aa922f25"
+  },
+  {
+   "uuid": "c36ec0b7-283f-57e1-ac9b-70dd1697e767",
+   "name": "Carry Part 2[1]",
+   "components": {
+    "MeshRenderer": {
+     "base_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "metallic": 0.0,
+     "roughness": 0.85,
+     "cast_shadows": false,
+     "visible": true,
+     "mesh": "f4647a0e-2486-4519-91a5-1b93a0dcca26",
+     "mesh_index": 1
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "b99ae6fb-73b3-52c7-9fd1-7e91aa922f25"
+  },
+  {
+   "uuid": "a7e131cf-53cc-57b8-a834-0302d8d100a1",
+   "name": "Grip R",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      -0.035,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2244bcb9-01af-5c8b-a4d2-83951c487e0c"
+  },
+  {
+   "uuid": "f44e85b4-3fcc-5941-b3e4-f5dab136d49c",
+   "name": "Grip L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.012,
+      -0.06,
+      -0.2
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2244bcb9-01af-5c8b-a4d2-83951c487e0c"
+  },
+  {
+   "uuid": "030b0d9e-366e-5313-b10d-289231c3384f",
+   "name": "Carry Muzzle",
+   "components": {
+    "Transform": {
+     "position": [
+      0.0,
+      0.058,
+      -0.565
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2244bcb9-01af-5c8b-a4d2-83951c487e0c"
+  },
+  {
+   "uuid": "de6b1aad-1272-5530-aad6-98a7117ab520",
+   "name": "Carry Light",
+   "components": {
+    "Transform": {
+     "position": [
+      0.03,
+      0.0,
+      -0.42
+     ],
+     "rotation": [
+      0.0348995,
+      0.0,
+      0.0,
+      0.9993908
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "spot",
+     "color": [
+      0.9,
+      0.94,
+      1.0,
+      1
+     ],
+     "intensity": 8.0,
+     "range": 22.0,
+     "shadows": false,
+     "inner_angle": 12.0,
+     "outer_angle": 30.0
+    }
+   },
+   "parent": "2244bcb9-01af-5c8b-a4d2-83951c487e0c"
+  },
+  {
+   "uuid": "3cf72030-38fa-5261-bbd9-f9bd22addbe1",
+   "name": "Pole R",
+   "components": {
+    "Transform": {
+     "position": [
+      -0.45,
+      -0.3,
+      -0.15
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "92b88458-d458-5022-92e9-81e039649a6b"
+  },
+  {
+   "uuid": "314a4fd7-ccbf-5246-8be9-23a97f1314e7",
+   "name": "Pole L",
+   "components": {
+    "Transform": {
+     "position": [
+      0.4,
+      -0.35,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "92b88458-d458-5022-92e9-81e039649a6b"
+  },
+  {
    "uuid": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23",
    "name": "Menu UI",
    "components": {
@@ -8302,8 +12947,332 @@
       0
      ],
      "size": [
-      560,
+      760,
       0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "ef916081-365e-4620-ad52-7455813bb241",
+     "tint": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+  },
+  {
+   "uuid": "34aad760-cb70-5f43-a315-29f6c9e9369e",
+   "name": "Menu Shade Bottom",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      220
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiImage": {
+     "texture": "f32f006f-3186-48aa-b680-753e2ff0b69e",
+     "tint": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "preserve_aspect": false,
+     "corner_radius": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+  },
+  {
+   "uuid": "4d4a07b3-dbd5-50e8-a0b9-2c9245e44e29",
+   "name": "Menu Head",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      72,
+      56
+     ],
+     "size": [
+      640,
+      190
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+  },
+  {
+   "uuid": "538cedc7-6eb6-5d50-89d9-ad241195cf33",
+   "name": "Menu Kicker",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      2,
+      0
+     ],
+     "size": [
+      600,
+      26
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "HALYARD TEAM  //  SQUAD LANTERN",
+     "key": "",
+     "font_size": 18,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4d4a07b3-dbd5-50e8-a0b9-2c9245e44e29"
+  },
+  {
+   "uuid": "bd0a8eca-a7c6-5619-9d04-f1e9079b7764",
+   "name": "Menu Title",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      0,
+      18
+     ],
+     "size": [
+      640,
+      110
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "SPECIAL OPS",
+     "key": "",
+     "font_size": 104,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.7
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Bold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "4d4a07b3-dbd5-50e8-a0b9-2c9245e44e29"
+  },
+  {
+   "uuid": "d9c7101c-a5fa-5cb5-869f-d524b6993e93",
+   "name": "Menu Title Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      4,
+      134
+     ],
+     "size": [
+      64,
+      3
      ],
      "visible": true,
      "opacity": 1.0,
@@ -8311,10 +13280,10 @@
     },
     "UiPanel": {
      "color": [
-      0.01,
-      0.02,
-      0.02,
-      0.62
+      0.93,
+      0.68,
+      0.34,
+      1
      ],
      "corner_radius": 0,
      "border_color": [
@@ -8344,86 +13313,10 @@
      ]
     }
    },
-   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+   "parent": "4d4a07b3-dbd5-50e8-a0b9-2c9245e44e29"
   },
   {
-   "uuid": "a6ba1df8-7aa2-5acb-91c8-fc73e6430cbe",
-   "name": "Menu Title",
-   "components": {
-    "UiRect": {
-     "anchor_min": [
-      0,
-      0
-     ],
-     "anchor_max": [
-      0,
-      0
-     ],
-     "pivot": [
-      0,
-      0
-     ],
-     "position": [
-      64,
-      70
-     ],
-     "size": [
-      600,
-      80
-     ],
-     "visible": true,
-     "opacity": 1.0,
-     "clip_children": false
-    },
-    "UiText": {
-     "text": "SPECIAL OPS",
-     "key": "",
-     "font_size": 64,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "left",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
-      0,
-      0,
-      0,
-      0.55
-     ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
-    },
-    "Transform": {
-     "position": [
-      0.0,
-      0.0,
-      0.0
-     ],
-     "rotation": [
-      0.0,
-      0.0,
-      0.0,
-      1.0
-     ],
-     "scale": [
-      1.0,
-      1.0,
-      1.0
-     ]
-    }
-   },
-   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
-  },
-  {
-   "uuid": "377bc81a-c2cc-51cf-b469-12e359c7374c",
+   "uuid": "09527d8a-3b01-5c2e-8b42-f684a4f2fe29",
    "name": "Menu Tag",
    "components": {
     "UiRect": {
@@ -8440,26 +13333,26 @@
       0
      ],
      "position": [
-      68,
-      142
+      84,
+      124
      ],
      "size": [
-      600,
-      30
+      560,
+      24
      ],
      "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
     "UiText": {
-     "text": "A VICTUS field demonstration",
+     "text": "KESTREL VALLEY  \u00b7  DAWN DEADLINE  \u00b7  NON-LETHAL",
      "key": "",
-     "font_size": 20,
+     "font_size": 18,
      "color": [
-      0.7,
+      0.78,
+      0.84,
       0.88,
-      0.95,
-      1
+      0.9
      ],
      "align": "left",
      "vertical_align": "middle",
@@ -8475,7 +13368,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -8496,7 +13389,7 @@
      ]
     }
    },
-   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+   "parent": "4d4a07b3-dbd5-50e8-a0b9-2c9245e44e29"
   },
   {
    "uuid": "6b303b91-b022-5aff-9390-312a4e49f37f",
@@ -8516,12 +13409,12 @@
       0
      ],
      "position": [
-      64,
-      210
+      58,
+      282
      ],
      "size": [
-      420,
-      420
+      440,
+      300
      ],
      "visible": true,
      "opacity": 1.0,
@@ -8570,8 +13463,8 @@
       0
      ],
      "size": [
-      420,
-      56
+      430,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -8579,40 +13472,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "continue",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -8643,6 +13536,82 @@
    "parent": "6b303b91-b022-5aff-9390-312a4e49f37f"
   },
   {
+   "uuid": "56fdf24d-9bf2-56ee-97d3-04ea42230e68",
+   "name": "Menu Continue Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "01",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6c1f1ba2-b4b1-50bb-9968-907ba7ae2aa0"
+  },
+  {
    "uuid": "fef0110e-b589-51c4-8277-3875b8b6736b",
    "name": "Menu Continue Label",
    "components": {
@@ -8660,11 +13629,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -8672,9 +13641,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Continue",
+     "text": "CONTINUE",
      "key": "",
-     "font_size": 23,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -8684,7 +13653,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -8695,7 +13664,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6c1f1ba2-b4b1-50bb-9968-907ba7ae2aa0"
+  },
+  {
+   "uuid": "521b8fce-30a3-53d3-849c-abf3a379f593",
+   "name": "Menu Continue Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -8737,11 +13772,11 @@
      ],
      "position": [
       0,
-      68
+      50
      ],
      "size": [
-      420,
-      56
+      430,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -8749,40 +13784,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "new",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -8813,6 +13848,82 @@
    "parent": "6b303b91-b022-5aff-9390-312a4e49f37f"
   },
   {
+   "uuid": "668d8db2-649f-59fc-920c-8f65dac4d185",
+   "name": "Menu New campaign Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "02",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "70c9fc48-14ae-5419-a2e5-084c2474e717"
+  },
+  {
    "uuid": "a270755e-cd94-5eb7-9a88-6e67f8683492",
    "name": "Menu New campaign Label",
    "components": {
@@ -8830,11 +13941,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -8842,9 +13953,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "New campaign",
+     "text": "NEW CAMPAIGN",
      "key": "",
-     "font_size": 23,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -8854,7 +13965,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -8865,7 +13976,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "70c9fc48-14ae-5419-a2e5-084c2474e717"
+  },
+  {
+   "uuid": "9fc3b155-2d00-5b8d-923b-edbcea0faa3a",
+   "name": "Menu New campaign Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -8907,11 +14084,11 @@
      ],
      "position": [
       0,
-      136
+      100
      ],
      "size": [
-      420,
-      56
+      430,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -8919,40 +14096,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "ops",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -8983,6 +14160,82 @@
    "parent": "6b303b91-b022-5aff-9390-312a4e49f37f"
   },
   {
+   "uuid": "d3493578-732c-5f71-b894-107fd886e450",
+   "name": "Menu Operations Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "03",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "da2d532d-3b2c-54ef-8ca6-26a581cb29eb"
+  },
+  {
    "uuid": "68a08074-73d3-51c9-8b60-d94ba0077fe3",
    "name": "Menu Operations Label",
    "components": {
@@ -9000,11 +14253,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -9012,9 +14265,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operations",
+     "text": "OPERATIONS",
      "key": "",
-     "font_size": 23,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -9024,7 +14277,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -9035,7 +14288,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "da2d532d-3b2c-54ef-8ca6-26a581cb29eb"
+  },
+  {
+   "uuid": "4b12b1f2-da02-569d-9e61-333bdb23b5dc",
+   "name": "Menu Operations Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -9077,11 +14396,11 @@
      ],
      "position": [
       0,
-      204
+      150
      ],
      "size": [
-      420,
-      56
+      430,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -9089,40 +14408,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "settings",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -9153,6 +14472,82 @@
    "parent": "6b303b91-b022-5aff-9390-312a4e49f37f"
   },
   {
+   "uuid": "f119a72a-9531-55b0-8b71-a615c57effcb",
+   "name": "Menu Settings Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "04",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dd00a8fd-3447-53ca-9e51-a0a10e606bc0"
+  },
+  {
    "uuid": "17c57501-971b-5d15-90f0-e3cc0bcf5ba1",
    "name": "Menu Settings Label",
    "components": {
@@ -9170,11 +14565,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -9182,9 +14577,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Settings",
+     "text": "SETTINGS",
      "key": "",
-     "font_size": 23,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -9194,7 +14589,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -9205,7 +14600,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "dd00a8fd-3447-53ca-9e51-a0a10e606bc0"
+  },
+  {
+   "uuid": "b8e8a1ff-cd45-5e2e-8a92-5e4699278edb",
+   "name": "Menu Settings Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -9247,11 +14708,11 @@
      ],
      "position": [
       0,
-      272
+      200
      ],
      "size": [
-      420,
-      56
+      430,
+      46
      ],
      "visible": true,
      "opacity": 1.0,
@@ -9259,40 +14720,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "credits",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -9323,6 +14784,82 @@
    "parent": "6b303b91-b022-5aff-9390-312a4e49f37f"
   },
   {
+   "uuid": "f211c5a9-df30-5f4a-8520-e9cd945fe8b1",
+   "name": "Menu Credits Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "05",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "32fb2722-49f6-52a2-b74e-43e7aa14d162"
+  },
+  {
    "uuid": "f3191d57-cae2-5a74-bff1-3bf0a9f27595",
    "name": "Menu Credits Label",
    "components": {
@@ -9340,11 +14877,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -9352,9 +14889,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Credits",
+     "text": "CREDITS",
      "key": "",
-     "font_size": 23,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -9364,7 +14901,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -9375,7 +14912,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "32fb2722-49f6-52a2-b74e-43e7aa14d162"
+  },
+  {
+   "uuid": "a0d05a77-5756-55d5-bd21-c4336ccb2cea",
+   "name": "Menu Credits Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -9416,12 +15019,12 @@
       0
      ],
      "position": [
-      64,
-      200
+      58,
+      250
      ],
      "size": [
-      480,
-      520
+      520,
+      470
      ],
      "visible": false,
      "opacity": 1.0,
@@ -9449,6 +15052,82 @@
    "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
   },
   {
+   "uuid": "02fc7100-4291-5dd1-8d28-d62b542ba415",
+   "name": "Ops Heading",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      0,
+      0
+     ],
+     "pivot": [
+      0,
+      0
+     ],
+     "position": [
+      14,
+      -34
+     ],
+     "size": [
+      400,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "SELECT OPERATION",
+     "key": "",
+     "font_size": 20,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
+  },
+  {
    "uuid": "d3a7e459-ac18-5985-91d3-e5dc08742a4a",
    "name": "Op prologue",
    "components": {
@@ -9470,8 +15149,8 @@
       0
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -9479,40 +15158,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:prologue",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -9543,6 +15222,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "18b2a1d8-77f5-5873-b660-e243a25e5019",
+   "name": "Op prologue Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "01",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d3a7e459-ac18-5985-91d3-e5dc08742a4a"
+  },
+  {
    "uuid": "303a8df8-dafd-5872-bfa5-f9fe14a1a5e3",
    "name": "Op prologue Label",
    "components": {
@@ -9560,11 +15315,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -9572,9 +15327,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Prologue: Lantern",
+     "text": "PROLOGUE: LANTERN",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -9584,7 +15339,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -9595,7 +15350,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "d3a7e459-ac18-5985-91d3-e5dc08742a4a"
+  },
+  {
+   "uuid": "62906719-0202-597f-8465-3565e5bc5675",
+   "name": "Op prologue Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -9637,11 +15458,11 @@
      ],
      "position": [
       0,
-      56
+      48
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -9649,40 +15470,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:op01",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -9713,6 +15534,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "54eee018-99f1-5c22-ad75-6866309c3f76",
+   "name": "Op op01 Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "02",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a27b678d-85bf-559b-8856-b18563e6fad7"
+  },
+  {
    "uuid": "08f7495c-7111-55e3-92bc-fb55925fd03f",
    "name": "Op op01 Label",
    "components": {
@@ -9730,11 +15627,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -9742,9 +15639,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operation 01: Greenline",
+     "text": "OPERATION 01: GREENLINE",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -9754,7 +15651,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -9765,7 +15662,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "a27b678d-85bf-559b-8856-b18563e6fad7"
+  },
+  {
+   "uuid": "4b429b60-34a3-5c91-80cc-3d86aa1ec2da",
+   "name": "Op op01 Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -9807,11 +15770,11 @@
      ],
      "position": [
       0,
-      112
+      96
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -9819,40 +15782,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:op02",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -9883,6 +15846,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "68848109-48dc-514a-af87-1a9bdd3c0506",
+   "name": "Op op02 Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "03",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2455ec62-7eb0-5a2e-b0ab-f834342fdca5"
+  },
+  {
    "uuid": "56198edc-e117-5dab-bf15-70555030a10e",
    "name": "Op op02 Label",
    "components": {
@@ -9900,11 +15939,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -9912,9 +15951,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operation 02: Fenceline",
+     "text": "OPERATION 02: FENCELINE",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -9924,7 +15963,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -9935,7 +15974,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "2455ec62-7eb0-5a2e-b0ab-f834342fdca5"
+  },
+  {
+   "uuid": "94c0da89-9a6b-5ce9-bc53-d1aec11e4c35",
+   "name": "Op op02 Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -9977,11 +16082,11 @@
      ],
      "position": [
       0,
-      168
+      144
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -9989,40 +16094,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:op03",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -10053,6 +16158,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "2a665748-0e5a-5168-ad3c-e04788d8e417",
+   "name": "Op op03 Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "04",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "82494a25-3ff4-5f45-bf37-8a1e44e1e5d4"
+  },
+  {
    "uuid": "a115c0e1-0a40-53bd-bd96-dcd503b8c8ac",
    "name": "Op op03 Label",
    "components": {
@@ -10070,11 +16251,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -10082,9 +16263,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operation 03: Service Yard",
+     "text": "OPERATION 03: SERVICE YARD",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -10094,7 +16275,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -10105,7 +16286,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "82494a25-3ff4-5f45-bf37-8a1e44e1e5d4"
+  },
+  {
+   "uuid": "34b5a108-0915-5819-9366-662f1982d1b7",
+   "name": "Op op03 Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -10147,11 +16394,11 @@
      ],
      "position": [
       0,
-      224
+      192
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -10159,40 +16406,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:op04",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -10223,6 +16470,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "95bf0b9a-7eb3-5de2-97ac-c96c7f89933c",
+   "name": "Op op04 Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "05",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9e68f8d8-2893-5b36-8228-e1502250e362"
+  },
+  {
    "uuid": "5d5d9979-524c-5c45-be4b-848c94747473",
    "name": "Op op04 Label",
    "components": {
@@ -10240,11 +16563,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -10252,9 +16575,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operation 04: Quiet Rooms",
+     "text": "OPERATION 04: QUIET ROOMS",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -10264,7 +16587,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -10275,7 +16598,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9e68f8d8-2893-5b36-8228-e1502250e362"
+  },
+  {
+   "uuid": "d2bdbf76-87b4-5736-ac72-692acdf63b3f",
+   "name": "Op op04 Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -10317,11 +16706,11 @@
      ],
      "position": [
       0,
-      280
+      240
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -10329,40 +16718,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:op05",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -10393,6 +16782,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "61242eb4-71b0-55a3-9db4-ab913e48ba74",
+   "name": "Op op05 Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "06",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "208d01bd-7844-5fee-af18-c71decbb083f"
+  },
+  {
    "uuid": "f3bb999f-f53a-535f-b9b7-5868b0dc1edb",
    "name": "Op op05 Label",
    "components": {
@@ -10410,11 +16875,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -10422,9 +16887,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operation 05: Deep Store",
+     "text": "OPERATION 05: DEEP STORE",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -10434,7 +16899,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -10445,7 +16910,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "208d01bd-7844-5fee-af18-c71decbb083f"
+  },
+  {
+   "uuid": "c990fc53-c484-5994-b98a-135fcabfa037",
+   "name": "Op op05 Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -10487,11 +17018,11 @@
      ],
      "position": [
       0,
-      336
+      288
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -10499,40 +17030,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:op06",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -10563,6 +17094,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "e7768128-9035-5a67-81cb-95cd1ca4cf7a",
+   "name": "Op op06 Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "07",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f34038b3-5cbb-56a2-9cb8-b5e246d362de"
+  },
+  {
    "uuid": "d1e4f1b4-47c7-503b-9bd9-eb87c00414ac",
    "name": "Op op06 Label",
    "components": {
@@ -10580,11 +17187,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -10592,9 +17199,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operation 06: Undercroft",
+     "text": "OPERATION 06: UNDERCROFT",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -10604,7 +17211,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -10615,7 +17222,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "f34038b3-5cbb-56a2-9cb8-b5e246d362de"
+  },
+  {
+   "uuid": "df82d2aa-c2b0-5341-a911-a4940148f634",
+   "name": "Op op06 Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -10657,11 +17330,11 @@
      ],
      "position": [
       0,
-      392
+      336
      ],
      "size": [
-      480,
-      48
+      520,
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -10669,40 +17342,40 @@
     },
     "UiPanel": {
      "color": [
-      0.08,
-      0.1,
-      0.11,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
+      0,
+      0,
+      0,
+      0
      ],
-     "border_width": 1
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "op:op07",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -10733,6 +17406,82 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "0c157587-d263-5de0-b66b-b72cd2d75cba",
+   "name": "Op op07 Num",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0.5
+     ],
+     "anchor_max": [
+      0,
+      0.5
+     ],
+     "pivot": [
+      0,
+      0.5
+     ],
+     "position": [
+      14,
+      0
+     ],
+     "size": [
+      40,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "08",
+     "key": "",
+     "font_size": 17,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9cda5196-e0ff-5b79-99a8-16dfa2f73cca"
+  },
+  {
    "uuid": "3e209fc7-3a76-55f4-b709-ed45f41bedcf",
    "name": "Op op07 Label",
    "components": {
@@ -10750,11 +17499,11 @@
       1
      ],
      "position": [
-      22,
+      54,
       0
      ],
      "size": [
-      -44,
+      -70,
       0
      ],
      "visible": true,
@@ -10762,9 +17511,9 @@
      "clip_children": false
     },
     "UiText": {
-     "text": "Operation 07: The Chair",
+     "text": "OPERATION 07: THE CHAIR",
      "key": "",
-     "font_size": 20,
+     "font_size": 29,
      "color": [
       1,
       1,
@@ -10774,7 +17523,7 @@
      "align": "left",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -10785,7 +17534,73 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "9cda5196-e0ff-5b79-99a8-16dfa2f73cca"
+  },
+  {
+   "uuid": "da5741ae-6892-50a0-963d-392b19f3dc60",
+   "name": "Op op07 Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
     },
     "Transform": {
      "position": [
@@ -10827,11 +17642,11 @@
      ],
      "position": [
       0,
-      458
+      396
      ],
      "size": [
       200,
-      48
+      44
      ],
      "visible": true,
      "opacity": 1.0,
@@ -10839,66 +17654,40 @@
     },
     "UiPanel": {
      "color": [
-      0.12,
-      0.14,
-      0.16,
-      0.9
+      0,
+      0,
+      0,
+      0
      ],
-     "corner_radius": 8,
+     "corner_radius": 2,
      "border_color": [
-      1,
-      1,
-      1,
-      0.16
-     ],
-     "border_width": 1
-    },
-    "UiText": {
-     "text": "Back",
-     "key": "",
-     "font_size": 20,
-     "color": [
-      1,
-      1,
-      1,
-      1
-     ],
-     "align": "center",
-     "vertical_align": "middle",
-     "wrap": false,
-     "bold": true,
-     "shadow_color": [
       0,
       0,
       0,
-      0.55
+      0
      ],
-     "shadow_offset": [
-      0,
-      2
-     ],
-     "font": ""
+     "border_width": 0
     },
     "UiButton": {
      "interactable": true,
      "action": "cancel",
      "normal": [
-      0.12,
-      0.14,
-      0.16,
-      0.85
+      0,
+      0,
+      0,
+      0
      ],
      "hovered": [
-      0.2,
-      0.24,
-      0.27,
-      0.92
+      0.93,
+      0.68,
+      0.34,
+      0.2
      ],
      "pressed": [
-      0.08,
-      0.09,
-      0.1,
-      1
+      0.93,
+      0.68,
+      0.34,
+      0.34
      ],
      "disabled": [
       0.2,
@@ -10929,6 +17718,148 @@
    "parent": "e7f7958a-b7cd-568f-afa6-d7bad0583a01"
   },
   {
+   "uuid": "e6b60032-e226-5120-9bf8-660f2874a2c7",
+   "name": "Ops Back Label",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      18,
+      0
+     ],
+     "size": [
+      -70,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "BACK",
+     "key": "",
+     "font_size": 29,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "19c5f1d2-c833-5796-b573-51961292ef59"
+  },
+  {
+   "uuid": "35162876-8238-5a3f-af8e-7f7ffafb21fd",
+   "name": "Ops Back Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      0,
+      2
+     ],
+     "size": [
+      0,
+      1
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.09
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "19c5f1d2-c833-5796-b573-51961292ef59"
+  },
+  {
    "uuid": "b69a8c98-0e13-5a72-9753-86f4427b00f9",
    "name": "Menu Confirm",
    "components": {
@@ -10946,12 +17877,12 @@
       0
      ],
      "position": [
-      64,
-      220
+      58,
+      282
      ],
      "size": [
-      460,
-      200
+      480,
+      210
      ],
      "visible": false,
      "opacity": 1.0,
@@ -10959,17 +17890,17 @@
     },
     "UiPanel": {
      "color": [
-      0.05,
-      0.06,
-      0.07,
-      0.92
+      0.02,
+      0.025,
+      0.03,
+      0.86
      ],
-     "corner_radius": 10,
+     "corner_radius": 3,
      "border_color": [
-      1,
-      1,
-      1,
-      0.18
+      0.93,
+      0.68,
+      0.34,
+      0.5
      ],
      "border_width": 1
     },
@@ -11013,11 +17944,11 @@
      ],
      "position": [
       0,
-      20
+      18
      ],
      "size": [
-      420,
-      80
+      430,
+      96
      ],
      "visible": true,
      "opacity": 1.0,
@@ -11026,7 +17957,7 @@
     "UiText": {
      "text": "Start a new campaign? Current progress will be replaced.",
      "key": "",
-     "font_size": 21,
+     "font_size": 26,
      "color": [
       1,
       1,
@@ -11047,7 +17978,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "Transform": {
      "position": [
@@ -11088,12 +18019,12 @@
       1
      ],
      "position": [
-      20,
-      -20
+      22,
+      -22
      ],
      "size": [
-      200,
-      52
+      205,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -11101,12 +18032,12 @@
     },
     "UiPanel": {
      "color": [
-      0.3,
-      0.12,
-      0.08,
+      0.5,
+      0.2,
+      0.1,
       0.9
      ],
-     "corner_radius": 8,
+     "corner_radius": 3,
      "border_color": [
       1,
       1,
@@ -11116,9 +18047,9 @@
      "border_width": 1
     },
     "UiText": {
-     "text": "Start new",
+     "text": "START NEW",
      "key": "",
-     "font_size": 21,
+     "font_size": 25,
      "color": [
       1,
       1,
@@ -11128,7 +18059,7 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -11139,7 +18070,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
@@ -11208,12 +18139,12 @@
       1
      ],
      "position": [
-      -20,
-      -20
+      -22,
+      -22
      ],
      "size": [
-      200,
-      52
+      205,
+      54
      ],
      "visible": true,
      "opacity": 1.0,
@@ -11221,12 +18152,12 @@
     },
     "UiPanel": {
      "color": [
+      0.1,
+      0.11,
       0.12,
-      0.14,
-      0.16,
       0.9
      ],
-     "corner_radius": 8,
+     "corner_radius": 3,
      "border_color": [
       1,
       1,
@@ -11236,9 +18167,9 @@
      "border_width": 1
     },
     "UiText": {
-     "text": "Cancel",
+     "text": "CANCEL",
      "key": "",
-     "font_size": 21,
+     "font_size": 25,
      "color": [
       1,
       1,
@@ -11248,7 +18179,7 @@
      "align": "center",
      "vertical_align": "middle",
      "wrap": false,
-     "bold": true,
+     "bold": false,
      "shadow_color": [
       0,
       0,
@@ -11259,7 +18190,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-SemiBold.ttf"
     },
     "UiButton": {
      "interactable": true,
@@ -11328,26 +18259,26 @@
       1
      ],
      "position": [
-      -24,
-      -18
+      -36,
+      -22
      ],
      "size": [
-      600,
-      28
+      700,
+      26
      ],
      "visible": true,
      "opacity": 1.0,
      "clip_children": false
     },
     "UiText": {
-     "text": "VICTUS 0.2.0  |  Landscape  |  Touch, gamepad and keyboard",
+     "text": "VICTUS 0.2.0   |   TOUCH  \u00b7  GAMEPAD  \u00b7  KEYBOARD",
      "key": "",
-     "font_size": 15,
+     "font_size": 16,
      "color": [
       1,
       1,
       1,
-      0.6
+      0.55
      ],
      "align": "right",
      "vertical_align": "middle",
@@ -11363,7 +18294,7 @@
       0,
       2
      ],
-     "font": ""
+     "font": "fonts/BarlowCondensed-Medium.ttf"
     },
     "Transform": {
      "position": [
@@ -11385,6 +18316,968 @@
     }
    },
    "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+  },
+  {
+   "uuid": "8d63cba9-4514-5e57-b7df-4b1fad6a12e4",
+   "name": "Menu Version",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      1
+     ],
+     "anchor_max": [
+      0,
+      1
+     ],
+     "pivot": [
+      0,
+      1
+     ],
+     "position": [
+      72,
+      -22
+     ],
+     "size": [
+      500,
+      26
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "A VICTUS FIELD DEMONSTRATION  \u00b7  FAHTHIZ",
+     "key": "",
+     "font_size": 16,
+     "color": [
+      1,
+      1,
+      1,
+      0.55
+     ],
+     "align": "left",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+  },
+  {
+   "uuid": "096f9712-27c7-52a2-9bcb-020f4ae60c17",
+   "name": "Menu Press",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      0
+     ],
+     "visible": false,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "UiButton": {
+     "interactable": true,
+     "action": "start",
+     "normal": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "hovered": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "pressed": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "disabled": [
+      0.2,
+      0.2,
+      0.22,
+      0.5
+     ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+  },
+  {
+   "uuid": "899449e9-68b6-5038-8e99-2179252a80ac",
+   "name": "Menu Press Text",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      1
+     ],
+     "anchor_max": [
+      0.5,
+      1
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      -118
+     ],
+     "size": [
+      700,
+      34
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "TAP TO START",
+     "key": "",
+     "font_size": 24,
+     "color": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0.55
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "096f9712-27c7-52a2-9bcb-020f4ae60c17"
+  },
+  {
+   "uuid": "69c5886b-4b4d-58f5-9022-dcb122e09ac4",
+   "name": "Boot",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0,
+      0
+     ],
+     "anchor_max": [
+      1,
+      1
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      0,
+      0
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "UiButton": {
+     "interactable": true,
+     "action": "skip_boot",
+     "normal": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "hovered": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "pressed": [
+      0,
+      0,
+      0,
+      1
+     ],
+     "disabled": [
+      0.2,
+      0.2,
+      0.22,
+      0.5
+     ]
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "6ba6e95a-d632-5b14-a9b6-94f88ca23c23"
+  },
+  {
+   "uuid": "b8cef853-94d7-5797-9edb-1cd2845b3dc6",
+   "name": "Boot Studio",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      800,
+      140
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "69c5886b-4b4d-58f5-9022-dcb122e09ac4"
+  },
+  {
+   "uuid": "6f67d267-5ac4-56bc-9f63-33ccf56e336d",
+   "name": "Boot Studio Name",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      -8
+     ],
+     "size": [
+      800,
+      80
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "FAHTHIZ",
+     "key": "",
+     "font_size": 70,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Bold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "b8cef853-94d7-5797-9edb-1cd2845b3dc6"
+  },
+  {
+   "uuid": "f7eed4b5-9d45-541c-af12-435d156effc9",
+   "name": "Boot Studio Sub",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      46
+     ],
+     "size": [
+      800,
+      30
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "PRESENTS",
+     "key": "",
+     "font_size": 20,
+     "color": [
+      1,
+      1,
+      1,
+      0.6
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "b8cef853-94d7-5797-9edb-1cd2845b3dc6"
+  },
+  {
+   "uuid": "5626f46a-aa8e-516e-8ef7-3011c2779f53",
+   "name": "Boot Engine",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      800,
+      160
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "69c5886b-4b4d-58f5-9022-dcb122e09ac4"
+  },
+  {
+   "uuid": "a494df46-e5f7-5f41-8b88-78ed960b8127",
+   "name": "Boot Engine Kicker",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      -60
+     ],
+     "size": [
+      800,
+      26
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "BUILT ON",
+     "key": "",
+     "font_size": 18,
+     "color": [
+      0.93,
+      0.68,
+      0.34,
+      1
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5626f46a-aa8e-516e-8ef7-3011c2779f53"
+  },
+  {
+   "uuid": "35cde6f5-e4ef-585b-b8e9-9b32075d9cbf",
+   "name": "Boot Engine Name",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      -8
+     ],
+     "size": [
+      800,
+      84
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "VICTUS",
+     "key": "",
+     "font_size": 78,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Bold.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5626f46a-aa8e-516e-8ef7-3011c2779f53"
+  },
+  {
+   "uuid": "c3aefc1c-508a-56c3-8f85-b8b915ad285b",
+   "name": "Boot Engine Rule",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      40
+     ],
+     "size": [
+      120,
+      2
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiPanel": {
+     "color": [
+      1,
+      1,
+      1,
+      0.35
+     ],
+     "corner_radius": 0,
+     "border_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "border_width": 0
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5626f46a-aa8e-516e-8ef7-3011c2779f53"
+  },
+  {
+   "uuid": "bdee275d-ab92-51ea-b8f8-91aeebf4bb40",
+   "name": "Boot Engine Sub",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      62
+     ],
+     "size": [
+      800,
+      28
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "REAL-TIME RENDERING FOR PHONES",
+     "key": "",
+     "font_size": 18,
+     "color": [
+      1,
+      1,
+      1,
+      0.6
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": false,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "5626f46a-aa8e-516e-8ef7-3011c2779f53"
+  },
+  {
+   "uuid": "cb9bba32-cd64-5939-b17d-3ce936506c41",
+   "name": "Boot Warn",
+   "components": {
+    "UiRect": {
+     "anchor_min": [
+      0.5,
+      0.5
+     ],
+     "anchor_max": [
+      0.5,
+      0.5
+     ],
+     "pivot": [
+      0.5,
+      0.5
+     ],
+     "position": [
+      0,
+      0
+     ],
+     "size": [
+      760,
+      160
+     ],
+     "visible": true,
+     "opacity": 1.0,
+     "clip_children": false
+    },
+    "UiText": {
+     "text": "A work of fiction. Every weapon in this story is a non-lethal pulse carbine.\nHeadphones recommended.",
+     "key": "",
+     "font_size": 24,
+     "color": [
+      1,
+      1,
+      1,
+      0.8
+     ],
+     "align": "center",
+     "vertical_align": "middle",
+     "wrap": true,
+     "bold": false,
+     "shadow_color": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "shadow_offset": [
+      0,
+      2
+     ],
+     "font": "fonts/BarlowCondensed-Medium.ttf"
+    },
+    "Transform": {
+     "position": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "parent": "69c5886b-4b4d-58f5-9022-dcb122e09ac4"
   },
   {
    "uuid": "8e180ddb-b9f7-5788-87a3-14cafec6fa56",
