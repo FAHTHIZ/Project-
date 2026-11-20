@@ -6,7 +6,7 @@
 --   operator_hit(key)     an operator hit by Greyline fire calls it out
 --   thunder(km, volume)   a close strike outdoors gets a comment when nothing else is going on
 --   player_hurt / kit_used / enemy_down / hit_confirm / reload_started / dry_fire / player_jumped /
---   player_shot_at / near_miss / enemy_surrender
+--   player_shot_at / near_miss / enemy_surrender / enemy_flanking
 -- Per-frame detectors:
 --   aiming down sights at a teammate, staring at one up close, walking into one, firing at
 --   nothing, torch on or sprinting near contractors who have not noticed the squad, standing idle,
@@ -207,6 +207,14 @@ function R.start()
     Game.on("player_fired", function()
         table.insert(s.shots, s.clock)
         s.fired += 1
+    end)
+    Game.on("enemy_flanking", function(e)
+        local p = player_pos()
+        if not p or not (e and e.valid) or vector.magnitude(e.world_position - p) > 50 then return end
+        -- somebody on the team saw him go: a warning, not a radar
+        after(1.0 + math.random() * 0.8, function()
+            if e.valid then bark("eflank", { cooldown = 25 }) end
+        end)
     end)
     Game.on("player_shot_at", on_shot_from)
     Game.on("near_miss", on_shot_from)

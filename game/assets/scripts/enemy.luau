@@ -10,6 +10,13 @@
 --   stun     stun pool (Sorn has a deeper one)
 --   dormant  start out of the level; the mission calls e:wake(pos, yaw) when they arrive
 --
+-- Fighting (lib/tactics.luau): after the first burst, or when hit or caught in the open, a
+-- contractor dashes to real cover (a trunk, rock, log, vehicle or fold in the ground that blocks a
+-- line from the threat's eyes to a crouched chest) and fights from it: crouched between bursts,
+-- standing to fire. In a group, one contractor at a time swings wide to flank. When the target
+-- breaks line of sight they put a few bursts into the last known position before searching, and a
+-- search sweeps several points around it instead of standing on one spot.
+--
 -- Mission hooks: e.parley = true holds fire (and the squad holds theirs) while someone talks; a
 -- hit breaks it. e:surrender() kneels without a stun. e:retreat(points) walks off under parley.
 local Game = require("scripts/lib/game")
@@ -17,6 +24,7 @@ local Combat = require("scripts/lib/combat")
 local Actor = require("scripts/lib/actor")
 local Squad = require("scripts/lib/squad")
 local Dialogue = require("scripts/lib/dialogue")
+local Tactics = require("scripts/lib/tactics")
 
 local E = {}
 E.patrol = ""
@@ -29,10 +37,11 @@ E.accuracy = 1.0
 E.dormant = false
 
 local groups = {}
+local group_flank = {}   -- group name -> time before which nobody else in it starts a flank
 local groups_scene = nil
 local function group_of(name)
     local cur = scene.current()
-    if cur ~= groups_scene then groups = {}; groups_scene = cur end
+    if cur ~= groups_scene then groups = {}; group_flank = {}; groups_scene = cur end
     groups[name] = groups[name] or {}
     return groups[name]
 end
@@ -87,18 +96,20 @@ function E:start()
         Dialogue.register(self.voice, self.dlg)
     end
     self.mag_left = 18 + math.random(0, 12)   -- rounds before this contractor has to change cells
+    self.think_t = math.random() * 0.5
+    self.hit_t = -100
 end
 
 -- Voices are shared by several contractors (greyline1/greyline2), so the speaker claims the voice
 -- key before barking: the line then plays from this contractor's head, not a colleague's. Barks
 -- beyond earshot are skipped instead of falling back to the radio bus.
-function E:say(kind, chance)
+function E:say(kind, chance, ttl)
     if self.voice == "" or self.down or not self.dlg then return false end
     if chance and math.random() > chance then return false end
     local cam = Game.camera
     if cam and vector.magnitude(self.entity.world_position - cam.world_position) > 40 then return false end
     Dialogue.register(self.voice, self.dlg)
-    return Dialogue.bark(kind, { prefix = "grey_", speaker = self.voice, cooldown = 7 })
+    return Dialogue.bark(kind, { prefix = "grey_", speaker = self.voice, cooldown = 7, ttl = ttl })
 end
 
 function E:alert_group(pos)
@@ -112,10 +123,18 @@ end
 
 function E:investigate(pos, delay)
     if self.down or self.state == "engage" then return end
+    -- more of the same noise (footsteps, a burst) refines the spot instead of restarting the search
+    if self.state == "alert" and self.noise_pos and flat_dist(pos, self.noise_pos) < 5 then
+        self.noise_pos = pos
+        return
+    end
     if self.state == "patrol" and not self.dormant then self:say("alert", 0.7) end
     self.state = "alert"
     self.st = -(delay or 0)
     self.noise_pos = pos
+    self.sweep = nil
+    self.tac_goal, self.in_cover = nil, nil
+    self.actor:halt()   -- stop and listen; the walk to the new spot starts after the delay
 end
 
 function E:on_noise(pos, radius, source)
@@ -134,6 +153,7 @@ function E:on_hit(info)
         Game.emit("parley_broken", self.entity)
     end
     self.pool -= info.amount
+    self.hit_t = time.now()
     self.actor:look_at(info.source and info.source.valid and info.source.world_position + vector.create(0, 1.5, 0)
         or self.entity.position, 1.0)
     if self.state ~= "engage" then
@@ -249,6 +269,8 @@ function E:update(dt)
         self:say("contact")
         self:alert_group(tgt.position)
         self.actor:set_speed(3.0)
+        self.tac_goal, self.in_cover, self.flanked = nil, nil, false
+        self.cover_t = time.now() + 0.8 + math.random() * 1.2   -- earliest cover decision
     end
     if self.state == "patrol" then
         a.aim_want = 0
@@ -274,12 +296,41 @@ function E:update(dt)
         if self.st >= 0 and self.noise_pos then
             a.aim_want = 0.7
             a.focus = self.noise_pos
-            if self.st > 0.8 and not a.goal and flat_dist(e.position, self.noise_pos) > 3 then
+            if self.st > 0.8 and not a.goal and not self.sweep and flat_dist(e.position, self.noise_pos) > 3 then
                 local p = nav.available() and nav.nearest(self.noise_pos, vector.create(3, 4, 3)) or self.noise_pos
                 self.actor:set_speed(2.2)
                 a:go(p)
+            elseif self.st > 0.8 and not self.sweep and (a:arrived() or flat_dist(e.position, self.noise_pos) <= 3) then
+                -- reached the spot: sweep a few points around it, pausing to look at each
+                self.sweep = Tactics.search_points(self.noise_pos, 3, 7)
+                self.sweep_i, self.sweep_wait = 0, 1.2 + math.random()
+                a:halt()
+                Game.emit("enemy_sweep", e, #self.sweep)
             end
-            if self.st > 9 then
+            if self.sweep then
+                local g = self.sweep[self.sweep_i]
+                if g and (a:arrived() or flat_dist(e.position, g) < 1.0) then
+                    g = nil
+                    self.sweep_wait = 1.0 + math.random() * 1.5
+                    a:halt()
+                end
+                if not g then
+                    self.sweep_wait -= dt
+                    -- look around while paused
+                    a.focus = e.position + vector.create(math.sin(self.st * 0.9 + self.actor.seed), 0, math.cos(self.st * 0.9 + self.actor.seed)) * 6
+                    if self.sweep_wait <= 0 and self.sweep_i < #self.sweep then
+                        self.sweep_i += 1
+                        self.actor:set_speed(1.8)
+                        a:go(self.sweep[self.sweep_i])
+                        if self.sweep_i == 2 then self:say("search", 0.35) end
+                    end
+                else
+                    a.focus = g
+                end
+            end
+            local give_up = self.sweep and (self.sweep_i >= #self.sweep and self.sweep_wait <= 0 or self.st > 26) or (not self.sweep and self.st > 9)
+            if give_up then
+                self.sweep = nil
                 self:say("calm", 0.6)
                 self.state = "patrol"
                 a:halt()
@@ -296,13 +347,24 @@ function E:update(dt)
             local muzzle = a:muzzle_ray()
             local d = tp - muzzle
             a.aim_pitch = math.deg(math.atan2(d.y, math.sqrt(d.x * d.x + d.z * d.z)))
-            if self.st >= self.react then self:fire(dt, tgt, tp) end
-            -- keep a fighting distance
-            local dist = flat_dist(e.position, tgt.position)
-            if dist > 22 and not a.goal then a:go(tgt.position) elseif dist < 18 and a.goal then a:halt() end
+            self:think(dt, tgt)
+            if self.st >= self.react and not self.tac_goal then self:fire(dt, tgt, tp) end
+            -- keep a fighting distance (only when not already moving with a purpose)
+            if not self.tac_goal and not self.in_cover then
+                local dist = flat_dist(e.position, tgt.position)
+                if dist > 22 and not a.goal then a:go(tgt.position) elseif dist < 18 and a.goal then a:halt() end
+            end
         else
             self.lost_t = (self.lost_t or 0) + dt
-            if self.lost_t > 1.5 and self.last_seen then
+            if self.tac_goal then self:think(dt, nil) end
+            -- they just ducked out of sight: keep their heads down for a moment
+            if self.last_seen and self.lost_t > 0.35 and self.lost_t < 2.4 and not self.tac_goal and (self.bursts or 0) > 0 then
+                local jitter = vector.create((math.random() - 0.5) * 2.5, 0.6 + math.random() * 0.8, (math.random() - 0.5) * 2.5)
+                a.focus = self.last_seen
+                self:fire(dt, nil, self.last_seen + jitter)
+            end
+            if self.lost_t > 3.0 and self.last_seen then
+                self.tac_goal, self.in_cover = nil, nil
                 if not self:say("lost", 0.5) then self:say("search") end
                 self.state = "alert"
                 self.st = 0.5
@@ -310,8 +372,112 @@ function E:update(dt)
             end
         end
     end
-    a:param("crouch", self.state == "engage" and not a.goal and (self.actor.seed % 2 == 0))
+    local crouch
+    if self.state == "engage" and self.in_cover then
+        -- duck between bursts and while changing cells, stand to shoot
+        crouch = self.fire_t > 0.45
+    else
+        crouch = self.state == "engage" and not a.goal and (self.actor.seed % 2 == 0)
+    end
+    self.crouching = crouch
+    a:param("crouch", crouch)
     a:update(dt)
+end
+
+-- Group members currently flanking (one at a time per group).
+local function flanker_in(group, me)
+    for _, o in group do
+        if o ~= me and not o.down and o.tac_kind == "flank" and o.tac_goal then return true end
+    end
+    return false
+end
+
+local function engaged_in(group)
+    local n = 0
+    for _, o in group do if not o.down and o.state == "engage" then n += 1 end end
+    return n
+end
+
+-- Tactical decisions while engaged, a few times a second: take cover, relocate when the cover
+-- stops covering, flank, and arrive. tgt may be nil while moving after losing sight.
+function E:think(dt, tgt)
+    local a, e = self.actor, self.entity
+    local now = time.now()
+    -- moving: arrive, or give up a run that takes too long
+    if self.tac_goal then
+        if a:arrived() or flat_dist(e.position, self.tac_goal) < 0.9 or now > self.tac_until then
+            local kind = self.tac_kind
+            a:halt()
+            self.in_cover = self.tac_goal
+            self.tac_goal, self.tac_kind = nil, nil
+            self.actor:set_speed(3.0)
+            self.check_t = now + 1.5
+            Game.emit("enemy_in_cover", e, kind)
+        end
+        return
+    end
+    self.think_t -= dt
+    if self.think_t > 0 or not tgt or now < (self.cover_t or 0) then return end
+    self.think_t = 0.45 + math.random() * 0.3
+    local threat = tgt.position
+    local eye = threat + vector.create(0, 1.55, 0)
+    local group = self.group ~= "" and group_of(self.group) or nil
+    -- flank: one contractor of an engaged group of two or more swings wide, once per fight
+    if group and not self.flanked and engaged_in(group) >= 2 and now >= (group_flank[self.group] or 0)
+        and not flanker_in(group, self) and (self.actor.seed % 3 ~= 0 or (self.bursts or 0) >= 3) then
+        self.flanked = true
+        group_flank[self.group] = now + 25
+        local rel = e.position - threat
+        local side = (rel.x * 0.37 + rel.z * 0.93 > 0) and 1 or -1
+        local fp = Tactics.flank_point(e.position, threat, side)
+        if fp then
+            local c = Tactics.find_cover(fp, threat, { radius = 6, samples = 12, min_threat = 7, ignore = e })
+            self:move_tactical(c or fp, "flank", 9)
+            self:say("flank", 0.9, 3.5)
+            Game.emit("enemy_flanking", e, threat)
+            return
+        end
+    end
+    -- in cover: is it still cover? (the threat may have moved round it)
+    if self.in_cover then
+        if now < (self.check_t or 0) then return end
+        self.check_t = now + 1.4 + math.random() * 0.8
+        local hit_recent = now - self.hit_t < 1.0
+        if Tactics.exposed(eye, self.in_cover, e) or (hit_recent and math.random() < 0.35) then
+            self.in_cover = nil
+        else
+            return
+        end
+    end
+    -- in the open: take cover after a burst or two, at once if hit
+    local hit_recent = now - self.hit_t < 1.5
+    if not hit_recent and (self.bursts or 0) < 1 then return end
+    if not Tactics.exposed(eye, e.position, e) then
+        -- already behind something where we stand
+        self.in_cover = e.position
+        self.check_t = now + 1.5
+        return
+    end
+    local avoid = {}
+    for _, o in group or {} do
+        if o ~= self and (o.in_cover or o.tac_goal) then table.insert(avoid, o.tac_goal or o.in_cover) end
+    end
+    local c = Tactics.find_cover(e.position, threat, { radius = 9, ignore = e, avoid = avoid })
+    if c then
+        self:move_tactical(c, "cover", 5)
+        self:say("cover", hit_recent and 0.7 or 0.4, 3.0)
+    else
+        self.cover_t = now + 2.5   -- nothing around; try again later (or after moving)
+    end
+end
+
+function E:move_tactical(p, kind, limit)
+    self.tac_goal, self.tac_kind = p, kind
+    self.tac_until = time.now() + (limit or 6)
+    self.in_cover = nil
+    self.burst = 0
+    self.actor:set_speed(kind == "flank" and 3.4 or 3.8)
+    self.actor:go(p)
 end
 
 function E:fire(dt, tgt, tp)
@@ -329,18 +495,19 @@ function E:fire(dt, tgt, tp)
     end
     self.mag_left -= 1
     local dist = vector.magnitude(tp - self.entity.position)
-    local moving = vector.magnitude(tgt.velocity or vector.create(0, 0, 0)) > 1.5
-    local is_player = Game.player and tgt.id == Game.player.id
+    local moving = tgt ~= nil and vector.magnitude(tgt.velocity or vector.create(0, 0, 0)) > 1.5
+    local is_player = tgt ~= nil and Game.player ~= nil and tgt.id == Game.player.id
     -- generous spread so the player has time to react; first burst is a warning
     local spread = (3.2 + dist * 0.12 + (moving and 2.2 or 0)) / self.accuracy
     if (self.bursts or 0) == 0 then spread *= 1.8 end
+    if tgt == nil then spread *= 1.5 end   -- suppressing a last known position
     Squad.shoot(self, tp, { spread = spread, amount = is_player and 7 or 12, team = "enemy", volume = 0.5,
                             pitch = 0.82 + math.random() * 0.06 })
     self.burst += 1
     if self.burst >= 3 then
         self.burst = 0
         self.bursts = (self.bursts or 0) + 1
-        if self.bursts == 2 or self.bursts % 5 == 0 then self:say("suppress", 0.45) end
+        if self.bursts == 2 or self.bursts % 5 == 0 or (tgt == nil and self.bursts % 2 == 0) then self:say("suppress", 0.45) end
         self.fire_t = 1.2 + math.random() * 0.8
     else
         self.fire_t = 0.14

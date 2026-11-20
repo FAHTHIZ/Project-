@@ -420,6 +420,8 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 
 ## 2026-11-20 Surface footsteps, gear foley and footstep noise for AI
 
+- Commit: 4fb0e42 (game main).
+
 - New `game/assets/scripts/lib/footsteps.luau`.
   - It detects the surface under a foot with a downward ray. On terrain, the splat layer picks dirt, gravel or grass. Off terrain, keywords in the entity name and up to 5 parent names pick metal or wood, and anything else is concrete. Results are cached per entity per scene.
   - It reads the scene's `Weather` component. In rain, outdoor soft ground becomes mud and puddles add splashes.
@@ -433,3 +435,32 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - Autotests PASS: footsteps 8/8 (new: surface = concrete on the range, walk 2.67 steps/s with 1.8 m reach, sprint 3.50 steps/s with 7.5 m reach, crouch 5 steps with 0 noises, landing noise), movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter.
 - `SOPS_TEST_FRAMES=19800 ... story_op01` PASS: 19 800 frames, 0 script errors.
 - Not tested: whether the rain/mud and terrain-layer branches pick the right surface in the outdoor worlds. The new plan only covers the dev-range ground. The sounds have not been listened to on a device.
+
+## 2026-11-20 Greyline contractor tactics: real cover, peeking, flanking, suppression, sweeps
+
+- New `game/assets/scripts/lib/tactics.luau`. Kestrel has no authored cover nodes, so cover is whatever stops a pulse: terrain folds, tree trunks, rocks, logs, vehicles and walls (the colliders the shots use).
+  - `find_cover` samples 18 points within 9 m and snaps them to the ground (terrain height or a ray down) and the navmesh. It keeps points where a ray from the threat's eye to a crouched chest (0.95 m) hits a non-character collider.
+  - Scoring favours peek spots (standing at 1.55 m clears the obstacle) and short, sideways rather than forward moves. It penalises open midpoints on the run and points another fighter has claimed.
+  - Also adds `exposed`, `flank_point` (70° off the line of fire, 10-18 m from the threat) and `search_points`.
+- `enemy.luau`:
+  - After the first burst, or at once when hit, an exposed contractor dashes to cover (3.8 m/s, no firing while moving) and barks `grey_cover_*`.
+  - In cover it crouches between bursts and while changing cells, and stands to fire. Every 1.4-2.2 s it re-checks the cover and relocates if the threat has moved round it, or sometimes after being hit.
+  - In a group with two or more engaged, one contractor at a time flanks via cover near the flank point (25 s group cooldown). It barks `grey_flank_*` and emits `enemy_flanking`, and the squad warns `react_eflank_*`.
+  - On losing sight, a contractor fires a few wider bursts at the last known position for 0.35-2.4 s, then searches after 3 s (was 1.5 s).
+  - On reaching a search spot, it sweeps 3 points around it, pausing and looking around at each (gives up after 26 s).
+  - Repeated noises within 5 m refine the search spot instead of restarting it. A new noise halts the old walk.
+- 10 new voiced lines (Kokoro, `tools/audio/build_voices.py`, 435 total): `grey_flank_1..3`, `grey_cover_1..3`, `react_eflank_1..4`.
+- New events: `enemy_in_cover`, `enemy_flanking`, `enemy_sweep`.
+- New autotest `enemy_tactics` (dev range, two alerted contractors, player made unhittable; scene `tests/enemy_tactics.vscene`). It PASSES 10/10, on 3 runs:
+  - the cover geometry check;
+  - both contractors reach cover;
+  - the held position is hidden from the player;
+  - both crouch in cover;
+  - exactly 1 flank;
+  - contact, cover and flank barks;
+  - 6 shots at the last known position after the player hides;
+  - both switch to searching;
+  - a nearby noise starts a sweep.
+- Ran (engine VICTUS cd59c05, Release): `victus import game` (0 failed), `victus check game` (250 scenes, 43 scripts: 0 problems).
+- Regressions PASS: squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, squad, and story_op01 (19 800 frames, 0 script errors).
+- Not tested: the squad `eflank` warning (no plan has operators and a flanker together). Also untested: cover choice among the streamed trees and rocks of the open world, and the cost of the ~70 rays per cover search on device. The search runs at most every 0.45-0.75 s per engaged contractor, and only while it is in the open.

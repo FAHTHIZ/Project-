@@ -142,6 +142,92 @@ P.enemy_fire = {
     end },
 }
 
+-- Contractor tactics (lib/tactics.luau): two alerted contractors in the open take real cover
+-- (the range's blocks), fight from it crouching between bursts, one flanks, and when the player
+-- breaks line of sight they suppress the last known position and then sweep it. The player is
+-- made unhittable here so the fight lasts.
+P.enemy_tactics = {
+    { at = 0.3, run = function(c)
+        c.data.hurt = Game.hurt_player
+        Game.hurt_player = function() return false end
+        c.data.cover, c.data.flank, c.data.crouched, c.data.shots_after = {}, {}, {}, 0
+        Game.on("enemy_in_cover", function(e, kind) table.insert(c.data.cover, { id = e.id, kind = kind, pos = e.position }) end)
+        Game.on("enemy_flanking", function(e) table.insert(c.data.flank, { id = e.id, pos = e.position }) end)
+        c.data.sweeps = 0
+        Game.on("enemy_sweep", function(e, n) if n > 0 then c.data.sweeps += 1 end end)
+        Combat.on_noise(function(pos, r, src)
+            if c.data.hidden_t and src and src.valid and Squad.state().enemies[src.id] and r >= 20 then
+                if time.now() - c.data.hidden_t < 3.0 then c.data.shots_after += 1 end
+            end
+        end)
+        c.check("enemies_registered", #Squad.active_enemies() == 2, "enemies " .. #Squad.active_enemies())
+        local Tactics = require("scripts/lib/tactics")
+        -- a crouched chest behind the left block is covered from the player; one in the open is not
+        local eye = Game.player.position + V(0, 1.55, 0)
+        c.check("cover_geometry", (not Tactics.exposed(eye, V(-6, 0, -15.2), Game.player))
+            and Tactics.exposed(eye, V(-7, 0, -9), Game.player), "")
+    end },
+    { at = 16.0, run = function(c)
+        local covered = 0
+        local seen = {}
+        for _, ev in c.data.cover do
+            if ev.kind == "cover" and not seen[ev.id] then seen[ev.id] = true; covered += 1 end
+        end
+        c.check("took_cover", covered >= 1, string.format("%d contractors reached cover (%d arrivals)", covered, #c.data.cover))
+        local blocked = 0
+        local eye = Game.player.position + V(0, 1.55, 0)
+        local Tactics = require("scripts/lib/tactics")
+        for _, r in Squad.state().enemies do
+            if r.ctl.in_cover and not Tactics.exposed(eye, r.ctl.in_cover, r.entity) then blocked += 1 end
+        end
+        c.check("cover_is_cover", blocked >= 1, string.format("%d holding positions hidden from the player", blocked))
+        local nc = 0
+        for _ in c.data.crouched do nc += 1 end
+        c.check("ducks_in_cover", nc >= 1, string.format("%d crouched in cover", nc))
+        c.check("one_flanks", #c.data.flank == 1, string.format("%d flank moves", #c.data.flank))
+        local log = Dialogue.state().log
+        local barks = {}
+        for _, l in log do
+            for _, k in { "cover", "flank", "contact" } do
+                if string.find(l.id, "grey_" .. k) then barks[k] = true end
+            end
+        end
+        c.check("tactical_barks", barks.contact and (barks.cover or barks.flank),
+            string.format("contact %s cover %s flank %s", tostring(barks.contact), tostring(barks.cover), tostring(barks.flank)))
+        -- now break line of sight: behind the north wall
+        Game.player.position = V(0, 0.05, -33)
+        c.data.hidden_t = time.now()
+    end },
+    { at = 19.5, run = function(c)
+        c.check("suppress_last_known", c.data.shots_after >= 1, string.format("%d shots at the last known position", c.data.shots_after))
+        local searching = 0
+        for _, r in Squad.state().enemies do
+            if r.ctl.state == "alert" and r.ctl.noise_pos then searching += 1 end
+        end
+        c.check("lost_then_search", searching == 2, string.format("%d searching", searching))
+        -- the walk round the range walls to the hiding place is long; check the sweep on a nearby
+        -- noise instead: reaching the spot starts a multi-point sweep
+        c.data.sweeps = 0
+        for _, r in Squad.state().enemies do
+            r.ctl:investigate(r.entity.position + V(2.5, 0, 2.5), 0)
+            break
+        end
+    end },
+    { at = 26.0, run = function(c)
+        c.check("search_sweep", c.data.sweeps >= 1, string.format("%d sweeps started", c.data.sweeps))
+        Game.hurt_player = c.data.hurt
+    end },
+}
+
+-- stand still in the open and watch them for a while (sampled every 0.25 s)
+for i = 0, 62 do
+    table.insert(P.enemy_tactics, 2 + i, { at = 0.4 + i * 0.25, run = function(c)
+        for _, r in Squad.state().enemies do
+            if r.ctl.in_cover and r.ctl.crouching then c.data.crouched[r.entity.id] = true end
+        end
+    end })
+end
+
 -- Screenshot setup: the squad faces the player.
 P.squad_look = {
     { at = 0.05, run = function() Squad.order("hold"); Game.face_player(V(0, 1.6, 9.5)) end },
