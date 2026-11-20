@@ -451,9 +451,9 @@ function E:think(dt, tgt)
     end
     -- in the open: take cover after a burst or two, at once if hit
     local hit_recent = now - self.hit_t < 1.5
-    if not hit_recent and (self.bursts or 0) < 1 then return end
-    if not Tactics.exposed(eye, e.position, e) then
-        -- already behind something where we stand
+    if not hit_recent and (self.bursts or 0) < 1 and (self.blocked_n or 0) < 3 then return end
+    if not Tactics.exposed(eye, e.position, e) and Tactics.can_peek(eye, e.position, e) and (self.blocked_n or 0) == 0 then
+        -- already behind something where we stand, and can shoot over it
         self.in_cover = e.position
         self.check_t = now + 1.5
         return
@@ -462,10 +462,17 @@ function E:think(dt, tgt)
     for _, o in group or {} do
         if o ~= self and (o.in_cover or o.tac_goal) then table.insert(avoid, o.tac_goal or o.in_cover) end
     end
+    if (self.blocked_n or 0) > 0 then table.insert(avoid, e.position) end
     local c = Tactics.find_cover(e.position, threat, { radius = 9, ignore = e, avoid = avoid })
+    self.blocked_n = 0
     if c then
         self:move_tactical(c, "cover", 5)
         self:say("cover", hit_recent and 0.7 or 0.4, 3.0)
+    elseif self.sidestep then
+        -- no cover around, but the shot is blocked: step out sideways
+        local p = self.sidestep
+        self.sidestep = nil
+        self:move_tactical(p, "sidestep", 3)
     else
         self.cover_t = now + 2.5   -- nothing around; try again later (or after moving)
     end
@@ -493,6 +500,22 @@ function E:fire(dt, tgt, tp)
         Game.emit("enemy_reloading", self.entity)
         return
     end
+    -- do not empty a magazine into the rock in front of you: after a few blocked attempts, move
+    local muzzle = self.actor:muzzle_ray()
+    local reach = vector.magnitude(tp - muzzle)
+    if not Tactics.clear_shot(muzzle, tp, self.entity, math.min(6, reach * 0.5)) then
+        self.fire_t = 0.35
+        self.blocked_n = (self.blocked_n or 0) + 1
+        if self.blocked_n >= 3 then
+            local d = tp - self.entity.position
+            local side = vector.normalize(vector.create(-d.z, 0, d.x)) * ((self.actor.seed % 2 == 0) and 2.5 or -2.5)
+            self.sidestep = Tactics.ground(self.entity.position + side, self.entity)
+            self.in_cover = nil
+            self.cover_t, self.think_t = 0, 0
+        end
+        return
+    end
+    self.blocked_n = 0
     self.mag_left -= 1
     local dist = vector.magnitude(tp - self.entity.position)
     local moving = tgt ~= nil and vector.magnitude(tgt.velocity or vector.create(0, 0, 0)) > 1.5

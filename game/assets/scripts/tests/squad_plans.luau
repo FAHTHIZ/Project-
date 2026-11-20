@@ -219,6 +219,44 @@ P.enemy_tactics = {
     end },
 }
 
+-- The squad in a firefight next to the player: operators find real cover (the crates) against the
+-- contractor they fight, duck there, still put both contractors down, and someone warns when one
+-- of them flanks. The player is unhittable and stands still.
+P.squad_cover = {
+    { at = 0.3, run = function(c)
+        c.data.hurt = Game.hurt_player
+        Game.hurt_player = function() return false end
+        c.data.covered, c.data.hidden, c.data.flanks = {}, 0, 0
+        c.data.downs0 = Combat.stats.downs
+        local Tactics = require("scripts/lib/tactics")
+        Game.on("squad_in_cover", function(who)
+            c.data.covered[who] = true
+            local m = Squad.member(who)
+            local t = m and m.last_target
+            if t and t.valid and not Tactics.exposed(t.position + V(0, 1.55, 0), m.entity.position, m.entity) then
+                c.data.hidden += 1
+            end
+        end)
+        Game.on("enemy_flanking", function() c.data.flanks += 1 end)
+        c.check("setup", Squad.count() == 4 and #Squad.active_enemies() == 2,
+            string.format("squad %d enemies %d", Squad.count(), #Squad.active_enemies()))
+    end },
+    { at = 45.0, run = function(c)
+        local n = 0
+        for _ in c.data.covered do n += 1 end
+        c.check("squad_takes_cover", n >= 2, string.format("%d operators reached cover", n))
+        c.check("cover_hides_them", c.data.hidden >= 1, string.format("%d arrivals hidden from their target", c.data.hidden))
+        c.data.down45 = Combat.stats.downs - c.data.downs0
+        local warned = false
+        for _, l in Dialogue.state().log do
+            if string.find(l.id, "react_eflank") then warned = true end
+        end
+        c.check("flank_warning", c.data.flanks == 0 or warned,
+            string.format("%d flanks, warned %s", c.data.flanks, tostring(warned)))
+        Game.hurt_player = c.data.hurt
+    end },
+}
+
 -- stand still in the open and watch them for a while (sampled every 0.25 s)
 for i = 0, 62 do
     table.insert(P.enemy_tactics, 2 + i, { at = 0.4 + i * 0.25, run = function(c)
@@ -227,6 +265,22 @@ for i = 0, 62 do
         end
     end })
 end
+
+for i = 0, 160 do
+    table.insert(P.squad_cover, 2 + i, { at = 1 + i * 0.25, run = function(c)
+        c.data.ducked = c.data.ducked or {}
+        Squad.each(function(k, m) if m.in_cover and m.crouching then c.data.ducked[k] = true end end)
+    end })
+end
+table.insert(P.squad_cover, { at = 45.1, run = function(c)
+    local n = 0
+    for _ in c.data.ducked or {} do n += 1 end
+    c.check("ducks_in_cover", n >= 1, string.format("%d operators crouched in cover", n))
+end })
+table.insert(P.squad_cover, { at = 60.0, run = function(c)
+    local down = Combat.stats.downs - c.data.downs0
+    c.check("still_wins", down == 2, string.format("downs %d (by 45 s: %d)", down, c.data.down45))
+end })
 
 -- Screenshot setup: the squad faces the player.
 P.squad_look = {

@@ -1,12 +1,15 @@
 -- Halyard Team operator (Anchor, Patch, Echo, Tally): follows the player in formation, holds or
 -- moves on orders, engages Greyline contractors it can see, reacts with barks, looks at whoever
 -- is talking and plays its own voice lines with lip sync. Companions are never taken out: hits
--- make them stagger and take cover for a moment.
+-- make them stagger and take cover for a moment. In a firefight near the player (follow mode),
+-- each operator finds real cover against the contractor it is fighting (lib/tactics.luau) within
+-- 14 m of the player, ducks between bursts there and moves again if the cover stops covering.
 local Game = require("scripts/lib/game")
 local Combat = require("scripts/lib/combat")
 local Actor = require("scripts/lib/actor")
 local Squad = require("scripts/lib/squad")
 local Dialogue = require("scripts/lib/dialogue")
+local Tactics = require("scripts/lib/tactics")
 
 local Op = {}
 Op.who = "Anchor"
@@ -261,8 +264,9 @@ function Op:update(dt)
             local d_slot = flat_dist(e.position, slot)
             local hold_fire = self.engaged and d_player < 12
             if hold_fire then
-                if self.goal then a:halt(); self.goal = nil end
+                self:combat_move(dt)
             else
+                self.cover_goal, self.in_cover = nil, nil
                 self.repath_t -= dt
                 if d_slot > 1.4 and (not self.goal or flat_dist(slot, self.goal) > 1.2) and self.repath_t <= 0 then
                     local p = nav.available() and nav.nearest(slot, vector.create(3, 4, 3)) or slot
@@ -310,9 +314,62 @@ function Op:update(dt)
             a.focus = nil
         end
     end
-    a:param("crouch", self.engaged and not self.goal and (self.r.role == "scout" or self.r.role == "lead") and
-        self.stagger_t <= 0)
+    if not self.engaged then self.cover_goal, self.in_cover = nil, nil end
+    local crouch = self.engaged and not self.goal and (self.r.role == "scout" or self.r.role == "lead") and self.stagger_t <= 0
+    if self.in_cover and not self.goal then crouch = self.fire_t > 0.45 or self.stagger_t > 0 end
+    self.crouching = crouch
+    a:param("crouch", crouch)
     a:update(dt)
+end
+
+-- Follow-mode firefight close to the player: get into cover against the current threat.
+function Op:combat_move(dt)
+    local a, e = self.actor, self.entity
+    local now = time.now()
+    if self.cover_goal then
+        if a:arrived() or flat_dist(e.position, self.cover_goal) < 0.9 or now > self.cover_until then
+            a:halt()
+            self.goal = nil
+            self.in_cover = self.cover_goal
+            self.cover_goal = nil
+            self.actor:set_speed(self.r.speed)
+            self.cur_speed = self.r.speed
+            Game.emit("squad_in_cover", self.who)
+        end
+        return
+    end
+    local t = self.last_target
+    if not (t and t.valid) then
+        if self.goal then a:halt(); self.goal = nil end
+        return
+    end
+    if self.goal and not self.in_cover then a:halt(); self.goal = nil end
+    if now < (self.cover_check or 0) then return end
+    self.cover_check = now + 1.1 + math.random() * 0.7
+    local threat = t.position
+    local eye = threat + vector.create(0, 1.55, 0)
+    if self.in_cover and not Tactics.exposed(eye, self.in_cover, e) then return end
+    if not Tactics.exposed(eye, e.position, e) then
+        self.in_cover = e.position
+        return
+    end
+    local avoid = {}
+    Squad.each(function(_, m)
+        if m ~= self and (m.cover_goal or m.in_cover) then table.insert(avoid, m.cover_goal or m.in_cover) end
+    end)
+    local pp = Game.player and Game.player.position or e.position
+    table.insert(avoid, pp)   -- not the player's spot
+    local c = Tactics.find_cover(e.position, threat, { radius = 7, ignore = e, avoid = avoid, min_threat = 5 })
+    if c and flat_dist(c, pp) < 14 then
+        self.cover_goal, self.in_cover = c, nil
+        self.cover_until = now + 5
+        self.goal = c
+        local sp = self.r.speed * 1.4
+        self.actor:set_speed(sp)
+        self.cur_speed = sp
+        a:go(c)
+        Dialogue.bark("cover", { speaker = self.key, cooldown = 12, ttl = 2.5 })
+    end
 end
 
 function Op:fire(dt, tp, dist)

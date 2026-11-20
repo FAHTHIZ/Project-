@@ -26,7 +26,7 @@ def add_target(sc, name, pos, yaw=0.0, reset=3.0, group=""):
 
 
 # Plans that place the Halyard Team, Greyline contractors and Ranger Hollis on the range.
-SQUAD_PLANS = {"squad", "squad_combat", "enemy_fire", "squad_look", "chatter", "reactions", "hud_look", "enemy_tactics"}
+SQUAD_PLANS = {"squad", "squad_combat", "enemy_fire", "squad_look", "chatter", "reactions", "hud_look", "enemy_tactics", "squad_cover"}
 
 
 def add_squad_setup(sc, plan):
@@ -47,6 +47,12 @@ def add_squad_setup(sc, plan):
         actors.add_enemy(sc, "Greyline 1", (14, 0, -36), 0.0, variant=0, voice="greyline1", alert=True)
     if plan == "enemy_fire":
         actors.add_enemy(sc, "Greyline 1", (3, 0, -3), -20.0, variant=0, voice="greyline1")
+    if plan == "squad_cover":
+        # crates between the squad and two alerted contractors
+        for i, (x, z) in enumerate(((-4.5, 1.5), (4.0, 2.0), (-1.2, -1.0), (7.5, 4.5))):
+            sc.box(f"Crate {i}", (x, 0.55, z), (1.6, 1.1, 0.9), (0.42, 0.38, 0.3))
+        actors.add_enemy(sc, "Greyline 1", (-8, 0, -10), 0.0, variant=0, voice="greyline1", group="range", alert=True)
+        actors.add_enemy(sc, "Greyline 2", (8, 0, -10), 0.0, variant=1, voice="greyline2", group="range", alert=True)
     if plan == "enemy_tactics":
         # two alerted contractors in the open in front of the range's cover blocks
         actors.add_enemy(sc, "Greyline 1", (-7, 0, -9), 20.0, variant=0, voice="greyline1", group="range", alert=True)
