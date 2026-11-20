@@ -322,3 +322,8 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - `tools/assets/build_photoreal_trees.py`: same tree shapes and triangle counts (1058-2387 tris), photo bark plus leaf-cluster and fir-bough cards baked from Poly Haven scans.
 - Ran: `victus import game` (5 imported, 0 failed), `victus check game` (246 scenes, 0 problems), `tools/test/shot.sh scenes/tests/world_forest.vscene 20 /tmp/forest.png 960 432` (visually inspected, lavapipe).
 - Not measured: Hot 10S frame time or thermals.
+
+## 2026-11-20 Weapon and kit surfaces
+
+- `tools/assets/retexture.py weapons`: box-projected UVs plus scanned detail, normal and roughness maps (ambientCG CC0) on 25 weapon, hand and kit GLBs. Glow, lens and emissive materials are untouched.
+- Ran: `victus import game` (25 imported, 0 failed), `victus check game` (246 scenes, 0 problems). Not yet visually inspected on device.
