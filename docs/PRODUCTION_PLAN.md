@@ -38,6 +38,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Forest cover pockets: 30 seeded boulders and deadfall along the footbridge and cabin-to-relay stretches, one 3-5 s rush apart | Done (built, streamed, inspected in renders; story_op01 pass) | log "cover pockets" |
 | Halyard bounding overwatch: one man up at a time, 3-5 s rushes, nearest set mate covers with faster bursts, "Moving" / "Covering" / "Set" calls; actor stuck recovery | Done (squad_cover 9/9, op01_line 8/8 with streamed trees, regressions and story_op01 pass) | log "Halyard bounding" |
 | Third-person cell changes: magazine-based reloads for operators, tactical top-offs in a lull, rifle cants in and the support hand leaves the gun, positional cell-out/in/charge sounds (contractors too) | Done (squad_cover operators_change_cells; regressions and story_op01 pass) | log "Third-person reloads" |
+| Faces react to the fight: strain under fire, startle on near misses and hits (habituating), faster blinking under stress, blinks on big gaze shifts, mouth-breathing after hard running | Done (squad_cover faces_show_the_fight; regressions and story_op01 pass) | log "Faces react" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof
