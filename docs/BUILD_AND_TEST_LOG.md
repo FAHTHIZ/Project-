@@ -346,3 +346,8 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 - `tools/assets/build_rocketbox_cast.py` keeps each `sops_*.glb` rig and its 22 clips (translations re-based to the new proportions) and writes one atlased primitive per mesh. The originals are kept as sources in `.cache/rocketbox/_src/`.
 - Ran: `victus import game` (9 imported, 0 failed), `victus check game` (246 scenes, 0 problems), and a squad close-up from `squad_look` (inspected: faces, kit and held rifles render).
 - Not measured: on-device skinning cost (about 7k to 15k tris per human), memory or frame time.
+
+## 2026-11-20 First-person arms
+
+- `tools/assets/build_vm_arms.py` builds `hand_r.glb` and `hand_l.glb` from the Rocketbox Military_Male_04 arm: wrist and forearm on the old contract (grip at the origin), curled fingers, olive sleeve and dark glove. They keep two primitives (glove, sleeve) so the existing viewmodel entities still match. 757 tris each.
+- Ran: `victus import game` (2 imported, 0 failed), plus armory and vm_sidearm captures at 1920x864 (inspected).
