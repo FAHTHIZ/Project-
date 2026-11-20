@@ -13,6 +13,7 @@
 -- Writes Game.weapon_hud { name, ammo, reserve, state, spread }, Game.tool_hud, and the
 -- player's zoom / zoom_fov (read by fp_player.luau for FOV, speed and look sensitivity).
 local Game = require("scripts/lib/game")
+local Footsteps = require("scripts/lib/footsteps")
 local Controls = require("scripts/lib/controls")
 local Combat = require("scripts/lib/combat")
 local Squad = require("scripts/lib/squad")
@@ -409,14 +410,26 @@ function W:impact(hit, on_target, quiet)
         self.sparks.rotation = rot
         self.sparks:emit_particles(on_target and 14 or 8)
     end
-    if self.dust and not on_target then
+    local surf = (not on_target) and Footsteps.impact_surface(hit) or nil
+    self.last_surface = surf
+    -- debris by surface: a spray of soil, chips off stone, a few splinters, nothing off metal
+    local dust = surf == "dirt" and 7 or surf == "stone" and 5 or surf == "wood" and 3 or 0
+    if self.dust and not on_target and dust > 0 then
         self.dust.position = p
         self.dust.rotation = rot
-        self.dust:emit_particles(5)
+        self.dust:emit_particles(dust)
     end
     if quiet then return end
-    play(on_target and "audio/weapons/impact_hard.wav" or "audio/weapons/impact_soft.wav", 0.7,
-         0.9 + math.random() * 0.2, hit.point)
+    play(W.impact_clip(on_target, surf), surf == "metal" and 0.6 or 0.7, 0.9 + math.random() * 0.2, hit.point)
+end
+
+-- the impact sound for a hit: bodies thump, the world answers with its surface (two takes each)
+W.impact_n = 0
+function W.impact_clip(on_target, surf)
+    if on_target then return "audio/weapons/impact_hard.wav" end
+    if not surf then return "audio/weapons/impact_soft.wav" end
+    W.impact_n += 1
+    return "audio/weapons/impact_" .. surf .. "_" .. (W.impact_n % 2) .. ".wav"
 end
 
 -- Field device (scanner) -----------------------------------------------------------------------

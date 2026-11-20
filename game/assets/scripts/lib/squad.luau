@@ -220,11 +220,15 @@ function Squad.shoot(shooter, aim, opts)
             -- shared random stream must not shift because a camera happened to be close
             Game.weapons:impact(hit, struck, true)
             if dcam < 14 then
-                audio.play(struck and "audio/weapons/impact_hard.wav" or "audio/weapons/impact_soft.wav",
+                audio.play(Game.weapons.impact_clip(struck, Game.weapons.last_surface),
                            { position = hit.point, volume = 0.6, pitch = 0.9 + ((s.npc_impacts or 0) % 5) * 0.05,
                              bus = "sfx", max_instances = 4 })
             end
             s.npc_impacts = (s.npc_impacts or 0) + 1
+            if Game.weapons.last_surface then
+                s.impact_surfaces = s.impact_surfaces or {}
+                s.impact_surfaces[Game.weapons.last_surface] = (s.impact_surfaces[Game.weapons.last_surface] or 0) + 1
+            end
         end
     end
     if cam and vector.magnitude(from - cam.world_position) < 70 then

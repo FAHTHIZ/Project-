@@ -668,3 +668,11 @@ Modelled on the real post-contact consolidation (ACE/LACE report: status, casual
 - New check `sound_off` in squad_cover: PASS ("call true, 2 answers"); squad_combat PASS.
 - Regression: stealth movement weapons hud squad enemy_fire reactions chatter hud_look footsteps enemy_tactics world_forest world_trail_walk op01_line op01_line_loud: all PASS.
 - `SOPS_TEST_FRAMES=19800 python3 tools/test/run_autotests.py story_op01`: PASS.
+
+## 2026-11-20 Surface-aware impacts
+
+- `tools/audio/build_sfx.py`: `impact_dirt` (low thump + soil spray), `impact_wood` (damped knock modes + crack + splinters), `impact_stone` (crack + short ring + chips), `impact_metal` (ringing modes, ~0.8 s); two seeded takes each. `python3 tools/audio/build_sfx.py --out game/assets` (existing files byte-identical), `victus import game`.
+- `lib/footsteps.luau` `Footsteps.impact_surface(hit)`: trees/logs/deadfall -> wood, rocks/boulders/concrete -> stone, metal list -> metal, terrain -> stone on the rock layer else dirt; own cache.
+- `weapons.luau` `W:impact`: debris count by surface (none off metal), `W.impact_clip(on_target, surf)` alternates takes by counter (no new `math.random` draws, so NPC fights are unchanged). NPC impacts in `lib/squad.luau` use the same clip.
+- squad_cover `impact_surfaces`: PASS (stone=108, the dev range). op01_line_loud `forest_impacts`: PASS (dirt=35 stone=10 wood=73).
+- Regression: squad_cover weapons footsteps op01_line_loud stealth movement hud squad squad_combat enemy_fire reactions chatter hud_look enemy_tactics world_forest world_trail_walk op01_line: all PASS. `SOPS_TEST_FRAMES=19800` story_op01: PASS.

@@ -43,6 +43,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Rifle follows the body: an NPC's carried weapon tracks the chest bone's drop (kneeling, stumbling), so a kneeling operator holds it at the waist instead of at head height | Done (squad_cover kneeling_rifle_low; render docs/media/kneel_carry.png) | log "Rifle follows the body" |
 | Crouched gait: CrouchWalk / CrouchRun clips derived from each character's own Walk and Run (tools/characters/add_crouch_clips.py), a Crouch state in human.vanim; the team moves low when the player does and kneels at halts | Done (squad_crouch_look 2/2; render docs/media/crouch_gait.png) | log "Crouched gait" |
 | Post-contact sound-off: when the fight is over (no awake contractors, nobody engaged for 3 s) Anchor calls "Halyard, sound off", two operators answer (anyone hit says so) and Anchor moves them on; 17 new voiced lines | Done (squad_cover sound_off; full regression + story_op01) | log "Post-contact sound-off" |
+| Surface-aware impacts: rounds that miss sound and kick debris by what they hit (dirt, wood, stone, metal; two synthesized takes each), for the player and NPC fire | Done (squad_cover impact_surfaces; op01_line_loud forest_impacts dirt 35 / wood 73 / stone 10) | log "Surface-aware impacts" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof
