@@ -692,3 +692,10 @@ Op04–Op07 interiors were bare procedural rooms. Now they are dressed with phot
 - Regressions squad, squad_combat and enemy_fire: all PASS.
 - Renders: `docs/media/interior_offices.png` and `docs/media/interior_stores.png`.
 - Playtime: `story_plan` prints `STORY_TIMING` (total seconds, waypoint metres and stage start times). The figures are in `docs/world/PLAYTIME.md`: Op04 139 s, Op05 173 s, Op06 108 s, Op07 118 s, epilogue 76 s, Op01–Op03 about 330 s, prologue about 260 s. That is roughly 20 min of scripted floor, which I estimate at 30–40 min for a first real playthrough.
+
+## 2026-11-20 Interior exposure and location-neutral barks
+
+- `build_facility.build_scene`: ambient 0.42 for the bunker and basement (was 0.34/0.32); exposure compensation interior 0.2, bunker 0.85, basement 0.8, chamber 0. The Op05 hall and Op06 archive were near black; they now read clearly at the same light rig (inspected renders of the Op05 hall and Op06 archive).
+- Generic barks that also play indoors no longer mention the forest. Lines changed: react_light_1, react_waste_2, react_waste_4, con_up_echo_2, react_stare_1, grey_contact_1, grey_contact_3, grey_down_2 and grey_huh_2. The fix came from an Op06 render where Echo said "In this fog they'll see it from the fence". `python3 tools/audio/build_voices.py --model /tmp/kok` re-rendered those 9 lines; the total is still 517.
+- `python3 tools/levels/build_facility.py --scenes`, `victus check game`: 0 problems.
+- Regression: stealth, movement, weapons, hud, squad, squad_combat, squad_cover, enemy_fire, reactions, chatter, hud_look, footsteps, enemy_tactics, world_forest, world_trail_walk, op01_line and op01_line_loud. All 17 PASS.
