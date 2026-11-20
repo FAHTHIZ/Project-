@@ -942,3 +942,17 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 
 - `run_autotests.py` (all 56 test scenes, default frames): every plan PASS except the story_* plans (need 20000 frames, run below) and gallery_camp / gallery_site (capture scenes with no autotest, as noted at line 283).
 - `SOPS_TEST_FRAMES=20000`: story_prologue, story_op01 to story_op07, story_epilogue all PASS (op01 and op04-op07 in the previous entries, the rest in this run).
+
+## 2026-11-20 Cast storm weathering
+
+- Problem: every human in a campaign set inside one rain storm looked showroom-clean. Rocketbox digital camo at catalogue contrast (reads as a printed pattern, not cloth), white parade gloves, dry fabric, spotless tan boots.
+- `tools/assets/cast_weather.py` (new) edits the shipped `sops_*.glb` in place, body material only: colour and metallic-roughness JPEGs are replaced, every other buffer view is copied byte for byte, so mesh, UVs, skin, skeleton, the 11 face morphs, clips and the `.meta` UUIDs do not change. Per texel it uses the bind-pose surface that maps there (height above the soles, normal, distance from the centre plane, rasterised from the body triangles into UV, gutters filled):
+  - Halyard camo (Anchor, Brick, Tally, Patch, Echo, Venn): pattern luminance contrast to 45 % around a 12-texel local mean, chroma -15 %. Folds are kept (they are in the normal map).
+  - White, low-saturation texels on the hands (|x| > 0.45 m in the A-pose) re-dyed coyote leather with their own shading (Patch, Venn).
+  - Damp: rain from above (tops of shoulders, helmet, pack darkest), soaked below the knee; albedo up to -38 %, roughness up to -38 %. Exposure 0.6 for Greyline (on watch under cover), 0.7 Hollis, 0.8 Venn.
+  - Mud: splash band from the soles to the shins and kneeling patches on the front of the knees, fixed-seed fBm per character. Warm-saturated texels count as skin only above 0.6 m, so tan boots get mud.
+  - Marker `asset.extras.sops_weather = 1` stops a second application. `build_rocketbox_cast.py` notes to re-run it after a cast rebuild.
+- Mean coverage of mapped texels: damp 0.17 (Hollis) to 0.37 (Patch), mud 0.02 to 0.06, gloves 0.03 (Patch).
+- Look-dev check in Blender 4.2.3 Cycles (orthographic, three area lights) before and after: docs/media/cast_weather_patch.jpg. In the night prologue capture the change is subtle (the lantern and the grade dominate), which is the intent.
+- VICTUS e9ce2ea Release: `victus import game` 9 imported, 403 up to date, 0 failed; `victus check game` 263 scenes, 0 problems. Autotests: squad 19/0, reactions 10/0.
+
