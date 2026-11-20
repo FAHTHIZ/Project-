@@ -367,3 +367,11 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
   - Greyline are recast to Rocketbox Police_Male_02 (charcoal kit, helmet, balaclava). Their goggle lenses are tinted safety orange and the unit patches are painted out. The _b variant is lifted to mid grey.
 - Ran: `build_rocketbox_cast.py` (all nine CAST_OK), Blender close-ups of Patch, Tally, Anchor, Echo and Greyline (inspected), `victus import game` (7 imported, 0 failed), `victus check game` (246 scenes, 0 problems), and an in-engine squad close-up (inspected: accessories follow the rig).
 - Not measured: on-device cost. Accessories add under 2k tris per character.
+
+## 2026-11-20 PC-7 parts restored in every scene; auto device-class quality
+
+- Bug: the Blender PC-7 (`pc7_body` 8 primitives, `pc7_cell` 3, `pc7_world` 10) replaced a 3/2/5-primitive model, but scenes kept one prop child per old primitive. In-game the carbine drew without its metal, optic, lens, glow and grip parts.
+- `tools/scenes/sync_model_prims.py` aligns every scene's `<name>[i]` prop children with the model's primitive count and adds the missing children with stable uuid5 ids. It fixed 563 prop groups in 52 scenes, only adding entities; existing entities are byte-identical. Run it with `--check` after any model rebuild that changes the material count.
+- `game/victus.project`: `mobile_quality` is now `auto` (VICTUS ADR-0127). A Mali-G52 MC2 (Infinix Hot 10S) still classifies as Low, the same tier as before. Medium and High phones now get their own tier instead of Low. Packed R11G11B10F HDR (ADR-0126) is automatic on phones.
+- Engine rebuilt at VICTUS edb3409. Ran: `victus check game` (246 scenes, 0 problems), plus armory and squad close-up captures (inspected: the PC-7 rail, optic and accents now render).
+- Not measured: anything on the device.
