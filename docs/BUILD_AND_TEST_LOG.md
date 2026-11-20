@@ -720,3 +720,11 @@ Follows `7816b18` (PC-7 reflex sight). Code and models in `d71a94c`.
 - `python3 tools/props/build_weapons.py --out /tmp/w`; copied kv5_body, kv5_world, br9_body and br9_world only, then ran `python3 tools/assets/retexture.py` on them. `sync_model_prims.py` found no primitive count changes. `victus import game` (0 failed), `victus check game`: 0 problems.
 - Renders `docs/media/ads_kv5.png` (target in the window, dot on it) and `docs/media/ads_br9.png` (front bead on the target, stock below the view).
 - Regression: weapons, armory, sniper, movement, hud, vm_ads, vm_ads_pdw, vm_ads_breacher, squad and squad_combat: all PASS.
+
+## 2026-11-20 HUD: one thing at a time in the centre of the screen
+
+- Problem: chapter starts stacked the "New objective" toast on top of the title card and the subtitles, and objectives set in quick succession queued a toast for each, so stale objectives were announced after the panel already showed a newer one.
+- `hud.luau` `Game.toast(text, seconds, kind)`: a toast already queued with the same text is dropped; an objective toast replaces any waiting objective toast and cuts a showing one short (0.25 s). Toasts pause and hide while a title card or title subtitle is up or the fade is above 0.3, then resume. `Game.toast_queue` exposes the queue to tests.
+- Objective panel: when the objective changes it slides in from 36 px to the left and the accent bar flares from 3 to 8 px, settling over 1.6 s (`docs/media/hud_objective_flare.png`).
+- `plans.luau` hud plan: new checks hud_toast_queue, hud_toast_waits_for_title, hud_toast_resumes and hud_stale_objective_toast. hud: 6/6 PASS.
+- Regression: hud_look, pause_ui, movement and weapons: PASS. `SOPS_TEST_FRAMES=20000 story_prologue`: PASS (prologue_complete, all nine stages).

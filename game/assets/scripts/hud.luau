@@ -29,17 +29,28 @@ end
 -- Shared presentation services --------------------------------------------------------------
 
 local toasts = {}
-Game.toast = function(text, seconds)
-    table.insert(toasts, { text = text, t = seconds or 3.5 })
+-- Toast queue: a repeat of the toast already queued is dropped, and an objective toast replaces any
+-- objective toast still waiting (only the newest objective is announced).
+Game.toast = function(text, seconds, kind)
+    for i = #toasts, 1, -1 do
+        local q = toasts[i]
+        if q.text == text then return end
+        if kind == "objective" and q.kind == "objective" then
+            if i > 1 then table.remove(toasts, i) else q.t = math.min(q.t, 0.25) end -- shown one: cut short
+        end
+    end
+    table.insert(toasts, { text = text, t = seconds or 3.5, kind = kind })
 end
+Game.toast_queue = toasts
 
 Game.objective = Game.objective or { op = "", text = "", log = {} }
 Game.set_objective = function(text, op)
     local o = Game.objective
     if op then o.op = op end
     if o.text ~= "" and o.text ~= text then table.insert(o.log, 1, "Done: " .. o.text) end
+    if o.text ~= text then o.changed_at = time.now() end
     o.text = text
-    Game.toast("New objective: " .. text, 3.5)
+    Game.toast("New objective: " .. text, 3.5, "objective")
     Game.emit("objective", text)
 end
 
@@ -57,7 +68,7 @@ function Hud:start()
     local r = self.entity
     self.e = {}
     for _, n in { "Reticle", "R Up", "R Down", "R Left", "R Right", "R Dot", "Hit Marker", "Objective", "Objective Op",
-                  "Objective Text", "Toast", "Awareness", "Prompt", "Weapon Panel", "Weapon Name", "Ammo", "Weapon State",
+                  "Objective Text", "Objective Accent", "Toast", "Awareness", "Prompt", "Weapon Panel", "Weapon Name", "Ammo", "Weapon State",
                   "Status Panel", "Health Bar", "Tool Text", "Subtitle", "Subtitle Speaker", "Subtitle Text", "Skip Hint",
                   "Skip Button", "Fade", "Title Card", "Title Sub", "Touch", "Stick Base", "Stick Knob", "Diagnostics", "Diagnostics Text",
                   "Objectives Log", "Letterbox Top", "Letterbox Bottom", "Damage", "Scope", "Scope Zoom", "Prompt Detail",
@@ -286,13 +297,27 @@ function Hud:update(dt)
         self:text("Objectives Log", table.concat(lines, "\n"))
     end
 
-    -- Toasts.
+    -- Objective panel: slides in and the accent bar flares for 1.6 s when the objective changes, so a
+    -- new objective reads in the corner it lives in, not only in the centre toast.
+    if o.changed_at and self.e["Objective"] and self.e["Objective Accent"] then
+        local k = math.clamp((time.now() - o.changed_at) / 1.6, 0, 1)
+        local ease = 1 - (1 - math.min(1, k * 2.5)) ^ 3
+        local flare = (1 - k) ^ 2
+        self:rect(self.e["Objective"], "obj:r", function(r) r.position = { 110 - 36 * (1 - ease), 22 } end)
+        self:rect(self.e["Objective Accent"], "obja:r", function(r) r.size = { 3 + math.floor(5 * flare + 0.5), 50 } end)
+        if k >= 1 then o.changed_at = nil end
+    end
+
+    -- Toasts. They wait (paused, hidden) while a chapter title card is up or the screen is fading, so
+    -- the centre of the screen shows one thing at a time.
     local toast = toasts[1]
-    if toast and not cin then
+    local busy = cin or pres.title ~= nil or pres.subtitle_title ~= nil or pres.fade > 0.3
+    if toast and not busy then
         toast.t -= dt
         if toast.t <= 0 then table.remove(toasts, 1) end
     end
-    self:vis("Toast", toast ~= nil and not cin)
+    toast = toasts[1]
+    self:vis("Toast", toast ~= nil and not busy)
     if toast then self:text("Toast", toast.text) end
 
     -- Awareness (scripts/lib/reactions.luau sets Game.awareness / Game.awareness_level).
