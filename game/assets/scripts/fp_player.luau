@@ -9,6 +9,8 @@
 -- yaw/pitch so control resumes exactly where it was.
 local Game = require("scripts/lib/game")
 local Controls = require("scripts/lib/controls")
+local Footsteps = require("scripts/lib/footsteps")
+local Combat = require("scripts/lib/combat")
 
 local P = {}
 P.walk_speed = 3.6
@@ -50,6 +52,9 @@ function P:start()
     self.shake = 0
     self.eye = self.eye_height
     self.air = 0
+    self.fall_v = 0      -- fastest downward speed this time airborne (landing sound)
+    self.step_phase = 0  -- footfalls follow the head-bob phase (one per half cycle)
+    self.noise_t = 0
     self.fov = Game.settings.fov
     self.fov_now = -1
     self.health = self.max_health
@@ -231,6 +236,23 @@ function P:find_focus()
     return best
 end
 
+-- One player footfall: surface-aware sound at the feet, and how far contractors can hear it.
+-- Crouched steps are silent to the AI; rain halves the reach (rain covers footsteps).
+function P:footstep(speed)
+    local pos = self.entity.position
+    local surf, loud = Footsteps.step(pos, { ignore = self.entity, speed = speed, crouched = self.crouched,
+                                             sprint = self.sprinting, gear = true, two_d = true, volume = 0.8 })
+    Game.emit("player_step", surf, speed)
+    if self.crouched or self.noise_t > 0 then return end
+    local reach = self.sprinting and 7.5 or (speed > 2.5 and 1.8 or 0)
+    if reach <= 0 then return end
+    local w = Footsteps.weather()
+    local rain = (Game.storm and Game.storm.outdoor ~= false) and w.wet or 0
+    reach = reach * loud * (1 - 0.5 * math.clamp(rain, 0, 1))
+    self.noise_t = 0.55
+    Combat.noise(pos, reach, self.entity)
+end
+
 function P:update(dt)
     if not self.cam then return end
     local s = Game.settings
@@ -297,8 +319,16 @@ function P:update(dt)
         if self.crouched then self.crouched = false
         else self.entity:jump(self.jump_speed); Game.emit("player_jumped") end
     end
-    -- Landing dip.
-    if cc_state and self.air > 0.25 then self.land = math.min(1, self.air * 0.6) end
+    -- Landing dip, with both feet and kit hitting the ground.
+    if not cc_state then self.fall_v = math.max(self.fall_v, -self.entity.velocity.y) end
+    if cc_state and self.air > 0.25 then
+        self.land = math.min(1, self.air * 0.6)
+        local fv = self.fall_v
+        local surf = Footsteps.land(self.entity.position, fv, { ignore = self.entity, two_d = true })
+        Combat.noise(self.entity.position, (fv > 6.5 and 9 or 5) * (Footsteps.LOUDNESS[surf] or 1), self.entity)
+        if fv > 6.5 then self.shake = math.max(self.shake, 0.35) end
+    end
+    if cc_state then self.fall_v = 0 end
     self.air = cc_state and 0 or self.air + dt
     self.land = Game.damp(self.land, 0, 7, dt)
     -- Body yaw on the root; pitch on the head; eye height eases between stand and crouch.
@@ -310,7 +340,14 @@ function P:update(dt)
     local bob_amp = (s.head_bob and s.camera_shake > 0) and 1 or 0
     if cc_state and ground_speed > 0.4 then
         self.bob = self.bob + dt * (5.5 + ground_speed * 0.9)
+        -- a footfall at each bob trough (the head is lowest as the foot plants)
+        local phase = math.floor(self.bob / math.pi)
+        if phase ~= self.step_phase then
+            self.step_phase = phase
+            self:footstep(ground_speed)
+        end
     end
+    self.noise_t = math.max(0, self.noise_t - dt)
     local bob_scale = math.min(1, ground_speed / self.walk_speed) * bob_amp * (1 - self.zoom * 0.85)
     local bob_y = math.abs(math.sin(self.bob)) * 0.035 * bob_scale - self.land * 0.12
     local bob_x = math.cos(self.bob) * 0.02 * bob_scale

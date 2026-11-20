@@ -8,6 +8,7 @@
 -- The actor faces its movement direction while walking and its focus point otherwise, blends the
 -- carried weapon between low-ready and aim, drives the head IK and the face, and plays footsteps.
 local Game = require("scripts/lib/game")
+local Footsteps = require("scripts/lib/footsteps")
 local Face = require("scripts/lib/face")
 
 local Actor = {}
@@ -239,10 +240,17 @@ function Actor:update(dt)
             self.step_dist = 0
             local cam = Game.camera
             if cam and vector.magnitude(e.position - cam.world_position) < 18 then
-                local surface = self.surface or "dirt"
-                audio.play("audio/foley/step_" .. surface .. "_" .. math.random(0, 3) .. ".wav",
-                           { position = e.position, volume = 0.35, pitch = 0.92 + math.random() * 0.16, bus = "sfx",
-                             max_instances = 6 })
+                -- the surface is re-detected every few steps (a ray down), unless the scene fixes it
+                local surface = self.surface or "auto"
+                if surface == "auto" then
+                    self.step_n = (self.step_n or 0) + 1
+                    if not self.step_surface or self.step_n % 4 == 0 then
+                        self.step_surface = Footsteps.surface_at(e.position, e)
+                    end
+                    surface = self.step_surface
+                end
+                Footsteps.step(e.position, { surface = surface, speed = spd, crouched = self.crouched,
+                                              gear = true, volume = 0.5 })
             end
         end
     end

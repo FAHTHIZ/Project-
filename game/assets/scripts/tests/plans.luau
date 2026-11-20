@@ -228,6 +228,65 @@ Plans.vm_scan = { { at = 0.6, press = "tool" }, { at = 0.65, release = "tool" },
 -- Screenshot plans keep their held input until the capture: the driver releases everything at END.
 for _, n in { "vm_ads", "vm_reload", "vm_sidearm", "vm_scan" } do table.insert(Plans[n], { at = 25 }) end
 
+-- Footsteps: one footfall per head-bob half cycle, surface detection, AI hearing reach by gait
+-- (walk short, sprint far, crouch silent) and a landing thump after a jump.
+Plans.footsteps = {
+    { at = 0.3, run = function(c)
+        local Footsteps = require("scripts/lib/footsteps")
+        local Combat = require("scripts/lib/combat")
+        c.data.steps, c.data.noises = {}, {}
+        Game.on("player_step", function(surf, speed) table.insert(c.data.steps, { t = time.now(), s = surf, v = speed }) end)
+        Combat.on_noise(function(p, r, src)
+            if src and src.valid and Game.player and src.id == Game.player.id then table.insert(c.data.noises, { t = time.now(), r = r }) end
+        end)
+        local s = Footsteps.surface_at(Game.player.position, Game.player)
+        c.check("surface_detected", s == "concrete", "range ground = " .. tostring(s))
+        local w = Footsteps.weather()
+        c.check("weather_read", w and w.wet >= 0, string.format("wet %.2f puddles %.2f", w.wet, w.puddles))
+    end },
+    -- walk 3 s
+    { at = 0.5, move = V(0, 1, 0), run = function(c) c.data.mark = { #c.data.steps, #c.data.noises, time.now() } end },
+    { at = 3.5, move = false, run = function(c)
+        local n = #c.data.steps - c.data.mark[1]
+        local rate = n / (time.now() - c.data.mark[3])
+        c.check("walk_cadence", rate > 1.6 and rate < 3.4, string.format("%d steps, %.2f/s", n, rate))
+        local maxr = 0
+        for i = c.data.mark[2] + 1, #c.data.noises do maxr = math.max(maxr, c.data.noises[i].r) end
+        c.check("walk_noise_short", maxr > 0 and maxr < 3, string.format("max reach %.1f m", maxr))
+        c.data.walk_rate = rate
+    end },
+    -- turn around and sprint 2 s
+    { at = 3.6, look = V(18, 0, 0) },
+    { at = 4.1, look = false },
+    { at = 4.3, move = V(0, 1, 0), press = "sprint", run = function(c) c.data.mark = { #c.data.steps, #c.data.noises, time.now() } end },
+    { at = 6.3, move = false, release = "sprint", run = function(c)
+        local n = #c.data.steps - c.data.mark[1]
+        local rate = n / (time.now() - c.data.mark[3])
+        c.check("sprint_cadence", rate > c.data.walk_rate, string.format("%d steps, %.2f/s (walk %.2f/s)", n, rate, c.data.walk_rate))
+        local maxr = 0
+        for i = c.data.mark[2] + 1, #c.data.noises do maxr = math.max(maxr, c.data.noises[i].r) end
+        c.check("sprint_noise_far", maxr > 5, string.format("max reach %.1f m", maxr))
+    end },
+    -- crouch-walk 2 s: steps, but no noise
+    { at = 6.8, press = "crouch" },
+    { at = 6.85, release = "crouch" },
+    { at = 7.2, move = V(0, 1, 0), run = function(c) c.data.mark = { #c.data.steps, #c.data.noises, time.now() } end },
+    { at = 9.2, move = false, run = function(c)
+        local n = #c.data.steps - c.data.mark[1]
+        local nn = #c.data.noises - c.data.mark[2]
+        c.check("crouch_silent", n >= 2 and nn == 0, string.format("%d steps, %d noises", n, nn))
+    end },
+    { at = 9.3, press = "crouch" },
+    { at = 9.35, release = "crouch" },
+    -- jump: the landing makes a noise
+    { at = 9.9, press = "jump", run = function(c) c.data.mark = { #c.data.steps, #c.data.noises, time.now() } end },
+    { at = 9.95, release = "jump" },
+    { at = 11.0, run = function(c)
+        local nn = #c.data.noises - c.data.mark[2]
+        c.check("landing_noise", nn >= 1 and Game.player.grounded, string.format("%d noises after the jump", nn))
+    end },
+}
+
 for k, v in require("scripts/tests/squad_plans") do Plans[k] = v end
 for k, v in require("scripts/tests/vehicle_plans") do Plans[k] = v end
 for k, v in require("scripts/tests/world_plans") do Plans[k] = v end

@@ -173,11 +173,63 @@ def footstep(seed, surface):
         x = bp(noise(sec, seed), 300, 5000) * env(t, 0.001, 55)
         x += at(bp(noise(0.08, seed + 3), 1500, 7000) * env(t_axis(0.08), 0.001, 70) * 0.4, 0.03, sec)
         x += np.sin(2 * np.pi * 95 * t) * env(t, 0.002, 60) * 0.4
+    elif surface == 'gravel':  # trail grit and rock: a heel thud plus a cluster of small stone ticks
+        x = lp(noise(sec, seed), 900) * env(t, 0.003, 38) * 0.7
+        x += np.sin(2 * np.pi * 80 * t) * env(t, 0.003, 55) * 0.45
+        for k in range(int(r.integers(9, 15))):
+            d = r.uniform(0.0, 0.11)
+            g = bp(noise(0.025, seed + 30 + k), 2500, 9000) * env(t_axis(0.025), 0.0005, 260) * r.uniform(0.15, 0.4)
+            x += at(g, d, sec)
+    elif surface == 'grass':  # meadow: a soft thump and a blade swish
+        x = lp(noise(sec, seed), 700) * env(t, 0.006, 30) * 0.6
+        x += np.sin(2 * np.pi * 65 * t) * env(t, 0.004, 45) * 0.35
+        sw = bp(noise(sec, seed + 7), 1800, 7000) * np.sin(np.pi * np.clip(t / 0.16, 0, 1)) ** 2 * 0.28
+        x += sw
+    elif surface == 'mud':  # rain-soaked forest floor: heavy suction squelch with a wet release
+        x = lp(noise(sec, seed), 600) * env(t, 0.008, 22) * 0.8
+        x += np.sin(2 * np.pi * (55 + 30 * np.exp(-t * 20)) * t) * env(t, 0.006, 28) * 0.5
+        rel = bp(noise(0.12, seed + 5), 700, 2600) * np.sin(np.pi * np.clip(t_axis(0.12) / 0.12, 0, 1)) ** 3
+        rel *= 1 + 0.6 * np.sin(2 * np.pi * r.uniform(28, 40) * t_axis(0.12))  # bubbly suction
+        x += at(rel * 0.45, 0.07 + r.uniform(0, 0.03), sec)
+    elif surface == 'splash':  # foot into a puddle: sheet splash and droplets (layered on a step)
+        x = bp(noise(sec, seed), 900, 8000) * env(t, 0.004, 18) * 0.7
+        for k in range(int(r.integers(6, 11))):
+            f0 = r.uniform(900, 2600)
+            d = r.uniform(0.02, 0.17)
+            tt = t_axis(0.03)
+            x += at(np.sin(2 * np.pi * (f0 + 1800 * tt / 0.03) * tt) * env(tt, 0.001, 140) * r.uniform(0.1, 0.25), d, sec)
+    elif surface == 'wood':  # plank floor: hollow knock with a short resonance
+        x = bp(noise(sec, seed), 150, 3500) * env(t, 0.001, 45) * 0.7
+        for k, f in enumerate((118, 236, 410)):
+            x += np.sin(2 * np.pi * f * r.uniform(0.95, 1.05) * t) * env(t, 0.001, 26 + 10 * k) * (0.35 / (k + 1))
+        x += at(bp(noise(0.05, seed + 4), 900, 4000) * env(t_axis(0.05), 0.001, 90) * 0.12, 0.04, sec)  # creak tick
     else:  # metal grating
         x = bp(noise(sec, seed), 500, 6000) * env(t, 0.001, 40)
         for k, f in enumerate((410, 655, 1230)):
             x += np.sin(2 * np.pi * f * r.uniform(0.97, 1.03) * t) * env(t, 0.001, 20 + 8 * k) * 0.18
     return finish(x, 0.55 + r.uniform(-0.05, 0.05), 1.2)
+
+
+def gear_rattle(seed, sec=0.2):
+    # webbing creak and buckle/mag-pouch ticks that ride on a running stride
+    t = t_axis(sec)
+    r = np.random.default_rng(seed)
+    x = lp(hp(noise(sec, seed), 500), 3000) * np.sin(np.pi * np.clip(t / sec, 0, 1)) ** 2 * 0.25
+    for k in range(int(r.integers(3, 6))):
+        f = r.uniform(2200, 4800)
+        tt = t_axis(0.035)
+        x += at(np.sin(2 * np.pi * f * tt) * env(tt, 0.0005, 160) * r.uniform(0.15, 0.35), r.uniform(0.01, 0.15), sec)
+    return finish(x, 0.42, 1.0)
+
+
+def land(seed, heavy):
+    # both feet and the kit settling after a drop
+    sec = 0.45 if heavy else 0.3
+    t = t_axis(sec)
+    x = lp(noise(sec, seed), 500 if heavy else 800) * env(t, 0.004, 14 if heavy else 22)
+    x += np.sin(2 * np.pi * (48 if heavy else 62) * t) * env(t, 0.003, 18 if heavy else 30) * (0.9 if heavy else 0.5)
+    x += at(gear_rattle(seed + 1, 0.18) * 0.6, 0.05, sec)
+    return finish(x, 0.8 if heavy else 0.6, 1.3)
 
 
 # ---- vehicle --------------------------------------------------------------------------------
@@ -698,6 +750,15 @@ def build(out):
         files[f'foley/step_dirt_{i}.wav'] = footstep(200 + i, 'dirt')
         files[f'foley/step_concrete_{i}.wav'] = footstep(300 + i, 'concrete')
         files[f'foley/step_metal_{i}.wav'] = footstep(400 + i, 'metal')
+        files[f'foley/step_gravel_{i}.wav'] = footstep(500 + i, 'gravel')
+        files[f'foley/step_grass_{i}.wav'] = footstep(600 + i, 'grass')
+        files[f'foley/step_mud_{i}.wav'] = footstep(700 + i, 'mud')
+        files[f'foley/step_wood_{i}.wav'] = footstep(800 + i, 'wood')
+        files[f'foley/step_splash_{i}.wav'] = footstep(900 + i, 'splash')
+    for i in range(3):
+        files[f'foley/gear_{i}.wav'] = gear_rattle(1000 + i)
+    files['foley/land_soft.wav'] = land(1100, False)
+    files['foley/land_hard.wav'] = land(1110, True)
     for rel, x in sorted(files.items()):
         write(os.path.join(w, rel), x)
         print(f"{rel:28s} {len(x) / SR:5.2f}s")

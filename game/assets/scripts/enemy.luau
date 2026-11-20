@@ -24,7 +24,7 @@ E.voice = ""
 E.alert = false
 E.group = ""
 E.stun = 60
-E.surface = "dirt"
+E.surface = "auto"     -- footstep set: auto (ray down) or dirt/grass/gravel/mud/concrete/metal/wood
 E.accuracy = 1.0
 E.dormant = false
 

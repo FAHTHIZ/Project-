@@ -29,6 +29,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | HUD v2 (compass, squad roster, mag pips, reload bar, damage wedges, vignette, hit/takedown marker, feed, calm fade) | Done (desktop/headless, lavapipe-inspected; not device-tested) | log "HUD v2 and reactive squad voice", docs/evidence/hud_v2.png |
 | Reactive squad voice (128 new lines: aimed-at, friendly fire, stare, bump, thunder, flank callouts, waste, torch/sprint near guards, idle, low hp, reload cover) and spatial Greyline barks with real reloads | Done (reactions 10/10; not device-tested) | same log entry |
 | story_op01 time-budget error fixed (engine VICTUS cd59c05: background navmesh builds) | Done (story_op01 PASS 19 800 frames, 0 script errors) | log "story_op01 watchdog fixed" |
+| Surface-aware footsteps, gear foley, landing, footstep noise heard by AI | Done (footsteps 8/8; regressions pass) | log "Surface footsteps" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof

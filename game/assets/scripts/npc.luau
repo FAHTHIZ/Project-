@@ -15,7 +15,7 @@ N.who = "hollis"
 N.prompt = ""
 N.event = ""
 N.emotion = "neutral"
-N.surface = "dirt"
+N.surface = "auto"     -- footstep set: auto (ray down) or dirt/grass/gravel/mud/concrete/metal/wood
 
 Game.npcs = Game.npcs or {}
 
