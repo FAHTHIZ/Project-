@@ -314,6 +314,11 @@ P.squad_cover = {
             end
         end)
         Game.on("enemy_flanking", function() c.data.flanks += 1 end)
+        c.data.bounds, c.data.covered_bounds, c.data.both_up = 0, 0, 0
+        Game.on("squad_bound", function(b)
+            c.data.bounds += 1
+            if b.by then c.data.covered_bounds += 1 end
+        end)
         c.check("setup", Squad.count() == 4 and #Squad.active_enemies() == 2,
             string.format("squad %d enemies %d", Squad.count(), #Squad.active_enemies()))
     end },
@@ -351,11 +356,29 @@ for i = 0, 160 do
         Squad.each(function(k, m) if m.in_cover and m.crouching then c.data.ducked[k] = true end end)
     end })
 end
+for i = 0, 170 do
+    table.insert(P.squad_cover, { at = 1.1 + i * 0.25, run = function(c)
+        local up = 0
+        Squad.each(function(_, m) if m.cover_goal then up += 1 end end)
+        if up >= 2 then c.data.both_up += 1 end
+    end })
+end
 table.insert(P.squad_cover, { at = 45.1, run = function(c)
     local n = 0
     for _ in c.data.ducked or {} do n += 1 end
     c.check("ducks_in_cover", n >= 1, string.format("%d operators crouched in cover", n))
+    local heard = { moving = false, covering = false }
+    for _, l in Dialogue.state().log do
+        if string.find(l.id, "bark_moving_") then heard.moving = true end
+        if string.find(l.id, "bark_covering_") then heard.covering = true end
+    end
+    c.check("bounding_overwatch", c.data.bounds >= 2 and c.data.covered_bounds >= 1,
+        string.format("%d moves, %d covered by a mate", c.data.bounds, c.data.covered_bounds))
+    c.check("one_man_up", c.data.both_up <= 2, string.format("%d samples with two operators rushing", c.data.both_up))
+    c.check("moving_covering_calls", heard.moving and heard.covering,
+        string.format("moving %s covering %s", tostring(heard.moving), tostring(heard.covering)))
 end })
+table.sort(P.squad_cover, function(a, b) return a.at < b.at end)
 table.insert(P.squad_cover, { at = 60.0, run = function(c)
     local down = Combat.stats.downs - c.data.downs0
     c.check("still_wins", down == 2, string.format("downs %d (by 45 s: %d)", down, c.data.down45))

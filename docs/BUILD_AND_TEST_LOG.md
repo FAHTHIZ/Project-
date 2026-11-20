@@ -558,3 +558,26 @@ Doctrine followed (cited in docs/world/SCALE_AND_PACING.md): individual rushes l
 - Renders: `tools/test/shot.sh` at 960x540 medium from (22,196) and (28,84) (temporary scenes, removed). Boulders and deadfall sit on the ground, read as natural forest cover, and are clear of the trail.
 - op01_line PASS, op01_line_loud PASS, story_op01 PASS (19 800 frames).
 - Limitation found: `victus simulate` does not stream world cells, so no headless test has seen trees, rocks or this cover. The world_* view plans (world_forest, world_relay, world_creek, world_trail_walk) fail on "streamed" for that reason, as they did before this change. Next: stream cells in `victus simulate` (engine).
+
+## 2026-11-20 Halyard bounding overwatch, stuck recovery
+
+This follows the doctrine notes in docs/world/SCALE_AND_PACING.md: 3-5 s rushes, one man up while a mate covers, and "Moving" / "Set" calls.
+
+- `operator.luau`:
+  - one man up: an operator holds (re-checking every 0.6 s) while a mate is rushing to cover, unless he was hit in the last 1.5 s;
+  - rushes are capped at 4.5 s;
+  - the nearest engaged, set mate within 22 m covers the move. His burst gap drops to 0.45-0.75 x cadence, and he calls "covering" 0.8 s later;
+  - the mover calls "moving", or falls back to the "cover" bark when nobody can cover. On arrival there is a 40% chance of a "set" call;
+  - event `squad_bound` {who, by};
+  - the reload bark is now attributed to the operator who reloads.
+- `lib/actor.luau` `Actor:steer` (direct-steered actors): if an actor moves less than 25% of the wanted speed for 0.8 s, it detours toward the clearer side (3 m rays) for 0.9-1.5 s. `unsticks` counts the detours.
+- `tools/dialogue/lines.py`: added bark_moving_1..8, bark_covering_1..6, bark_set_1..5, bark_cover_5 and bark_reload_4/5. Voices were rebuilt with `python3 tools/audio/build_voices.py --model /tmp/kok` (493 lines).
+- `missions/kestrel.luau`: search-line contractors are stowed past x -30 instead of -36, still out of sight in the west woods. With engine d1e1227 the headless test now streams the real trees. The last contractor took a few seconds longer through them and was 2 m short of the old line when the plan ended; unsticks was 0, so he was not stuck.
+- `tests/squad_plans.luau` squad_cover adds three checks: `bounding_overwatch`, `one_man_up` and `moving_covering_calls`. `tests/world_plans.luau` op01_line now names any contractor that was not stowed.
+- Results:
+  - squad_cover PASS 9/9: 6 moves, all 6 covered by a mate, 2 samples with two men rushing;
+  - op01_line PASS;
+  - op01_line_loud PASS;
+  - PASS: stealth, movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, enemy_tactics;
+  - world_forest, world_relay, world_creek, world_ravine and world_trail_walk PASS. They had failed on "streamed" until engine d1e1227;
+  - story_op01 PASS (19 800 frames, all 15 stages).

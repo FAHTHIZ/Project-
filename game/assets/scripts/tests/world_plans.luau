@@ -141,9 +141,15 @@ P.op01_line = {
             "loud " .. tostring(c.data.ev.line_loud) .. " max aware " .. string.format("%.2f", c.data.max_aware or 0))
         c.check("line_passed", c.data.ev.line_passed ~= nil, "")
         c.check("team_called_it", line_said("op1_line_02") and line_said("op1_line_05"), "")
-        local gone = 0
-        for _, e in line_ctls() do if e.dormant then gone += 1 end end
-        c.check("line_gone", gone == 3, gone .. " stowed")
+        local gone, where = 0, ""
+        for _, e in line_ctls() do
+            if e.dormant then gone += 1 else
+                local p = e.entity.position
+                where ..= string.format(" [%s %s at %.0f,%.0f unsticks %d]", e.entity.name, e.state, p.x, p.z,
+                    e.actor.unsticks or 0)
+            end
+        end
+        c.check("line_gone", gone == 3, gone .. " stowed" .. where)
         c.check("overheard", c.data.chat == true, "")
         c.check("still_low_dark", ps.crouched and not ps.torch_on, "crouched " .. tostring(ps.crouched) .. " torch " .. tostring(ps.torch_on))
         Game.hurt_player = c.data.hurt
