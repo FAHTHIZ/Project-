@@ -955,7 +955,9 @@ def build_scene(key):
     sc = Scene({'op04': 'Operation 04 - The Paper War', 'op05': 'Operation 05 - Below the Line',
                 'op06': 'Operation 06 - The Source Vault', 'op07': 'Operation 07 - V-01'}[key])
     common.environment(sc, lv.env, fog_density=0.004, fog_start=20, fog_end=200, fog_max_opacity=0.4,
-                       ambient_intensity={'interior': 0.42, 'bunker': 0.34, 'basement': 0.32, 'chamber': 0.5}[lv.env],
+                       ambient_intensity={'interior': 0.42, 'bunker': 0.42, 'basement': 0.42, 'chamber': 0.5}[lv.env],
+                       # the bunker and archive read near-black on a phone screen; lift them a stop
+                       exposure_compensation={'interior': 0.2, 'bunker': 0.85, 'basement': 0.8, 'chamber': 0.0}[lv.env],
                        shadow_distance=24)
     shell = sc.prop('Shell', KIT + f'{key}_shell.glb', (0, 0, 0), 0.0, tags='Shell')
     for i, c in enumerate(cols):
