@@ -351,3 +351,8 @@ five-operator squad, rain, volumetric fog and shadowed weapon light are unprofil
 
 - `tools/assets/build_vm_arms.py` builds `hand_r.glb` and `hand_l.glb` from the Rocketbox Military_Male_04 arm: wrist and forearm on the old contract (grip at the origin), curled fingers, olive sleeve and dark glove. They keep two primitives (glove, sleeve) so the existing viewmodel entities still match. 757 tris each.
 - Ran: `victus import game` (2 imported, 0 failed), plus armory and vm_sidearm captures at 1920x864 (inspected).
+
+## 2026-11-20 Storm-night grade toward the misty-forest reference
+
+- `tools/world/night_grade.py` applies a new storm-night grade to the 10 night scenes; the `common.py` `night_storm` preset uses the same values. Fog and volumetric albedo are a deep green, shadows are lifted (ambient 0.75, exposure +1.9 EV) and contrast is 1.0, so trunks read as silhouettes in luminous mist instead of crushed black.
+- Ran: `shot.sh scenes/tests/story_op01.vscene` before and after (inspected; before it was near-black).
