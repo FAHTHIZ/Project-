@@ -52,7 +52,7 @@ function P:start()
         if self.torch_power > 0 then
             self.spill = self.cam:find_child("Weapon Spill") or scene.spawn("Weapon Spill", self.cam)
             self.spill.position = vector.create(0.06, -0.05, -0.62)
-            self.spill_power = 0.9
+            self.spill_power = 1.8
             self.spill:set("Light", { type = "point", color = { 0.86, 0.9, 1.0, 1 }, intensity = self.spill_power,
                                       range = 1.1, shadows = false })
         end
