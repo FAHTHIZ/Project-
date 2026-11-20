@@ -118,6 +118,7 @@ M_GRIP = mat('pc7_Grip', DARK, 0.85)
 M_TRIM = mat('pc7_Trim', TRIM, 0.38, 0.6)
 M_ACC = mat('pc7_Accent', ACCENT, 0.45, 0.0)
 M_GLOW = mat('pc7_Glow', (1, 1, 1), 0.3, emit=GLOW, strength=3.0)
+M_DOT = mat('pc7_Dot', (1, 1, 1), 0.3, emit=(1.0, 0.16, 0.1), strength=9.0)
 M_LENS = mat('pc7_Lens', srgb('#0d1418'), 0.05, 0.6)
 M_CSHELL = mat('pc7cell_Shell', TRIM, 0.5, 0.2)
 M_CGLOW = mat('pc7cell_Glow', (1, 1, 1), 0.3, emit=GLOW, strength=2.5)
@@ -151,14 +152,33 @@ body.append(vent)
 rail = box('rail', (0, 0.07, 0.0905), (0.0105, 0.13, 0.0055), M_METAL, bevel=0.0012)
 cut(rail, [box(f'rt{i}', (0, -0.05 + i * 0.0105, 0.095), (0.012, 0.0028, 0.0025), M_METAL, bevel=0) for i in range(23)])
 body.append(rail)
-body.append(cyl('optic', (0, 0.025, 0.113), (0, 0.105, 0.113), 0.0148, M_DARK, verts=28, bevel=0.0015))
-body.append(cyl('optic_hood', (0, 0.095, 0.113), (0, 0.112, 0.113), 0.0162, M_DARK, verts=28, bevel=0.001))
-body.append(cyl('optic_lens', (0, 0.111, 0.113), (0, 0.1125, 0.113), 0.0128, M_LENS, verts=28, bevel=0))
-body.append(cyl('optic_lens_r', (0, 0.0235, 0.113), (0, 0.025, 0.113), 0.0118, M_LENS, verts=28, bevel=0))
-body.append(box('optic_mount', (0, 0.065, 0.1), (0.009, 0.022, 0.006), M_METAL, bevel=0.001))
-for y in (0.045, 0.085):
-    body.append(cyl(f'opt_knob{y}', (0.014, y, 0.113), (0.02, y, 0.113), 0.004, M_METAL, verts=12, bevel=0.0008, segs=1))
-body.append(cyl('sight_dot', (0, 0.1005, 0.1135), (0, 0.1015, 0.1135), 0.0032, M_GLOW, verts=12, bevel=0))
+# Open reflex sight (rev 2). The first optic was a capped tube with opaque lens discs: aiming down
+# it put a black disc over the target. This one is a tall rectangular hood over the rear of the
+# rail with an open window (36 x 30 mm) and a small bright aim dot floating on the sight line
+# (z = 0.1135, the viewmodel's ADS eye height), so the target stays visible through the window.
+SL = 0.1135                      # sight line height
+WY0, WY1 = -0.062, -0.028        # hood rear / front (Blender y)
+hood = box('optic_hood', (0, (WY0 + WY1) / 2, SL + 0.0015), (0.0205, (WY1 - WY0) / 2, 0.0185), M_DARK, bevel=0.0018, segs=2)
+win = box('optic_win', (0, (WY0 + WY1) / 2, SL), (0.018, 0.05, 0.015), M_DARK, bevel=0)
+cut(hood, [win]); body.append(hood)
+# the hood's base block and rail clamp (below the window, above the rail teeth)
+body.append(box('optic_base', (0, (WY0 + WY1) / 2, 0.097), (0.0175, (WY1 - WY0) / 2 + 0.004, 0.0015), M_METAL, bevel=0.001))
+body.append(box('optic_clamp', (0.0175, (WY0 + WY1) / 2, 0.096), (0.004, 0.012, 0.004), M_METAL, bevel=0.001))
+body.append(cyl('optic_clamp_knob', (0.021, (WY0 + WY1) / 2, 0.096), (0.026, (WY0 + WY1) / 2, 0.096), 0.0045, M_METAL, verts=12, bevel=0.0008, segs=1))
+# brightness buttons on the right of the hood, an emitter housing in the hood roof
+for i, y in enumerate((WY0 + 0.008, WY0 + 0.018)):
+    body.append(box(f'opt_btn{i}', (0.0212, y, SL + 0.006), (0.0012, 0.0035, 0.003), M_GRIP, bevel=0.0006))
+body.append(box('opt_emitter', (0, WY0 + 0.006, SL + 0.0175), (0.006, 0.005, 0.0022), M_METAL, bevel=0.0006))
+# thin anti-reflection tint frame at the front of the window (the glass itself is left out: the
+# importer renders glTF blend materials alpha-tested, and an opaque pane would hide the target)
+lip = box('optic_lip', (0, WY1 - 0.0008, SL), (0.0185, 0.0008, 0.0155), M_LENS, bevel=0)
+cut(lip, [box('optic_lip_cut', (0, WY1 - 0.0008, SL), (0.0165, 0.004, 0.0135), M_LENS, bevel=0)])
+body.append(lip)
+# the aim dot: 2.2 mm emissive disc on the sight line at the front of the window
+body.append(cyl('sight_dot', (0, WY1 - 0.003, SL), (0, WY1 - 0.0024, SL), 0.0011, M_DOT, verts=12, bevel=0))
+# fixed backup front post on the shroud collar (ahead of the window, below the dot)
+body.append(box('front_post_base', (0, 0.272, 0.078), (0.006, 0.006, 0.006), M_METAL, bevel=0.001))
+body.append(box('front_post', (0, 0.272, 0.0905), (0.0016, 0.0016, 0.0075), M_METAL, bevel=0.0004))
 
 # --- emitter shroud: tapered tube with vent slots, glowing coils inside ----------------------
 shroud = cyl('shroud', (0, 0.27, ZC), (0, 0.49, ZC), 0.026, M_DARK, r1=0.023, verts=32, bevel=0.0015)
