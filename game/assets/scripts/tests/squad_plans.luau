@@ -383,6 +383,12 @@ for i = 0, 226 do
     table.insert(P.squad_cover, { at = 1.15 + i * 0.25, run = function(c)
         Squad.each(function(_, m)
             local a = m.actor
+            if a and a.carry and a.carry.valid and m.crouching and a.chest_dy < -0.25 and a.reload_w < 0.05 then
+                -- height relative to where the standing pose would hold it (low ready 1.14 .. aim 1.42)
+                local h = a.carry.world_position.y - m.entity.position.y - (1.14 + 0.28 * a.aim)
+                c.data.kneel_carry = math.max(c.data.kneel_carry or -9, h)
+                c.data.kneel_samples = (c.data.kneel_samples or 0) + 1
+            end
             if a and a.face and a.face.active then
                 c.data.brow_max = math.max(c.data.brow_max or 0, a.face.cur.BrowDown or 0)
                 c.data.flinches = math.max(c.data.flinches or 0, a.face.flinches)
@@ -421,6 +427,8 @@ table.insert(P.squad_cover, { at = 59.9, run = function(c)
                       tostring(c.data.reload_canted), tostring(c.data.reload_hand_off), table.concat(shots, " ")))
 end })
 table.insert(P.squad_cover, { at = 59.95, run = function(c)
+    c.check("kneeling_rifle_low", (c.data.kneel_samples or 0) >= 3 and (c.data.kneel_carry or 9) < -0.15,
+        string.format("%d kneeling samples, rifle at most %.2f m vs the standing pose", c.data.kneel_samples or 0, c.data.kneel_carry or 9))
     c.check("npc_impacts", (Squad.state().npc_impacts or 0) >= 5,
         string.format("%d NPC shot impacts shown near the camera", Squad.state().npc_impacts or 0))
     c.check("faces_show_the_fight", (c.data.brow_max or 0) > 0.45 and (c.data.flinches or 0) >= 1,
@@ -432,6 +440,15 @@ table.insert(P.squad_cover, { at = 60.0, run = function(c)
 end })
 
 -- Screenshot setup: the squad holds facing the player, frozen mid cell change (support hand off the gun).
+-- Screenshot setup: the squad holds and takes a knee with the player (quiet move).
+P.squad_kneel_look = {
+    { at = 0.02, run = function() Squad.order("hold"); Game.face_player(V(0, 1.6, 9.5)) end },
+    { at = 0.1, press = "crouch" },
+    { at = 0.15, release = "crouch" },
+    { at = 0.2, run = function() Game.face_player(V(0, 1.2, 9.5)) end },
+    { at = 25 },
+}
+
 -- Screenshot setup: faces under fire (strain blended in, one fresh startle).
 P.squad_face_look = {
     { at = 0.02, run = function()

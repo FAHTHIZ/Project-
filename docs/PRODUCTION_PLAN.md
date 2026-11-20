@@ -40,6 +40,7 @@ The story design is complete; implementation is not. Do not invent a replacement
 | Third-person cell changes: magazine-based reloads for operators, tactical top-offs in a lull, rifle cants in and the support hand leaves the gun, positional cell-out/in/charge sounds (contractors too) | Done (squad_cover operators_change_cells; regressions and story_op01 pass) | log "Third-person reloads" |
 | Faces react to the fight: strain under fire, startle on near misses and hits (habituating), faster blinking under stress, blinks on big gaze shifts, mouth-breathing after hard running | Done (squad_cover faces_show_the_fight; regressions and story_op01 pass) | log "Faces react" |
 | NPC shot impacts: sparks and dust where Halyard and Greyline pulses land near the camera (pooled emitters), impact sound within 14 m | Done (squad_cover npc_impacts; regressions and story_op01 pass) | log "NPC shot impacts" |
+| Rifle follows the body: an NPC's carried weapon tracks the chest bone's drop (kneeling, stumbling), so a kneeling operator holds it at the waist instead of at head height | Done (squad_cover kneeling_rifle_low; render docs/media/kneel_carry.png) | log "Rifle follows the body" |
 | Hot 10S validation: frame time, memory, thermals, touch feel | Not done — requires the physical phone | |
 
 ## P0 — Baseline and device proof
