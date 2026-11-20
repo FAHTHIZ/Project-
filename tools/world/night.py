@@ -66,9 +66,9 @@ def _spot(sc, name, pos, pitch, yaw, color, intensity, rng, inner, outer, shadow
     return sc.add(name, comps)
 
 
-def _point(sc, name, pos, color, intensity, rng):
+def _point(sc, name, pos, color, intensity, rng, shadows=False):
     return sc.add(name, {'Transform': transform(pos), 'Light': {
-        'type': 'point', 'color': list(color) + [1], 'intensity': intensity, 'range': rng, 'shadows': False}})
+        'type': 'point', 'color': list(color) + [1], 'intensity': intensity, 'range': rng, 'shadows': shadows}})
 
 
 def add_lights(sc, chapter):
@@ -101,13 +101,15 @@ def add_lights(sc, chapter):
             _point(sc, 'Office Desk Lamp', (p[0], p[1] + 1.1, p[2]), (1.0, 0.8, 0.55), 4.0, 6.0)
         elif model == 'camp_table' and chapter == 'prologue':
             # Lamplight's battery lantern on the briefing table (tools/assets/blender_lantern.py),
-            # warm 3000 K, unshadowed: it is what lights the squad's faces over the map. The squad
+            # warm 3000 K: it is what lights the squad's faces over the map. The squad
             # packs it before Op01, so it only exists in the prologue.
             r = math.radians(yaw)
             lx, lz = 0.62, 0.18
             p = (x + lx * math.cos(r) + lz * math.sin(r), y + 0.76, z - lx * math.sin(r) + lz * math.cos(r))
             sc.prop('Camp Lantern', WS.STRUCT + 'camp_lantern.glb', p, yaw + 20.0, shadows=False)
-            _point(sc, 'Camp Lantern Light', (p[0], p[1] + 0.15, p[2]), (1.0, 0.76, 0.5), 10.0, 9.0)
+            # shadowed and at 6: unshadowed at 10 it shone through the table top and burned the
+            # grass under it white (campaign tour, 2026-11)
+            _point(sc, 'Camp Lantern Light', (p[0], p[1] + 0.15, p[2]), (1.0, 0.76, 0.5), 6.0, 9.0, shadows=True)
         elif model == 'ph_generator' and name.startswith('Camp'):
             # the generator's status lamp, a small green point that blinks in the rain
             _point(sc, 'Camp Generator Lamp', (x, y + 0.7, z), (0.4, 1.0, 0.5), 1.5, 3.0)

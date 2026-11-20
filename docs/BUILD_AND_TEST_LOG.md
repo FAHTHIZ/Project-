@@ -1015,3 +1015,8 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - Found in the campaign tour: resuming the op04 labs checkpoint showed "Clear the labs (0/0)". Restore destroys enemies downed before the checkpoint, so `group_total` only counted the survivors.
 - Fix: kestrel.luau and facility.luau keep a per-group `cleared` count of enemies removed on restore and add it to `group_total` (line-wake trigger still checks live members only).
 - Verified: op04 cp02 resume now reads "Clear the labs (4/4)" (768x336 medium, 60 frames, 0 script errors); `tour.py restore` 35/35 ok.
+
+## Camp lantern shadowed (2026-11-20)
+- Found in the campaign tour: the prologue briefing lantern (unshadowed point, intensity 10) shone through the table top and burned the table and the grass under it white.
+- Fix: tools/world/night.py `_point(..., shadows=)`; the lantern is now shadowed at intensity 6 (prologue.vscene and tests/story_prologue.vscene patched in place).
+- Verified: fresh prologue, 90 frames, 768x336 medium, lavapipe: docs/media/camp_lantern_shadowed.jpg (top before, bottom after) — table top no longer clipped, table casts its shadow; 0 script errors. The cool pool left of the table is the camp floodlight, unchanged.
