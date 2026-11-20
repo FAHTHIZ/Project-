@@ -7,6 +7,7 @@ no daylight to read the valley by, so every light is a real source with a reason
   moon          a weak blue key leaking through the cloud deck (shadowed directional)
   lightning     a second directional driven by scripts/world/storm.luau, with thunder
   camp floods   the staging camp's two floodlights on their generator
+  camp lantern  the battery lantern on the prologue briefing table
   yard lights   sodium pole lamps over the gate and the compound yard
   searchlights  one per watchtower, sweeping on scripts/world/searchlight.luau
   facility      amber portal lamp over the vault door, guard booth strip light
@@ -98,6 +99,15 @@ def add_lights(sc, chapter):
         elif model == 'site_office':
             p, _ = WS.anchor_world('site_office', 'desk', x, y, z, yaw)
             _point(sc, 'Office Desk Lamp', (p[0], p[1] + 1.1, p[2]), (1.0, 0.8, 0.55), 4.0, 6.0)
+        elif model == 'camp_table' and chapter == 'prologue':
+            # Lamplight's battery lantern on the briefing table (tools/assets/blender_lantern.py),
+            # warm 3000 K, unshadowed: it is what lights the squad's faces over the map. The squad
+            # packs it before Op01, so it only exists in the prologue.
+            r = math.radians(yaw)
+            lx, lz = 0.62, 0.18
+            p = (x + lx * math.cos(r) + lz * math.sin(r), y + 0.76, z - lx * math.sin(r) + lz * math.cos(r))
+            sc.prop('Camp Lantern', WS.STRUCT + 'camp_lantern.glb', p, yaw + 20.0, shadows=False)
+            _point(sc, 'Camp Lantern Light', (p[0], p[1] + 0.15, p[2]), (1.0, 0.76, 0.5), 10.0, 9.0)
         elif model == 'ph_generator' and name.startswith('Camp'):
             # the generator's status lamp, a small green point that blinks in the rain
             _point(sc, 'Camp Generator Lamp', (x, y + 0.7, z), (0.4, 1.0, 0.5), 1.5, 3.0)
