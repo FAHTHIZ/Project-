@@ -820,3 +820,10 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - build_vm_arms.py write_mh: the welded glove surface is split exactly on the iso-lines dorsal = 0.1 and knuckle = 0.45 (`_contour_split`, shared edge points), knuckle vertices are pushed out along the normal by up to 2.6 mm, normals recomputed from the displaced geometry. Primitives: 0 Glove (palm, #1b1a17-ish, rough 0.72, leather scan), 1 Sleeve, 2 BackFabric (fabric scan), 3 KnucklePad (rubber scan, rough 0.5). hand_r 10350 tris, hand_l 10341.
 - First try classified whole triangles, which gave a saw-tooth seam in the pistol view; the contour split fixed it (compare docs/media/gloves_v3.png, old left, new right).
 - sync_model_prims.py: 896 prop groups in 68 scenes grew 2 -> 4 children. `victus check game`: 262 scenes, 0 problems. Autotests weapons, reload_feel, vm_ads, armory: PASS.
+
+## 2026-11-20 Photoscanned camp and relay clutter
+
+- tools/world/world_scene.py: `place_ph_group` places clusters of the Poly Haven props from models/interior/ph (bounds from tools/levels/interior_props.json, one static box collider each, stacked items rest on the top of the item below, ground-following for the rest). Camp Crates and Cabin Crates use CRATE_PILE (long crate + ammo crate on top, a second two-crate stack, jerrycan); Camp and Relay Generator use the portable_generator scan plus a jerrycan. night.py: camp generator status lamp follows the new model (0.7 m).
+- A blue plastic tote was tried in the pile and dropped: it read as a bright blue block in the night camp capture.
+- Ran worldgen.py scene, chapters.py, patch_hud.py, `victus import game`, `victus check game` (262 scenes, 0 problems). Autotests: story_prologue PASS (20000 frames), story_op01 PASS (19800).
+- Capture: docs/media/camp_ph_crates.png (prologue camp at night, scanned crate in torch light).

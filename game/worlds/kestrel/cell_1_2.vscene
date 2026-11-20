@@ -17197,7 +17197,7 @@
       "name": "Cabin Crates",
       "components": {
         "Transform": {
-          "position": [66.5, 25.01409912109375, 128.5],
+          "position": [66.5, 25.069400787353516, 128.5],
           "rotation": [0, 0.08715569972991943, 0, 0.9961947202682495],
           "scale": [1, 1, 1]
         }
@@ -17205,12 +17205,25 @@
       "next": null
     },
     {
-      "uuid": "ddea78a1-f989-5601-ad86-4b9a992ad8c5",
-      "name": "Cabin Crates[0]",
+      "uuid": "f9d4c99e-1ab3-5b87-9eb9-10615bbb44dd",
+      "name": "Cabin Crates 0",
       "parent": "b5fb8f9c-8c40-57ce-80c7-3cadb571e4d6",
       "components": {
+        "Transform": {
+          "position": [0, -0.019999999552965164, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "4847ff6f-6e54-554e-a14a-8f1cb372f086"
+    },
+    {
+      "uuid": "f2b7a6cf-3eff-5aeb-a491-a3eeca3c5fef",
+      "name": "Cabin Crates 0[0]",
+      "parent": "f9d4c99e-1ab3-5b87-9eb9-10615bbb44dd",
+      "components": {
         "MeshRenderer": {
-          "mesh": "559b10a7-181e-450b-8699-8cfe11b8d8a4",
+          "mesh": "a160f78e-3531-4345-becd-c1bfefe14c9b",
           "mesh_index": 0,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
@@ -17224,16 +17237,67 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "29c248ee-0e35-5a8f-94ff-01134ec131ce"
+      "next": "2361f83b-0db0-5f2c-b5ec-a49b5350d139"
     },
     {
-      "uuid": "29c248ee-0e35-5a8f-94ff-01134ec131ce",
-      "name": "Cabin Crates[1]",
+      "uuid": "2361f83b-0db0-5f2c-b5ec-a49b5350d139",
+      "name": "Cabin Crates 0 Collider",
+      "parent": "f9d4c99e-1ab3-5b87-9eb9-10615bbb44dd",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.2405498027801514, 0.4641839563846588, 0.5170539021492004],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 0.2320999950170517, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "4847ff6f-6e54-554e-a14a-8f1cb372f086",
+      "name": "Cabin Crates 1",
       "parent": "b5fb8f9c-8c40-57ce-80c7-3cadb571e4d6",
       "components": {
+        "Transform": {
+          "position": [0.07999999821186066, 0.4442000091075897, 0.019999999552965164],
+          "rotation": [0, 0.06104850396513939, 0, 0.9981348514556885],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "6f7c3d75-278b-503c-902d-70df2185f487"
+    },
+    {
+      "uuid": "b4402740-71b5-546e-8eb2-30ca3d7c0ed6",
+      "name": "Cabin Crates 1[0]",
+      "parent": "4847ff6f-6e54-554e-a14a-8f1cb372f086",
+      "components": {
         "MeshRenderer": {
-          "mesh": "559b10a7-181e-450b-8699-8cfe11b8d8a4",
-          "mesh_index": 1,
+          "mesh": "7738e803-0c89-4004-a0d2-cdf7ab6e8df6",
+          "mesh_index": 0,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
           "roughness": 0.8500000238418579,
@@ -17246,16 +17310,16 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "abf77fc1-cb91-5d54-90be-389a5a0cc868"
+      "next": "c65da806-35ce-5c95-818a-1e1f5bd9bb33"
     },
     {
-      "uuid": "abf77fc1-cb91-5d54-90be-389a5a0cc868",
-      "name": "Cabin Crates Collider 0",
-      "parent": "b5fb8f9c-8c40-57ce-80c7-3cadb571e4d6",
+      "uuid": "c65da806-35ce-5c95-818a-1e1f5bd9bb33",
+      "name": "Cabin Crates 1 Collider",
+      "parent": "4847ff6f-6e54-554e-a14a-8f1cb372f086",
       "components": {
         "Collider": {
           "shape": "box",
-          "size": [1.2, 0.8, 0.8],
+          "size": [0.8139306306838989, 0.3014715313911438, 0.5386661291122437],
           "radius": 0.5,
           "height": 1,
           "offset": [0, 0, 0],
@@ -17280,21 +17344,54 @@
           "angular_velocity": [0, 0, 0]
         },
         "Transform": {
-          "position": [0, 0.4000000059604645, 0],
+          "position": [0, 0.15070000290870667, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "6f7c3d75-278b-503c-902d-70df2185f487",
+      "name": "Cabin Crates 2",
+      "parent": "b5fb8f9c-8c40-57ce-80c7-3cadb571e4d6",
+      "components": {
+        "Transform": {
+          "position": [1.25, -0.025200000032782555, 0.18000000715255737],
+          "rotation": [0, -0.13917310535907745, 0, 0.9902681112289429],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "0f6a7dc3-1f97-5990-9ff7-e9562bf399f9",
+      "name": "Cabin Crates 2[0]",
+      "parent": "6f7c3d75-278b-503c-902d-70df2185f487",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "7738e803-0c89-4004-a0d2-cdf7ab6e8df6",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }
       },
-      "next": "367e1518-9a9d-53fd-aed3-50f9ce15c68f"
+      "next": "909d906f-bb1b-555f-89a6-fd4066bb8c8f"
     },
     {
-      "uuid": "367e1518-9a9d-53fd-aed3-50f9ce15c68f",
-      "name": "Cabin Crates Collider 1",
-      "parent": "b5fb8f9c-8c40-57ce-80c7-3cadb571e4d6",
+      "uuid": "909d906f-bb1b-555f-89a6-fd4066bb8c8f",
+      "name": "Cabin Crates 2 Collider",
+      "parent": "6f7c3d75-278b-503c-902d-70df2185f487",
       "components": {
         "Collider": {
           "shape": "box",
-          "size": [0.8, 0.6, 0.6],
+          "size": [0.8139306306838989, 0.3014715313911438, 0.5386661291122437],
           "radius": 0.5,
           "height": 1,
           "offset": [0, 0, 0],
@@ -17319,46 +17416,7 @@
           "angular_velocity": [0, 0, 0]
         },
         "Transform": {
-          "position": [1.2999999523162842, 0.30000001192092896, 0.10000000149011612],
-          "rotation": [0, 0, 0, 1],
-          "scale": [1, 1, 1]
-        }
-      },
-      "next": "dbabd594-0d5b-5d1e-b6d9-a426936bc11b"
-    },
-    {
-      "uuid": "dbabd594-0d5b-5d1e-b6d9-a426936bc11b",
-      "name": "Cabin Crates Collider 2",
-      "parent": "b5fb8f9c-8c40-57ce-80c7-3cadb571e4d6",
-      "components": {
-        "Collider": {
-          "shape": "box",
-          "size": [0.8, 0.6, 0.6],
-          "radius": 0.5,
-          "height": 1,
-          "offset": [0, 0, 0],
-          "friction": 0.6,
-          "restitution": 0,
-          "is_trigger": false,
-          "layer": 0,
-          "mask": 65535,
-          "mesh_asset": null,
-          "mesh_index": 0
-        },
-        "RigidBody": {
-          "type": "static",
-          "mass": 1,
-          "linear_damping": 0.05,
-          "angular_damping": 0.05,
-          "gravity_scale": 1,
-          "continuous": false,
-          "lock_rotation": false,
-          "start_awake": true,
-          "linear_velocity": [0, 0, 0],
-          "angular_velocity": [0, 0, 0]
-        },
-        "Transform": {
-          "position": [0.20000000298023224, 1.100000023841858, 0.05000000074505806],
+          "position": [0, 0.15070000290870667, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }

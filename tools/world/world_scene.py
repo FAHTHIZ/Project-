@@ -359,6 +359,52 @@ def struct_layout():
     return _LAYOUT
 
 
+# Photoscanned CC0 props (Poly Haven, built by tools/assets/build_interior_props.py) used outdoors:
+# the same files as the facility dressing, with box colliders from their measured bounds.
+PH = 'models/interior/ph/'
+_PH_BOUNDS = None
+
+
+def ph_bounds():
+    global _PH_BOUNDS
+    if _PH_BOUNDS is None:
+        _PH_BOUNDS = json.loads((Path(__file__).resolve().parents[1] / 'levels' / 'interior_props.json').read_text())
+    return _PH_BOUNDS
+
+
+def place_ph_group(sc, name, items, x, z, yaw, H, model):
+    """A cluster of photoscanned props at (x, z, yaw). items: (prop, dx, dz, dyaw, on) in the
+    cluster frame; `on` is the index of an earlier item to stack on (None = on the ground)."""
+    B = ph_bounds()
+    r = math.radians(yaw)
+    y0 = ground(H, x, z)
+    root = sc.add(name, {'Transform': transform((x, y0, z), yaw=yaw)})
+    PLACED[name] = (model, x, y0, z, yaw)
+    tops = []
+    for k, (prop, dx, dz, dyaw, on) in enumerate(items):
+        b = B[prop]
+        if on is None:
+            wx, wz = x + dx * math.cos(r) + dz * math.sin(r), z - dx * math.sin(r) + dz * math.cos(r)
+            ly = ground(H, wx, wz) - y0 - 0.02
+        else:
+            ly = tops[on]
+        tops.append(ly + b['max'][1])
+        part = sc.prop(f'{name} {k}', PH + prop + '.glb', (dx, ly, dz), dyaw, parent=root)
+        c = [(lo + hi) / 2 for lo, hi in zip(b['min'], b['max'])]
+        h = [(hi - lo) / 2 for lo, hi in zip(b['min'], b['max'])]
+        sc.add(f'{name} {k} Collider', {'Transform': transform(tuple(c)),
+                                         'Collider': collider('box', tuple(2 * v for v in h)),
+                                         'RigidBody': body('static')}, part)
+    return root, y0
+
+
+# camp supply pile: a long rifle crate with an ammo crate on it, a second stack of two, fuel
+CRATE_PILE = [('long_crate', 0.0, 0.0, 0.0, None), ('military_crate', 0.08, 0.02, 7.0, 0),
+              ('military_crate', 1.25, 0.18, -16.0, None), ('jerrycan', 1.05, -0.62, 32.0, None),
+              ('military_crate', 1.2, 0.2, -9.0, 2)]
+GENERATOR = [('generator', 0.0, 0.0, 0.0, None), ('jerrycan', 0.62, 0.3, -20.0, None)]
+
+
 def place(sc, name, model, x, z, yaw, H=None, y=None, sink=0.05, tags=None, extra=None):
     """Structure prop from tools/props/build_structures.py with its static box colliders as
     children (the layout lists centre, half extents and yaw in the model frame)."""
@@ -402,12 +448,12 @@ def add_structures(sc, H, masks):
     _, ty = place(sc, 'Camp Tent A', 'camp_tent', cx + 6, cz - 4, -110.0, H)
     place(sc, 'Camp Tent B', 'camp_tent', cx + 7, cz + 5, -70.0, H)
     _, by = place(sc, 'Camp Table', 'camp_table', cx - 1, cz, 75.0, H)
-    place(sc, 'Camp Crates', 'supply_crates', cx + 1, cz - 6, 20.0, H)
+    place_ph_group(sc, 'Camp Crates', CRATE_PILE, cx + 1, cz - 6, 20.0, H, 'ph_crates')
     # the squad's open arms case: KV-5 Hornet, BR-9 Ram and MR-6 Kestrel for the player to swap in
     ax, az = cx - 2.0, cz - 3.2
     vehicle.add_arms_case(sc, 'Camp Arms Case', (ax, ground(H, ax, az) - 0.02, az), 160.0)
     PLACED['Camp Arms Case'] = ('arms_case', ax, ground(H, ax, az), az, 160.0)
-    place(sc, 'Camp Generator', 'generator', cx + 10, cz + 1, 80.0, H)
+    place_ph_group(sc, 'Camp Generator', GENERATOR, cx + 10, cz + 1, 80.0, H, 'ph_generator')
     place(sc, 'Camp Flood A', 'floodlight', cx - 5, cz - 4, 60.0, H)
     place(sc, 'Camp Flood B', 'floodlight', cx + 2, cz + 7, 200.0, H)
     POINTS['camp_table'] = (cx - 1, by, cz)
@@ -423,12 +469,12 @@ def add_structures(sc, H, masks):
     lamp = POINTS['cabin_lamp']
     sc.add('Cabin Lamp Light', {'Transform': transform(lamp), 'Light': {
         'type': 'point', 'color': [1.0, 0.72, 0.42], 'intensity': 6.0, 'range': 7.0, 'shadows': False}})
-    place(sc, 'Cabin Crates', 'supply_crates', 66.5, 128.5, 10.0, H)
+    place_ph_group(sc, 'Cabin Crates', CRATE_PILE[:3], 66.5, 128.5, 10.0, H, 'ph_crates')
     # Greyline relay on the knoll west of the trail
     _, ry = place(sc, 'Relay Mast', 'relay_mast', -50.0, 14.0, 70.0, H, sink=0.1, tags='Relay Scannable')
     POINTS['relay_bay'] = anchor_world('relay_mast', 'cell_bay', -50.0, ry, 14.0, 70.0)[0]
     POINTS['relay_stand'] = anchor_world('relay_mast', 'stand', -50.0, ry, 14.0, 70.0)[0]
-    place(sc, 'Relay Generator', 'generator', -46.5, 10.5, 20.0, H)
+    place_ph_group(sc, 'Relay Generator', GENERATOR, -46.5, 10.5, 20.0, H, 'ph_generator')
     # Perimeter fence along the cleared strip, with a gap for the gate on the service road
     fence = masks['splines']['fence']
     gx, gz = M.POIS['gate']['x'], M.POIS['gate']['z']

@@ -98,9 +98,9 @@ def add_lights(sc, chapter):
         elif model == 'site_office':
             p, _ = WS.anchor_world('site_office', 'desk', x, y, z, yaw)
             _point(sc, 'Office Desk Lamp', (p[0], p[1] + 1.1, p[2]), (1.0, 0.8, 0.55), 4.0, 6.0)
-        elif model == 'generator' and name.startswith('Camp'):
+        elif model == 'ph_generator' and name.startswith('Camp'):
             # the generator's status lamp, a small green point that blinks in the rain
-            _point(sc, 'Camp Generator Lamp', (x, y + 1.3, z), (0.4, 1.0, 0.5), 1.5, 3.0)
+            _point(sc, 'Camp Generator Lamp', (x, y + 0.7, z), (0.4, 1.0, 0.5), 1.5, 3.0)
 
 
 def add_storm(sc, chapter):

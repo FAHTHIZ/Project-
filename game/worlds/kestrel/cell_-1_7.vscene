@@ -7603,7 +7603,7 @@
       "name": "Camp Crates",
       "components": {
         "Transform": {
-          "position": [-19, 50.405399322509766, 480],
+          "position": [-19, 50.45539855957031, 480],
           "rotation": [0, 0.1736481934785843, 0, 0.9848077893257141],
           "scale": [1, 1, 1]
         }
@@ -7611,12 +7611,25 @@
       "next": null
     },
     {
-      "uuid": "3cb180ca-06bf-5ec6-aa5e-7f4238e7e1e9",
-      "name": "Camp Crates[0]",
+      "uuid": "9fa0e83a-0aed-5de8-9a10-1a9cf22be4e4",
+      "name": "Camp Crates 0",
       "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
       "components": {
+        "Transform": {
+          "position": [0, -0.019999999552965164, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "2a51ec0f-9348-5ab8-9083-0c5af85001b3"
+    },
+    {
+      "uuid": "d3ea1d44-e953-5f56-b246-9de031852d52",
+      "name": "Camp Crates 0[0]",
+      "parent": "9fa0e83a-0aed-5de8-9a10-1a9cf22be4e4",
+      "components": {
         "MeshRenderer": {
-          "mesh": "559b10a7-181e-450b-8699-8cfe11b8d8a4",
+          "mesh": "a160f78e-3531-4345-becd-c1bfefe14c9b",
           "mesh_index": 0,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
@@ -7630,16 +7643,67 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "785798ea-e624-54e9-8c55-b4dafa52f1c6"
+      "next": "3bf46f26-a2b7-5f73-9ce8-2c78c8461675"
     },
     {
-      "uuid": "785798ea-e624-54e9-8c55-b4dafa52f1c6",
-      "name": "Camp Crates[1]",
+      "uuid": "3bf46f26-a2b7-5f73-9ce8-2c78c8461675",
+      "name": "Camp Crates 0 Collider",
+      "parent": "9fa0e83a-0aed-5de8-9a10-1a9cf22be4e4",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [1.2405498027801514, 0.4641839563846588, 0.5170539021492004],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 0.2320999950170517, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "2a51ec0f-9348-5ab8-9083-0c5af85001b3",
+      "name": "Camp Crates 1",
       "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
       "components": {
+        "Transform": {
+          "position": [0.07999999821186066, 0.4442000091075897, 0.019999999552965164],
+          "rotation": [0, 0.06104850396513939, 0, 0.9981348514556885],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "7445d87d-404c-597e-b6ea-3914ce898762"
+    },
+    {
+      "uuid": "a6c2cede-b865-5e5b-bf29-6c8d90315d16",
+      "name": "Camp Crates 1[0]",
+      "parent": "2a51ec0f-9348-5ab8-9083-0c5af85001b3",
+      "components": {
         "MeshRenderer": {
-          "mesh": "559b10a7-181e-450b-8699-8cfe11b8d8a4",
-          "mesh_index": 1,
+          "mesh": "7738e803-0c89-4004-a0d2-cdf7ab6e8df6",
+          "mesh_index": 0,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
           "roughness": 0.8500000238418579,
@@ -7652,16 +7716,16 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "340e4f09-40aa-558f-a61a-263db1871f1e"
+      "next": "c1cb2c61-099f-5b52-a49b-34016da88232"
     },
     {
-      "uuid": "340e4f09-40aa-558f-a61a-263db1871f1e",
-      "name": "Camp Crates Collider 0",
-      "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
+      "uuid": "c1cb2c61-099f-5b52-a49b-34016da88232",
+      "name": "Camp Crates 1 Collider",
+      "parent": "2a51ec0f-9348-5ab8-9083-0c5af85001b3",
       "components": {
         "Collider": {
           "shape": "box",
-          "size": [1.2, 0.8, 0.8],
+          "size": [0.8139306306838989, 0.3014715313911438, 0.5386661291122437],
           "radius": 0.5,
           "height": 1,
           "offset": [0, 0, 0],
@@ -7686,21 +7750,55 @@
           "angular_velocity": [0, 0, 0]
         },
         "Transform": {
-          "position": [0, 0.4000000059604645, 0],
+          "position": [0, 0.15070000290870667, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "7445d87d-404c-597e-b6ea-3914ce898762",
+      "name": "Camp Crates 2",
+      "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
+      "components": {
+        "Transform": {
+          "position": [1.25, -0.019999999552965164, 0.18000000715255737],
+          "rotation": [0, -0.13917310535907745, 0, 0.9902681112289429],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "49243714-7a4f-52f3-91e5-703bce6c6a99"
+    },
+    {
+      "uuid": "ce94ebf5-d830-58a8-8927-92e6cd6cbcab",
+      "name": "Camp Crates 2[0]",
+      "parent": "7445d87d-404c-597e-b6ea-3914ce898762",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "7738e803-0c89-4004-a0d2-cdf7ab6e8df6",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }
       },
-      "next": "81be48c9-44ec-59ed-86e1-140575a7d0c1"
+      "next": "02c57dc2-cc70-5717-8c2c-d50ceae5e778"
     },
     {
-      "uuid": "81be48c9-44ec-59ed-86e1-140575a7d0c1",
-      "name": "Camp Crates Collider 1",
-      "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
+      "uuid": "02c57dc2-cc70-5717-8c2c-d50ceae5e778",
+      "name": "Camp Crates 2 Collider",
+      "parent": "7445d87d-404c-597e-b6ea-3914ce898762",
       "components": {
         "Collider": {
           "shape": "box",
-          "size": [0.8, 0.6, 0.6],
+          "size": [0.8139306306838989, 0.3014715313911438, 0.5386661291122437],
           "radius": 0.5,
           "height": 1,
           "offset": [0, 0, 0],
@@ -7725,21 +7823,55 @@
           "angular_velocity": [0, 0, 0]
         },
         "Transform": {
-          "position": [1.2999999523162842, 0.30000001192092896, 0.10000000149011612],
+          "position": [0, 0.15070000290870667, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "49243714-7a4f-52f3-91e5-703bce6c6a99",
+      "name": "Camp Crates 3",
+      "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
+      "components": {
+        "Transform": {
+          "position": [1.0499999523162842, -0.019999999552965164, -0.6200000047683716],
+          "rotation": [0, 0.2756373882293701, 0, 0.9612616896629333],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "1c9960f7-b106-590c-9110-d3941dbc39d0"
+    },
+    {
+      "uuid": "79e02cb3-8b77-5a4d-a46d-40bb0bf7db8e",
+      "name": "Camp Crates 3[0]",
+      "parent": "49243714-7a4f-52f3-91e5-703bce6c6a99",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "45695017-1aa5-47f7-a1ff-95fc3da85d9c",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }
       },
-      "next": "9bd838ea-145d-5543-93d3-8e01ab58bd61"
+      "next": "380cb6b9-33a8-5bde-b21e-333e6d1c6553"
     },
     {
-      "uuid": "9bd838ea-145d-5543-93d3-8e01ab58bd61",
-      "name": "Camp Crates Collider 2",
-      "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
+      "uuid": "380cb6b9-33a8-5bde-b21e-333e6d1c6553",
+      "name": "Camp Crates 3 Collider",
+      "parent": "49243714-7a4f-52f3-91e5-703bce6c6a99",
       "components": {
         "Collider": {
           "shape": "box",
-          "size": [0.8, 0.6, 0.6],
+          "size": [0.2680235207080841, 0.31838423013687134, 0.3419806659221649],
           "radius": 0.5,
           "height": 1,
           "offset": [0, 0, 0],
@@ -7764,7 +7896,79 @@
           "angular_velocity": [0, 0, 0]
         },
         "Transform": {
-          "position": [0.20000000298023224, 1.100000023841858, 0.05000000074505806],
+          "position": [0, 0.15919999778270721, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "1c9960f7-b106-590c-9110-d3941dbc39d0",
+      "name": "Camp Crates 4",
+      "parent": "a3310837-dc43-5415-857c-4d7ee4413b96",
+      "components": {
+        "Transform": {
+          "position": [1.2000000476837158, 0.2815000116825104, 0.20000000298023224],
+          "rotation": [0, -0.07845910638570786, 0, 0.9969173669815063],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "e18322b1-8bc0-5c9d-8421-a22e8cbb9e9f",
+      "name": "Camp Crates 4[0]",
+      "parent": "1c9960f7-b106-590c-9110-d3941dbc39d0",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "7738e803-0c89-4004-a0d2-cdf7ab6e8df6",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "c269ba0b-4a7d-544b-9551-d40c915e7ef2"
+    },
+    {
+      "uuid": "c269ba0b-4a7d-544b-9551-d40c915e7ef2",
+      "name": "Camp Crates 4 Collider",
+      "parent": "1c9960f7-b106-590c-9110-d3941dbc39d0",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.8139306306838989, 0.3014715313911438, 0.5386661291122437],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 0.15070000290870667, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }
@@ -7775,7 +7979,7 @@
       "name": "Camp Generator",
       "components": {
         "Transform": {
-          "position": [-10, 50.405399322509766, 487],
+          "position": [-10, 50.45539855957031, 487],
           "rotation": [0, 0.6427876353263855, 0, 0.7660444378852844],
           "scale": [1, 1, 1]
         }
@@ -7783,12 +7987,25 @@
       "next": null
     },
     {
-      "uuid": "3fb3c799-291f-57c0-a50f-893d731ce31a",
-      "name": "Camp Generator[0]",
+      "uuid": "11eb1ea9-3c33-5f86-8df3-df05e71771df",
+      "name": "Camp Generator 0",
       "parent": "9f00cb88-4585-52a1-8d70-429f2a965123",
       "components": {
+        "Transform": {
+          "position": [0, -0.019999999552965164, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "bd885714-46ad-5e33-bd56-98841aaa7af3"
+    },
+    {
+      "uuid": "1b1c6f54-b7f7-5491-9f69-ddcca0b7a71b",
+      "name": "Camp Generator 0[0]",
+      "parent": "11eb1ea9-3c33-5f86-8df3-df05e71771df",
+      "components": {
         "MeshRenderer": {
-          "mesh": "f657be30-2936-4a60-b1da-5978d576e489",
+          "mesh": "d1af6223-dd3d-4e5b-b0cd-6cb666fc5acf",
           "mesh_index": 0,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
@@ -7802,15 +8019,15 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "68075ce0-8403-5c3e-bcce-673a8255c807"
+      "next": "32f28277-8222-5836-adb9-4806317cf9fc"
     },
     {
-      "uuid": "68075ce0-8403-5c3e-bcce-673a8255c807",
-      "name": "Camp Generator[1]",
-      "parent": "9f00cb88-4585-52a1-8d70-429f2a965123",
+      "uuid": "32f28277-8222-5836-adb9-4806317cf9fc",
+      "name": "Camp Generator 0[1]",
+      "parent": "11eb1ea9-3c33-5f86-8df3-df05e71771df",
       "components": {
         "MeshRenderer": {
-          "mesh": "f657be30-2936-4a60-b1da-5978d576e489",
+          "mesh": "d1af6223-dd3d-4e5b-b0cd-6cb666fc5acf",
           "mesh_index": 1,
           "base_color": [1, 1, 1, 1],
           "metallic": 0,
@@ -7824,16 +8041,16 @@
           "scale": [1, 1, 1]
         }
       },
-      "next": "d8242709-e01a-5306-835f-1817ca166b7b"
+      "next": "7f47b5b6-e39a-5fb8-8f8c-9dfa7cd4027f"
     },
     {
-      "uuid": "d8242709-e01a-5306-835f-1817ca166b7b",
-      "name": "Camp Generator Collider 0",
-      "parent": "9f00cb88-4585-52a1-8d70-429f2a965123",
+      "uuid": "7f47b5b6-e39a-5fb8-8f8c-9dfa7cd4027f",
+      "name": "Camp Generator 0 Collider",
+      "parent": "11eb1ea9-3c33-5f86-8df3-df05e71771df",
       "components": {
         "Collider": {
           "shape": "box",
-          "size": [1, 0.78, 0.68],
+          "size": [0.82169508934021, 0.577029287815094, 0.5657284259796143],
           "radius": 0.5,
           "height": 1,
           "offset": [0, 0, 0],
@@ -7858,7 +8075,79 @@
           "angular_velocity": [0, 0, 0]
         },
         "Transform": {
-          "position": [0, 0.38999998569488525, 0],
+          "position": [0, 0.28850001096725464, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "bd885714-46ad-5e33-bd56-98841aaa7af3",
+      "name": "Camp Generator 1",
+      "parent": "9f00cb88-4585-52a1-8d70-429f2a965123",
+      "components": {
+        "Transform": {
+          "position": [0.6200000047683716, -0.019999999552965164, 0.30000001192092896],
+          "rotation": [0, -0.1736481934785843, 0, 0.9848077893257141],
+          "scale": [1, 1, 1]
+        }
+      }
+    },
+    {
+      "uuid": "73099991-8425-5f98-835d-871fae199eae",
+      "name": "Camp Generator 1[0]",
+      "parent": "bd885714-46ad-5e33-bd56-98841aaa7af3",
+      "components": {
+        "MeshRenderer": {
+          "mesh": "45695017-1aa5-47f7-a1ff-95fc3da85d9c",
+          "mesh_index": 0,
+          "base_color": [1, 1, 1, 1],
+          "metallic": 0,
+          "roughness": 0.8500000238418579,
+          "cast_shadows": true,
+          "visible": true
+        },
+        "Transform": {
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      "next": "3c79aa09-92dd-5364-aca7-c5d305aa1a49"
+    },
+    {
+      "uuid": "3c79aa09-92dd-5364-aca7-c5d305aa1a49",
+      "name": "Camp Generator 1 Collider",
+      "parent": "bd885714-46ad-5e33-bd56-98841aaa7af3",
+      "components": {
+        "Collider": {
+          "shape": "box",
+          "size": [0.2680235207080841, 0.31838423013687134, 0.3419806659221649],
+          "radius": 0.5,
+          "height": 1,
+          "offset": [0, 0, 0],
+          "friction": 0.6,
+          "restitution": 0,
+          "is_trigger": false,
+          "layer": 0,
+          "mask": 65535,
+          "mesh_asset": null,
+          "mesh_index": 0
+        },
+        "RigidBody": {
+          "type": "static",
+          "mass": 1,
+          "linear_damping": 0.05,
+          "angular_damping": 0.05,
+          "gravity_scale": 1,
+          "continuous": false,
+          "lock_rotation": false,
+          "start_awake": true,
+          "linear_velocity": [0, 0, 0],
+          "angular_velocity": [0, 0, 0]
+        },
+        "Transform": {
+          "position": [0, 0.15919999778270721, 0],
           "rotation": [0, 0, 0, 1],
           "scale": [1, 1, 1]
         }
