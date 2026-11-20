@@ -301,6 +301,10 @@ function Op:update(dt)
                 end
                 -- catch up quicker when far behind
                 local want_speed = d_player > 9 and self.r.speed * 1.35 or self.r.speed
+                -- low and quiet: a crouched walk, or the crouched run (3.4 m/s) to catch up
+                if not self.engaged and Game.player_state and Game.player_state.crouched then
+                    want_speed = math.min(want_speed, d_player > 9 and 3.4 or 2.2)
+                end
                 if want_speed ~= self.cur_speed then
                     self.actor:set_speed(want_speed)
                     self.cur_speed = want_speed
@@ -342,7 +346,9 @@ function Op:update(dt)
     local crouch = self.engaged and not self.goal and (self.r.role == "scout" or self.r.role == "lead") and self.stagger_t <= 0
     if self.in_cover and not self.goal then crouch = self.fire_t > 0.45 or self.stagger_t > 0 end
     -- quiet moves: when the player gets low, the team takes a knee at each halt too
-    if not self.engaged and not self.goal and Game.player_state and Game.player_state.crouched then crouch = true end
+    -- quiet moves: when the player gets low the team moves low too (crouched gait), and kneels at halts
+    local quiet = not self.engaged and Game.player_state and Game.player_state.crouched
+    if quiet and self.mode ~= "vehicle" then crouch = true end
     self.crouching = crouch
     a:param("crouch", crouch)
     a:update(dt)

@@ -449,6 +449,30 @@ P.squad_kneel_look = {
     { at = 25 },
 }
 
+-- Screenshot setup: the player gets low and the squad walks toward him in the crouched gait.
+P.squad_crouch_look = {
+    { at = 0.02, run = function() Squad.order("hold"); Game.face_player(V(0, 1.2, 9.5)) end },
+    { at = 0.05, press = "crouch" },
+    { at = 0.1, release = "crouch" },
+    { at = 0.15, run = function()
+        Squad.order("move", { Anchor = V(2.3, 0, 8.0), Patch = V(5.6, 0, 8.6), Echo = V(1.0, 0, 9.6), Tally = V(6.6, 0, 10.4) })
+    end },
+    { at = 0.9, run = function(c)
+        local low, n = 0, 0
+        Squad.each(function(_, m)
+            n += 1
+            if m.actor.body and m.actor.body:anim_state() == "Crouch" then low += 1 end
+        end)
+        c.check("moves_low", low >= 3, string.format("%d of %d operators in the crouched gait", low, n))
+    end },
+    { at = 5.0, run = function(c)
+        local knelt = 0
+        Squad.each(function(_, m) if m.actor.body and m.actor.body:anim_state() == "Kneel" then knelt += 1 end end)
+        c.check("kneels_on_arrival", knelt >= 3, string.format("%d kneeling", knelt))
+    end },
+    { at = 25 },
+}
+
 -- Screenshot setup: faces under fire (strain blended in, one fresh startle).
 P.squad_face_look = {
     { at = 0.02, run = function()
