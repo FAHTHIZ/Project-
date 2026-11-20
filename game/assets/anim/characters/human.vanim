@@ -149,6 +149,22 @@
    "name": "Reach",
    "clip": "Reach",
    "loop": false
+  },
+  {
+   "name": "Crouch",
+   "blend1d": {
+    "parameter": "speed",
+    "points": [
+     {
+      "clip": "CrouchWalk",
+      "at": 1.6
+     },
+     {
+      "clip": "CrouchRun",
+      "at": 3.4
+     }
+    ]
+   }
   }
  ],
  "transitions": [
@@ -242,13 +258,17 @@
   },
   {
    "from": "Kneel",
-   "to": "Locomotion",
+   "to": "Crouch",
    "duration": 0.25,
    "conditions": [
     {
      "parameter": "speed",
      "op": ">",
      "value": 0.8
+    },
+    {
+     "parameter": "crouch",
+     "op": "true"
     }
    ]
   },
@@ -387,6 +407,77 @@
    "to": "Locomotion",
    "duration": 0.3,
    "exit_time": 0.95
+  },
+  {
+   "from": "Locomotion",
+   "to": "Crouch",
+   "duration": 0.3,
+   "conditions": [
+    {
+     "parameter": "crouch",
+     "op": "true"
+    },
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.4
+    }
+   ]
+  },
+  {
+   "from": "Crouch",
+   "to": "Kneel",
+   "duration": 0.3,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Crouch",
+   "to": "Locomotion",
+   "duration": 0.3,
+   "conditions": [
+    {
+     "parameter": "crouch",
+     "op": "false"
+    }
+   ]
+  },
+  {
+   "from": "Crouch",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Crouch",
+   "to": "Stumble",
+   "duration": 0.08,
+   "conditions": [
+    {
+     "parameter": "stumble"
+    }
+   ]
+  },
+  {
+   "from": "Crouch",
+   "to": "Fall",
+   "duration": 0.25,
+   "conditions": [
+    {
+     "parameter": "grounded",
+     "op": "false"
+    }
+   ]
   }
  ],
  "layers": [

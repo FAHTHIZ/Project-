@@ -647,3 +647,15 @@ This follows the doctrine notes in docs/world/SCALE_AND_PACING.md: 3-5 s rushes,
   - First threshold attempt: absolute height under 0.95 m. It failed at 1.20 m, which is correct for a kneeling aimed rifle, so the check is now relative to the standing pose.
   - Second attempt: -0.11 m. It failed because it counted frames mid-reload.
 - Regressions with this change: squad, squad_combat, enemy_fire, enemy_tactics, reactions, chatter, hud_look, stealth, op01_line, op01_line_loud PASS; story_op01 PASS (19 800 frames).
+
+## 2026-11-20 Crouched gait
+
+Operators now move low when the player is crouched (out of contact), instead of standing to walk and kneeling on arrival.
+
+- `python3 tools/characters/add_crouch_clips.py` derives CrouchWalk / CrouchRun from each character's own Walk / Run clips (bent thigh/knee/foot, forward spine, hips dropped ~0.21 m / ~0.11 m). Idempotent; run on all 9 `sops_*.glb`.
+- `human.vanim`: new `Crouch` blend1d state (CrouchWalk 1.6, CrouchRun 3.4 m/s) with Kneel/Locomotion transitions and Surrender/Stumble/Fall exits.
+- `operator.luau`: crouched follow while the player crouches (capped 2.2 m/s, 3.4 m/s beyond 9 m).
+- `victus import game` (9 imported), `victus check game` (258 scenes, 0 problems).
+- New plan `squad_crouch_look`: PASS 2/2 (4/4 operators in Crouch while moving, 4 kneeling on arrival). Render: `docs/media/crouch_gait.png`.
+- Regression `python3 tools/test/run_autotests.py stealth movement weapons hud squad squad_combat squad_cover enemy_fire reactions chatter hud_look footsteps enemy_tactics world_forest world_relay world_creek world_ravine world_trail_walk op01_line op01_line_loud`: all 20 PASS.
+- `SOPS_TEST_FRAMES=19800 ... story_op01`: PASS.
