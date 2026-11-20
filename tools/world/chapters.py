@@ -44,6 +44,11 @@ def mule_rear(dx=0.0, dz=0.0):
 GROUPS = {
     'patrol': ('op01', [('Greyline Patrol 1', 26, 82, 200, 0, dict(patrol='26,82;4,62;-14,50;4,62', voice='greyline1')),
                         ('Greyline Patrol 2', 22, 85, 200, 1, dict(patrol='22,85;0,65;-18,53;0,65', voice='greyline2'))]),
+    # Op01 search line: three contractors walking a line through the woods east -> west across the
+    # trail below the cabin, ~10 m apart, rail lights on. Woken by the director at the footbridge.
+    'line': ('op01', [('Greyline Line 1', 112, 162, -90, 0, dict(patrol='112,162;-48,162', voice='greyline1', dormant=True)),
+                      ('Greyline Line 2', 116, 172, -90, 1, dict(patrol='116,172;-44,172', voice='greyline2', dormant=True)),
+                      ('Greyline Line 3', 120, 182, -90, 0, dict(patrol='120,182;-40,182', dormant=True))]),
     'ambush': ('op01', [('Greyline Ambush 1', -20, -100, 0, 0, dict(voice='greyline1')),
                         ('Greyline Ambush 2', 18, -98, 10, 1, dict(voice='greyline2')),
                         ('Greyline Ambush 3', -8, -114, 0, 1, dict()),
@@ -244,6 +249,14 @@ def build():
                                  'components': {'Transform': transform(),
                                                 'Script': script('scripts/autotest.luau', plan=f'story_{chapter}')}})
         (GAME / f'scenes/tests/story_{chapter}.vscene').write_text(json.dumps(test, indent=1) + '\n')
+        if chapter == 'op01':
+            # the Op01 search line beat (tests/world_plans.luau op01_line, op01_line_loud)
+            for plan in ('op01_line', 'op01_line_loud'):
+                t2 = copy.deepcopy(doc)
+                t2['entities'].append({'uuid': __import__('vscene').uid(f'{plan}/autotest'), 'name': 'Autotest',
+                                       'components': {'Transform': transform(),
+                                                      'Script': script('scripts/autotest.luau', plan=plan)}})
+                (GAME / f'scenes/tests/{plan}.vscene').write_text(json.dumps(t2, indent=1) + '\n')
         print(chapter, out.relative_to(GAME), len(doc['entities']), 'entities')
 
 

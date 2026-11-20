@@ -325,6 +325,7 @@ S.trail = {
         self.trail_from = ppos()
     end,
     update = function(self, dt)
+        self:update_line(dt)
         if not self.flags.trail_01 and flat(ppos(), self.trail_from) > 45 then
             self.flags.trail_01 = true
             self:say("op1_trail_01")
@@ -333,7 +334,7 @@ S.trail = {
             self.flags.trail_02 = true
             self:say("op1_trail_02")
         end
-        if near(PT.trail_marker, 6) and not self.talking then
+        if near(PT.trail_marker, 6) and not self.talking and not fight_near(ppos(), 45) then
             self:say({ "op1_marker_01", "op1_marker_02" })
             return "cabin"
         end
@@ -347,7 +348,8 @@ S.cabin = {
         self:objective("Check the ranger cabin", PT.cabin_porch, "CABIN")
     end,
     update = function(self, dt)
-        if not self.cabin_talk and near(PT.cabin_porch, 13) then
+        self:update_line(dt)
+        if not self.cabin_talk and near(PT.cabin_porch, 13) and not fight_near(ppos(), 45) then
             self.cabin_talk = true
             Squad.order("hold")
             Dialogue.clear(2)
@@ -859,6 +861,80 @@ S.end_board = {
 }
 
 -- Helpers used by stages ---------------------------------------------------------------------------
+
+-- The Op01 search line: three contractors walk a line east -> west across the trail below the cabin.
+-- Get low with the lights off and let it pass (the squad holds and takes a knee), or fight it.
+local LINE_TRIGGER = V(12, 0, 201)   -- the footbridge
+function M:update_line(dt)
+    local f = self.flags
+    if f.line_done then return end
+    if not f.line_woke then
+        if near(LINE_TRIGGER, 28) and group_total("line") > 0 then
+            f.line_woke = true
+            for _, e in group("line") do
+                e:wake()
+                e.line = true
+                e.actor:set_speed(1.25)
+                e.wait = 0
+            end
+            self.line_t = 0
+            Game.emit("line_start")
+        end
+        return
+    end
+    self.line_t += dt
+    local loud = group_engaged("line")
+    for _, e in group("line") do
+        if e.state == "engage" then loud = true end
+    end
+    if not f.line_seen and self.line_t > 4 and not self.talking then
+        f.line_seen = true
+        Squad.order("hold")
+        self.line_hold = ppos()
+        self:say({ "op1_line_01", "op1_line_02", "op1_line_03", "op1_line_04" })
+    end
+    -- the squad catches up if the player moves on without them
+    if self.line_hold and flat(ppos(), self.line_hold) > 25 then
+        self.line_hold = nil
+        Squad.order("follow")
+    end
+    if loud and not f.line_loud then
+        local any_engaged = false
+        for _, e in group("line") do if not e.down and e.state == "engage" then any_engaged = true end end
+        if any_engaged then
+            f.line_loud = true
+            if self.line_hold then self.line_hold = nil; Squad.order("follow") end
+            Dialogue.clear(1)
+            self:say({ "op1_line_08", "op1_line_09" })
+            Game.emit("line_loud")
+        end
+    end
+    -- overheard: the line talks to itself while nobody has been noticed
+    if not loud and self.line_t > 12 and self.line_t >= (self.line_chat_t or 0) then
+        self.line_chat_t = self.line_t + 8 + math.random() * 5
+        for _, e in group("line") do
+            if not e.down and e.voice ~= "" and flat(e.entity.position, ppos()) < 34 and e:say("line", 1.0, 3.0) then break end
+        end
+    end
+    -- the end of the line: out of sight in the west woods, gone again
+    for _, e in group("line") do
+        if not e.down and not e.dormant and e.state == "patrol" and e.entity.position.x < -36 then e:stow() end
+    end
+    local left = 0
+    for _, e in group("line") do if not e.down and not e.dormant then left += 1 end end
+    if left == 0 or self.line_t > 200 then
+        f.line_done = true
+        if f.line_loud then
+            self:say("op1_line_10")
+        else
+            f.line_quiet = true
+            self:say({ "op1_line_05", "op1_line_06", "op1_line_07" })
+            Game.emit("line_passed")
+        end
+        if self.line_hold then self.line_hold = nil; Squad.order("follow") end
+        for _, e in group("line") do if not e.down and not e.dormant then e:stow() end end
+    end
+end
 -- True when a live member of `name` is within `r` metres of the player or any operator can see one.
 function M:spotted(name, r)
     for _, e in group(name) do

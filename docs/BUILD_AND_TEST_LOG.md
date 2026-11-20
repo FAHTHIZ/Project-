@@ -519,3 +519,22 @@ Doctrine followed (cited in docs/world/SCALE_AND_PACING.md): individual rushes l
 - Regressions PASS: stealth, movement, weapons, hud, squad, squad_combat, enemy_fire, reactions, chatter, hud_look, footsteps, enemy_tactics 15/15, squad_cover 6/6.
 - Not tested: foliage concealment (grass and bushes do not lower awareness yet; only colliders block sight), and the lightning multiplier (no plan has a storm).
 - story_op01 PASS (19 800 frames, 0 script errors) with the awareness model and weapons tight.
+
+## 2026-11-20 Op01 search line (a stealth-or-fight beat between the footbridge and the cabin)
+
+- Why: the Op01 forest is about 300 m x 600 m, and only one authored fight (the ravine) fell in its first 400 m (docs/world/SCALE_AND_PACING.md). The search line adds a decision point at ~120 m from the trailhead.
+- `tools/world/chapters.py` group `line`: three dormant contractors at x 112-120, z 162/172/182, with patrols running west to x -40..-48 (10 m apart, as in a real line search). It also writes `scenes/tests/op01_line.vscene` and `op01_line_loud.vscene`.
+- `missions/kestrel.luau` `M:update_line` runs in the `trail` and `cabin` stages:
+  - within 28 m of the footbridge the line wakes and walks at 1.25 m/s, weapons at low ready, sweeping its lights ±40°;
+  - 4 s later the team holds and talks it through (`op1_line_01..04`), and resumes following if the player walks off more than 25 m;
+  - overheard contractor talk `grey_line_1..6` within 34 m;
+  - if anyone engages: `op1_line_08/09`;
+  - the contractors are stowed past x -36. On completion: quiet → `op1_line_05..07`, loud → `op1_line_10`. Events: `line_start`, `line_loud`, `line_passed`;
+  - the cabin talk and trail progress wait while a fight is within 45 m.
+- `enemy.luau`: `E:stow()`, and low-ready plus light sweep while on the line.
+- New plans in `tests/world_plans.luau` (player unhittable):
+  - op01_line PASS 8/8: crouched with the light off 22-32 m from the line, max awareness 0.01, never engaged; `line_passed` fired, all 3 stowed, the team calls were heard and the contractors were overheard.
+  - op01_line_loud PASS 6/6: standing in its path with the light on, `line_loud` fired, the team call was heard, 3 of 3 contractors were down by 110 s, and there was no quiet ending.
+- Ran: `python3 tools/world/chapters.py`, `victus import game`, `victus check game` (254 scenes: 0 problems), `run_autotests.py op01_line op01_line_loud` (9700/6700 frames), and story_op01 with SOPS_TEST_FRAMES=19800: PASS.
+- Note: regenerating the chapters also renumbered some Mule cargo entity UUIDs in every chapter scene. Names and transforms are unchanged.
+- Not tested: a player who stands still with the light off (only the crouched case), and walking alongside the line.

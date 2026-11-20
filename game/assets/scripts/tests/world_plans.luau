@@ -93,4 +93,91 @@ P.world_trail_walk = {
     { at = 12 },
 }
 
+-- The Op01 search line (scenes/tests/op01_line*.vscene, the Op01 chapter with the driver). Three
+-- contractors walk a line east -> west across the trail below the cabin once the player nears the
+-- footbridge. op01_line: crouched, light off and still at 22-32 m, the line passes, the team holds
+-- and says so. op01_line_loud: standing in its path with the light on, the line finds the player,
+-- the team calls it and puts it down. The player is unhittable in both.
+local Dialogue = require("scripts/lib/dialogue")
+local Squad = require("scripts/lib/squad")
+local function line_setup(pos, look)
+    return { at = 0.3, run = function(c)
+        c.data.hurt = Game.hurt_player
+        Game.hurt_player = function() return false end
+        c.data.ev = {}
+        for _, ev in { "line_start", "line_loud", "line_passed" } do
+            Game.on(ev, function() c.data.ev[ev] = time.now() end)
+        end
+        local m = Game.mission
+        c.check("mission", m ~= nil, "")
+        if not m then return end
+        m:enter("trail")
+        local p = V(pos[1], (terrain.height(pos[1], pos[2]) or 0) + 0.05, pos[2])
+        local d = V(look[1], 0, look[2]) - p
+        local yaw = math.deg(math.atan2(-d.x, -d.z))
+        m:place_player(p, yaw)
+        m:place_squad(p, yaw)
+    end }
+end
+local function line_said(id)
+    for _, l in Dialogue.state().log do if l.id == id then return true end end
+    return false
+end
+local function line_ctls()
+    local out = {}
+    for _, r in Squad.state().enemies do
+        if r.entity.valid and r.ctl and r.ctl.group == "line" then table.insert(out, r.ctl) end
+    end
+    return out
+end
+P.op01_line = {
+    line_setup({ 8, 204 }, { 40, 172 }),
+    { at = 0.6, press = "crouch" }, { at = 0.7, release = "crouch" },
+    { at = 0.9, press = "light" }, { at = 1.0, release = "light" },
+    { at = 160, run = function(c)
+        local ps = Game.player_state
+        c.check("line_started", c.data.ev.line_start ~= nil, "")
+        c.check("stayed_hidden", c.data.ev.line_loud == nil and not c.data.engaged,
+            "loud " .. tostring(c.data.ev.line_loud) .. " max aware " .. string.format("%.2f", c.data.max_aware or 0))
+        c.check("line_passed", c.data.ev.line_passed ~= nil, "")
+        c.check("team_called_it", line_said("op1_line_02") and line_said("op1_line_05"), "")
+        local gone = 0
+        for _, e in line_ctls() do if e.dormant then gone += 1 end end
+        c.check("line_gone", gone == 3, gone .. " stowed")
+        c.check("overheard", c.data.chat == true, "")
+        c.check("still_low_dark", ps.crouched and not ps.torch_on, "crouched " .. tostring(ps.crouched) .. " torch " .. tostring(ps.torch_on))
+        Game.hurt_player = c.data.hurt
+    end },
+}
+P.op01_line_loud = {
+    line_setup({ 30, 185 }, { 70, 175 }),
+    { at = 110, run = function(c)
+        c.check("line_started", c.data.ev.line_start ~= nil, "")
+        c.check("line_loud", c.data.ev.line_loud ~= nil, "")
+        c.check("team_called_it", line_said("op1_line_08"), "")
+        local down = 0
+        for _, e in line_ctls() do if e.down then down += 1 end end
+        c.check("line_fought", down >= 1, down .. " down")
+        c.check("no_quiet_ending", c.data.ev.line_passed == nil, "")
+        Game.hurt_player = c.data.hurt
+    end },
+}
+for _, pe in { { P.op01_line, 159 }, { P.op01_line_loud, 109 } } do
+    local plan = pe[1]
+    for i = 0, math.floor((pe[2] - 1.2) / 0.3) do
+        table.insert(plan, { at = 1.2 + i * 0.3, run = function(c)
+            local mx = c.data.max_aware or 0
+            for _, e in line_ctls() do
+                if not e.down then
+                    mx = math.max(mx, e.aware or 0)
+                    if e.state == "engage" then c.data.engaged = true end
+                end
+            end
+            c.data.max_aware = mx
+            for _, l in Dialogue.state().log do if string.find(l.id, "grey_line_") then c.data.chat = true end end
+        end })
+    end
+    table.sort(plan, function(a, b) return a.at < b.at end)
+end
+
 return P
