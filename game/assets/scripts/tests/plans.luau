@@ -328,6 +328,28 @@ Plans.reload_feel = {
         local r = wp().w.carbine
         c.check("regrip_done", wp().regrip_t == nil and vector.magnitude(r.hand_l.position - r.hand_home) < 1e-3, "hand home")
     end },
+    -- Body-cam lens: rolls into a strafe, jolts at sprinting footfalls, settles when still.
+    { at = 12.0, move = V(1, 0, 0) },
+    { at = 12.5, run = function(c)
+        local z = ps().cam.rotation.z - math.cos(ps().bob) * 0.02 * 25
+        c.check("strafe_roll", math.abs(ps().body.roll) > 0.6, string.format("roll %.2f deg (cam z %.2f)", ps().body.roll, z))
+    end },
+    { at = 12.6, move = false },
+    { at = 13.0, move = V(0, 1, 0), press = "sprint", run = function(c) c.data.ymin = 0 end },
+    { at = 13.1, run = function(c) c.data.ymin = math.min(c.data.ymin, ps().body.y) end },
+    { at = 13.4, run = function(c) c.data.ymin = math.min(c.data.ymin, ps().body.y) end },
+    { at = 13.7, run = function(c) c.data.ymin = math.min(c.data.ymin, ps().body.y) end },
+    { at = 14.0, run = function(c) c.data.ymin = math.min(c.data.ymin, ps().body.y) end },
+    { at = 14.3, run = function(c)
+        c.data.ymin = math.min(c.data.ymin, ps().body.y)
+        c.check("sprint_footfall_jolt", c.data.ymin < -0.003, string.format("lowest %.4f m", c.data.ymin))
+    end },
+    { at = 14.3, move = false, release = "sprint" },
+    { at = 16.5, run = function(c)
+        local b = ps().body
+        c.check("lens_settles", math.abs(b.roll) < 0.1 and math.abs(b.pitch) < 0.1 and math.abs(b.y) < 0.002,
+                string.format("roll %.3f pitch %.3f y %.4f", b.roll, b.pitch, b.y))
+    end },
 }
 
 -- Viewmodel poses for screenshots (no checks beyond reaching the pose).

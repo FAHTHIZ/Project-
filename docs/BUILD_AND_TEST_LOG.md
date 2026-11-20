@@ -750,3 +750,12 @@ Reference: Bodycam's calm and stressed reload sets, where stress from incoming f
 - A burst of 8 or more shots ends with the support hand re-taking its grip; after reloads, checks and re-grips the resting hold settles to a slightly different offset, so the weapon never returns to the exact same spot. Hip stress tremor fades in ADS.
 - New plan `reload_feel` (`scenes/tests/reload_feel.vscene` from `build_dev_range.py reload_feel`): 19/19 PASS (tactical stow, stress from a near miss, certain fumble holds at the well and recovers to a full cell, full-cell check, hold-to-check keeps ammo, re-grip).
 - Regression: weapons, armory, sniper, movement, hud, reactions, squad_combat, enemy_fire: all PASS. Render `docs/media/reload_tactical.png` (vm_reload pose).
+
+## 2026-11-20 Body-cam lens motion and weapon inertia
+
+Reference: body-cam presentations treat the camera as part of a body: under-damped spring inertia that overshoots and settles, roll on strafes and turns, a pounding rhythm at a sprint that walking does not have, and a weapon that trails the view ([Unrecord camera mod notes](https://steamcommunity.com/sharedfiles/filedetails/?id=3779403128), [Bodycam wiki](https://gamers.wiki/en/games/bodycam/wiki)).
+
+- `fp_player.luau`: three under-damped springs (`P.body`): roll towards -0.45 deg per m/s of strafe and -0.006 deg per deg/s of turn rate (clamped +/-4 deg), pitch from forward acceleration (+/-1.2 deg), and a vertical lens offset. Each sprinting footfall kicks the lens down 0.22 m/s, nods it and alternates a small roll. Everything scales with the Camera Shake setting (0 turns it off) and drops to 20 % in ADS.
+- `weapons.luau`: hip sway spring softened (k 140 to 95, damping 16 to 12.5) with a larger swing limit, so the weapon lags the view a little longer.
+- `reload_feel` plan: new checks strafe_roll (-1.91 deg), sprint_footfall_jolt (lowest -0.007 m) and lens_settles (all springs back under 0.1 deg / 2 mm after 2 s): 22/22 PASS.
+- Regression: movement, weapons, hud_look, vm_ads, sniper, squad: all PASS.

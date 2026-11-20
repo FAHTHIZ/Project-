@@ -54,6 +54,9 @@ function P:start()
     self.air = 0
     self.fall_v = 0      -- fastest downward speed this time airborne (landing sound)
     self.step_phase = 0  -- footfalls follow the head-bob phase (one per half cycle)
+    -- Body-cam springs: the lens rides on a body, so it rolls into strafes and turns, tips with
+    -- acceleration and takes a jolt at each sprinting footfall. Under-damped (overshoot, settle).
+    self.body = { roll = 0, roll_v = 0, pitch = 0, pitch_v = 0, y = 0, y_v = 0, prev_yaw = self.yaw, prev_vf = 0 }
     self.noise_t = 0
     self.fov = Game.settings.fov
     self.fov_now = -1
@@ -345,6 +348,12 @@ function P:update(dt)
         if phase ~= self.step_phase then
             self.step_phase = phase
             self:footstep(ground_speed)
+            if self.sprinting then
+                -- a heel strike at a run: the lens drops and nods, alternating a little side to side
+                self.body.y_v -= 0.22
+                self.body.pitch_v += 9
+                self.body.roll_v += (phase % 2 == 0 and 1 or -1) * 6
+            end
         end
     end
     self.noise_t = math.max(0, self.noise_t - dt)
@@ -356,10 +365,34 @@ function P:update(dt)
     local t = time.now()
     local shake_p = (math.sin(t * 61) + math.sin(t * 37)) * 0.9 * sh
     local shake_y = (math.sin(t * 53) + math.sin(t * 29)) * 0.9 * sh
+    -- Body-cam springs (scaled by the camera shake setting, mostly off in ADS).
+    local b = self.body
+    local yr2 = math.rad(self.yaw)
+    local v_side = hv.x * math.cos(yr2) - hv.z * math.sin(yr2)
+    local v_fwd = -hv.x * math.sin(yr2) - hv.z * math.cos(yr2)
+    local yaw_rate = 0
+    if dt > 0 then
+        local dy = self.yaw - b.prev_yaw
+        dy = (dy + 180) % 360 - 180
+        yaw_rate = Game.clamp(dy / dt, -400, 400)
+    end
+    b.prev_yaw = self.yaw
+    local acc_f = dt > 0 and (v_fwd - b.prev_vf) / dt or 0
+    b.prev_vf = v_fwd
+    local amt = s.camera_shake * (1 - self.zoom * 0.8)
+    local roll_t = (-v_side * 0.45 - yaw_rate * 0.006) * amt
+    local pitch_t = Game.clamp(-acc_f * 0.05, -1.2, 1.2) * amt
+    b.roll_v += ((roll_t - b.roll) * 70 - b.roll_v * 7) * dt
+    b.roll += b.roll_v * dt
+    b.pitch_v += ((pitch_t - b.pitch) * 80 - b.pitch_v * 8) * dt
+    b.pitch += b.pitch_v * dt
+    b.y_v += ((0 - b.y) * 160 - b.y_v * 11) * dt
+    b.y += b.y_v * dt
+    b.roll = Game.clamp(b.roll, -4, 4); b.pitch = Game.clamp(b.pitch, -3, 3); b.y = Game.clamp(b.y, -0.05, 0.05)
     self.head.position = vector.create(0, self.eye, 0)
-    self.head.rotation = vector.create(self.pitch + shake_p, 0, 0)
-    self.cam.position = vector.create(bob_x, bob_y, 0)
-    self.cam.rotation = vector.create(0, shake_y, bob_x * 25)
+    self.head.rotation = vector.create(self.pitch + shake_p + b.pitch * amt, 0, 0)
+    self.cam.position = vector.create(bob_x, bob_y + b.y * amt, 0)
+    self.cam.rotation = vector.create(0, shake_y, bob_x * 25 + b.roll)
     -- Field of view: base, sprint widen, aim narrow (weapons.luau writes zoom_fov).
     local fov = s.fov + (sprint and 6 or 0)
     if self.zoom > 0 then fov = Game.lerp(fov, self.zoom_fov or (s.fov * 0.72), self.zoom) end

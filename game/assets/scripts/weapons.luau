@@ -820,8 +820,9 @@ function W:update(dt)
     local look = Controls.look()
     if not playing then look = V(0, 0, 0) end
     -- Sway: spring toward the negative look delta (weapon lags behind the view).
-    local target = V(Game.clamp(-look.x * 0.0035, -0.03, 0.03), Game.clamp(look.y * 0.0035, -0.03, 0.03), 0)
-    local k, c = 140, 16
+    -- Body-cam inertia: the weapon trails the view on a softer spring and swings further.
+    local target = V(Game.clamp(-look.x * 0.0042, -0.04, 0.04), Game.clamp(look.y * 0.0042, -0.035, 0.035), 0)
+    local k, c = 95, 12.5
     local acc = (target - self.sway) * k - self.sway_v * c
     self.sway_v += acc * dt
     self.sway += self.sway_v * dt
