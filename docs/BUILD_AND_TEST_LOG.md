@@ -827,3 +827,9 @@ Reference: body-cam presentations treat the camera as part of a body: under-damp
 - A blue plastic tote was tried in the pile and dropped: it read as a bright blue block in the night camp capture.
 - Ran worldgen.py scene, chapters.py, patch_hud.py, `victus import game`, `victus check game` (262 scenes, 0 problems). Autotests: story_prologue PASS (20000 frames), story_op01 PASS (19800).
 - Capture: docs/media/camp_ph_crates.png (prologue camp at night, scanned crate in torch light).
+
+## 2026-11-20 Camp tent canvas
+
+- build_structures.py camp_tent: the roof slopes and side walls (previously flat 3 cm hexa slabs) are generated as grids (9 or 7 x 25) that sag between the pole frames at z = -D, 0, D and are pinned at eave, ridge and ground; low-amplitude wrinkles; per-vertex colour darkens the bottom 40 cm (mud splash) and adds streaks near the ridge. Both faces emitted (outer 12 mm out). Canvas primitive 1696 vertices.
+- First version kept 35% of the sag at the eave, which opened light gaps between roof and wall top (gallery capture); sag is now zero at both edges.
+- Captures: gallery_camp daylight (sag readable only at grazing angles) and prologue camp at night (gable and roof read, sag barely visible under torch). `victus check game`: 0 problems. Colliders unchanged.
