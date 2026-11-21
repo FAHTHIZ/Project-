@@ -99,11 +99,11 @@ def add_vehicle(sc: Scene, name, pos, yaw, cargo=None, pool_extra=("carbine", "s
         return sc.add(f"{name} {nm}", {"Transform": transform(centre), "RigidBody": body("kinematic"),
                                        "Collider": collider("box", size, layer=VEHICLE_LAYER)}, parent)
     col("Hull", (0, 0.78, -0.7), (1.96, 0.76, 3.6))
-    col("Cabin", (0, 1.53, 0.02), (1.94, 0.74, 2.16))
+    col("Cabin", (0, 1.59, 0.02), (1.94, 0.86, 2.16))
     col("Bay Floor", (0, 0.57, 1.8), (1.96, 0.34, 1.4))
-    col("Bay Left", (-0.93, 1.32, 1.75), (0.08, 1.16, 1.3))
-    col("Bay Right", (0.93, 1.32, 1.75), (0.08, 1.16, 1.3))
-    col("Bay Roof", (0, 1.9, 1.75), (1.94, 0.1, 1.3))
+    col("Bay Left", (-0.93, 1.38, 1.75), (0.08, 1.28, 1.3))
+    col("Bay Right", (0.93, 1.38, 1.75), (0.08, 1.28, 1.3))
+    col("Bay Roof", (0, 2.02, 1.75), (1.94, 0.1, 1.3))
     for key, d in L["doors"].items():
         hp = sc.add(f"{name} Door {key.upper()}", {"Transform": transform(tuple(d["hinge"]))}, ch)
         sc.prop(f"{name} Door {key.upper()} Model", V + f"mule_door_{key}.glb", parent=hp)
@@ -114,8 +114,8 @@ def add_vehicle(sc: Scene, name, pos, yaw, cargo=None, pool_extra=("carbine", "s
         hx, _, hz = d["hinge"]
         sc.add(f"{name} Exit {key}", {"Transform": transform((hx + out * 0.62, 0, hz + d["len"] * 0.62))}, root)
     hh = sc.add(f"{name} Hatch", {"Transform": transform(tuple(L["hatch_hinge"]))}, ch)
-    sc.add(f"{name} Hatch Collider", {"Transform": transform((0, -0.58, 0.02)), "RigidBody": body("kinematic"),
-                                      "Collider": collider("box", (1.7, 1.16, 0.08), layer=VEHICLE_LAYER)}, hh)
+    sc.add(f"{name} Hatch Collider", {"Transform": transform((0, -0.64, 0.02)), "RigidBody": body("kinematic"),
+                                      "Collider": collider("box", (1.7, 1.28, 0.08), layer=VEHICLE_LAYER)}, hh)
     sc.prop(f"{name} Hatch Model", V + "mule_hatch.glb", parent=hh)
     sc.prop(f"{name} Hatch Glass", V + "mule_hatch_glass.glb", parent=hh, shadows=False, material=GLASS_MAT)
     r = L["wheel_radius"]
