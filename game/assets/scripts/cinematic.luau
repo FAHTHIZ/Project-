@@ -17,6 +17,10 @@
 --     transform track, because the Sequencer writes tracked transforms after scripts every frame).
 --     The script starts it at the previous shot's pose and eases it onto the first-person
 --     camera's exact pose and FOV, then the gameplay camera takes over with no visible cut.
+--   * per-shot atmosphere: `fog_shots` ("Cam Valley=0.004,Cam Yard=0.008") sets the scene
+--     Environment's fog density while that camera is live (cut = snap), so establishing shots can
+--     show the landmarks that gameplay fog hides at that distance; the scene's own density
+--     returns with the hand-off. Keyed by camera, not by event, so a seek shows the same frame.
 --
 -- Scripts:  Game.cinematics[id]:play({ on_event = fn(name, payload), on_skip = fn(), done = fn() })
 --           Game.cinematics[id]:playing()
@@ -31,8 +35,11 @@ C.handoff = 1.2       -- seconds at the end spent easing onto the first-person v
 C.grace = 1.0         -- skip becomes available after this
 C.skip_hold = 0.5
 C.letterbox = true
+C.fog_shots = ""
 
 Game.cinematics = Game.cinematics or {}
+-- shared with hud.luau, which may start after this script
+Game.present = Game.present or { letterbox = 0, fade = 0, title = nil, subtitle_title = nil, skip_hint = false }
 
 local function smooth(t) t = math.clamp(t, 0, 1); return t * t * (3 - 2 * t) end
 local function wrap(a) return (a + 540) % 360 - 180 end
@@ -47,6 +54,24 @@ function C:start()
     self.active = false
     self.aim = {}
     self.view = {}
+    self.fog = {}
+    for name, v in string.gmatch(self.fog_shots, "([^=,]+)=([%d%.]+)") do self.fog[name] = tonumber(v) end
+end
+
+-- Sets the Environment fog density for the live shot (nil = the scene's own value).
+function C:shot_fog(cam_name)
+    local e = scene.find("Environment")
+    if not e then return end
+    local env = e:get("Environment")
+    if not env then return end
+    if self.base_fog == nil then self.base_fog, self.base_vol = env.fog_density, env.volumetric_density or 0 end
+    local want = (cam_name and self.fog[cam_name]) or self.base_fog
+    if math.abs((env.fog_density or 0) - want) > 1e-6 then
+        env.fog_density = want
+        -- the froxel volume thins in proportion (it carries the rain haze near the lens)
+        if self.base_fog > 0 then env.volumetric_density = self.base_vol * math.min(1, want / self.base_fog) end
+        e:set("Environment", env)
+    end
 end
 
 function C:playing() return self.active end
@@ -158,6 +183,7 @@ function C:finish()
         self.blend_from = nil
     end
     if Game.restore_view then Game.restore_view() end
+    self:shot_fog(nil)
     Game.cinematic = false
     Game.cinematic_id = nil
     Game.present.skip_hint = false
@@ -222,6 +248,7 @@ function C:update(dt)
     local dur = st.duration
     local cur = self:camera_entity()
     if cur and cur.name ~= "Handoff" then self.last_cam = cur end
+    if cur and next(self.fog) then self:shot_fog(cur.name) end
     if cur and cur.name == "Handoff" and self.handoff > 0 then
         self.handoff_t = (self.handoff_t or 0) + dt
         self:blend_to_player(self.handoff_t / self.handoff)
