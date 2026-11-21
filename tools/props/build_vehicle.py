@@ -49,7 +49,7 @@ VEHICLE = {
         'rl': {'hinge': [-0.965, 0.0, -0.02], 'sign': -1, 'len': 0.94},
         'rr': {'hinge': [0.965, 0.0, -0.02], 'sign': 1, 'len': 0.94},
     },
-    'hatch_hinge': [0.0, 1.9, 2.36],
+    'hatch_hinge': [0.0, 1.9 + 0.12, 2.36],  # 0.12 = ROOF_LIFT
     'seats': {  # hip point (x, y, z) and the door each seat exits through
         'driver': {'pos': [-0.44, 0.98, -0.36], 'door': 'fl'},
         'front_right': {'pos': [0.44, 0.98, -0.36], 'door': 'fr'},
@@ -60,6 +60,25 @@ VEHICLE = {
     'cargo_floor_y': 0.74, 'cargo_z': [1.12, 2.3],
     'steering': [-0.44, 1.26, -0.78],
 }
+
+
+ROOF_LIFT = 0.12   # extra cabin headroom: a seated operator in a helmet needs ~0.95 m hip-to-headliner
+LIFT_Y = 1.75      # everything at or above this line (roof, rails, pillar tops, window headers) moves up
+
+
+def lift(*meshes):
+    """Raise the roof line: vertices at or above LIFT_Y move up ROOF_LIFT, stretching pillars and glass."""
+    for me in meshes:
+        for P in me.P:
+            P[:, 1] = np.where(P[:, 1] >= LIFT_Y - 1e-6, P[:, 1] + ROOF_LIFT, P[:, 1])
+
+
+def hatch_stretch(*meshes):
+    """The hatch hangs from the lifted hinge to the unchanged loading lip: stretch it along -Y."""
+    k = (1.16 + ROOF_LIFT) / 1.16
+    for me in meshes:
+        for P in me.P:
+            P[:, 1] = P[:, 1] * k
 
 
 def hexa(c):
@@ -201,6 +220,7 @@ def body():
         it.add(box((-0.8, VEHICLE['cargo_floor_y'] + 0.012, z - 0.012), (0.8, VEHICLE['cargo_floor_y'] + 0.03, z + 0.012)), TRIM)
     for sx in (-1, 1):                                                         # wheel tubs inside the bay
         it.add(rbox((sx * 0.74, VEHICLE['cargo_floor_y'] + 0.1, VEHICLE['rear_axle_z']), (0.12, 0.1, 0.36), 0.4), INTERIOR)
+    lift(a, cl, it)
     tris = (m.solid(a, paint) + m.solid(cl, clad) + m.solid(it, inner) + m.solid(st, seat) +
             m.solid(lm, lamp) + m.solid(tl, tail))
     return m, tris
@@ -219,6 +239,7 @@ def glass():
     for sx in (-1, 1):
         x = sx * 0.955
         a.add(box((x - 0.006, 1.26, 1.1), (x + 0.006, 1.8, 2.26)), GLASS)
+    lift(a)
     return m, m.solid(a, g)
 
 
@@ -244,6 +265,7 @@ def door(side, front):
     it.add(rbox((xi - s * 0.04, 0.98, L * 0.55), (0.03, 0.03, L * 0.3), 0.4), INTERIOR)  # armrest
     cl.add(rbox((s * 0.008, 1.06, L - 0.16), (0.008, 0.016, 0.07), 0.4), CLAD)            # handle
     cl.add(box((lo, 0.5, 0.0), (hi, 0.6, L)), CLAD)                                       # lower cladding
+    lift(a, it, cl)
     return m, m.solid(a, paint) + m.solid(it, inner) + m.solid(cl, clad)
 
 
@@ -252,6 +274,7 @@ def door_glass():
     g = glass_mat(m, 'mule_DoorGlass')
     a = mk.Mesh()
     a.add(box((-0.006, 1.18, 0.05), (0.006, 1.76, 0.89)), GLASS)
+    lift(a)
     return m, m.solid(a, g)
 
 
@@ -271,6 +294,7 @@ def hatch():
     cl.add(rbox((0, -0.72, 0.058), (0.12, 0.018, 0.01), 0.4), CLAD)           # handle
     cl.add(box((-0.12, -0.83, 0.05), (0.12, -0.75, 0.056)), hexc('#d8d3c4'))
     cl.add(box((-0.84, -1.16, 0.05), (0.84, -1.1, 0.06)), CLAD)
+    hatch_stretch(a, it, cl)
     return m, m.solid(a, paint) + m.solid(it, inner) + m.solid(cl, clad)
 
 
@@ -279,6 +303,7 @@ def hatch_glass():
     g = glass_mat(m, 'mule_HatchGlass')
     a = mk.Mesh()
     a.add(box((-0.74, -0.62, 0.008), (0.74, -0.08, 0.02)), GLASS)
+    hatch_stretch(a)
     return m, m.solid(a, g)
 
 

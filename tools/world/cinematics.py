@@ -114,8 +114,11 @@ def add_prologue(doc, P, ground):
     # B  the Greyline fence line: a watchtower searchlight sweeping the strip in the rain
     tw = P['tower_0']
     s, e = at['pro_02']
-    tl.shot('Cam Fence', s - 0.4, at['pro_02b'][0], (tw[0] + 30, tw[1] - 2.0, tw[2] + 34), (tw[0], tw[1] + 1.5, tw[2]),
-            (tw[0] + 24, tw[1] - 2.5, tw[2] + 30), (tw[0] - 2, tw[1] + 1.0, tw[2]))
+    # low and close, just outside the wire: the tower and its searchlight fill the upper frame, the
+    # fence panels run off into the rain (the old 45 m framing lost the tower against the mountain)
+    gx = ground(tw[0] + 12, tw[2] + 14)
+    tl.shot('Cam Fence', s - 0.4, at['pro_02b'][0], (tw[0] + 12, gx + 1.5, tw[2] + 14), (tw[0], tw[1] + 0.4, tw[2]),
+            (tw[0] + 8, ground(tw[0] + 8, tw[2] + 13) + 1.7, tw[2] + 13), (tw[0] - 1, tw[1] + 1.2, tw[2]))
     # C  the compound yard under sodium lights: contractors on patrol, trucks, containers
     s, e = at['pro_02b']
     yd = P['poi_compound']
@@ -125,8 +128,10 @@ def add_prologue(doc, P, ground):
     # D  the portal into the mountain: Kestrel Station, closed six years ago
     s, e = at['pro_03']
     ff = P['facility_front']
-    tl.shot('Cam Portal', s - 0.4, at['pro_04'][0], (ff[0] + 6, ff[1] + 2.2, ff[2] + 26), (ff[0], ff[1] + 3.0, ff[2] - 6),
-            (ff[0] + 3, ff[1] + 1.9, ff[2] + 15), (ff[0], ff[1] + 3.0, ff[2] - 6))
+    # from the apron, high enough to clear the ridge in front: the portal and its lamps centred, the
+    # rock face above it (the old 26 m eye-level framing was all rock wall with the portal at the bottom)
+    tl.shot('Cam Portal', s - 0.4, at['pro_04'][0], g(ff[0] + 12, ff[2] + 44, 9.0), (ff[0], ff[1] + 4.5, ff[2]),
+            g(ff[0] + 6, ff[2] + 32, 7.0), (ff[0], ff[1] + 4.0, ff[2]))
     tl.event(s + 6.5, 'drive', '')       # the Mule pulls out of the camp, off screen
     # E  inside the Mule: Tally (rear right) and the name Kestrel
     s, e = at['pro_04']
@@ -160,9 +165,15 @@ def add_prologue(doc, P, ground):
         'Script': script('scripts/cinematic.luau', id='arrival', handoff=1.4, grace=1.0,
                          fog_shots='Cam Valley=0.0045,Cam Fence=0.007,Cam Yard=0.006,Cam Portal=0.008')}})
     world_cams = {'Cam Valley': 52.0, 'Cam Fence': 42.0, 'Cam Yard': 44.0, 'Cam Portal': 40.0, 'Handoff': 60.0}
+    # the remote shots look at cells far outside the player's streaming radius (the tower and the
+    # portal are 350-450 m from the camp): those cameras are VICTUS streaming sources, authored
+    # disabled; scripts/cinematic.luau enables them while the cutscene plays (radius 0.6 x 96 m)
+    remote = {'Cam Fence', 'Cam Yard', 'Cam Portal'}
     for name, fov in world_cams.items():
-        ents.append({'uuid': uid(f'cine/arrival/{name}'), 'name': name, 'parent': root_id,
-                     'components': {'Transform': transform(), 'Camera': camera(fov)}})
+        comps = {'Transform': transform(), 'Camera': camera(fov)}
+        if name in remote:
+            comps['StreamingSource'] = {'radius_scale': 0.6, 'enabled': False}
+        ents.append({'uuid': uid(f'cine/arrival/{name}'), 'name': name, 'parent': root_id, 'components': comps})
     for name, fov in {'Cam Tally': 50.0, 'Cam Echo': 50.0, 'Cam Chase': 46.0, 'Cam Rear': 50.0, 'Cam Anchor': 52.0}.items():
         ents.append({'uuid': uid(f'cine/arrival/{name}'), 'name': name, 'parent': chassis['uuid'],
                      'components': {'Transform': transform(), 'Camera': camera(fov)}})

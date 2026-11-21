@@ -21,6 +21,10 @@
 --     Environment's fog density while that camera is live (cut = snap), so establishing shots can
 --     show the landmarks that gameplay fog hides at that distance; the scene's own density
 --     returns with the hand-off. Keyed by camera, not by event, so a seek shows the same frame.
+--   * world streaming: a shot camera that carries a VICTUS StreamingSource (authored disabled)
+--     is enabled for the length of the cutscene, so the world cells it looks at (a watchtower or
+--     the facility 400 m from the player) are loaded before the cut, and disabled on finish, so
+--     gameplay streams around the player alone again.
 --
 -- Scripts:  Game.cinematics[id]:play({ on_event = fn(name, payload), on_skip = fn(), done = fn() })
 --           Game.cinematics[id]:playing()
@@ -50,6 +54,10 @@ function C:start()
     self.cams = {}
     for _, ch in self.entity:children() do
         if ch:has("Camera") then self.cams[ch.name] = ch end
+    end
+    self.streamers = {}
+    for _, cam in self.cams do
+        if cam:has("StreamingSource") then table.insert(self.streamers, cam) end
     end
     self.active = false
     self.aim = {}
@@ -95,6 +103,7 @@ function C:play(opts)
     local st = self.entity:sequence_state()
     self.duration = st and st.duration or 0
     self.active = true
+    self:stream(true)
     Game.cinematic = true
     Game.cinematic_id = self.id
     Game.present.skip_hint = false
@@ -172,9 +181,18 @@ function C:blend_to_player(u)
     b.cam:set("Camera", c)
 end
 
+function C:stream(on)
+    for _, cam in self.streamers do
+        local s = cam:get("StreamingSource")
+        s.enabled = on
+        cam:set("StreamingSource", s)
+    end
+end
+
 function C:finish()
     if not self.active then return end
     self.active = false
+    self:stream(false)
     self.entity:stop_sequence()
     if self.blend_from then
         local c = self.blend_from.cam:get("Camera")
