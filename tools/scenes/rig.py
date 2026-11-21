@@ -105,7 +105,7 @@ def add_viewmodel(sc: Scene, vm):
     """First-person weapons (see scripts/weapons.luau for the entity contract)."""
     pivot = sc.add("VM Pivot", {"Transform": transform((0.135, -0.148, -0.3))}, vm)
     for root, parts, hand_l, muzzle in [
-        ("Carbine", [("Body", "pc7_body"), ("Cell", "pc7_cell")], ((0, 0.0, -0.21), (0, 0, 0)), (0, 0.045, -0.515)),
+        ("Carbine", [("Body", "pc7_body"), ("Cell", "pc7_cell")], ((0, 0.0, -0.21), (0, 0, 0)), (0, 0.045, -0.56)),
         ("Sidearm", [("Body", "sp2_body"), ("Slide", "sp2_slide"), ("Cell", "sp2_cell")],
          ((-0.014, -0.006, 0.012), (0, -12, 0)), (0, 0.012, -0.152)),
         ("Marksman", [("Body", "lr4_body"), ("Cell", "lr4_cell")], ((0, 0.0, -0.27), (0, 0, 0)), (0, 0.045, -0.745)),
