@@ -22,6 +22,7 @@ import worldgen as WG  # noqa: E402
 import world_scene as WS  # noqa: E402
 import actors  # noqa: E402
 import night  # noqa: E402
+import cinematics  # noqa: E402
 from vscene import Scene, transform, script  # noqa: E402
 
 GAME = WS.GAME
@@ -135,11 +136,13 @@ def add_cast(sc, chapter, H):
     start = ORDER.index(chapter)
     # squad
     if chapter == 'prologue':
-        t = P('camp_table')
-        spots = {'Anchor': (1.6, 0.4), 'Patch': (-0.4, 1.8), 'Echo': (-1.8, -0.6), 'Tally': (0.6, -1.9)}
-        for who, (dx, dz) in spots.items():
-            x, z = t[0] + dx, t[2] + dz
-            actors.add_operator(sc, who, (x, WS.ground(H, x, z) + 0.05, z), char_yaw((x, 0, z), t), order='hold')
+        # 02:40: the squad is already aboard the Mule at the staging camp, engine idling (the
+        # Arrival cinematic opens on the valley, then cuts to them pulling out)
+        mc = P('mule_camp')
+        seats = {'Anchor': 'driver', 'Patch': 'front_right', 'Echo': 'rear_left', 'Tally': 'rear_right'}
+        for i, (who, seat) in enumerate(seats.items()):
+            x, z = mc[0] + 3.0 + i, mc[2] + 3.0
+            actors.add_operator(sc, who, (x, WS.ground(H, x, z) + 0.05, z), 0.0, order='hold', ride='Mule', seat=seat)
         # Brick went ahead to clear the washout; he waits at the trailhead beside the cut tree
         b = P('trail_start')
         x, z = b[0] + 2.6, b[2] - 2.2
@@ -184,9 +187,10 @@ def add_cast(sc, chapter, H):
 
 def player_start(chapter, H):
     if chapter == 'prologue':
-        t = P('camp_table')
-        x, z = t[0] - 3.2, t[2] + 1.0
-        return (x, WS.ground(H, x, z) + 0.05, z), flat_yaw((x, 0, z), t)
+        # beside the Mule; the director seats Rook in the rear middle on the first frame
+        mc = P('mule_camp')
+        x, z = mc[0] - 2.5, mc[2] + 1.0
+        return (x, WS.ground(H, x, z) + 0.05, z), 0.0
     if chapter == 'op01':
         s = P('trail_start')
         nxt = WS.POINTS['trail_marker']
@@ -233,6 +237,8 @@ def build():
         night.apply(doc, sc, chapter)
         actors.add_ensemble(sc)
         add_cast(sc, chapter, H)
+        if chapter == 'prologue':
+            cinematics.add_prologue(doc, WS.POINTS, lambda x, z: WS.ground(H, x, z))
         add_markers(sc)
         add_music(sc, chapter, H)
         add_creek_audio(sc, H, masks)

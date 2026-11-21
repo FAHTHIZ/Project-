@@ -79,6 +79,8 @@ end
 function Op:set_order(mode, point, opts)
     self.mode = mode
     self.goal = nil
+    self.stage_pose = nil
+    if mode ~= "hold" then self.actor:pose(nil) end
     if mode == "hold" then
         self.hold_point = self.entity.position
         self.actor:halt()
@@ -88,6 +90,14 @@ function Op:set_order(mode, point, opts)
         self.goal = self.hold_point
     end
     self.face_point = opts and opts.face and opts.face[self.who] or (opts and opts.face_all)
+end
+
+-- Blocking for scripted scenes: walk to `point`, turn to `face`, then perform `pose` (an
+-- Actor.POSES key, or nil to stand) until the next order. Returns immediately.
+function Op:stage(point, face, pose)
+    self.actor:pose(nil)
+    self:set_order("move", point, { face_all = face })
+    self.stage_pose = pose
 end
 
 -- Teleport for checkpoints and cinematics.
@@ -366,6 +376,17 @@ function Op:update(dt)
         if self.goal and a:arrived() then
             self.goal = nil
             Game.emit("squad_arrived", self.who)
+        end
+        -- staged: once there and turned to the mark, perform
+        if not self.goal and self.stage_pose and a.speed_now < 0.3 then
+            local fp = self.face_point
+            local ok = true
+            if fp then
+                local d = fp - e.position
+                local want = math.deg(math.atan2(d.x, d.z))
+                ok = math.abs(((want - a.yaw) + 540) % 360 - 180) < 12
+            end
+            if ok then a:pose(self.stage_pose) end
         end
     end
     -- aim / focus

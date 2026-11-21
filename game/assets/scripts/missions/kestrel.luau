@@ -173,94 +173,126 @@ function M:checkpoint(stage)
 end
 
 -- Prologue -------------------------------------------------------------------------------------
--- Staging camp at dawn: briefing at the table, board the Mule, ride the ranger road to the trailhead.
-S.brief = {
-    enter = function(self)
-        self:title("prologue")
-        self:objective("Join the briefing at the camp table", PT.camp_table, "BRIEFING")
-        self.wait = 2.5
-    end,
-    update = function(self, dt)
-        if self.started_brief then return self.brief_done and "board" or nil end
-        self.wait -= dt
-        if self.wait <= 0 and near(PT.camp_table, 7) then
-            self.started_brief = true
-            self:say({ "pro_01", "pro_02", "pro_02b", "pro_03", "pro_04", "pro_05", "pro_06", "pro_07", "pro_08", "pro_08b",
-                       "pro_09", "pro_10", "pro_11", "pro_12" }, function() self.brief_done = true end)
-        end
-        return nil
-    end,
+-- 02:40. The squad is aboard the Mule at the staging camp. The Arrival cinematic (seq/
+-- prologue_arrival.vseq, tools/world/cinematics.py) plays Lamplight's tasking over the geography
+-- of the operation and cuts to the Mule pulling out; it hands off to Rook in the rear middle seat
+-- for the rest of the ride. At the trailhead the squad climbs out, Brick is waiting, and Anchor
+-- briefs the plan at the Mule's front fender while the others work; then the cargo bay, then on foot.
+
+-- Squad positions around the parked Mule (vehicle frame: x right, z back; metres) and what each
+-- does there.
+local HUDDLE = {
+    Anchor = { -1.55, -1.25, "docs" },        -- at the left front fender with the route printout
+    Echo = { -0.7, -6.6, "crouch_idle" },     -- down on the road ahead, reading the tyre ruts
+    Tally = { 1.75, 0.5, "radio" },           -- by the rear right door on the headset to Lamplight
+    Patch = { 0.9, 3.6, "shift" },            -- behind the hatch, waiting to open the cargo bay
+    Brick = { 0.8, -5.2, "look_around" },     -- came down from the cut tree to meet them
 }
 
-S.board = {
-    enter = function(self)
-        local v = mule()
-        self:objective("Board the Mule", v and v:door_point("rl"), "MULE")
-        -- the squad walks to their doors
-        local pts = {}
-        for who, seat in SEATS do pts[who] = v:door_point(DOORS[seat]) end
-        Squad.order("move", pts)
-        local mark = scene.find("Mark Board")
-        if mark then
-            mark.position = v:door_point("rl")
-            Game.register_interactable(mark, "Board the Mule", function()
-                if self.boarding then return end
-                self.boarding = 0
-                Game.set_interactable(mark, false)
-            end)
+local function mule_frame(v)
+    local p = v.entity.position
+    local f = v.entity.forward
+    f = vector.normalize(V(f.x, 0, f.z))
+    local r = V(-f.z, 0, f.x)
+    return p, f, r
+end
+local function mule_point(v, x, z)
+    local p, f, r = mule_frame(v)
+    return p + r * x - f * z
+end
+
+function M:start_drive()
+    if self.drive_started then return end
+    self.drive_started = true
+    local v = mule()
+    local road = PT.road_in
+    local k = nearest_index(road, v.entity.position)
+    local pts = {}
+    for i = math.min(#road, k + 1), #road do table.insert(pts, road[i]) end
+    -- pull into the turnout beside the trail sign
+    table.insert(pts, PT.mule_park)
+    v:drive(pts, { speed = 4.6, accel = 1.1, decel = 1.2 })
+end
+
+-- Per-line body language for the trailhead briefing: the speaker's gesture and the listeners'
+-- reactions (Actor.GESTURES), keyed by line id.
+local PERFORM = {
+    op1_arrive_01b = { Echo = "nod" },
+    op1_arrive_01c = { Anchor = { pose = "brief" }, Tally = "think", Brick = "nod2" },
+    pro_11 = { Anchor = { pose = "brief", gesture = "present" }, Patch = "nod", Echo = "nod2" },
+    pro_trunk_04 = { Anchor = { pose = "docs", gesture = "present_l" } },
+    op1_arrive_04 = { Anchor = "nod" },
+}
+
+function M:perform(id)
+    local p = PERFORM[id]
+    if not p then return end
+    Squad.each(function(who, op)
+        local g = p[who]
+        if not g then return end
+        local delay = type(g) == "table" and (g.delay or 0) or 0.35 + (op.actor.seed % 5) * 0.15
+        if type(g) == "table" then
+            if g.pose then op.actor:pose(g.pose) end
+            g = g.gesture
         end
+        if g then
+            self.gestures = self.gestures or {}
+            table.insert(self.gestures, { t = delay, op = op, g = g })
+        end
+    end)
+end
+
+S.intro = {
+    enter = function(self)
+        self.op_title = Campaign.get("prologue").title
+        local v = mule()
+        Game.player_state:ride(v, "rear_middle")
+        for _, d in { "fl", "fr", "rl", "rr" } do v:set_door(d, false) end
+        v:start_engine()
+        local cine = Game.cinematics and Game.cinematics["arrival"]
+        if not cine then
+            self:start_drive()
+            self.intro_done = true
+            return
+        end
+        Game.present.fade = 1
+        cine:play({
+            on_event = function(name, payload)
+                if name == "drive" then self:start_drive()
+                elseif name == "strike" and Game.storm then Game.storm.strike(tonumber(payload) or 2) end
+            end,
+            -- skipping lands where the cut would have: rolling, in the seat
+            on_skip = function() self:start_drive() end,
+            done = function() self.intro_done = true end,
+        })
     end,
     update = function(self, dt)
-        if not self.boarding then return nil end
-        -- a short fade covers climbing in (the cabin is too tight to walk through)
-        self.boarding += dt
-        Game.present.fade = math.clamp(self.boarding / 0.5, 0, 1)
-        if self.boarding >= 0.6 and not self.seated then
-            self.seated = true
-            local v = mule()
-            Squad.each(function(who, op) if SEATS[who] then op:board(v, SEATS[who]) end end)
-            Game.player_state:ride(v, "rear_middle")
-            for _, d in { "fl", "fr", "rl", "rr" } do v:set_door(d, false) end
-        end
-        if self.seated then
-            Game.present.fade = math.clamp(1 - (self.boarding - 0.9) / 0.6, 0, 1)
-            if self.boarding > 1.6 then return "ride" end
-        end
-        return nil
+        return self.intro_done and "ride" or nil
     end,
 }
 
 S.ride = {
     enter = function(self)
-        local v = mule()
+        self:start_drive()
         self:objective("Ride to the trailhead", PT.poi_trailhead, "TRAILHEAD")
-        v:start_engine()
-        local road = PT.road_in
-        local k = nearest_index(road, v.entity.position)
-        local pts = {}
-        for i = math.min(#road, k + 1), #road do table.insert(pts, road[i]) end
-        -- pull into the turnout beside the trail sign
-        table.insert(pts, PT.mule_park)
-        self.drive_wait = 2.0
-        self.pts = pts
         self.ride_t = 0
     end,
     update = function(self, dt)
         local v = mule()
-        if self.drive_wait then
-            self.drive_wait -= dt
-            if self.drive_wait <= 0 then
-                self.drive_wait = nil
-                v:drive(self.pts, { speed = 8.5, accel = 1.6, decel = 1.4 })
-            end
-            return nil
-        end
         self.ride_t += dt
-        if self.ride_t > 3 and not self.ride_lines then
+        if self.ride_t > 1.2 and not self.ride_lines then
             self.ride_lines = true
-            self:say({ "ride_01", "ride_02", "ride_03", "ride_03b", "ride_03c", "ride_03d", "ride_04", "ride_05", "ride_06", "ride_07", "ride_08" })
+            self:say({ "pro_08", "pro_08b", "pro_09", "pro_10", "ride_01", "ride_02", "ride_03", "ride_03b", "ride_03c",
+                       "ride_03d", "ride_04", "ride_05", "ride_06", "ride_07" }, function() self.ride_done = true end)
         end
-        if not v:driving() then return "arrive" end
+        -- parked: let the joke land, then everybody out
+        if not v:driving() then
+            self.parked_t = (self.parked_t or 0) + dt
+            if self.ride_done or self.parked_t > 14 then
+                if not self.ride_done then Dialogue.clear(0) end
+                return "arrive"
+            end
+        end
         return nil
     end,
 }
@@ -271,33 +303,86 @@ S.arrive = {
         v:stop_engine()
         self.arrive_t = 0
         self:say("ride_09")
-        local delays = { Anchor = 0.6, Patch = 1.0, Echo = 1.8, Tally = 2.3 }
-        local regroup = {
-            Anchor = PT.trail_start + V(-1.5, 0, -1.0), Patch = PT.trail_start + V(1.4, 0, 0.6),
-            Echo = PT.trail_start + V(-0.6, 0, -3.0), Tally = PT.trail_start + V(2.4, 0, 1.6),
-        }
+        local delays = { Anchor = 1.2, Patch = 1.6, Echo = 2.3, Tally = 2.8 }
         Squad.each(function(who, op)
-            -- Brick never rode: he went ahead to clear the washout and waits at the trailhead
+            local h = HUDDLE[who]
+            local spot = h and mule_point(v, h[1], h[2])
             if SEATS[who] then
-                op:exit_vehicle(DOORS[op.seat], { delay = delays[who], regroup = regroup[who], face = PT.trail_start })
+                op:exit_vehicle(DOORS[op.seat], { delay = delays[who], regroup = spot, face = mule_point(v, -1.2, -2.2) })
+            elseif who == "Brick" and spot then
+                -- Brick never rode: he cleared the washout and walks down from the cut tree to meet them
+                op:stage(spot, mule_point(v, -1.4, -1.0), h[3])
             end
         end)
     end,
     update = function(self, dt)
         self.arrive_t += dt
         -- Rook slides out of the middle seat through the rear left door once Echo is clear
-        if self.arrive_t > 4.2 and not self.dismounting then
+        if self.arrive_t > 5.2 and not self.dismounting then
             self.dismounting = true
-            Game.player_state:dismount("rl", PT.trail_start)
+            Game.player_state:dismount("rl", mule_point(mule(), -1.55, -1.25))
         end
-        if self.dismounting and not Game.player_state:in_vehicle() and not self.exchange then
-            self.exchange = true
+        -- each operator takes up their spot and gets on with something once out
+        local v = mule()
+        Squad.each(function(who, op)
+            local h = HUDDLE[who]
+            if h and SEATS[who] and not op:in_vehicle() and not op.staged_prologue then
+                op.staged_prologue = true
+                local face = who == "Echo" and mule_point(v, -0.7, -14) or (who == "Anchor" and mule_point(v, -2.6, 1.0))
+                              or mule_point(v, -1.4, -1.0)
+                op:stage(mule_point(v, h[1], h[2]), face, h[3])
+            end
+        end)
+        if self.dismounting and not Game.player_state:in_vehicle() then return "huddle" end
+        return nil
+    end,
+}
+
+S.huddle = {
+    enter = function(self)
+        self:objective("Join Anchor at the Mule", mule_point(mule(), -1.55, -1.25), "ANCHOR")
+        self.huddle_t = 0
+    end,
+    update = function(self, dt)
+        self.huddle_t += dt
+        local v = mule()
+        if not self.huddle_talk and (near(mule_point(v, -1.55, -1.25), 4.0) or self.huddle_t > 14) then
+            self.huddle_talk = true
+            Game.waypoint = nil
+            self:say({ "op1_arrive_01", "op1_arrive_01b", "op1_arrive_01c", "pro_11", "pro_trunk_04" }, function()
+                self.huddle_done = true
+            end)
+        end
+        if self.huddle_done then return "gear" end
+        return nil
+    end,
+}
+
+S.gear = {
+    enter = function(self)
+        local v = mule()
+        self:objective("Take what you need from the Mule's cargo bay", mule_point(v, 0, 3.2), "CARGO")
+        v:lock_hatch(false)
+        v:set_hatch(true)
+        local patch = Squad.member("Patch")
+        if patch then patch.actor:pose("listen") end
+        self.gear_t = 0
+        self.gear_from = ppos()
+    end,
+    update = function(self, dt)
+        self.gear_t += dt
+        local took = self.flags.trunk_talk
+        local left = flat(ppos(), PT.trail_start) < 9
+        if not self.moving_out and ((took and self.gear_t > 8) or left or self.gear_t > 40) then
+            self.moving_out = true
+            Game.waypoint = nil
+            self:say({ "op1_arrive_03", "op1_arrive_04" }, function() self.moved_out = true end)
+        end
+        if self.moved_out then
             Squad.order("follow")
             self:advance("prologue", "op01")
-            self:say({ "op1_arrive_01", "op1_arrive_01b", "op1_arrive_01c", "op1_arrive_03", "op1_arrive_04" },
-                     function() self.arrived = true end)
+            return "trail"
         end
-        if self.arrived then return "trail" end
         return nil
     end,
 }
@@ -987,7 +1072,7 @@ function M:update_hollis(dt)
 end
 
 -- Lifecycle ------------------------------------------------------------------------------------------
-local FIRST = { prologue = "brief", op01 = "op01_start", op02 = "op02_start", op03 = "op03_start",
+local FIRST = { prologue = "intro", op01 = "op01_start", op02 = "op02_start", op03 = "op03_start",
                 epilogue = "end_start" }
 
 function M:start()
@@ -995,7 +1080,7 @@ function M:start()
     Game.on("storage_taken", function()
         if self.chapter_now == "prologue" and not self.flags.trunk_talk then
             self.flags.trunk_talk = true
-            self:say({ "pro_trunk_01", "pro_trunk_02", "pro_trunk_03", "pro_trunk_04" })
+            self:say({ "pro_trunk_01", "pro_trunk_02", "pro_trunk_03" })
         end
     end)
     self.chapter_now = self.chapter
@@ -1005,13 +1090,14 @@ function M:start()
     Game.open_world = true
     local p = Game.progress()
     local cp = p.checkpoint
-    self.first = FIRST[self.chapter] or "brief"
+    self.first = FIRST[self.chapter] or "intro"
     self.resume = nil
     if type(cp) == "table" and cp.op == self.chapter and S[cp.stage] then self.resume = cp end
     Game.on("scanned", function(e)
         if e and e.valid and (e.name == "Relay Mast" or e.name == "Mark Relay Cell") then self.flags.scanned = true end
     end)
     Game.on("player_downed", function() self.downed_t = self.downed_t or 0 end)
+    Game.on("dialogue_line", function(id) self:perform(id) end)
     Game.on("restart_checkpoint", function() self:reload() end)
     self.boot = 0
 end
@@ -1098,13 +1184,23 @@ function M:update(dt)
         return
     end
     if Game.paused then return end
+    if self.gestures then
+        for i = #self.gestures, 1, -1 do
+            local g = self.gestures[i]
+            g.t -= dt
+            if g.t <= 0 then
+                table.remove(self.gestures, i)
+                if g.op.entity.valid then g.op.actor:gesture(g.g) end
+            end
+        end
+    end
     Chatter.update(dt, self.stage_name, true, self.talking)
     local nxt = self.stage and self.stage.update(self, dt)
     if nxt then self:enter(nxt) end
 end
 
 -- Mark which chapter each stage belongs to (for menus and checkpoints).
-for _, k in { "brief", "board", "ride", "arrive" } do CHAPTER_OF[k] = "prologue" end
+for _, k in { "intro", "ride", "arrive", "huddle", "gear" } do CHAPTER_OF[k] = "prologue" end
 for _, k in { "op01_start", "trail", "cabin", "relay_path", "relay", "ambush", "ridge" } do CHAPTER_OF[k] = "op01" end
 for _, k in { "op02_start", "fence", "towers", "booth", "hold_gate", "gate_open" } do CHAPTER_OF[k] = "op02" end
 for _, k in { "op03_start", "yard", "office", "entrance", "enter_facility" } do CHAPTER_OF[k] = "op03" end

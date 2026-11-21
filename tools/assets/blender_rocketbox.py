@@ -16,6 +16,7 @@ job.json: {"fbx": path, "out": path.npz, "joints": {sops joint: [x, y, z] glTF r
    (Biped groups merged onto the 21 joints) and morph deltas in glTF axes to an .npz.
 """
 import json
+import os
 import sys
 
 import bpy
@@ -24,27 +25,8 @@ from mathutils import Matrix, Vector
 
 job = json.load(open(sys.argv[sys.argv.index('--') + 1]))
 
-JOINTS = ["Hips", "Spine", "Chest", "Neck", "Head", "Shoulder.L", "UpperArm.L", "LowerArm.L", "Hand.L",
-          "Shoulder.R", "UpperArm.R", "LowerArm.R", "Hand.R", "UpperLeg.L", "LowerLeg.L", "Foot.L", "Toe.L",
-          "UpperLeg.R", "LowerLeg.R", "Foot.R", "Toe.R"]
-# sops joint -> Biped bone whose head is that joint
-HEAD_OF = {"Hips": "Bip01 Pelvis", "Spine": "Bip01 Spine", "Chest": "Bip01 Spine2", "Neck": "Bip01 Neck",
-           "Head": "Bip01 Head"}
-for s, b in (("L", "L"), ("R", "R")):
-    HEAD_OF.update({f"Shoulder.{s}": f"Bip01 {b} Clavicle", f"UpperArm.{s}": f"Bip01 {b} UpperArm",
-                    f"LowerArm.{s}": f"Bip01 {b} Forearm", f"Hand.{s}": f"Bip01 {b} Hand",
-                    f"UpperLeg.{s}": f"Bip01 {b} Thigh", f"LowerLeg.{s}": f"Bip01 {b} Calf",
-                    f"Foot.{s}": f"Bip01 {b} Foot", f"Toe.{s}": f"Bip01 {b} Toe0"})
-# segments to align: (biped bone to rotate, sops from-joint, sops to-joint, biped to-bone)
-ALIGN = [("Bip01 Spine", "Spine", "Chest", "Bip01 Spine2"), ("Bip01 Spine2", "Chest", "Neck", "Bip01 Neck"),
-         ("Bip01 Neck", "Neck", "Head", "Bip01 Head")]
-for s in "LR":
-    ALIGN += [(f"Bip01 {s} Clavicle", f"Shoulder.{s}", f"UpperArm.{s}", f"Bip01 {s} UpperArm"),
-              (f"Bip01 {s} UpperArm", f"UpperArm.{s}", f"LowerArm.{s}", f"Bip01 {s} Forearm"),
-              (f"Bip01 {s} Forearm", f"LowerArm.{s}", f"Hand.{s}", f"Bip01 {s} Hand"),
-              (f"Bip01 {s} Thigh", f"UpperLeg.{s}", f"LowerLeg.{s}", f"Bip01 {s} Calf"),
-              (f"Bip01 {s} Calf", f"LowerLeg.{s}", f"Foot.{s}", f"Bip01 {s} Foot"),
-              (f"Bip01 {s} Foot", f"Foot.{s}", f"Toe.{s}", f"Bip01 {s} Toe0")]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rb_rig import JOINTS, HEAD_OF, ALIGN, g2b, b2g, face_forward, align  # noqa: E402
 
 
 def group_joint(name):
@@ -85,14 +67,6 @@ meshes = [o for o in bpy.data.objects if o.type == "MESH"]
 body = max(meshes, key=lambda o: len(o.data.vertices))
 
 
-def g2b(v):  # glTF -> Blender world
-    return Vector((v[0], -v[2], v[1]))
-
-
-def b2g(v):
-    return np.array([v[0], v[2], -v[1]], np.float64)
-
-
 bpy.context.view_layer.objects.active = arm
 bpy.ops.object.mode_set(mode="POSE")
 for pb in arm.pose.bones:
@@ -103,24 +77,8 @@ def whead(name):
     return arm.matrix_world @ arm.pose.bones[name].head
 
 
-# Facing: the target faces glTF +Z (Blender -Y); the left side is +X in both.
-if whead("Bip01 L Clavicle").x < whead("Bip01 R Clavicle").x:
-    arm.rotation_euler.z += np.pi
-    bpy.context.view_layer.update()
-
-T = {k: g2b(v) for k, v in job["joints"].items()}
-Aw = arm.matrix_world.to_3x3().normalized()
-for _ in range(2):  # second pass fixes small coupling between parents and children
-    for bone, a, b, child in ALIGN:
-        bpy.context.view_layer.update()
-        pb = arm.pose.bones[bone]
-        cur = (whead(child) - whead(bone)).normalized()
-        want = (T[b] - T[a]).normalized()
-        q = cur.rotation_difference(want)
-        Rarm = Aw.inverted() @ q.to_matrix() @ Aw
-        h = pb.head.copy()
-        pb.matrix = Matrix.Translation(h) @ Rarm.to_4x4() @ Matrix.Translation(-h) @ pb.matrix
-bpy.context.view_layer.update()
+face_forward(bpy, arm)
+align(bpy, arm, job["joints"])
 bpy.ops.object.mode_set(mode="OBJECT")
 
 # joint rest positions of the posed avatar (glTF axes)

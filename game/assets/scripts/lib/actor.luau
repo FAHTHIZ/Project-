@@ -25,6 +25,18 @@ local RELOAD_DIR = vector.normalize(vector.create(0.3, -0.42, 0.86))
 
 local function lerpv(a, b, t) return a + (b - a) * t end
 
+-- Full-body performances (human.vanim `pose`, entered while standing still). Hands-busy poses sling
+-- the rifle: it is re-parented to the chest bone so it rides the torso through a lean, and both grip
+-- IK targets are released so the captured arms play untouched.
+Actor.POSES = { listen = 1, lean = 2, radio = 3, docs = 4, crouch_idle = 5, brief = 6, converse = 7,
+                look_around = 8, shift = 9 }
+local SLUNG = { lean = true, radio = true, docs = true, brief = true, converse = true }
+-- slung across the back, muzzle up behind the right shoulder (Body space: +Z forward, +X left)
+local SLING_P = vector.create(0.02, 1.08, -0.2)
+local SLING_DIR = vector.normalize(vector.create(-0.32, 0.93, -0.12))
+-- upper-body one-shots on the Gesture layer (any pose, or none)
+Actor.GESTURES = { nod = 1.4, nod2 = 1.4, deny = 1.8, shrug = 1.8, present = 2.4, present_l = 2.4, think = 3.0, laugh = 2.6 }
+
 -- Facing yaw (deg) of an entity whose model faces +Z (euler .y is ambiguous past 90 degrees).
 function Actor.yaw_of(e)
     local f = e.forward
@@ -47,6 +59,9 @@ function Actor.new(entity, seed)
     self.carry = self.body and Face.find_named(self.body, "Carry")
     self.muzzle = self.carry and self.carry:find_child("Carry Muzzle")
     self.hand_l = self.body and Face.find_named(self.body, "Hand.L")
+    self.hand_r = self.body and Face.find_named(self.body, "Hand.R")
+    self.pose_name = nil
+    self.slung = false
     -- the rifle rides with the chest: kneeling, stumbling or surrendering lowers it with the body
     self.chest = self.body and Face.find_named(self.body, "Chest")
     self.chest_rest = nil
@@ -123,10 +138,45 @@ function Actor:startle(strength)
     if self.face then self.face:flinch(strength) end
 end
 
--- Left-arm gestures release the support hand from the weapon for their duration.
+-- Left-arm gestures release the support hand from the weapon for their duration. Conversational
+-- gestures (Actor.GESTURES) play on the upper-body Gesture layer.
 function Actor:gesture(name, seconds)
     self:trigger(name)
-    self.gesture_t = seconds or 1.5
+    local g = Actor.GESTURES[name]
+    if g then
+        self.gesture_t = (self.slung or self.aim > 0.3) and 0 or (seconds or g)
+    else
+        self.gesture_t = seconds or 1.5
+    end
+end
+
+-- Enter a full-body pose (Actor.POSES key) or nil to return to locomotion. The graph only enters it
+-- while the actor stands still and leaves it as soon as they move.
+function Actor:pose(name)
+    if name == self.pose_name then return end
+    self.pose_name = name
+    self:param("pose", name and (Actor.POSES[name] or 0) or 0)
+    self:sling(name ~= nil and SLUNG[name] == true)
+    if name then self:param("talk", false) end
+end
+
+-- Rifle on the back (true) or carried at low ready (false).
+function Actor:sling(on)
+    if on == self.slung or not (self.carry and self.carry.valid and self.chest and self.chest.valid) then return end
+    self.slung = on
+    if on then
+        -- place it in Body space, then keep that world pose under the chest
+        self.carry.position = SLING_P
+        self.carry:look_at(SLING_P + SLING_DIR * 2)
+        self.carry:set_parent(self.chest, true)
+    else
+        self.carry:set_parent(self.body, true)
+    end
+    local w = on and 0 or 1
+    for _, h in { self.hand_l, self.hand_r } do
+        if h and h.valid then h:set("IKConstraint", { weight = w }) end
+    end
+    self.hand_w, self.hand_w_set = w, w
 end
 
 function Actor:look_at(point, seconds)
@@ -136,7 +186,8 @@ end
 
 function Actor:talk(on)
     self.talking = on
-    self:param("talk", on and self.aim < 0.3)
+    -- a full-body pose carries its own arms; the Arms talk layer only plays over locomotion
+    self:param("talk", on and self.aim < 0.3 and self.pose_name == nil)
 end
 
 function Actor:go(point)
@@ -275,7 +326,9 @@ function Actor:update(dt)
     self.sit_w = Game.damp(self.sit_w or 0, (self.seated and self.seated_pose ~= false) and 1 or 0, 5, dt)
     self:update_reload(dt)
     self.reload_w = Game.damp(self.reload_w, self.reload_t > 0.25 and 1 or 0, 9, dt)
-    if self.carry and self.carry.valid then
+    -- moving, aiming or sitting ends a pose
+    if self.pose_name and (spd > 0.6 or self.aim_want > 0.5 or self.seated) then self:pose(nil) end
+    if self.carry and self.carry.valid and not self.slung then
         local cpos = lerpv(READY_P, AIM_P, self.aim)
         cpos = lerpv(cpos, SEAT_P, self.sit_w)
         -- follow the chest bone's drop below its standing height (last frame's pose; the standing
@@ -315,7 +368,7 @@ function Actor:update(dt)
     if self.gesture_t > 0 then
         self.gesture_t -= dt
     end
-    if self.hand_l and self.hand_l.valid and self.carry then
+    if self.hand_l and self.hand_l.valid and self.carry and not self.slung then
         -- the support hand is off the gun between stripping the spent cell and seating the new one
         local ru = self.reload_t > 0 and (1 - self.reload_t / self.reload_len) or -1
         local reaching = ru >= 0.14 and ru < 0.6

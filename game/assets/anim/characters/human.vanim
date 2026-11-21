@@ -65,6 +65,43 @@
   {
    "name": "reach",
    "type": "trigger"
+  },
+  {
+   "name": "pose",
+   "type": "int",
+   "default": 0
+  },
+  {
+   "name": "nod",
+   "type": "trigger"
+  },
+  {
+   "name": "nod2",
+   "type": "trigger"
+  },
+  {
+   "name": "deny",
+   "type": "trigger"
+  },
+  {
+   "name": "shrug",
+   "type": "trigger"
+  },
+  {
+   "name": "present",
+   "type": "trigger"
+  },
+  {
+   "name": "present_l",
+   "type": "trigger"
+  },
+  {
+   "name": "think",
+   "type": "trigger"
+  },
+  {
+   "name": "laugh",
+   "type": "trigger"
   }
  ],
  "default_state": "Locomotion",
@@ -80,11 +117,23 @@
      },
      {
       "clip": "Walk",
-      "at": 2.2
+      "at": 1.03
+     },
+     {
+      "clip": "WalkFast",
+      "at": 1.52
+     },
+     {
+      "clip": "RunSlow",
+      "at": 2.45
      },
      {
       "clip": "Run",
-      "at": 4.6
+      "at": 2.93
+     },
+     {
+      "clip": "RunFast",
+      "at": 5.94
      }
     ]
    }
@@ -165,6 +214,42 @@
      }
     ]
    }
+  },
+  {
+   "name": "Listen",
+   "clip": "Listen"
+  },
+  {
+   "name": "Lean",
+   "clip": "Lean"
+  },
+  {
+   "name": "Radio",
+   "clip": "Radio"
+  },
+  {
+   "name": "Docs",
+   "clip": "Docs"
+  },
+  {
+   "name": "CrouchIdle",
+   "clip": "CrouchIdle"
+  },
+  {
+   "name": "Brief",
+   "clip": "TalkFirm"
+  },
+  {
+   "name": "Converse",
+   "clip": "Talk"
+  },
+  {
+   "name": "LookAround",
+   "clip": "IdleLook"
+  },
+  {
+   "name": "Shift",
+   "clip": "IdleShift"
   }
  ],
  "transitions": [
@@ -478,6 +563,474 @@
      "op": "false"
     }
    ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "Listen",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 1
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Listen",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 1
+    }
+   ]
+  },
+  {
+   "from": "Listen",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "Listen",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "Lean",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 2
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Lean",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 2
+    }
+   ]
+  },
+  {
+   "from": "Lean",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "Lean",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "Radio",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 3
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Radio",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 3
+    }
+   ]
+  },
+  {
+   "from": "Radio",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "Radio",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "Docs",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 4
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Docs",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 4
+    }
+   ]
+  },
+  {
+   "from": "Docs",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "Docs",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "CrouchIdle",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 5
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "CrouchIdle",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 5
+    }
+   ]
+  },
+  {
+   "from": "CrouchIdle",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "CrouchIdle",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "Brief",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 6
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Brief",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 6
+    }
+   ]
+  },
+  {
+   "from": "Brief",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "Brief",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "Converse",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 7
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Converse",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 7
+    }
+   ]
+  },
+  {
+   "from": "Converse",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "Converse",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "LookAround",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 8
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "LookAround",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 8
+    }
+   ]
+  },
+  {
+   "from": "LookAround",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "LookAround",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
+  },
+  {
+   "from": "Locomotion",
+   "to": "Shift",
+   "duration": 0.6,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "==",
+     "value": 9
+    },
+    {
+     "parameter": "speed",
+     "op": "<",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "from": "Shift",
+   "to": "Locomotion",
+   "duration": 0.5,
+   "conditions": [
+    {
+     "parameter": "pose",
+     "op": "!=",
+     "value": 9
+    }
+   ]
+  },
+  {
+   "from": "Shift",
+   "to": "Locomotion",
+   "duration": 0.35,
+   "conditions": [
+    {
+     "parameter": "speed",
+     "op": ">",
+     "value": 0.6
+    }
+   ]
+  },
+  {
+   "from": "Shift",
+   "to": "Surrender",
+   "duration": 0.2,
+   "conditions": [
+    {
+     "parameter": "stunned",
+     "op": "true"
+    }
+   ]
   }
  ],
  "layers": [
@@ -617,6 +1170,188 @@
        "op": "false"
       }
      ]
+    }
+   ]
+  },
+  {
+   "name": "Gesture",
+   "mask": [
+    "Spine"
+   ],
+   "default_state": "None",
+   "states": [
+    {
+     "name": "None"
+    },
+    {
+     "name": "Nod",
+     "clip": "Nod",
+     "loop": false
+    },
+    {
+     "name": "NodB",
+     "clip": "NodB",
+     "loop": false
+    },
+    {
+     "name": "Deny",
+     "clip": "Deny",
+     "loop": false
+    },
+    {
+     "name": "Shrug",
+     "clip": "Shrug",
+     "loop": false
+    },
+    {
+     "name": "Present",
+     "clip": "Present",
+     "loop": false
+    },
+    {
+     "name": "PresentL",
+     "clip": "PresentL",
+     "loop": false
+    },
+    {
+     "name": "Think",
+     "clip": "Think",
+     "loop": false
+    },
+    {
+     "name": "Laugh",
+     "clip": "Laugh",
+     "loop": false
+    }
+   ],
+   "transitions": [
+    {
+     "from": "None",
+     "to": "Nod",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "nod"
+      }
+     ]
+    },
+    {
+     "from": "Nod",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
+    },
+    {
+     "from": "None",
+     "to": "NodB",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "nod2"
+      }
+     ]
+    },
+    {
+     "from": "NodB",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
+    },
+    {
+     "from": "None",
+     "to": "Deny",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "deny"
+      }
+     ]
+    },
+    {
+     "from": "Deny",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
+    },
+    {
+     "from": "None",
+     "to": "Shrug",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "shrug"
+      }
+     ]
+    },
+    {
+     "from": "Shrug",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
+    },
+    {
+     "from": "None",
+     "to": "Present",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "present"
+      }
+     ]
+    },
+    {
+     "from": "Present",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
+    },
+    {
+     "from": "None",
+     "to": "PresentL",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "present_l"
+      }
+     ]
+    },
+    {
+     "from": "PresentL",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
+    },
+    {
+     "from": "None",
+     "to": "Think",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "think"
+      }
+     ]
+    },
+    {
+     "from": "Think",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
+    },
+    {
+     "from": "None",
+     "to": "Laugh",
+     "duration": 0.3,
+     "conditions": [
+      {
+       "parameter": "laugh"
+      }
+     ]
+    },
+    {
+     "from": "Laugh",
+     "to": "None",
+     "duration": 0.45,
+     "exit_time": 0.97
     }
    ]
   }
