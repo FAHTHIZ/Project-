@@ -19,7 +19,9 @@ import blender_bake as bk  # noqa: E402
 # view-model parts are hero assets (big on screen); world copies and cells are small
 SIZES = {'kv5_body': 1024, 'br9_body': 1024, 'mr6_body': 1024, 'lr4_body': 1024, 'sp2_body': 512,
          'sp2_slide': 512, 'br9_pump': 512, 'kv5_world': 512, 'br9_world': 512, 'mr6_world': 512,
-         'lr4_world': 512, 'sp2_world': 512}
+         'lr4_world': 512, 'sp2_world': 512,
+         # PC-7 modern carbine body from tools/assets/blender_carbine.py
+         'pc7_body': 1024, 'pc7_cell': 512, 'pc7_world': 512}
 DEFAULT_NAMES = list(SIZES) + ['kv5_cell', 'br9_cell', 'mr6_cell', 'lr4_cell', 'sp2_cell']
 KEEP = ('Glow', 'Dot', 'Glass', 'Lens', 'Sight', 'Mark')
 
@@ -35,6 +37,10 @@ def preset(mname, bsdf):
         pass
     if role == 'Metal':
         return dict(scan='Metal032', tile=0.3, contrast=0.2, nor=0.4, color=None, rough=0.36, metal=0.85, wear=0.6)
+    if role == 'MetalDark':   # phosphated barrel and muzzle device
+        return dict(scan='Metal032', tile=0.3, contrast=0.25, nor=0.4, color=None, rough=0.44, metal=0.8, wear=0.45)
+    if role == 'Frame':       # hard-anodised aluminium receiver and handguard: wear shows bright metal
+        return dict(scan='Metal032', tile=0.35, contrast=0.12, nor=0.3, color=None, rough=0.5, metal=0.55, wear=0.6)
     if role in ('Grip', 'Pad'):
         return dict(scan='Rubber004', tile=0.1, contrast=0.3, nor=0.9, color=None, rough=0.85, metal=0.0, wear=0.08)
     if role == 'Slide' or cell:

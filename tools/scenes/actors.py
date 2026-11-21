@@ -32,7 +32,7 @@ GRIP_L = (0.012, -0.05, -0.12)                  # support wrist under the shroud
 # Who carries what (story bible rev 2, section 1A): parts, muzzle and support-wrist target.
 # Everyone else (Anchor, Tally, contractors) carries the PC-7.
 CARRY = {
-    "pc7": (["pc7_body", "pc7_cell"], (0, 0.045, -0.52), GRIP_L),
+    "pc7": (["pc7_body", "pc7_cell"], (0, 0.045, -0.56), GRIP_L),
     "kv5": (["kv5_body", "kv5_cell"], (0, 0.05, -0.39), (0.01, -0.07, -0.1)),     # Patch: vertical grip
     "br9": (["br9_body", "br9_pump", "br9_cell"], (0, 0.058, -0.565), (0.012, -0.06, -0.2)),  # Brick: pump
     "mr6": (["mr6_body", "mr6_cell"], (0, 0.045, -0.67), (0.012, -0.05, -0.2)),   # Echo: handguard
