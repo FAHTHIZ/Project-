@@ -23,8 +23,8 @@ rebuild can update an installed copy. Do not use it for a store release.
 - Game pack: `victus export --target android` (VICTUS ADR-0149) ships every texture as ASTC only
   above 64 px, capped at 1024 px, with no BC7 or full RGBA8 copies: 590 MB against 2.29 GB for
   the desktop export.
-- Rendering: `rendering.mobile_quality = auto`, `mobile_target_fps = 60` with dynamic resolution
-  down to 0.55 (`game/victus.project`).
+- Rendering: `rendering.mobile_quality = auto`, `mobile_target_fps = 30` (AGENTS.md: start at a measured 30; 30 paces
+  evenly on the 90 Hz panel, every third refresh) with dynamic resolution down to 0.55 (`game/victus.project`).
 
 ## Rebuild
 
