@@ -27,7 +27,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', 'characters'))
-from gltf_util import Writer  # noqa: E402
+from gltf_util import Writer, add_image  # noqa: E402
 import build_rocketbox_cast as cast  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -196,20 +196,62 @@ def write_mh(D, side, path):
     w = Writer(j)
     looks = {0: ('Glove', [0.105, 0.099, 0.088, 1], 0.72), 1: ('Sleeve', [0.115, 0.125, 0.078, 1], 0.9),
              2: ('BackFabric', [0.042, 0.045, 0.038, 1], 0.88), 3: ('KnucklePad', [0.03, 0.03, 0.03, 1], 0.5)}
+    import sleeve_camo
+    sleeve_tex = [add_image(w, d, f'sleeve_{k}') for d, k in zip(sleeve_camo.pngs(), ('color', 'normal', 'mr'))]
     for pid in (0, 1, 2, 3):
         label, col, rough = looks[pid]
-        j['materials'].append({'name': f'hand{side}_{label}',
-                               'pbrMetallicRoughness': {'baseColorFactor': col, 'metallicFactor': 0.0,
-                                                        'roughnessFactor': rough}})
-        vid, idx = np.unique(tri_v[part == pid].reshape(-1), return_inverse=True)
+        mat = {'name': f'hand{side}_{label}',
+               'pbrMetallicRoughness': {'baseColorFactor': col, 'metallicFactor': 0.0, 'roughnessFactor': rough}}
+        if pid == 1:
+            # MultiCam combat-shirt sleeve (tools/assets/sleeve_camo.py), cylindrical UVs; textured
+            # materials are skipped by retexture.py
+            mat['pbrMetallicRoughness'] = {'baseColorFactor': [1, 1, 1, 1], 'metallicFactor': 0.0,
+                                           'roughnessFactor': 1.0, 'baseColorTexture': {'index': sleeve_tex[0]},
+                                           'metallicRoughnessTexture': {'index': sleeve_tex[2]}}
+            mat['normalTexture'] = {'index': sleeve_tex[1], 'scale': 1.0}
+        j['materials'].append(mat)
+        tris = tri_v[part == pid]
+        if pid != 1:
+            vid, idx = np.unique(tris.reshape(-1), return_inverse=True)
+            attrs = {'POSITION': w.add(P[vid].astype(np.float32), 'VEC3', target=34962, minmax=True),
+                     'NORMAL': w.add(Nn[vid].astype(np.float32), 'VEC3', target=34962)}
+        else:
+            uv = _sleeve_uv(P, tris)                         # per corner (n, 3, 2)
+            key = np.concatenate([tris.reshape(-1, 1), (uv[..., 0].reshape(-1, 1) >= 1.0)], 1)
+            uk, first, idx = np.unique(key, axis=0, return_index=True, return_inverse=True)
+            vid = uk[:, 0]
+            attrs = {'POSITION': w.add(P[vid].astype(np.float32), 'VEC3', target=34962, minmax=True),
+                     'NORMAL': w.add(Nn[vid].astype(np.float32), 'VEC3', target=34962),
+                     'TEXCOORD_0': w.add(uv.reshape(-1, 2)[first].astype(np.float32), 'VEC2', target=34962)}
         j['meshes'][0]['primitives'].append({
-            'attributes': {'POSITION': w.add(P[vid].astype(np.float32), 'VEC3', target=34962, minmax=True),
-                           'NORMAL': w.add(Nn[vid].astype(np.float32), 'VEC3', target=34962)},
-            'indices': w.add(idx.astype(np.uint32), 'SCALAR', target=34963),
+            'attributes': attrs, 'indices': w.add(idx.reshape(-1).astype(np.uint32), 'SCALAR', target=34963),
             'material': pid})
     w.save(path)
     print(f'VM_ARM {os.path.basename(path)}: {len(tri_v)} tris ' +
           ' '.join(f'{looks[k][0]}={int((part == k).sum())}' for k in looks) + f', {os.path.getsize(path) // 1024} KiB')
+
+
+def _sleeve_uv(P, tris):
+    """Cylindrical sleeve UVs per triangle corner: u = angle round the forearm axis (one turn = 1,
+    seam on the underside), v = distance along the axis / mean circumference. Corners of triangles
+    that straddle the seam get u + 1 so the seam row interpolates across it."""
+    V = P[np.unique(tris.reshape(-1))]
+    c = V.mean(0)
+    axis = np.linalg.svd(V - c, full_matrices=False)[2][0]
+    up = np.array([0.0, 1.0, 0.0]) - axis * axis[1]
+    up /= np.linalg.norm(up)
+    side = np.cross(axis, up)
+    d = P[tris] - c
+    along = d @ axis
+    radial = d - along[..., None] * axis
+    ang = np.arctan2(radial @ side, radial @ up)            # 0 on top, +-pi underneath
+    u = ang / (2 * np.pi) + 0.5
+    circ = 2 * np.pi * float(np.linalg.norm(V - c - np.outer((V - c) @ axis, axis), axis=1).mean())
+    v = along / circ
+    span = u.max(1) - u.min(1)
+    wrap = span > 0.5
+    u[wrap] = np.where(u[wrap] < 0.5, u[wrap] + 1.0, u[wrap])
+    return np.stack([u, v], -1)
 
 
 def _vnorm(N, LV, loops, vid, vlocal):
