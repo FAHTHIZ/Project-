@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Scene assembly for the HT-4 "Mule" squad transport (art: tools/props/build_vehicle.py).
+"""Scene assembly for the HT-4 "Mule" squad transport (art: tools/assets/blender_mule.py; layout contract: tools/props/build_vehicle.py).
 
 Entity contract (read by scripts/vehicle.luau and lib/storage.luau):
 

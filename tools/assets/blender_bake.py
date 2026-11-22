@@ -117,13 +117,17 @@ def to_srgb(c):
     return np.where(c <= 0.0031308, c * 12.92, 1.055 * np.power(c, 1 / 2.4) - 0.055)
 
 
-def bake_hero(ob, size, presets, keep, name, out_dir=None):
+def bake_hero(ob, size, presets, keep, name, out_dir=None, ao_distance=0.02, edge_radius=0.0014,
+              normal_radius=0.0012, dirt=None):
+    """ao_distance/edge_radius/normal_radius default to weapon scale (metres). dirt: optional
+    dict(top=<height m>, color=(linear rgb), amount=0..1) for a road-dirt layer that thickens
+    toward the ground (object-space up), broken up by noise; used by the vehicle."""
     sc = bpy.context.scene
     sc.render.engine = 'CYCLES'
     sc.cycles.device = 'CPU'
     sc.cycles.use_denoising = False
     sc.world = sc.world or bpy.data.worlds.new('w')
-    sc.world.light_settings.distance = 0.02  # AO reach in metres (weapon scale)
+    sc.world.light_settings.distance = ao_distance  # AO reach in metres
     me = ob.data
     for uv in list(me.uv_layers):
         me.uv_layers.remove(uv)
@@ -152,7 +156,7 @@ def bake_hero(ob, size, presets, keep, name, out_dir=None):
     def edge_setup(m, nt, i):
         bv = nt.nodes.new('ShaderNodeBevel')
         bv.samples = 8
-        bv.inputs['Radius'].default_value = 0.0014
+        bv.inputs['Radius'].default_value = edge_radius
         geo = nt.nodes.new('ShaderNodeNewGeometry')
         dot = nt.nodes.new('ShaderNodeVectorMath')
         dot.operation = 'DOT_PRODUCT'
@@ -201,7 +205,7 @@ def bake_hero(ob, size, presets, keep, name, out_dir=None):
         nt.links.new(n.outputs['Color'], nm.inputs['Color'])
         bv = nt.nodes.new('ShaderNodeBevel')
         bv.samples = 8
-        bv.inputs['Radius'].default_value = 0.0012
+        bv.inputs['Radius'].default_value = normal_radius
         nt.links.new(nm.outputs['Normal'], bv.inputs['Normal'])
         nt.links.new(bv.outputs['Normal'], bsdf.inputs['Normal'])
     tnor = new_image(name + '_normal', size)
@@ -220,6 +224,23 @@ def bake_hero(ob, size, presets, keep, name, out_dir=None):
             _emit(nt, src if src is not None else tuple(bc.default_value[:3]))
         talb = new_image(name + '_alb', size)
         alb = _bake(ob, 'EMIT', talb, albedo_setup, samples=1)[..., :3]
+
+    # 7. optional height pass for the dirt layer (object-space up / 4 in R)
+    height = None
+    if dirt:
+        def height_setup(m, nt, i):
+            geo = nt.nodes.new('ShaderNodeNewGeometry')
+            sep = nt.nodes.new('ShaderNodeSeparateXYZ')
+            nt.links.new(geo.outputs['Position'], sep.inputs['Vector'])
+            mul = nt.nodes.new('ShaderNodeMath')
+            mul.operation = 'MULTIPLY'
+            mul.inputs[1].default_value = 0.25
+            nt.links.new(sep.outputs['Z'], mul.inputs[0])
+            comb = nt.nodes.new('ShaderNodeCombineColor')
+            nt.links.new(mul.outputs['Value'], comb.inputs[0])
+            _emit(nt, comb.outputs['Color'])
+        th = new_image(name + '_h', size)
+        height = _bake(ob, 'EMIT', th, height_setup, samples=1)[..., 0] * 4.0 + dirt.get('y0', 0.0)
 
     # composite ------------------------------------------------------------------------------
     h, w = mid.shape
@@ -267,6 +288,27 @@ def bake_hero(ob, size, presets, keep, name, out_dir=None):
         srm = float(np.median(sr)) or 0.5
         r = p['rough'] * np.power(np.clip(sr / srm, 0.3, 2.5), 0.6) + 0.14 * g - 0.18 * wmask
         rough[sel] = np.clip(r, 0.12, 0.95)
+
+    if dirt and height is not None:
+        # thick near the ground, thinning out by `top`; patchy (low-frequency noise) and speckled
+        fine = rng.random((h, w)).astype(np.float32)
+        k2 = 2
+        pad = np.pad(fine, k2, mode='edge')
+        cs = pad.cumsum(0).cumsum(1)
+        fine = (cs[2 * k2:, 2 * k2:] - cs[:-2 * k2, 2 * k2:] - cs[2 * k2:, :-2 * k2] + cs[:-2 * k2, :-2 * k2]) / (2 * k2) ** 2
+        fine = (fine - fine.min()) / max(1e-6, fine.max() - fine.min())
+        hm = 1.0 - smoothstep(0.15, dirt['top'], height)
+        dm = np.clip(hm * (0.55 + 0.9 * nz) - 0.25 * fine, 0, 1) * dirt.get('amount', 0.8)
+        dm = smoothstep(0.08, 0.7, dm) * dirt.get('amount', 0.8)
+        dm += grime * 0.25 * hm          # dirt settles in the crevices first
+        dm = np.clip(dm, 0, 1)
+        for mname, i in idx.items():
+            if presets.get(mname) is None:
+                dm[mid == i] = 0.0
+        mud = np.array(dirt['color'], np.float32)[None, None, :] * (0.8 + 0.4 * fine[..., None])
+        base = base * (1 - dm[..., None]) + mud * dm[..., None]
+        rough = rough * (1 - dm) + 0.88 * dm
+        metal = metal * (1 - dm)
 
     out_base = new_image(name + '_base', size, float_buf=False)
     out_base.colorspace_settings.name = 'sRGB'

@@ -5,6 +5,10 @@ docs/ASSET_PROVENANCE.md); it is not modelled on a specific real vehicle.
 
     python3 tools/props/build_vehicle.py --out game/assets
 
+NOTE (2026-11-22): the shipped mule_*.glb art now comes from tools/assets/blender_mule.py
+(Blender hero rebuild with baked PBR textures, same files, pivots and layout). Running this
+script overwrites them with the old box placeholders; use it only for vehicle_layout.json.
+
 Writes <out>/models/vehicle/*.glb, each part with its pivot where it moves:
 
   mule_body.glb        chassis, cabin shell (pillars, roof, hood, bumpers), lights, interior
