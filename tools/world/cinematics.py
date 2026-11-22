@@ -135,18 +135,20 @@ def add_prologue(doc, P, ground):
     tl.event(s + 6.5, 'drive', '')       # the Mule pulls out of the camp, off screen
     # E  inside the Mule: Tally (rear right) and the name Kestrel
     s, e = at['pro_04']
-    # Tally sits taller than Echo: the Echo framing (aim 1.6) cut his head off at the top of frame
-    tl.shot('Cam Tally', s - 0.4, e + 0.2, (0.04, 1.58, -0.2), (0.5, 1.74, 0.62), (0.06, 1.59, -0.14), (0.5, 1.74, 0.62))
+    # close in-cabin shots aim at the face (about 1.8 m): at 0.8 m the frame is only about 0.35 m tall,
+    # so the old chest-height aims (1.6-1.74) cut the helmets and faces off at the top of frame
+    tl.shot('Cam Tally', s - 0.4, e + 0.2, (0.04, 1.66, -0.2), (0.5, 1.8, 0.62), (0.06, 1.67, -0.14), (0.5, 1.8, 0.62))
     # F  Echo (rear left), deadpan
     s, e = at['pro_05']
-    tl.shot('Cam Echo', s - 0.2, e + 0.2, (-0.06, 1.52, -0.12), (-0.5, 1.6, 0.62), (-0.08, 1.53, -0.06), (-0.5, 1.6, 0.62))
+    tl.shot('Cam Echo', s - 0.2, e + 0.2, (-0.06, 1.64, -0.12), (-0.5, 1.76, 0.62), (-0.08, 1.65, -0.06), (-0.5, 1.76, 0.62))
     # G  the Mule's headlights on the forestry road (roadside low angle, then a chase)
     s, e = at['pro_06']
     tl.shot('Cam Chase', s - 0.2, s + 5.2, (2.6, 1.1, -6.0), (0.0, 1.0, 1.0), (3.4, 1.0, -5.0), (0.0, 1.1, 1.5))
     tl.shot('Cam Rear', s + 5.2, e + 0.3, (-1.9, 2.5, 7.5), (0.0, 1.2, -6.0), (-1.6, 2.3, 6.6), (0.0, 1.1, -6.0))
-    # H  Anchor at the wheel, the road through the windscreen
+    # H  Anchor at the wheel: three-quarter front from the passenger side of the dash (the old
+    #    framing from the passenger seat showed the back of his head)
     s, e = at['pro_07']
-    tl.shot('Cam Anchor', s - 0.2, e + 0.1, (0.34, 1.56, -0.64), (-0.46, 1.62, -0.4), (0.3, 1.55, -0.6), (-0.46, 1.6, -0.42))
+    tl.shot('Cam Anchor', s - 0.2, e + 0.1, (0.16, 1.76, -0.86), (-0.44, 1.78, -0.36), (0.12, 1.75, -0.84), (-0.44, 1.78, -0.38))
     # hand-off: ease onto Rook's eyes in the rear middle seat
     t_hand = e + 0.1
     tl.cut('Handoff', t_hand)
@@ -163,7 +165,8 @@ def add_prologue(doc, P, ground):
                            'speed': 1.0, 'enabled': True},
         # establishing shots see 150-400 m: gameplay fog (0.018/m) would leave only grey there
         'Script': script('scripts/cinematic.luau', id='arrival', handoff=1.4, grace=1.0,
-                         fog_shots='Cam Valley=0.0045,Cam Fence=0.007,Cam Yard=0.006,Cam Portal=0.008')}})
+                         fog_shots='Cam Valley=0.0045,Cam Fence=0.007,Cam Yard=0.006,Cam Portal=0.008',
+                         key_lights=key_lights_prop())}})
     world_cams = {'Cam Valley': 52.0, 'Cam Fence': 42.0, 'Cam Yard': 44.0, 'Cam Portal': 40.0, 'Handoff': 60.0}
     # the remote shots look at cells far outside the player's streaming radius (the tower and the
     # portal are 350-450 m from the camp): those cameras are VICTUS streaming sources, authored
@@ -177,4 +180,56 @@ def add_prologue(doc, P, ground):
     for name, fov in {'Cam Tally': 50.0, 'Cam Echo': 50.0, 'Cam Chase': 46.0, 'Cam Rear': 50.0, 'Cam Anchor': 52.0}.items():
         ents.append({'uuid': uid(f'cine/arrival/{name}'), 'name': name, 'parent': chassis['uuid'],
                      'components': {'Transform': transform(), 'Camera': camera(fov)}})
+    ents.extend(key_lights())
     return duration
+
+
+# In-cabin close-ups: the only light in the cab is behind the faces (the player's torch on the
+# headliner), so Anchor read as a silhouette. Each close-up camera carries a small unshadowed eye
+# light just above and beside the lens; scripts/cinematic.luau `key_lights` switches it on only
+# while that camera is live (authored at 0, so gameplay never pays for it).
+KEY_LIGHTS = {'Cam Tally': 0.35, 'Cam Echo': 0.35, 'Cam Anchor': 0.5}
+
+
+def key_lights():
+    out = []
+    for name in KEY_LIGHTS:
+        out.append({'uuid': uid(f'cine/arrival/{name}/key'), 'name': f'{name} Key', 'parent': uid(f'cine/arrival/{name}'),
+                    'components': {'Transform': transform((0.12, 0.1, 0.05)),
+                                   'Light': {'type': 'point', 'color': [1.0, 0.93, 0.84, 1], 'intensity': 0.0,
+                                             'range': 1.8, 'shadows': False}}})
+    return out
+
+
+def key_lights_prop():
+    return ','.join(f'{k}={v}' for k, v in KEY_LIGHTS.items())
+
+
+if __name__ == '__main__':
+    # `python3 tools/world/cinematics.py` rewrites only assets/seq/prologue_arrival.vseq (camera keys,
+    # cuts, events). The camera entities in the scenes are unchanged, so shot reframes need no scene
+    # regeneration (chapters.py would also redo the cast and drop later hand passes).
+    sys.path.insert(0, str(ROOT / 'tools' / 'world'))
+    import worldgen as WG  # noqa: E402
+    import world_scene as WS  # noqa: E402
+    from vscene import Scene  # noqa: E402
+    H, masks, _cover = WG.load_layout()
+    tmp = Scene('points')    # recompute POINTS the way chapters.build() does
+    WS.add_routes(tmp, H, masks)
+    WS.add_trailhead(tmp, H)
+    WS.add_structures(tmp, H, masks)
+    stub = {'entities': [{'uuid': 'stub', 'name': 'Mule Chassis', 'components': {}}]}
+    print('arrival duration', round(add_prologue(stub, WS.POINTS, lambda x, z: WS.ground(H, x, z)), 2))
+    # keep the scenes that carry the arrival cinematic in step with key_lights() (idempotent)
+    for rel in ('scenes/prologue.vscene', 'scenes/tests/story_prologue.vscene'):
+        path = GAME / rel
+        doc = json.loads(path.read_text())
+        have = {e['uuid'] for e in doc['entities']}
+        cine = next((e for e in doc['entities'] if e['name'] == 'Arrival Cinematic'), None)
+        if cine is None:
+            continue
+        cine['components']['Script']['properties']['key_lights'] = key_lights_prop()
+        add = [k for k in key_lights() if k['uuid'] not in have and k['parent'] in have]
+        doc['entities'].extend(add)
+        path.write_text(json.dumps(doc, indent=1) + '\n')
+        print(rel, 'key lights added', len(add))

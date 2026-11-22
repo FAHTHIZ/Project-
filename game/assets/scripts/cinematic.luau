@@ -21,6 +21,10 @@
 --     Environment's fog density while that camera is live (cut = snap), so establishing shots can
 --     show the landmarks that gameplay fog hides at that distance; the scene's own density
 --     returns with the hand-off. Keyed by camera, not by event, so a seek shows the same frame.
+--   * key lights: `key_lights` ("Cam Anchor=0.5") gives that shot camera's child Light (authored
+--     at intensity 0, no shadows) that intensity while the camera is live and 0 otherwise, like a
+--     small eye light on a film camera: the in-cabin close-ups are otherwise lit only from behind.
+--     Nothing extra is lit during gameplay.
 --   * world streaming: a shot camera that carries a VICTUS StreamingSource (authored disabled)
 --     is enabled for the length of the cutscene, so the world cells it looks at (a watchtower or
 --     the facility 400 m from the player) are loaded before the cut, and disabled on finish, so
@@ -40,6 +44,7 @@ C.grace = 1.0         -- skip becomes available after this
 C.skip_hold = 0.5
 C.letterbox = true
 C.fog_shots = ""
+C.key_lights = ""
 
 Game.cinematics = Game.cinematics or {}
 -- shared with hud.luau, which may start after this script
@@ -64,6 +69,27 @@ function C:start()
     self.view = {}
     self.fog = {}
     for name, v in string.gmatch(self.fog_shots, "([^=,]+)=([%d%.]+)") do self.fog[name] = tonumber(v) end
+    self.keys = {}
+    for name, v in string.gmatch(self.key_lights, "([^=,]+)=([%d%.]+)") do self.keys[name] = tonumber(v) end
+    self.key_on = nil
+end
+
+local function set_light(e, i)
+    local l = e:get("Light")
+    if l and l.intensity ~= i then l.intensity = i; e:set("Light", l) end
+end
+
+-- Switches the key light to the live shot camera's (nil = all off).
+function C:shot_key(cam)
+    local want = cam and self.keys[cam.name] and cam or nil
+    if want == self.key_on then return end
+    if self.key_on then
+        for _, ch in self.key_on:children() do if ch:has("Light") then set_light(ch, 0) end end
+    end
+    if want then
+        for _, ch in want:children() do if ch:has("Light") then set_light(ch, self.keys[want.name]) end end
+    end
+    self.key_on = want
 end
 
 -- Sets the Environment fog density for the live shot (nil = the scene's own value).
@@ -202,6 +228,7 @@ function C:finish()
     end
     if Game.restore_view then Game.restore_view() end
     self:shot_fog(nil)
+    self:shot_key(nil)
     Game.cinematic = false
     Game.cinematic_id = nil
     Game.present.skip_hint = false
@@ -267,6 +294,7 @@ function C:update(dt)
     local cur = self:camera_entity()
     if cur and cur.name ~= "Handoff" then self.last_cam = cur end
     if cur and next(self.fog) then self:shot_fog(cur.name) end
+    if next(self.keys) then self:shot_key(cur) end
     if cur and cur.name == "Handoff" and self.handoff > 0 then
         self.handoff_t = (self.handoff_t or 0) + dt
         self:blend_to_player(self.handoff_t / self.handoff)

@@ -51823,7 +51823,8 @@
       "id": "arrival",
       "handoff": 1.4,
       "grace": 1.0,
-      "fog_shots": "Cam Valley=0.0045,Cam Fence=0.007,Cam Yard=0.006,Cam Portal=0.008"
+      "fog_shots": "Cam Valley=0.0045,Cam Fence=0.007,Cam Yard=0.006,Cam Portal=0.008",
+      "key_lights": "Cam Tally=0.35,Cam Echo=0.35,Cam Anchor=0.5"
      }
     }
    }
@@ -90490,6 +90491,117 @@
      "properties": {
       "chapter": "prologue"
      }
+    }
+   }
+  },
+  {
+   "uuid": "db74218d-8e26-5a5e-baa4-c826d76a0516",
+   "name": "Cam Tally Key",
+   "parent": "213fd28b-7bd2-5511-a6f1-cbb6cfa13899",
+   "components": {
+    "Transform": {
+     "position": [
+      0.12,
+      0.1,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      1.0,
+      0.93,
+      0.84,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 1.8,
+     "shadows": false
+    }
+   }
+  },
+  {
+   "uuid": "6a37f051-73fe-5ecf-9c83-2478ba96df40",
+   "name": "Cam Echo Key",
+   "parent": "ddb5d384-a105-55ce-96ca-5709a0f792bd",
+   "components": {
+    "Transform": {
+     "position": [
+      0.12,
+      0.1,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      1.0,
+      0.93,
+      0.84,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 1.8,
+     "shadows": false
+    }
+   }
+  },
+  {
+   "uuid": "58602ca3-1fe5-5f37-99bc-0701466f8156",
+   "name": "Cam Anchor Key",
+   "parent": "ed739e38-f190-5734-abdd-294b7746aa13",
+   "components": {
+    "Transform": {
+     "position": [
+      0.12,
+      0.1,
+      0.05
+     ],
+     "rotation": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "scale": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "Light": {
+     "type": "point",
+     "color": [
+      1.0,
+      0.93,
+      0.84,
+      1
+     ],
+     "intensity": 0.0,
+     "range": 1.8,
+     "shadows": false
     }
    }
   }
