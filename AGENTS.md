@@ -14,6 +14,9 @@ Read VICTUS's own `AGENTS.md` whenever engine code is inspected or changed.
 4. Read VICTUS `AGENTS.md`, `docs/GETTING_STARTED.md`, `docs/USER_GUIDE.md`, `docs/ANDROID.md`, `docs/PLATFORM_SUPPORT.md`, `docs/KNOWN_LIMITATIONS.md`, `docs/STATUS.md`, `docs/CHARACTERS.md`, `docs/ANIMATION.md`, `docs/AI.md`, `docs/RENDERING_SPEC.md`, `docs/PERFORMANCE_STRATEGY.md`, plus `samples/arena` and its scripts.
 5. Record the exact VICTUS SHA, compiler/toolchain, baseline build, tests and commands in `docs/BUILD_AND_TEST_LOG.md` before changing the game.
 
+## Commit attribution
+On every fresh checkout, run `python3 scripts/install-git-hooks.py` before creating commits. The local `commit-msg` hook removes recognized AI-tool/bot credit trailers while preserving human co-authors and sign-offs. It does not rewrite existing history; see CONTRIBUTING.md.
+
 ## Continuous engineering loop
 
 Repeat until blocked by physical hardware, credentials, an owner decision or an external dependency:
